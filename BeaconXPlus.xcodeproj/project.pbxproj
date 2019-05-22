@@ -8,24 +8,39 @@
 
 /* Begin PBXBuildFile section */
 		001505772264831E00F69569 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 001505762264831E00F69569 /* AppDelegate.m */; };
-		0015057A2264831E00F69569 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 001505792264831E00F69569 /* ViewController.m */; };
-		0015057D2264831E00F69569 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0015057B2264831E00F69569 /* Main.storyboard */; };
 		0015057F2264831F00F69569 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0015057E2264831F00F69569 /* Assets.xcassets */; };
-		001505822264831F00F69569 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001505802264831F00F69569 /* LaunchScreen.storyboard */; };
 		001505852264831F00F69569 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 001505842264831F00F69569 /* main.m */; };
+		001CC075226824F600331198 /* MKBXPCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC074226824F600331198 /* MKBXPCentralManager.m */; };
+		001CC0882268667D00331198 /* MKBXPBaseBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC0872268667D00331198 /* MKBXPBaseBeacon.m */; };
+		001CC08B226871E800331198 /* MKEddystoneAdopter.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC089226871E800331198 /* MKEddystoneAdopter.m */; };
+		00DA1B562269697A0093DBAE /* MKScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA1B552269697A0093DBAE /* MKScanViewController.m */; };
+		8E33DED9D30D9F9F4CC4BDEC /* libPods-BeaconXPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3DDB61A667539B356F3F757 /* libPods-BeaconXPlus.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		001505722264831E00F69569 /* BeaconXPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconXPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		001505752264831E00F69569 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		001505762264831E00F69569 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		001505782264831E00F69569 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		001505792264831E00F69569 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		0015057C2264831E00F69569 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0015057E2264831F00F69569 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		001505812264831F00F69569 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		001505832264831F00F69569 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		001505842264831F00F69569 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0015058B226483B000F69569 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		0016CD8D22695C670069787A /* MKBXPNormalDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPNormalDefines.h; sourceTree = "<group>"; };
+		0016CD8E22695CA10069787A /* MKBXPProtocols.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPProtocols.h; sourceTree = "<group>"; };
+		001CC073226824F600331198 /* MKBXPCentralManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPCentralManager.h; sourceTree = "<group>"; };
+		001CC074226824F600331198 /* MKBXPCentralManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBXPCentralManager.m; sourceTree = "<group>"; };
+		001CC082226855B100331198 /* MKEddystoneDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEddystoneDefines.h; sourceTree = "<group>"; };
+		001CC0862268667D00331198 /* MKBXPBaseBeacon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPBaseBeacon.h; sourceTree = "<group>"; };
+		001CC0872268667D00331198 /* MKBXPBaseBeacon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBXPBaseBeacon.m; sourceTree = "<group>"; };
+		001CC089226871E800331198 /* MKEddystoneAdopter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKEddystoneAdopter.m; sourceTree = "<group>"; };
+		001CC08A226871E800331198 /* MKEddystoneAdopter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKEddystoneAdopter.h; sourceTree = "<group>"; };
+		001CC08C2268748200331198 /* MKBXPEnumeration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPEnumeration.h; sourceTree = "<group>"; };
+		00DA1B542269697A0093DBAE /* MKScanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKScanViewController.h; sourceTree = "<group>"; };
+		00DA1B552269697A0093DBAE /* MKScanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanViewController.m; sourceTree = "<group>"; };
+		00DA1B5722696A320093DBAE /* MKBXPSDKHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPSDKHeader.h; sourceTree = "<group>"; };
+		029190BB4C403625DF53C141 /* Pods-BeaconXPlus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconXPlus.release.xcconfig"; path = "Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus.release.xcconfig"; sourceTree = "<group>"; };
+		1DF98C636BB6D238FF05F2F0 /* Pods-BeaconXPlus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconXPlus.debug.xcconfig"; path = "Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus.debug.xcconfig"; sourceTree = "<group>"; };
+		A3DDB61A667539B356F3F757 /* libPods-BeaconXPlus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BeaconXPlus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E33DED9D30D9F9F4CC4BDEC /* libPods-BeaconXPlus.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +60,8 @@
 			children = (
 				001505742264831E00F69569 /* BeaconXPlus */,
 				001505732264831E00F69569 /* Products */,
+				7A2F355A115BE463524FFBEA /* Pods */,
+				C8E8546F8BE8B88339C6E262 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,17 +76,100 @@
 		001505742264831E00F69569 /* BeaconXPlus */ = {
 			isa = PBXGroup;
 			children = (
+				00DA1B4F226969340093DBAE /* Function */,
+				001CC07E2268553400331198 /* MKEddystoneBase */,
+				00150591226486C500F69569 /* Interface */,
 				001505752264831E00F69569 /* AppDelegate.h */,
 				001505762264831E00F69569 /* AppDelegate.m */,
-				001505782264831E00F69569 /* ViewController.h */,
-				001505792264831E00F69569 /* ViewController.m */,
-				0015057B2264831E00F69569 /* Main.storyboard */,
 				0015057E2264831F00F69569 /* Assets.xcassets */,
-				001505802264831F00F69569 /* LaunchScreen.storyboard */,
 				001505832264831F00F69569 /* Info.plist */,
 				001505842264831F00F69569 /* main.m */,
+				0015058B226483B000F69569 /* PrefixHeader.pch */,
 			);
 			path = BeaconXPlus;
+			sourceTree = "<group>";
+		};
+		00150591226486C500F69569 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				001CC073226824F600331198 /* MKBXPCentralManager.h */,
+				001CC074226824F600331198 /* MKBXPCentralManager.m */,
+				001CC0862268667D00331198 /* MKBXPBaseBeacon.h */,
+				001CC0872268667D00331198 /* MKBXPBaseBeacon.m */,
+				001CC08C2268748200331198 /* MKBXPEnumeration.h */,
+				0016CD8D22695C670069787A /* MKBXPNormalDefines.h */,
+				0016CD8E22695CA10069787A /* MKBXPProtocols.h */,
+				00DA1B5722696A320093DBAE /* MKBXPSDKHeader.h */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		001CC07E2268553400331198 /* MKEddystoneBase */ = {
+			isa = PBXGroup;
+			children = (
+				001CC08A226871E800331198 /* MKEddystoneAdopter.h */,
+				001CC089226871E800331198 /* MKEddystoneAdopter.m */,
+				001CC082226855B100331198 /* MKEddystoneDefines.h */,
+			);
+			path = MKEddystoneBase;
+			sourceTree = "<group>";
+		};
+		00DA1B4F226969340093DBAE /* Function */ = {
+			isa = PBXGroup;
+			children = (
+				00DA1B50226969340093DBAE /* scanPage */,
+			);
+			path = Function;
+			sourceTree = "<group>";
+		};
+		00DA1B50226969340093DBAE /* scanPage */ = {
+			isa = PBXGroup;
+			children = (
+				00DA1B51226969340093DBAE /* controller */,
+				00DA1B52226969340093DBAE /* model */,
+				00DA1B53226969340093DBAE /* view */,
+			);
+			path = scanPage;
+			sourceTree = "<group>";
+		};
+		00DA1B51226969340093DBAE /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				00DA1B542269697A0093DBAE /* MKScanViewController.h */,
+				00DA1B552269697A0093DBAE /* MKScanViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		00DA1B52226969340093DBAE /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		00DA1B53226969340093DBAE /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		7A2F355A115BE463524FFBEA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1DF98C636BB6D238FF05F2F0 /* Pods-BeaconXPlus.debug.xcconfig */,
+				029190BB4C403625DF53C141 /* Pods-BeaconXPlus.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C8E8546F8BE8B88339C6E262 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A3DDB61A667539B356F3F757 /* libPods-BeaconXPlus.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -78,9 +179,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 001505882264831F00F69569 /* Build configuration list for PBXNativeTarget "BeaconXPlus" */;
 			buildPhases = (
+				B029208AB988CD518705F86B /* [CP] Check Pods Manifest.lock */,
 				0015056E2264831E00F69569 /* Sources */,
 				0015056F2264831E00F69569 /* Frameworks */,
 				001505702264831E00F69569 /* Resources */,
+				7F27AFECD434B7CE050D83E9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -97,6 +200,7 @@
 		0015056A2264831E00F69569 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = MK;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = MK;
 				TargetAttributes = {
@@ -128,45 +232,69 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				001505822264831F00F69569 /* LaunchScreen.storyboard in Resources */,
 				0015057F2264831F00F69569 /* Assets.xcassets in Resources */,
-				0015057D2264831E00F69569 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7F27AFECD434B7CE050D83E9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B029208AB988CD518705F86B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BeaconXPlus-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0015056E2264831E00F69569 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0015057A2264831E00F69569 /* ViewController.m in Sources */,
+				001CC075226824F600331198 /* MKBXPCentralManager.m in Sources */,
+				00DA1B562269697A0093DBAE /* MKScanViewController.m in Sources */,
+				001CC0882268667D00331198 /* MKBXPBaseBeacon.m in Sources */,
 				001505852264831F00F69569 /* main.m in Sources */,
+				001CC08B226871E800331198 /* MKEddystoneAdopter.m in Sources */,
 				001505772264831E00F69569 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		0015057B2264831E00F69569 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0015057C2264831E00F69569 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		001505802264831F00F69569 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				001505812264831F00F69569 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		001505862264831F00F69569 /* Debug */ = {
@@ -283,35 +411,41 @@
 		};
 		001505892264831F00F69569 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1DF98C636BB6D238FF05F2F0 /* Pods-BeaconXPlus.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R558LEUW2T;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/BeaconXPlus/PrefixHeader.pch";
 				INFOPLIST_FILE = BeaconXPlus/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.moko.BeaconXPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		0015058A2264831F00F69569 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 029190BB4C403625DF53C141 /* Pods-BeaconXPlus.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R558LEUW2T;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/BeaconXPlus/PrefixHeader.pch";
 				INFOPLIST_FILE = BeaconXPlus/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.moko.BeaconXPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
