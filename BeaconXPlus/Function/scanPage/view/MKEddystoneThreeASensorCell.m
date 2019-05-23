@@ -170,7 +170,7 @@ static CGFloat const leftIconHeight = 13.f;
     self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld %@",(long)[beacon.rssi integerValue],@"dBm"];
     self.dateRateValueLabel.text = [beacon.samplingRate stringByAppendingString:@" Hz"];
     self.scaleValueLabel.text = [NSString stringWithFormat:@"%@%@g",@"±",beacon.accelerationOfGravity];
-    NSString *rawString = [NSString stringWithFormat:@"X:%@ Y:%@ Z:%@",beacon.xData,beacon.yData,beacon.zData];
+    NSString *rawString = [NSString stringWithFormat:@"X:0x%@ Y:0x%@ Z:0x%@",[beacon.xData uppercaseString],[beacon.yData uppercaseString],[beacon.zData uppercaseString]];
     self.rawValueLabel.text = rawString;
 }
 

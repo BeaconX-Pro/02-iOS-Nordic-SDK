@@ -9,6 +9,8 @@
 #import "MKBXPCentralManager.h"
 #import "MKEddystoneDefines.h"
 #import "MKEddystoneAdopter.h"
+#import "CBPeripheral+MKAdd.h"
+#import "MKBXPService.h"
 
 #import "MKBXPBaseBeacon.h"
 
@@ -50,6 +52,10 @@ static dispatch_once_t onceToken;
 @property (nonatomic, copy)MKConnectFailedBlock failedBlock;
 
 @property (nonatomic, copy)MKConnectProgressBlock progressBlock;
+
+@property (nonatomic, assign)BOOL readingLockState;
+
+@property (nonatomic, copy)void (^readLockStateBlock)(NSString *lockState);
 
 /**
  防止连续调用连接产生问题
@@ -104,9 +110,6 @@ static dispatch_once_t onceToken;
     if ([RSSI integerValue] == 127) {
         return;
     }
-//    if ([RSSI integerValue] > -60) {
-//        NSLog(@"扫描到的信息=========>%@",advertisementData);
-//    }
     dispatch_async(_centralManagerQueue, ^{
         NSArray *beaconList = [MKBXPBaseBeacon parseAdvData:advertisementData];
         for (NSInteger i = 0; i < beaconList.count; i ++) {
@@ -165,38 +168,36 @@ static dispatch_once_t onceToken;
     if (self.timeout) {
         return;
     }
-//    [self.peripheral updateCharacterWithService:service];
-//    if ([self.peripheral getAllCharacteristics]) {
-//        //所有特征全部设置完毕，可以进行下一步登录操作
-//        [self updateConnectProgress:40.f];
+    [self.peripheral updateCharacterWithService:service];
+    if ([self.peripheral getAllCharacteristics]) {
+        //所有特征全部设置完毕，可以进行下一步登录操作
+        [self updateConnectProgress:40.f];
 //        [self sendPasswordToDevice];
-//    }
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
     if (error) {
         return;
     }
-//    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:iBeaconNotifyUUID]]) {
-//        //判断是否是lockState改变通知
-//        NSString *content = [MKEddystoneAdopter hexStringFromData:characteristic.value];
-//        if (content.length > 6 && [[content substringWithRange:NSMakeRange(0, 4)] isEqualToString:@"eb63"]) {
-//            NSString *state = [content substringFromIndex:(content.length - 2)];
-//            MKEddystoneLockState lockState = MKEddystoneLockStateUnknow;
-//            if ([state isEqualToString:@"00"]) {
-//                //锁定状态
-//                lockState = MKEddystoneLockStateLock;
-//            }else if ([state isEqualToString:@"01"]){
-//                lockState = MKEddystoneLockStateOpen;
-//            }else if ([state isEqualToString:@"02"]){
-//                lockState = MKEddystoneLockStateUnlockAutoMaticRelockDisabled;
-//            }else{
-//                lockState = MKEddystoneLockStateUnknow;
-//            }
-//            [self updateLockState:lockState];
-//            return;
-//        }
-//    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:iBeaconNotifyUUID]]) {
+        //判断是否是lockState改变通知
+        NSString *content = [MKEddystoneAdopter hexStringFromData:characteristic.value];
+        if (content.length > 6 && [[content substringWithRange:NSMakeRange(0, 4)] isEqualToString:@"eb63"]) {
+            NSString *state = [content substringFromIndex:(content.length - 2)];
+            MKBXPLockState lockState = MKBXPLockStateUnknow;
+            if ([state isEqualToString:@"00"]) {
+                //锁定状态
+                lockState = MKBXPLockStateLock;
+            }else if ([state isEqualToString:@"01"]){
+                lockState = MKBXPLockStateOpen;
+            }else if ([state isEqualToString:@"02"]){
+                lockState = MKBXPLockStateUnlockAutoMaticRelockDisabled;
+            }
+            [self updateLockState:lockState];
+            return;
+        }
+    }
 //    @synchronized(self.operationQueue) {
 //        NSArray *operations = [self.operationQueue.operations copy];
 //        for (MKEddystoneOperation *operation in operations) {
@@ -251,6 +252,55 @@ static dispatch_once_t onceToken;
             [self.scanDelegate bxp_centralManagerStopScan];
         });
     }
+}
+
+/**
+ 获取当前设备的lockState状态，00(locked)、02(UnlockAutoMaticRelockDisabled)
+ 
+ @param peripheral peripheral
+ @param sucBlock read success callback
+ @param failedBlock read failed callback
+ */
+- (void)readLockStateWithPeripheral:(CBPeripheral *)peripheral
+                           sucBlock:(void (^)(NSString *lockState))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock {
+    if (self.isConnecting) {
+        [MKEddystoneAdopter operationCannotReconnectErrorBlock:failedBlock];
+        self.readingLockState = NO;
+        return;
+    }
+    self.isConnecting = YES;
+    if (self.readingLockState) {
+        self.isConnecting = NO;
+        return;
+    }
+    self.readingLockState = YES;
+    if (self.peripheral) {
+        [self.centralManager cancelPeripheralConnection:self.peripheral];
+        [self.operationQueue cancelAllOperations];
+        [self.peripheral setNil];
+        sleep(1.f);
+    }
+    self.peripheral = nil;
+    self.peripheral = peripheral;
+    self.currentMode = managerConnectMode;
+    [self startConnectTimer];
+    __weak typeof(self) weakSelf = self;
+    self.readLockStateBlock = ^(NSString *lockState) {
+        __strong typeof(self) sself = weakSelf;
+        [sself clearAllConnectParams];
+        if (sucBlock) {
+            moko_main_safe(^{sucBlock(lockState);});
+        }
+    };
+    self.failedBlock = ^(NSError *error) {
+        __strong typeof(self) sself = weakSelf;
+        [sself clearAllConnectParams];
+        if (failedBlock) {
+            moko_main_safe(^{failedBlock(error);});
+        }
+    };
+    [self.centralManager connectPeripheral:self.peripheral options:@{}];
 }
 
 - (void)connectPeripheral:(CBPeripheral *)peripheral

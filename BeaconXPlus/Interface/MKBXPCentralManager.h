@@ -50,6 +50,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)startScanPeripheral;
 - (void)stopScanPeripheral;
 
+/**
+ 获取当前设备的lockState状态，00(locked)、02(UnlockAutoMaticRelockDisabled)
+ 
+ @param peripheral peripheral
+ @param sucBlock read success callback
+ @param failedBlock read failed callback
+ */
+- (void)readLockStateWithPeripheral:(CBPeripheral *)peripheral
+                           sucBlock:(void (^)(NSString *lockState))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

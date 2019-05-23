@@ -439,4 +439,49 @@ static NSString * const MKCustomErrorDomain = @"com.moko.eddystoneSDKDomain";
     }
 }
 
++ (NSString *)fetchTxPowerWithContent:(NSString *)content{
+    if (!MKValidStr(content) || content.length != 2) {
+        return nil;
+    }
+    NSString *power = @"";
+    if ([content isEqualToString:@"04"]) {
+        power = @"4dBm";
+    }else if ([content isEqualToString:@"03"]){
+        power = @"3dBm";
+    }else if ([content isEqualToString:@"00"]){
+        power = @"0dBm";
+    }else if ([content isEqualToString:@"fc"]){
+        power = @"-4dBm";
+    }else if ([content isEqualToString:@"f8"]){
+        power = @"-8dBm";
+    }else if ([content isEqualToString:@"f4"]){
+        power = @"-12dBm";
+    }else if ([content isEqualToString:@"f0"]){
+        power = @"-16dBm";
+    }else if ([content isEqualToString:@"ec"]){
+        power = @"-20dBm";
+    }else if ([content isEqualToString:@"d8"]){
+        power = @"-40dBm";
+    }
+    return power;
+}
+
++ (NSNumber *)fetchRSSIWithContent:(NSData *)contentData{
+    const unsigned char *cData = [contentData bytes];
+    unsigned char *data;
+    // Malloc advertise data for char*
+    data = malloc(sizeof(unsigned char) * contentData.length);
+    NSAssert(data, @"failed to malloc");
+    for (int i = 0; i < contentData.length; i++) {
+        data[i] = *cData++;
+    }
+    unsigned char txPowerChar = *data;
+    if (txPowerChar & 0x80) {
+        return [NSNumber numberWithInt:(- 0x100 + txPowerChar)];
+    }
+    else {
+        return [NSNumber numberWithInt:txPowerChar];
+    }
+}
+
 @end
