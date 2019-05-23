@@ -136,6 +136,9 @@
 		00285F102296475F00A4CAD4 /* MKScanBeaconModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F0F2296475F00A4CAD4 /* MKScanBeaconModel.m */; };
 		00285F13229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F12229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m */; };
 		00285F162296480F00A4CAD4 /* MKScanInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F152296480F00A4CAD4 /* MKScanInfoCell.m */; };
+		00285F1D22964EA200A4CAD4 /* MKAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F1C22964EA200A4CAD4 /* MKAboutController.m */; };
+		009B58CC229674CE00133192 /* MKEddystoneHTCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B58CB229674CE00133192 /* MKEddystoneHTCell.m */; };
+		009B58CF229682FB00133192 /* MKEddystoneThreeASensorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B58CE229682FB00133192 /* MKEddystoneThreeASensorCell.m */; };
 		00DA1B562269697A0093DBAE /* MKScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA1B552269697A0093DBAE /* MKScanViewController.m */; };
 		8E33DED9D30D9F9F4CC4BDEC /* libPods-BeaconXPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3DDB61A667539B356F3F757 /* libPods-BeaconXPlus.a */; };
 /* End PBXBuildFile section */
@@ -292,6 +295,12 @@
 		00285F12229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MKBXPBaseBeacon+MKAdd.m"; sourceTree = "<group>"; };
 		00285F142296480F00A4CAD4 /* MKScanInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKScanInfoCell.h; sourceTree = "<group>"; };
 		00285F152296480F00A4CAD4 /* MKScanInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanInfoCell.m; sourceTree = "<group>"; };
+		00285F1B22964EA200A4CAD4 /* MKAboutController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAboutController.h; sourceTree = "<group>"; };
+		00285F1C22964EA200A4CAD4 /* MKAboutController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAboutController.m; sourceTree = "<group>"; };
+		009B58CA229674CE00133192 /* MKEddystoneHTCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEddystoneHTCell.h; sourceTree = "<group>"; };
+		009B58CB229674CE00133192 /* MKEddystoneHTCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKEddystoneHTCell.m; sourceTree = "<group>"; };
+		009B58CD229682FB00133192 /* MKEddystoneThreeASensorCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEddystoneThreeASensorCell.h; sourceTree = "<group>"; };
+		009B58CE229682FB00133192 /* MKEddystoneThreeASensorCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKEddystoneThreeASensorCell.m; sourceTree = "<group>"; };
 		00DA1B542269697A0093DBAE /* MKScanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKScanViewController.h; sourceTree = "<group>"; };
 		00DA1B552269697A0093DBAE /* MKScanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanViewController.m; sourceTree = "<group>"; };
 		00DA1B5722696A320093DBAE /* MKBXPSDKHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPSDKHeader.h; sourceTree = "<group>"; };
@@ -491,9 +500,43 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		00285F1722964E7900A4CAD4 /* about */ = {
+			isa = PBXGroup;
+			children = (
+				00285F1822964E7900A4CAD4 /* controller */,
+				00285F1922964E7900A4CAD4 /* model */,
+				00285F1A22964E7900A4CAD4 /* view */,
+			);
+			path = about;
+			sourceTree = "<group>";
+		};
+		00285F1822964E7900A4CAD4 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				00285F1B22964EA200A4CAD4 /* MKAboutController.h */,
+				00285F1C22964EA200A4CAD4 /* MKAboutController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		00285F1922964E7900A4CAD4 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		00285F1A22964E7900A4CAD4 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		00DA1B4F226969340093DBAE /* Function */ = {
 			isa = PBXGroup;
 			children = (
+				00285F1722964E7900A4CAD4 /* about */,
 				00DA1B50226969340093DBAE /* scanPage */,
 			);
 			path = Function;
@@ -550,6 +593,10 @@
 				002533DA229538100055D3E7 /* MKEddStoneiBeaconCell.m */,
 				00285F142296480F00A4CAD4 /* MKScanInfoCell.h */,
 				00285F152296480F00A4CAD4 /* MKScanInfoCell.m */,
+				009B58CA229674CE00133192 /* MKEddystoneHTCell.h */,
+				009B58CB229674CE00133192 /* MKEddystoneHTCell.m */,
+				009B58CD229682FB00133192 /* MKEddystoneThreeASensorCell.h */,
+				009B58CE229682FB00133192 /* MKEddystoneThreeASensorCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -797,6 +844,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				001CC075226824F600331198 /* MKBXPCentralManager.m in Sources */,
+				00285F1D22964EA200A4CAD4 /* MKAboutController.m in Sources */,
+				009B58CF229682FB00133192 /* MKEddystoneThreeASensorCell.m in Sources */,
 				00DA1B562269697A0093DBAE /* MKScanViewController.m in Sources */,
 				001CC0882268667D00331198 /* MKBXPBaseBeacon.m in Sources */,
 				00285F13229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m in Sources */,
@@ -813,6 +862,7 @@
 				002532E9229531470055D3E7 /* MKEddStoneUIDCell.m in Sources */,
 				001505772264831E00F69569 /* AppDelegate.m in Sources */,
 				002533D5229535F60055D3E7 /* MKScanSearchView.m in Sources */,
+				009B58CC229674CE00133192 /* MKEddystoneHTCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

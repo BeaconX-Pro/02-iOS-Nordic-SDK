@@ -10,4 +10,11 @@
 
 @implementation MKScanBeaconModel
 
+- (NSMutableArray *)dataArray{
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray array];
+    }
+    return _dataArray;
+}
+
 @end

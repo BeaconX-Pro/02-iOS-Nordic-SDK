@@ -60,6 +60,8 @@ static CGFloat const batteryIconHeight = 12.f;
  */
 @property (nonatomic, strong)UIView *bottomLineView;
 
+@property (nonatomic, strong)UIView *lineView;
+
 @end
 
 @implementation MKScanInfoCell
@@ -75,6 +77,8 @@ static CGFloat const batteryIconHeight = 12.f;
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        [self.contentView addSubview:self.lineView];
         [self.contentView addSubview:self.rssiIcon];
         [self.contentView addSubview:self.rssiLabel];
         [self.contentView addSubview:self.nameLabel];
@@ -105,6 +109,12 @@ static CGFloat const batteryIconHeight = 12.f;
     [self.connectEnableLabel setFrame:CGRectMake(offset_X + batteryIconWidth + 10.f, 10.f + rssiIconHeight + MKFont(10).lineHeight, self.contentView.frame.size.width - (2 * offset_X + batteryIconWidth + 10.f), MKFont(13.f).lineHeight)];
     [self.batteryIcon setFrame:CGRectMake(offset_X, self.contentView.frame.size.height - batteryIconHeight - 15.f, batteryIconWidth, batteryIconHeight)];
     [self.macLabel setFrame:CGRectMake(offset_X + batteryIconWidth + 10.f, self.contentView.frame.size.height - batteryIconHeight - 18.f, self.contentView.frame.size.width - (2 * offset_X + batteryIconWidth + 15.f), MKFont(16.f).lineHeight)];
+    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(10);
+        make.right.mas_equalTo(-10);
+        make.height.mas_equalTo(CUTTING_LINE_HEIGHT);
+        make.bottom.mas_equalTo(0);
+    }];
 }
 
 
@@ -193,7 +203,7 @@ static CGFloat const batteryIconHeight = 12.f;
 - (UIButton *)connectButton{
     if (!_connectButton) {
         _connectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_connectButton setBackgroundColor:NAVIGATION_BAR_COLOR];
+        [_connectButton setBackgroundColor:UIColorFromRGB(0x2F84D0)];
         [_connectButton setTitle:@"CONNECT" forState:UIControlStateNormal];
         [_connectButton setTitleColor:COLOR_WHITE_MACROS forState:UIControlStateNormal];
         [_connectButton.titleLabel setFont:MKFont(15.f)];
@@ -232,6 +242,14 @@ static CGFloat const batteryIconHeight = 12.f;
         _bottomLineView.backgroundColor = COLOR_BLACK_MARCROS;
     }
     return _bottomLineView;
+}
+
+- (UIView *)lineView{
+    if (!_lineView) {
+        _lineView = [[UIView alloc] init];
+        _lineView.backgroundColor = CUTTING_LINE_COLOR;
+    }
+    return _lineView;
 }
 
 @end
