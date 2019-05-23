@@ -50,10 +50,22 @@ static CGFloat const batteryIconHeight = 12.f;
  */
 @property (nonatomic, strong)UIImageView *batteryIcon;
 
+@property (nonatomic, strong)UILabel *batteryLabel;
+
 /**
  mac地址
  */
 @property (nonatomic, strong)UILabel *macLabel;
+
+@property (nonatomic, strong)UILabel *txPowerLabel;
+
+@property (nonatomic, strong)UILabel *txPowerValueLabel;
+
+@property (nonatomic, strong)UILabel *lockLabel;
+
+@property (nonatomic, strong)UILabel *lockStateLabel;
+
+@property (nonatomic, strong)UILabel *timeLabel;
 
 /**
  底部黑色线条，展开2级菜单的时候显示，关闭2级菜单隐藏
@@ -84,7 +96,13 @@ static CGFloat const batteryIconHeight = 12.f;
         [self.contentView addSubview:self.nameLabel];
         [self.contentView addSubview:self.connectButton];
         [self.contentView addSubview:self.batteryIcon];
+        [self.contentView addSubview:self.batteryLabel];
         [self.contentView addSubview:self.macLabel];
+        [self.contentView addSubview:self.txPowerLabel];
+        [self.contentView addSubview:self.txPowerValueLabel];
+        [self.contentView addSubview:self.lockLabel];
+        [self.contentView addSubview:self.lockStateLabel];
+        [self.contentView addSubview:self.timeLabel];
         [self.contentView addSubview:self.bottomLineView];
         [self.contentView addSubview:self.connectEnableLabel];
         [self.layer setMasksToBounds:YES];
@@ -96,19 +114,84 @@ static CGFloat const batteryIconHeight = 12.f;
 #pragma mark - 父类方法
 - (void)layoutSubviews{
     [super layoutSubviews];
-    [self.rssiIcon setFrame:CGRectMake(offset_X, 15.f, rssiIconWidth, rssiIconHeight)];
-    [self.nameLabel setFrame:CGRectMake(offset_X + rssiIconWidth + 10.f,
-                                        10.f,
-                                        self.contentView.frame.size.width - 20.f - connectButtonWidth - 2 * offset_X,
-                                        MKFont(16.f).lineHeight)];
-    [self.connectButton setFrame:CGRectMake(self.contentView.frame.size.width - offset_X - connectButtonWidth,
-                                            8.f,
-                                            connectButtonWidth,
-                                            connectButtonHeight)];
-    [self.rssiLabel setFrame:CGRectMake(offset_X, 20.f + rssiIconHeight, rssiIconWidth, MKFont(10).lineHeight)];
-    [self.connectEnableLabel setFrame:CGRectMake(offset_X + batteryIconWidth + 10.f, 10.f + rssiIconHeight + MKFont(10).lineHeight, self.contentView.frame.size.width - (2 * offset_X + batteryIconWidth + 10.f), MKFont(13.f).lineHeight)];
-    [self.batteryIcon setFrame:CGRectMake(offset_X, self.contentView.frame.size.height - batteryIconHeight - 15.f, batteryIconWidth, batteryIconHeight)];
-    [self.macLabel setFrame:CGRectMake(offset_X + batteryIconWidth + 10.f, self.contentView.frame.size.height - batteryIconHeight - 18.f, self.contentView.frame.size.width - (2 * offset_X + batteryIconWidth + 15.f), MKFont(16.f).lineHeight)];
+    [self.rssiIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(offset_X);
+        make.width.mas_equalTo(rssiIconWidth);
+        make.top.mas_equalTo(15.f);
+        make.height.mas_equalTo(rssiIconHeight);
+    }];
+    [self.rssiLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(offset_X);
+        make.width.mas_equalTo(rssiIconWidth);
+        make.top.mas_equalTo(self.rssiIcon.mas_bottom).mas_offset(2.f);
+        make.height.mas_equalTo(MKFont(10.f).lineHeight);
+    }];
+    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.rssiIcon.mas_right).mas_offset(10.f);
+        make.centerY.mas_equalTo(self.rssiIcon.mas_centerY);
+        make.right.mas_equalTo(self.connectButton.mas_left).mas_offset(-8.f);
+        make.height.mas_equalTo(MKFont(15.f).lineHeight);
+    }];
+    [self.connectButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-offset_X);
+        make.width.mas_equalTo(connectButtonWidth);
+        make.top.mas_equalTo(15.f);
+        make.height.mas_equalTo(connectButtonHeight);
+    }];
+    [self.batteryIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(offset_X);
+        make.width.mas_equalTo(batteryIconWidth);
+        make.top.mas_equalTo(self.rssiLabel.mas_bottom).mas_offset(10.f);
+        make.height.mas_equalTo(batteryIconHeight);
+    }];
+    [self.batteryLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(offset_X);
+        make.width.mas_equalTo(30.f);
+        make.top.mas_equalTo(self.batteryIcon.mas_bottom).mas_offset(3.f);
+        make.height.mas_equalTo(MKFont(10.f).lineHeight);
+    }];
+    [self.macLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.nameLabel.mas_left);
+        make.right.mas_equalTo(self.connectEnableLabel.mas_left).mas_offset(-10.f);
+        make.centerY.mas_equalTo(self.connectEnableLabel.mas_centerY);
+        make.height.mas_equalTo(MKFont(13.f).lineHeight);
+    }];
+    [self.txPowerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.nameLabel.mas_left);
+        make.width.mas_equalTo(60.f);
+        make.centerY.mas_equalTo(self.timeLabel.mas_centerY);
+        make.height.mas_equalTo(MKFont(13.f).lineHeight);
+    }];
+    [self.txPowerValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.txPowerLabel.mas_right);
+        make.width.mas_equalTo(40.f);
+        make.centerY.mas_equalTo(self.txPowerLabel.mas_centerY);
+        make.height.mas_equalTo(MKFont(13.f).lineHeight);
+    }];
+    [self.lockLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.txPowerValueLabel.mas_right).mas_offset(20.f);
+        make.width.mas_equalTo(70.f);
+        make.centerY.mas_equalTo(self.txPowerLabel.mas_centerY);
+        make.height.mas_equalTo(MKFont(13.f).lineHeight);
+    }];
+    [self.lockStateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.lockLabel.mas_right);
+        make.width.mas_equalTo(40.f);
+        make.centerY.mas_equalTo(self.txPowerLabel.mas_centerY);
+        make.height.mas_equalTo(MKFont(13.f).lineHeight);
+    }];
+    [self.connectEnableLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-15.f);
+        make.width.mas_equalTo(40.f);
+        make.top.mas_equalTo(self.connectButton.mas_bottom).mas_offset(5.f);
+        make.height.mas_equalTo(MKFont(13.f).lineHeight);
+    }];
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-15.f);
+        make.width.mas_equalTo(50.f);
+        make.top.mas_equalTo(self.connectEnableLabel.mas_bottom).mas_offset(2.f);
+        make.height.mas_equalTo(MKFont(13.f).lineHeight);
+    }];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
         make.right.mas_equalTo(-10);
@@ -140,6 +223,11 @@ static CGFloat const batteryIconHeight = 12.f;
     _beacon = nil;
     _beacon = beacon;
     [self.bottomLineView setHidden:YES];
+    self.txPowerLabel.text = @"";
+    self.txPowerValueLabel.text = @"";
+    self.timeLabel.text = @"";
+    self.lockLabel.text = @"";
+    self.lockStateLabel.text = @"";
     if (!_beacon || !_beacon.infoBeacon) {
         //如果数据不存在，可能是尚未扫描到该项设备，全部都显示N/A
         [self.rssiLabel setText:[NSString stringWithFormat:@"%ld",(long)[_beacon.rssi integerValue]]];
@@ -150,28 +238,42 @@ static CGFloat const batteryIconHeight = 12.f;
         return;
     }
     [self.rssiLabel setText:[NSString stringWithFormat:@"%ld",(long)[_beacon.rssi integerValue]]];
-    NSString *name = (ValidStr(_beacon.infoBeacon.deviceName) ? _beacon.infoBeacon.deviceName : nullInfoString);
+    NSString *name = (ValidStr(_beacon.deviceName) ? _beacon.deviceName : nullInfoString);
     [self.nameLabel setText:name];
     NSString *macAddress = (ValidStr(_beacon.infoBeacon.macAddress) ? _beacon.infoBeacon.macAddress : nullInfoString);
     [self.macLabel setText:[NSString stringWithFormat:@"MAC:%@",macAddress]];
-    if ([_beacon.infoBeacon.battery integerValue] >= 0 && [_beacon.infoBeacon.battery integerValue] < 20) {
+    NSInteger battery = [_beacon.infoBeacon.battery integerValue];
+    if (battery < 2000) {
+        battery = 2000;
+    }
+    if (battery > 3000) {
+        battery = 3000;
+    }
+    battery = (battery - 2000) * 0.1;
+    self.batteryLabel.text = [NSString stringWithFormat:@"%ld%@",(long)battery,@"%"];
+    if (battery >= 0 && battery < 20) {
         //最低
         [self.batteryIcon setImage:LOADIMAGE(@"batteryLowest", @"png")];
-    }else if ([_beacon.infoBeacon.battery integerValue] >= 20 && [_beacon.infoBeacon.battery integerValue] < 40){
+    }else if (battery >= 20 && battery < 40){
         //次低
         [self.batteryIcon setImage:LOADIMAGE(@"batteryLower", @"png")];
-    }else if ([_beacon.infoBeacon.battery integerValue] >= 40 && [_beacon.infoBeacon.battery integerValue] < 60){
+    }else if (battery >= 40 && battery < 60){
         //中等
         [self.batteryIcon setImage:LOADIMAGE(@"batteryLow", @"png")];
-    }else if ([_beacon.infoBeacon.battery integerValue] >= 60 && [_beacon.infoBeacon.battery integerValue] < 80){
+    }else if (battery >= 60 && battery < 80){
         //次高
         [self.batteryIcon setImage:LOADIMAGE(@"batteryHigher", @"png")];
-    }else if ([_beacon.infoBeacon.battery integerValue] >= 80 && [_beacon.infoBeacon.battery integerValue] <= 100){
+    }else if (battery >= 80 && battery <= 100){
         //最高
         [self.batteryIcon setImage:LOADIMAGE(@"batteryHighest", @"png")];
     }
     [self.connectEnableLabel setHidden:NO];
     self.connectEnableLabel.text = (_beacon.infoBeacon.connectEnable ? @"CON" : @"UNCON");
+    self.txPowerLabel.text = @"Tx Power";
+    self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld",(long)[_beacon.infoBeacon.rssi0M integerValue]];
+    self.timeLabel.text = @"1000ms";
+    self.lockLabel.text = @"Lock State";
+    self.lockStateLabel.text = [NSString stringWithFormat:@"0x%@",_beacon.infoBeacon.lockState];
 }
 
 
@@ -195,7 +297,7 @@ static CGFloat const batteryIconHeight = 12.f;
 
 - (UILabel *)nameLabel{
     if (!_nameLabel) {
-        _nameLabel = [self createLabelWithFont:MKFont(16.f)];
+        _nameLabel = [self createLabelWithFont:MKFont(15.f)];
     }
     return _nameLabel;
 }
@@ -229,11 +331,55 @@ static CGFloat const batteryIconHeight = 12.f;
     return _batteryIcon;
 }
 
+- (UILabel *)batteryLabel {
+    if (!_batteryLabel) {
+        _batteryLabel = [self createLabelWithFont:MKFont(10.f)];
+    }
+    return _batteryLabel;
+}
+
 - (UILabel *)macLabel{
     if (!_macLabel) {
-        _macLabel = [self createLabelWithFont:MKFont(14)];
+        _macLabel = [self createLabelWithFont:MKFont(13)];
     }
     return _macLabel;
+}
+
+- (UILabel *)txPowerLabel {
+    if (!_txPowerLabel) {
+        _txPowerLabel = [self createLabelWithFont:MKFont(13.f)];
+        _txPowerLabel.text = @"Tx Power:";
+    }
+    return _txPowerLabel;
+}
+
+- (UILabel *)txPowerValueLabel {
+    if (!_txPowerValueLabel) {
+        _txPowerValueLabel = [self createLabelWithFont:MKFont(13.f)];
+    }
+    return _txPowerValueLabel;
+}
+
+- (UILabel *)lockLabel {
+    if (!_lockLabel) {
+        _lockLabel = [self createLabelWithFont:MKFont(13.f)];
+        _lockLabel.text = @"Lock State:";
+    }
+    return _lockLabel;
+}
+
+- (UILabel *)lockStateLabel {
+    if (!_lockStateLabel) {
+        _lockStateLabel = [self createLabelWithFont:MKFont(13.f)];
+    }
+    return _lockStateLabel;
+}
+
+- (UILabel *)timeLabel {
+    if (!_timeLabel) {
+        _timeLabel = [self createLabelWithFont:MKFont(13.f)];
+    }
+    return _timeLabel;
 }
 
 - (UIView *)bottomLineView{

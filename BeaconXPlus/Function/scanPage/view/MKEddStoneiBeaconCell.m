@@ -30,14 +30,18 @@ static CGFloat const leftIconHeight = 13.f;
 @property (nonatomic, strong)UILabel *typeLabel;
 
 /**
- RSSI@0m
+ RSSI@1m
  */
 @property (nonatomic, strong)UILabel *rssiLabel;
+
+@property (nonatomic, strong)UILabel *rssiValueLabel;
 
 /**
  发射功率
  */
 @property (nonatomic, strong)UILabel *txPowerLabel;
+
+@property (nonatomic, strong)UILabel *txPowerValueLabel;
 
 /**
  uuid
@@ -80,7 +84,9 @@ static CGFloat const leftIconHeight = 13.f;
         [self.contentView addSubview:self.leftIcon];
         [self.contentView addSubview:self.typeLabel];
         [self.contentView addSubview:self.rssiLabel];
+        [self.contentView addSubview:self.rssiValueLabel];
         [self.contentView addSubview:self.txPowerLabel];
+        [self.contentView addSubview:self.txPowerValueLabel];
         [self.contentView addSubview:self.uuidLabel];
         [self.contentView addSubview:self.uuidIDLabel];
         [self.contentView addSubview:self.majorLabel];
@@ -115,16 +121,28 @@ static CGFloat const leftIconHeight = 13.f;
         make.centerY.mas_equalTo(self.typeLabel.mas_centerY);
         make.height.mas_equalTo(msgFont.lineHeight);
     }];
-    [self.txPowerLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.rssiValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.rssiLabel.mas_right).mas_offset(5.f);
         make.right.mas_equalTo(-offset_X);
         make.centerY.mas_equalTo(self.typeLabel.mas_centerY);
         make.height.mas_equalTo(msgFont.lineHeight);
     }];
-    [self.uuidLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.txPowerLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.typeLabel.mas_left);
         make.width.mas_equalTo(self.typeLabel.mas_width);
         make.top.mas_equalTo(self.typeLabel.mas_bottom).mas_offset(5.f);
+        make.height.mas_equalTo(msgFont.lineHeight);
+    }];
+    [self.txPowerValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.rssiLabel.mas_left);
+        make.right.mas_equalTo(-offset_X);
+        make.centerY.mas_equalTo(self.txPowerLabel.mas_centerY);
+        make.height.mas_equalTo(msgFont.lineHeight);
+    }];
+    [self.uuidLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.typeLabel.mas_left);
+        make.width.mas_equalTo(self.typeLabel.mas_width);
+        make.top.mas_equalTo(self.txPowerLabel.mas_bottom).mas_offset(5.f);
         make.height.mas_equalTo(msgFont.lineHeight);
     }];
     CGSize uuidIDSize = [NSString sizeWithText:self.uuidIDLabel.text
@@ -189,7 +207,10 @@ static CGFloat const leftIconHeight = 13.f;
         [self.minorIDLabel setText:_beacon.minor];
     }
     if (ValidNum(_beacon.rssi1M)) {
-        [self.txPowerLabel setText:[NSString stringWithFormat:@"%ld%@",(long)[_beacon.rssi1M integerValue],@"dBm"]];
+        [self.rssiValueLabel setText:[NSString stringWithFormat:@"%ld%@",(long)[_beacon.rssi1M integerValue],@"dBm"]];
+    }
+    if (ValidNum(_beacon.rssi)) {
+        self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld%@",(long)[_beacon.rssi integerValue],@"dBm"];
     }
     [self setNeedsLayout];
 }
@@ -201,7 +222,7 @@ static CGFloat const leftIconHeight = 13.f;
     CGSize uuidIDSize = [NSString sizeWithText:uuid
                                        andFont:MKFont(16.f)
                                     andMaxSize:CGSizeMake(kScreenWidth - 2 * offset_X - 100.f, MAXFLOAT)];
-    return 70 + uuidIDSize.height;
+    return 85 + uuidIDSize.height;
 }
 
 #pragma mark - setter & getter
@@ -229,12 +250,27 @@ static CGFloat const leftIconHeight = 13.f;
     return _rssiLabel;
 }
 
+- (UILabel *)rssiValueLabel {
+    if (!_rssiValueLabel) {
+        _rssiValueLabel = [self  createLabelWithFont:msgFont];
+    }
+    return _rssiValueLabel;
+}
+
 - (UILabel *)txPowerLabel{
     if (!_txPowerLabel) {
         _txPowerLabel = [self createLabelWithFont:msgFont];
-        _txPowerLabel.text = @"0dBm";
+        _txPowerLabel.textColor = RGBCOLOR(184, 184, 184);
+        _txPowerLabel.text = @"Tx Power";
     }
     return _txPowerLabel;
+}
+
+- (UILabel *)txPowerValueLabel {
+    if (!_txPowerValueLabel) {
+        _txPowerValueLabel = [self createLabelWithFont:msgFont];
+    }
+    return _txPowerValueLabel;
 }
 
 - (UILabel *)uuidLabel{

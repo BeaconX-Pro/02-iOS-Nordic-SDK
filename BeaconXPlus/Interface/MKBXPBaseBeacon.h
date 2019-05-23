@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong)NSData *advertiseData;
 
+@property (nonatomic, copy)NSString *deviceName;
+
 + (NSArray <MKBXPBaseBeacon *>*)parseAdvData:(NSDictionary *)advData;
 
 + (MKBXPDataFrameType)parseDataTypeWithSlotData:(NSData *)slotData;
@@ -84,15 +86,13 @@ NS_ASSUME_NONNULL_BEGIN
 //电池电量
 @property (nonatomic, copy) NSString *battery;
 
-@property (nonatomic, assign) MKBXPLockState lockState;
+@property (nonatomic, copy) NSString *lockState;
 
 @property (nonatomic, assign) BOOL connectEnable;
 
 @property (nonatomic, copy) NSString *macAddress;
 
 @property (nonatomic, copy) NSString *softVersion;
-
-@property (nonatomic, copy) NSString *deviceName;
 
 - (MKBXPDeviceInfoBeacon *)initWithAdvertiseData:(NSData *)advData;
 

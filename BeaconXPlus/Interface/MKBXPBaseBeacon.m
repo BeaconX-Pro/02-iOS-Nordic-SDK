@@ -316,14 +316,14 @@
         
         self.interval = [MKEddystoneAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(4, 2)];
         self.battery = [MKEddystoneAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(6, 4)];
-        self.lockState = MKBXPLockStateUnknow;
-        if ([[tempContent substringWithRange:NSMakeRange(10, 2)] isEqualToString:@"01"]) {
-            self.lockState = MKBXPLockStateOpen;
-        }else if ([[tempContent substringWithRange:NSMakeRange(10, 2)] isEqualToString:@"02"]) {
-            self.lockState = MKBXPLockStateUnlockAutoMaticRelockDisabled;
-        }else {
-            self.lockState = MKBXPLockStateLock;
-        }
+        self.lockState = [tempContent substringWithRange:NSMakeRange(10, 2)];
+//        if ([[tempContent substringWithRange:NSMakeRange(10, 2)] isEqualToString:@"01"]) {
+//            self.lockState = MKBXPLockStateOpen;
+//        }else if ([[tempContent substringWithRange:NSMakeRange(10, 2)] isEqualToString:@"02"]) {
+//            self.lockState = MKBXPLockStateUnlockAutoMaticRelockDisabled;
+//        }else {
+//            self.lockState = MKBXPLockStateLock;
+//        }
         if (![[tempContent substringWithRange:NSMakeRange(12, 2)] isEqualToString:@"00"]) {
             self.connectEnable = YES;
         }

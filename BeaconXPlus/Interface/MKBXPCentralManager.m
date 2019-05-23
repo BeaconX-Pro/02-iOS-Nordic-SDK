@@ -114,6 +114,7 @@ static dispatch_once_t onceToken;
             beaconModel.identifier = peripheral.identifier.UUIDString;
             beaconModel.rssi = RSSI;
             beaconModel.peripheral = peripheral;
+            beaconModel.deviceName = advertisementData[CBAdvertisementDataLocalNameKey];
         }
         if ([self.scanDelegate respondsToSelector:@selector(bxp_didReceiveBeacon:)]) {
             moko_main_safe(^{

@@ -205,13 +205,10 @@ static CGFloat const threeSensorCellHeight = 110.f;
                 switch (beacon.frameType) {
                     case MKBXPUIDFrameType:
                         return uidCellHeight;
-                        
                     case MKBXPURLFrameType:
                         return urlCellHeight;
-                        
                     case MKBXPTLMFrameType:
                         return tlmCellHeight;
-                        
                     case MKBXPBeaconFrameType:
                         return [self getiBeaconCellHeightWithBeacon:beacon];
                     case MKBXPTHSensorFrameType:
@@ -400,6 +397,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
     newModel.index = self.dataList.count - 1;
     newModel.identifier = beacon.peripheral.identifier.UUIDString;
     newModel.rssi = beacon.rssi;
+    newModel.deviceName = (ValidStr(beacon.deviceName) ? beacon.deviceName : @"");
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
         //如果是设备信息帧
         newModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
@@ -427,6 +425,9 @@ static CGFloat const threeSensorCellHeight = 110.f;
  @param beacon  新扫描到的数据帧
  */
 - (void)beaconExistDataSource:(MKScanBeaconModel *)exsitModel beacon:(MKBXPBaseBeacon *)beacon{
+    if (ValidStr(beacon.deviceName)) {
+        exsitModel.deviceName = beacon.deviceName;
+    }
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
         //设备信息帧
         exsitModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;

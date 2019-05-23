@@ -37,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong)NSMutableArray *dataArray;
 
+@property (nonatomic, copy)NSString *deviceName;
+
 @end
 
 NS_ASSUME_NONNULL_END
