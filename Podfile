@@ -14,5 +14,6 @@ inhibit_all_warnings!
 target 'BeaconXPlus' do
 
 pod 'mokoLibrary', :git => 'git@120.27.8.241:mokoBaseLibrary/mokoLibrary.git'
+pod 'MLInputDodger'
 
 end

@@ -104,20 +104,20 @@ static dispatch_once_t onceToken;
     if ([RSSI integerValue] == 127) {
         return;
     }
-    if ([RSSI integerValue] > -60) {
-        NSLog(@"扫描到的信息=========>%@",advertisementData);
-    }
+//    if ([RSSI integerValue] > -60) {
+//        NSLog(@"扫描到的信息=========>%@",advertisementData);
+//    }
     dispatch_async(_centralManagerQueue, ^{
-        MKBXPBaseBeacon *beaconModel = [MKBXPBaseBeacon parseAdvData:advertisementData];
-        if (!beaconModel) {
-            return ;
+        NSArray *beaconList = [MKBXPBaseBeacon parseAdvData:advertisementData];
+        for (NSInteger i = 0; i < beaconList.count; i ++) {
+            MKBXPBaseBeacon *beaconModel = beaconList[i];
+            beaconModel.identifier = peripheral.identifier.UUIDString;
+            beaconModel.rssi = RSSI;
+            beaconModel.peripheral = peripheral;
         }
-        beaconModel.identifier = peripheral.identifier.UUIDString;
-        beaconModel.rssi = RSSI;
-        beaconModel.peripheral = peripheral;
         if ([self.scanDelegate respondsToSelector:@selector(bxp_didReceiveBeacon:)]) {
             moko_main_safe(^{
-                [self.scanDelegate bxp_didReceiveBeacon:beaconModel];
+                [self.scanDelegate bxp_didReceiveBeacon:beaconList];
             });
         }
     });

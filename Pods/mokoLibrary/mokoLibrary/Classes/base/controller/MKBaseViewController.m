@@ -176,7 +176,7 @@
     if (!_leftButton) {
         _leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 2.0f, 40.0f, 40.0f)];
         
-        NSBundle *bundle = [NSBundle bundleForClass:self.class];
+        NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(@"MKBaseViewController")];
         NSString *bundlePath = [bundle pathForResource:@"mokoLibrary" ofType:@"bundle"];
         [_leftButton setImage:[UIImage imageWithContentsOfFile:[bundlePath stringByAppendingPathComponent:@"navigation_back_button_white.png"]]
                      forState:UIControlStateNormal];

@@ -4,7 +4,7 @@
 @class MKBXPBaseBeacon;
 @protocol MKBXPScanDelegate <NSObject>
 
-- (void)bxp_didReceiveBeacon:(MKBXPBaseBeacon *)beacon;
+- (void)bxp_didReceiveBeacon:(NSArray <MKBXPBaseBeacon *>*)beaconList;
 
 @optional
 - (void)bxp_centralManagerStartScan;

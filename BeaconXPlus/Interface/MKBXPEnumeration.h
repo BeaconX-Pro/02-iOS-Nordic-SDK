@@ -9,7 +9,6 @@
  - MKBXPBeaconFrameType: iBeacon信息帧
  - MKBXPThreeASensorFrameType: 3轴加速度传感器信息帧
  - MKBXPTHSensorFrameType: 温湿度传感器信息帧
- - MKBXPCustomFrameType: 自定义广播信息帧
  - MKBXPUnkonwFrameType:未知信息帧
  */
 typedef NS_ENUM(NSInteger, MKBXPDataFrameType) {
@@ -20,7 +19,6 @@ typedef NS_ENUM(NSInteger, MKBXPDataFrameType) {
     MKBXPBeaconFrameType,
     MKBXPThreeASensorFrameType,
     MKBXPTHSensorFrameType,
-    MKBXPCustomFrameType,
     MKBXPUnknownFrameType,
 };
 

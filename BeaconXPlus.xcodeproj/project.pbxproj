@@ -3,21 +3,146 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00131DE422952F1000E613FF /* MKConnectDeviceProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00131DE322952F1000E613FF /* MKConnectDeviceProgressView.m */; };
 		001505772264831E00F69569 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 001505762264831E00F69569 /* AppDelegate.m */; };
 		0015057F2264831F00F69569 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0015057E2264831F00F69569 /* Assets.xcassets */; };
 		001505852264831F00F69569 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 001505842264831F00F69569 /* main.m */; };
 		001CC075226824F600331198 /* MKBXPCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC074226824F600331198 /* MKBXPCentralManager.m */; };
 		001CC0882268667D00331198 /* MKBXPBaseBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC0872268667D00331198 /* MKBXPBaseBeacon.m */; };
 		001CC08B226871E800331198 /* MKEddystoneAdopter.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC089226871E800331198 /* MKEddystoneAdopter.m */; };
+		002532E622952FBC0055D3E7 /* MKScanBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002532E522952FBC0055D3E7 /* MKScanBaseCell.m */; };
+		002532E9229531470055D3E7 /* MKEddStoneUIDCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002532E8229531470055D3E7 /* MKEddStoneUIDCell.m */; };
+		0025335D2295339D0055D3E7 /* batteryLower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532ED2295339D0055D3E7 /* batteryLower@3x.png */; };
+		0025335E2295339D0055D3E7 /* wifisignalIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532EE2295339D0055D3E7 /* wifisignalIcon@2x.png */; };
+		0025335F2295339D0055D3E7 /* cellRight_selected_pic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532EF2295339D0055D3E7 /* cellRight_selected_pic@3x.png */; };
+		002533602295339D0055D3E7 /* signalIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532F02295339D0055D3E7 /* signalIcon@3x.png */; };
+		002533612295339D0055D3E7 /* device_manufacture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532F12295339D0055D3E7 /* device_manufacture@2x.png */; };
+		002533622295339D0055D3E7 /* settingTabBarItemUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532F22295339D0055D3E7 /* settingTabBarItemUnselected@2x.png */; };
+		002533632295339D0055D3E7 /* setting_reset@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532F32295339D0055D3E7 /* setting_reset@3x.png */; };
+		002533642295339D0055D3E7 /* setting_password@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532F42295339D0055D3E7 /* setting_password@2x.png */; };
+		002533652295339D0055D3E7 /* rightAddDisableIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532F52295339D0055D3E7 /* rightAddDisableIcon@3x.png */; };
+		002533662295339D0055D3E7 /* searchBlueIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532F62295339D0055D3E7 /* searchBlueIcon@3x.png */; };
+		002533672295339D0055D3E7 /* setting_devicename@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532F72295339D0055D3E7 /* setting_devicename@3x.png */; };
+		002533682295339D0055D3E7 /* setting_devicename@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532F82295339D0055D3E7 /* setting_devicename@2x.png */; };
+		002533692295339D0055D3E7 /* searchBlueIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532F92295339D0055D3E7 /* searchBlueIcon@2x.png */; };
+		0025336A2295339D0055D3E7 /* rightAddDisableIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532FA2295339D0055D3E7 /* rightAddDisableIcon@2x.png */; };
+		0025336B2295339D0055D3E7 /* setting_reset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532FB2295339D0055D3E7 /* setting_reset@2x.png */; };
+		0025336C2295339D0055D3E7 /* setting_password@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532FC2295339D0055D3E7 /* setting_password@3x.png */; };
+		0025336D2295339D0055D3E7 /* settingTabBarItemUnselected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532FD2295339D0055D3E7 /* settingTabBarItemUnselected@3x.png */; };
+		0025336E2295339D0055D3E7 /* signalIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532FE2295339D0055D3E7 /* signalIcon@2x.png */; };
+		0025336F2295339D0055D3E7 /* device_manufacture@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532FF2295339D0055D3E7 /* device_manufacture@3x.png */; };
+		002533702295339D0055D3E7 /* cellRight_selected_pic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533002295339D0055D3E7 /* cellRight_selected_pic@2x.png */; };
+		002533712295339D0055D3E7 /* wifisignalIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533012295339D0055D3E7 /* wifisignalIcon@3x.png */; };
+		002533722295339D0055D3E7 /* batteryLower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533022295339D0055D3E7 /* batteryLower@2x.png */; };
+		002533732295339D0055D3E7 /* rightIconUnselectedCircle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533032295339D0055D3E7 /* rightIconUnselectedCircle@3x.png */; };
+		002533742295339D0055D3E7 /* slotDataTypeCustom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533042295339D0055D3E7 /* slotDataTypeCustom@3x.png */; };
+		002533752295339D0055D3E7 /* slotTabBarItemSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533052295339D0055D3E7 /* slotTabBarItemSelected@2x.png */; };
+		002533762295339D0055D3E7 /* slot_frameType@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533062295339D0055D3E7 /* slot_frameType@2x.png */; };
+		002533772295339D0055D3E7 /* scanRefresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533072295339D0055D3E7 /* scanRefresh@2x.png */; };
+		002533782295339D0055D3E7 /* slotDataTypeiBeacon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533082295339D0055D3E7 /* slotDataTypeiBeacon@3x.png */; };
+		002533792295339D0055D3E7 /* batteryHigher@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533092295339D0055D3E7 /* batteryHigher@2x.png */; };
+		0025337A2295339D0055D3E7 /* slot_advContent@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025330A2295339D0055D3E7 /* slot_advContent@3x.png */; };
+		0025337B2295339D0055D3E7 /* slot_baseParams@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025330B2295339D0055D3E7 /* slot_baseParams@2x.png */; };
+		0025337C2295339D0055D3E7 /* deviceTabBarItemSelected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025330C2295339D0055D3E7 /* deviceTabBarItemSelected@3x.png */; };
+		0025337D2295339D0055D3E7 /* device_software@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025330D2295339D0055D3E7 /* device_software@2x.png */; };
+		0025337E2295339D0055D3E7 /* scanHeaderView_ arrowDownIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025330E2295339D0055D3E7 /* scanHeaderView_ arrowDownIcon@3x.png */; };
+		0025337F2295339D0055D3E7 /* slotInfoTypeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025330F2295339D0055D3E7 /* slotInfoTypeIcon@2x.png */; };
+		002533802295339D0055D3E7 /* slotDataTypeNoData@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533102295339D0055D3E7 /* slotDataTypeNoData@2x.png */; };
+		002533812295339D0055D3E7 /* searchGrayIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533112295339D0055D3E7 /* searchGrayIcon@3x.png */; };
+		002533822295339D0055D3E7 /* goto_next_button@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533122295339D0055D3E7 /* goto_next_button@3x.png */; };
+		002533832295339D0055D3E7 /* goto_next_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533132295339D0055D3E7 /* goto_next_button@2x.png */; };
+		002533842295339D0055D3E7 /* searchGrayIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533142295339D0055D3E7 /* searchGrayIcon@2x.png */; };
+		002533852295339D0055D3E7 /* scanHeaderView_ arrowDownIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533152295339D0055D3E7 /* scanHeaderView_ arrowDownIcon@2x.png */; };
+		002533862295339D0055D3E7 /* slotDataTypeNoData@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533162295339D0055D3E7 /* slotDataTypeNoData@3x.png */; };
+		002533872295339D0055D3E7 /* slotInfoTypeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533172295339D0055D3E7 /* slotInfoTypeIcon@3x.png */; };
+		002533882295339D0055D3E7 /* deviceTabBarItemSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533182295339D0055D3E7 /* deviceTabBarItemSelected@2x.png */; };
+		002533892295339D0055D3E7 /* device_software@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533192295339D0055D3E7 /* device_software@3x.png */; };
+		0025338A2295339D0055D3E7 /* slot_baseParams@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025331A2295339D0055D3E7 /* slot_baseParams@3x.png */; };
+		0025338B2295339D0055D3E7 /* slot_advContent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025331B2295339D0055D3E7 /* slot_advContent@2x.png */; };
+		0025338C2295339D0055D3E7 /* batteryHigher@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025331C2295339D0055D3E7 /* batteryHigher@3x.png */; };
+		0025338D2295339D0055D3E7 /* slotDataTypeiBeacon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025331D2295339D0055D3E7 /* slotDataTypeiBeacon@2x.png */; };
+		0025338E2295339D0055D3E7 /* scanRefresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025331E2295339D0055D3E7 /* scanRefresh@3x.png */; };
+		0025338F2295339D0055D3E7 /* slotDataTypeCustom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025331F2295339D0055D3E7 /* slotDataTypeCustom@2x.png */; };
+		002533902295339D0055D3E7 /* slotTabBarItemSelected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533202295339D0055D3E7 /* slotTabBarItemSelected@3x.png */; };
+		002533912295339D0055D3E7 /* slot_frameType@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533212295339D0055D3E7 /* slot_frameType@3x.png */; };
+		002533922295339D0055D3E7 /* rightIconUnselectedCircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533222295339D0055D3E7 /* rightIconUnselectedCircle@2x.png */; };
+		002533932295339D0055D3E7 /* device_runningtime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533232295339D0055D3E7 /* device_runningtime@2x.png */; };
+		002533942295339D0055D3E7 /* clearButtonIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533242295339D0055D3E7 /* clearButtonIcon@3x.png */; };
+		002533952295339D0055D3E7 /* goNext_whiteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533252295339D0055D3E7 /* goNext_whiteButton@2x.png */; };
+		002533962295339D0055D3E7 /* refreshIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533262295339D0055D3E7 /* refreshIcon@2x.png */; };
+		002533972295339D0055D3E7 /* device_soc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533272295339D0055D3E7 /* device_soc@2x.png */; };
+		002533982295339D0055D3E7 /* littleBluePoint@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533282295339D0055D3E7 /* littleBluePoint@3x.png */; };
+		002533992295339D0055D3E7 /* batteryHighest@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533292295339D0055D3E7 /* batteryHighest@2x.png */; };
+		0025339A2295339D0055D3E7 /* device_hardware@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025332A2295339D0055D3E7 /* device_hardware@3x.png */; };
+		0025339B2295339D0055D3E7 /* scanHeaderViewBackIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025332B2295339D0055D3E7 /* scanHeaderViewBackIcon@3x.png */; };
+		0025339C2295339D0055D3E7 /* setting_connectable@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025332C2295339D0055D3E7 /* setting_connectable@3x.png */; };
+		0025339D2295339D0055D3E7 /* batteryLowest@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025332D2295339D0055D3E7 /* batteryLowest@2x.png */; };
+		0025339E2295339D0055D3E7 /* device_productmodel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025332E2295339D0055D3E7 /* device_productmodel@2x.png */; };
+		0025339F2295339D0055D3E7 /* batteryLow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025332F2295339D0055D3E7 /* batteryLow@3x.png */; };
+		002533A02295339D0055D3E7 /* settingTabBarItemSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533302295339D0055D3E7 /* settingTabBarItemSelected@2x.png */; };
+		002533A12295339D0055D3E7 /* settingTabBarItemSelected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533312295339D0055D3E7 /* settingTabBarItemSelected@3x.png */; };
+		002533A22295339D0055D3E7 /* batteryLow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533322295339D0055D3E7 /* batteryLow@2x.png */; };
+		002533A32295339D0055D3E7 /* device_productmodel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533332295339D0055D3E7 /* device_productmodel@3x.png */; };
+		002533A42295339D0055D3E7 /* batteryLowest@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533342295339D0055D3E7 /* batteryLowest@3x.png */; };
+		002533A52295339D0055D3E7 /* setting_connectable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533352295339D0055D3E7 /* setting_connectable@2x.png */; };
+		002533A62295339D0055D3E7 /* scanHeaderViewBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533362295339D0055D3E7 /* scanHeaderViewBackIcon@2x.png */; };
+		002533A72295339D0055D3E7 /* device_hardware@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533372295339D0055D3E7 /* device_hardware@2x.png */; };
+		002533A82295339D0055D3E7 /* batteryHighest@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533382295339D0055D3E7 /* batteryHighest@3x.png */; };
+		002533A92295339D0055D3E7 /* littleBluePoint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533392295339D0055D3E7 /* littleBluePoint@2x.png */; };
+		002533AA2295339D0055D3E7 /* refreshIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025333A2295339D0055D3E7 /* refreshIcon@3x.png */; };
+		002533AB2295339D0055D3E7 /* device_soc@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025333B2295339D0055D3E7 /* device_soc@3x.png */; };
+		002533AC2295339D0055D3E7 /* clearButtonIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025333C2295339D0055D3E7 /* clearButtonIcon@2x.png */; };
+		002533AD2295339D0055D3E7 /* goNext_whiteButton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025333D2295339D0055D3E7 /* goNext_whiteButton@3x.png */; };
+		002533AE2295339D0055D3E7 /* device_runningtime@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025333E2295339D0055D3E7 /* device_runningtime@3x.png */; };
+		002533AF2295339D0055D3E7 /* navigation_back_button_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025333F2295339D0055D3E7 /* navigation_back_button_white@3x.png */; };
+		002533B02295339D0055D3E7 /* rightAddEnableIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533402295339D0055D3E7 /* rightAddEnableIcon@3x.png */; };
+		002533B12295339D0055D3E7 /* scanRightAboutIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533412295339D0055D3E7 /* scanRightAboutIcon@3x.png */; };
+		002533B22295339D0055D3E7 /* device_firmware@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533422295339D0055D3E7 /* device_firmware@2x.png */; };
+		002533B32295339D0055D3E7 /* rightIconSelectedCircle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533432295339D0055D3E7 /* rightIconSelectedCircle@3x.png */; };
+		002533B42295339D0055D3E7 /* device_macadress@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533442295339D0055D3E7 /* device_macadress@3x.png */; };
+		002533B52295339D0055D3E7 /* slotTabBarItemUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533452295339D0055D3E7 /* slotTabBarItemUnselected@2x.png */; };
+		002533B62295339D0055D3E7 /* aboutIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533462295339D0055D3E7 /* aboutIcon@2x.png */; };
+		002533B72295339D0055D3E7 /* scanHeaderView_ arrowUpIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533472295339D0055D3E7 /* scanHeaderView_ arrowUpIcon@2x.png */; };
+		002533B82295339D0055D3E7 /* goNext_lightWhiteButton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533482295339D0055D3E7 /* goNext_lightWhiteButton@3x.png */; };
+		002533B92295339D0055D3E7 /* setting_update@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533492295339D0055D3E7 /* setting_update@2x.png */; };
+		002533BA2295339D0055D3E7 /* navigation_back_button@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025334A2295339D0055D3E7 /* navigation_back_button@3x.png */; };
+		002533BB2295339D0055D3E7 /* deviceTabBarItemUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025334B2295339D0055D3E7 /* deviceTabBarItemUnselected@2x.png */; };
+		002533BC2295339D0055D3E7 /* setting_powerOff@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025334C2295339D0055D3E7 /* setting_powerOff@3x.png */; };
+		002533BD2295339D0055D3E7 /* slotSaveIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025334D2295339D0055D3E7 /* slotSaveIcon@3x.png */; };
+		002533BE2295339D0055D3E7 /* slotSaveIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025334E2295339D0055D3E7 /* slotSaveIcon@2x.png */; };
+		002533BF2295339D0055D3E7 /* setting_powerOff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025334F2295339D0055D3E7 /* setting_powerOff@2x.png */; };
+		002533C02295339D0055D3E7 /* deviceTabBarItemUnselected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533502295339D0055D3E7 /* deviceTabBarItemUnselected@3x.png */; };
+		002533C12295339D0055D3E7 /* navigation_back_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533512295339D0055D3E7 /* navigation_back_button@2x.png */; };
+		002533C22295339D0055D3E7 /* setting_update@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533522295339D0055D3E7 /* setting_update@3x.png */; };
+		002533C32295339D0055D3E7 /* goNext_lightWhiteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533532295339D0055D3E7 /* goNext_lightWhiteButton@2x.png */; };
+		002533C42295339D0055D3E7 /* scanHeaderView_ arrowUpIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533542295339D0055D3E7 /* scanHeaderView_ arrowUpIcon@3x.png */; };
+		002533C52295339D0055D3E7 /* aboutIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533552295339D0055D3E7 /* aboutIcon@3x.png */; };
+		002533C62295339D0055D3E7 /* slotTabBarItemUnselected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533562295339D0055D3E7 /* slotTabBarItemUnselected@3x.png */; };
+		002533C72295339D0055D3E7 /* device_macadress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533572295339D0055D3E7 /* device_macadress@2x.png */; };
+		002533C82295339D0055D3E7 /* device_firmware@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533582295339D0055D3E7 /* device_firmware@3x.png */; };
+		002533C92295339D0055D3E7 /* rightIconSelectedCircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002533592295339D0055D3E7 /* rightIconSelectedCircle@2x.png */; };
+		002533CA2295339D0055D3E7 /* rightAddEnableIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025335A2295339D0055D3E7 /* rightAddEnableIcon@2x.png */; };
+		002533CB2295339D0055D3E7 /* scanRightAboutIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025335B2295339D0055D3E7 /* scanRightAboutIcon@2x.png */; };
+		002533CC2295339D0055D3E7 /* navigation_back_button_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0025335C2295339D0055D3E7 /* navigation_back_button_white@2x.png */; };
+		002533CF229533C30055D3E7 /* MKEddStoneURLCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002533CE229533C30055D3E7 /* MKEddStoneURLCell.m */; };
+		002533D2229535400055D3E7 /* MKEddStoneTLMCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002533D1229535400055D3E7 /* MKEddStoneTLMCell.m */; };
+		002533D5229535F60055D3E7 /* MKScanSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 002533D4229535F60055D3E7 /* MKScanSearchView.m */; };
+		002533D8229537C60055D3E7 /* MKScanSearchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 002533D7229537C60055D3E7 /* MKScanSearchButton.m */; };
+		002533DB229538100055D3E7 /* MKEddStoneiBeaconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002533DA229538100055D3E7 /* MKEddStoneiBeaconCell.m */; };
+		00285F102296475F00A4CAD4 /* MKScanBeaconModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F0F2296475F00A4CAD4 /* MKScanBeaconModel.m */; };
+		00285F13229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F12229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m */; };
+		00285F162296480F00A4CAD4 /* MKScanInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F152296480F00A4CAD4 /* MKScanInfoCell.m */; };
 		00DA1B562269697A0093DBAE /* MKScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA1B552269697A0093DBAE /* MKScanViewController.m */; };
 		8E33DED9D30D9F9F4CC4BDEC /* libPods-BeaconXPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3DDB61A667539B356F3F757 /* libPods-BeaconXPlus.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00131DE222952F1000E613FF /* MKConnectDeviceProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKConnectDeviceProgressView.h; sourceTree = "<group>"; };
+		00131DE322952F1000E613FF /* MKConnectDeviceProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKConnectDeviceProgressView.m; sourceTree = "<group>"; };
 		001505722264831E00F69569 /* BeaconXPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconXPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		001505752264831E00F69569 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		001505762264831E00F69569 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -35,6 +160,138 @@
 		001CC089226871E800331198 /* MKEddystoneAdopter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKEddystoneAdopter.m; sourceTree = "<group>"; };
 		001CC08A226871E800331198 /* MKEddystoneAdopter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKEddystoneAdopter.h; sourceTree = "<group>"; };
 		001CC08C2268748200331198 /* MKBXPEnumeration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPEnumeration.h; sourceTree = "<group>"; };
+		002532E422952FBC0055D3E7 /* MKScanBaseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKScanBaseCell.h; sourceTree = "<group>"; };
+		002532E522952FBC0055D3E7 /* MKScanBaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanBaseCell.m; sourceTree = "<group>"; };
+		002532E7229531470055D3E7 /* MKEddStoneUIDCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEddStoneUIDCell.h; sourceTree = "<group>"; };
+		002532E8229531470055D3E7 /* MKEddStoneUIDCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKEddStoneUIDCell.m; sourceTree = "<group>"; };
+		002532ED2295339D0055D3E7 /* batteryLower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "batteryLower@3x.png"; sourceTree = "<group>"; };
+		002532EE2295339D0055D3E7 /* wifisignalIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wifisignalIcon@2x.png"; sourceTree = "<group>"; };
+		002532EF2295339D0055D3E7 /* cellRight_selected_pic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellRight_selected_pic@3x.png"; sourceTree = "<group>"; };
+		002532F02295339D0055D3E7 /* signalIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signalIcon@3x.png"; sourceTree = "<group>"; };
+		002532F12295339D0055D3E7 /* device_manufacture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_manufacture@2x.png"; sourceTree = "<group>"; };
+		002532F22295339D0055D3E7 /* settingTabBarItemUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingTabBarItemUnselected@2x.png"; sourceTree = "<group>"; };
+		002532F32295339D0055D3E7 /* setting_reset@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_reset@3x.png"; sourceTree = "<group>"; };
+		002532F42295339D0055D3E7 /* setting_password@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_password@2x.png"; sourceTree = "<group>"; };
+		002532F52295339D0055D3E7 /* rightAddDisableIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightAddDisableIcon@3x.png"; sourceTree = "<group>"; };
+		002532F62295339D0055D3E7 /* searchBlueIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchBlueIcon@3x.png"; sourceTree = "<group>"; };
+		002532F72295339D0055D3E7 /* setting_devicename@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_devicename@3x.png"; sourceTree = "<group>"; };
+		002532F82295339D0055D3E7 /* setting_devicename@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_devicename@2x.png"; sourceTree = "<group>"; };
+		002532F92295339D0055D3E7 /* searchBlueIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchBlueIcon@2x.png"; sourceTree = "<group>"; };
+		002532FA2295339D0055D3E7 /* rightAddDisableIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightAddDisableIcon@2x.png"; sourceTree = "<group>"; };
+		002532FB2295339D0055D3E7 /* setting_reset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_reset@2x.png"; sourceTree = "<group>"; };
+		002532FC2295339D0055D3E7 /* setting_password@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_password@3x.png"; sourceTree = "<group>"; };
+		002532FD2295339D0055D3E7 /* settingTabBarItemUnselected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingTabBarItemUnselected@3x.png"; sourceTree = "<group>"; };
+		002532FE2295339D0055D3E7 /* signalIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signalIcon@2x.png"; sourceTree = "<group>"; };
+		002532FF2295339D0055D3E7 /* device_manufacture@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_manufacture@3x.png"; sourceTree = "<group>"; };
+		002533002295339D0055D3E7 /* cellRight_selected_pic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellRight_selected_pic@2x.png"; sourceTree = "<group>"; };
+		002533012295339D0055D3E7 /* wifisignalIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wifisignalIcon@3x.png"; sourceTree = "<group>"; };
+		002533022295339D0055D3E7 /* batteryLower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "batteryLower@2x.png"; sourceTree = "<group>"; };
+		002533032295339D0055D3E7 /* rightIconUnselectedCircle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightIconUnselectedCircle@3x.png"; sourceTree = "<group>"; };
+		002533042295339D0055D3E7 /* slotDataTypeCustom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeCustom@3x.png"; sourceTree = "<group>"; };
+		002533052295339D0055D3E7 /* slotTabBarItemSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotTabBarItemSelected@2x.png"; sourceTree = "<group>"; };
+		002533062295339D0055D3E7 /* slot_frameType@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_frameType@2x.png"; sourceTree = "<group>"; };
+		002533072295339D0055D3E7 /* scanRefresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanRefresh@2x.png"; sourceTree = "<group>"; };
+		002533082295339D0055D3E7 /* slotDataTypeiBeacon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeiBeacon@3x.png"; sourceTree = "<group>"; };
+		002533092295339D0055D3E7 /* batteryHigher@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "batteryHigher@2x.png"; sourceTree = "<group>"; };
+		0025330A2295339D0055D3E7 /* slot_advContent@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_advContent@3x.png"; sourceTree = "<group>"; };
+		0025330B2295339D0055D3E7 /* slot_baseParams@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_baseParams@2x.png"; sourceTree = "<group>"; };
+		0025330C2295339D0055D3E7 /* deviceTabBarItemSelected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deviceTabBarItemSelected@3x.png"; sourceTree = "<group>"; };
+		0025330D2295339D0055D3E7 /* device_software@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_software@2x.png"; sourceTree = "<group>"; };
+		0025330E2295339D0055D3E7 /* scanHeaderView_ arrowDownIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanHeaderView_ arrowDownIcon@3x.png"; sourceTree = "<group>"; };
+		0025330F2295339D0055D3E7 /* slotInfoTypeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotInfoTypeIcon@2x.png"; sourceTree = "<group>"; };
+		002533102295339D0055D3E7 /* slotDataTypeNoData@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeNoData@2x.png"; sourceTree = "<group>"; };
+		002533112295339D0055D3E7 /* searchGrayIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchGrayIcon@3x.png"; sourceTree = "<group>"; };
+		002533122295339D0055D3E7 /* goto_next_button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goto_next_button@3x.png"; sourceTree = "<group>"; };
+		002533132295339D0055D3E7 /* goto_next_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goto_next_button@2x.png"; sourceTree = "<group>"; };
+		002533142295339D0055D3E7 /* searchGrayIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchGrayIcon@2x.png"; sourceTree = "<group>"; };
+		002533152295339D0055D3E7 /* scanHeaderView_ arrowDownIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanHeaderView_ arrowDownIcon@2x.png"; sourceTree = "<group>"; };
+		002533162295339D0055D3E7 /* slotDataTypeNoData@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeNoData@3x.png"; sourceTree = "<group>"; };
+		002533172295339D0055D3E7 /* slotInfoTypeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotInfoTypeIcon@3x.png"; sourceTree = "<group>"; };
+		002533182295339D0055D3E7 /* deviceTabBarItemSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deviceTabBarItemSelected@2x.png"; sourceTree = "<group>"; };
+		002533192295339D0055D3E7 /* device_software@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_software@3x.png"; sourceTree = "<group>"; };
+		0025331A2295339D0055D3E7 /* slot_baseParams@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_baseParams@3x.png"; sourceTree = "<group>"; };
+		0025331B2295339D0055D3E7 /* slot_advContent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_advContent@2x.png"; sourceTree = "<group>"; };
+		0025331C2295339D0055D3E7 /* batteryHigher@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "batteryHigher@3x.png"; sourceTree = "<group>"; };
+		0025331D2295339D0055D3E7 /* slotDataTypeiBeacon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeiBeacon@2x.png"; sourceTree = "<group>"; };
+		0025331E2295339D0055D3E7 /* scanRefresh@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanRefresh@3x.png"; sourceTree = "<group>"; };
+		0025331F2295339D0055D3E7 /* slotDataTypeCustom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeCustom@2x.png"; sourceTree = "<group>"; };
+		002533202295339D0055D3E7 /* slotTabBarItemSelected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotTabBarItemSelected@3x.png"; sourceTree = "<group>"; };
+		002533212295339D0055D3E7 /* slot_frameType@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_frameType@3x.png"; sourceTree = "<group>"; };
+		002533222295339D0055D3E7 /* rightIconUnselectedCircle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightIconUnselectedCircle@2x.png"; sourceTree = "<group>"; };
+		002533232295339D0055D3E7 /* device_runningtime@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_runningtime@2x.png"; sourceTree = "<group>"; };
+		002533242295339D0055D3E7 /* clearButtonIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clearButtonIcon@3x.png"; sourceTree = "<group>"; };
+		002533252295339D0055D3E7 /* goNext_whiteButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goNext_whiteButton@2x.png"; sourceTree = "<group>"; };
+		002533262295339D0055D3E7 /* refreshIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refreshIcon@2x.png"; sourceTree = "<group>"; };
+		002533272295339D0055D3E7 /* device_soc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_soc@2x.png"; sourceTree = "<group>"; };
+		002533282295339D0055D3E7 /* littleBluePoint@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "littleBluePoint@3x.png"; sourceTree = "<group>"; };
+		002533292295339D0055D3E7 /* batteryHighest@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "batteryHighest@2x.png"; sourceTree = "<group>"; };
+		0025332A2295339D0055D3E7 /* device_hardware@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_hardware@3x.png"; sourceTree = "<group>"; };
+		0025332B2295339D0055D3E7 /* scanHeaderViewBackIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanHeaderViewBackIcon@3x.png"; sourceTree = "<group>"; };
+		0025332C2295339D0055D3E7 /* setting_connectable@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_connectable@3x.png"; sourceTree = "<group>"; };
+		0025332D2295339D0055D3E7 /* batteryLowest@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "batteryLowest@2x.png"; sourceTree = "<group>"; };
+		0025332E2295339D0055D3E7 /* device_productmodel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_productmodel@2x.png"; sourceTree = "<group>"; };
+		0025332F2295339D0055D3E7 /* batteryLow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "batteryLow@3x.png"; sourceTree = "<group>"; };
+		002533302295339D0055D3E7 /* settingTabBarItemSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingTabBarItemSelected@2x.png"; sourceTree = "<group>"; };
+		002533312295339D0055D3E7 /* settingTabBarItemSelected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingTabBarItemSelected@3x.png"; sourceTree = "<group>"; };
+		002533322295339D0055D3E7 /* batteryLow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "batteryLow@2x.png"; sourceTree = "<group>"; };
+		002533332295339D0055D3E7 /* device_productmodel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_productmodel@3x.png"; sourceTree = "<group>"; };
+		002533342295339D0055D3E7 /* batteryLowest@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "batteryLowest@3x.png"; sourceTree = "<group>"; };
+		002533352295339D0055D3E7 /* setting_connectable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_connectable@2x.png"; sourceTree = "<group>"; };
+		002533362295339D0055D3E7 /* scanHeaderViewBackIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanHeaderViewBackIcon@2x.png"; sourceTree = "<group>"; };
+		002533372295339D0055D3E7 /* device_hardware@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_hardware@2x.png"; sourceTree = "<group>"; };
+		002533382295339D0055D3E7 /* batteryHighest@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "batteryHighest@3x.png"; sourceTree = "<group>"; };
+		002533392295339D0055D3E7 /* littleBluePoint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "littleBluePoint@2x.png"; sourceTree = "<group>"; };
+		0025333A2295339D0055D3E7 /* refreshIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refreshIcon@3x.png"; sourceTree = "<group>"; };
+		0025333B2295339D0055D3E7 /* device_soc@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_soc@3x.png"; sourceTree = "<group>"; };
+		0025333C2295339D0055D3E7 /* clearButtonIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clearButtonIcon@2x.png"; sourceTree = "<group>"; };
+		0025333D2295339D0055D3E7 /* goNext_whiteButton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goNext_whiteButton@3x.png"; sourceTree = "<group>"; };
+		0025333E2295339D0055D3E7 /* device_runningtime@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_runningtime@3x.png"; sourceTree = "<group>"; };
+		0025333F2295339D0055D3E7 /* navigation_back_button_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation_back_button_white@3x.png"; sourceTree = "<group>"; };
+		002533402295339D0055D3E7 /* rightAddEnableIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightAddEnableIcon@3x.png"; sourceTree = "<group>"; };
+		002533412295339D0055D3E7 /* scanRightAboutIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanRightAboutIcon@3x.png"; sourceTree = "<group>"; };
+		002533422295339D0055D3E7 /* device_firmware@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_firmware@2x.png"; sourceTree = "<group>"; };
+		002533432295339D0055D3E7 /* rightIconSelectedCircle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightIconSelectedCircle@3x.png"; sourceTree = "<group>"; };
+		002533442295339D0055D3E7 /* device_macadress@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_macadress@3x.png"; sourceTree = "<group>"; };
+		002533452295339D0055D3E7 /* slotTabBarItemUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotTabBarItemUnselected@2x.png"; sourceTree = "<group>"; };
+		002533462295339D0055D3E7 /* aboutIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aboutIcon@2x.png"; sourceTree = "<group>"; };
+		002533472295339D0055D3E7 /* scanHeaderView_ arrowUpIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanHeaderView_ arrowUpIcon@2x.png"; sourceTree = "<group>"; };
+		002533482295339D0055D3E7 /* goNext_lightWhiteButton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goNext_lightWhiteButton@3x.png"; sourceTree = "<group>"; };
+		002533492295339D0055D3E7 /* setting_update@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_update@2x.png"; sourceTree = "<group>"; };
+		0025334A2295339D0055D3E7 /* navigation_back_button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation_back_button@3x.png"; sourceTree = "<group>"; };
+		0025334B2295339D0055D3E7 /* deviceTabBarItemUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deviceTabBarItemUnselected@2x.png"; sourceTree = "<group>"; };
+		0025334C2295339D0055D3E7 /* setting_powerOff@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_powerOff@3x.png"; sourceTree = "<group>"; };
+		0025334D2295339D0055D3E7 /* slotSaveIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotSaveIcon@3x.png"; sourceTree = "<group>"; };
+		0025334E2295339D0055D3E7 /* slotSaveIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotSaveIcon@2x.png"; sourceTree = "<group>"; };
+		0025334F2295339D0055D3E7 /* setting_powerOff@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_powerOff@2x.png"; sourceTree = "<group>"; };
+		002533502295339D0055D3E7 /* deviceTabBarItemUnselected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deviceTabBarItemUnselected@3x.png"; sourceTree = "<group>"; };
+		002533512295339D0055D3E7 /* navigation_back_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation_back_button@2x.png"; sourceTree = "<group>"; };
+		002533522295339D0055D3E7 /* setting_update@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_update@3x.png"; sourceTree = "<group>"; };
+		002533532295339D0055D3E7 /* goNext_lightWhiteButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goNext_lightWhiteButton@2x.png"; sourceTree = "<group>"; };
+		002533542295339D0055D3E7 /* scanHeaderView_ arrowUpIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanHeaderView_ arrowUpIcon@3x.png"; sourceTree = "<group>"; };
+		002533552295339D0055D3E7 /* aboutIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aboutIcon@3x.png"; sourceTree = "<group>"; };
+		002533562295339D0055D3E7 /* slotTabBarItemUnselected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotTabBarItemUnselected@3x.png"; sourceTree = "<group>"; };
+		002533572295339D0055D3E7 /* device_macadress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_macadress@2x.png"; sourceTree = "<group>"; };
+		002533582295339D0055D3E7 /* device_firmware@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_firmware@3x.png"; sourceTree = "<group>"; };
+		002533592295339D0055D3E7 /* rightIconSelectedCircle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightIconSelectedCircle@2x.png"; sourceTree = "<group>"; };
+		0025335A2295339D0055D3E7 /* rightAddEnableIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightAddEnableIcon@2x.png"; sourceTree = "<group>"; };
+		0025335B2295339D0055D3E7 /* scanRightAboutIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanRightAboutIcon@2x.png"; sourceTree = "<group>"; };
+		0025335C2295339D0055D3E7 /* navigation_back_button_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation_back_button_white@2x.png"; sourceTree = "<group>"; };
+		002533CD229533C30055D3E7 /* MKEddStoneURLCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEddStoneURLCell.h; sourceTree = "<group>"; };
+		002533CE229533C30055D3E7 /* MKEddStoneURLCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKEddStoneURLCell.m; sourceTree = "<group>"; };
+		002533D0229535400055D3E7 /* MKEddStoneTLMCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEddStoneTLMCell.h; sourceTree = "<group>"; };
+		002533D1229535400055D3E7 /* MKEddStoneTLMCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKEddStoneTLMCell.m; sourceTree = "<group>"; };
+		002533D3229535F60055D3E7 /* MKScanSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKScanSearchView.h; sourceTree = "<group>"; };
+		002533D4229535F60055D3E7 /* MKScanSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanSearchView.m; sourceTree = "<group>"; };
+		002533D6229537C60055D3E7 /* MKScanSearchButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKScanSearchButton.h; sourceTree = "<group>"; };
+		002533D7229537C60055D3E7 /* MKScanSearchButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanSearchButton.m; sourceTree = "<group>"; };
+		002533D9229538100055D3E7 /* MKEddStoneiBeaconCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEddStoneiBeaconCell.h; sourceTree = "<group>"; };
+		002533DA229538100055D3E7 /* MKEddStoneiBeaconCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKEddStoneiBeaconCell.m; sourceTree = "<group>"; };
+		00285F0E2296475F00A4CAD4 /* MKScanBeaconModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKScanBeaconModel.h; sourceTree = "<group>"; };
+		00285F0F2296475F00A4CAD4 /* MKScanBeaconModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanBeaconModel.m; sourceTree = "<group>"; };
+		00285F11229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MKBXPBaseBeacon+MKAdd.h"; sourceTree = "<group>"; };
+		00285F12229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MKBXPBaseBeacon+MKAdd.m"; sourceTree = "<group>"; };
+		00285F142296480F00A4CAD4 /* MKScanInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKScanInfoCell.h; sourceTree = "<group>"; };
+		00285F152296480F00A4CAD4 /* MKScanInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanInfoCell.m; sourceTree = "<group>"; };
 		00DA1B542269697A0093DBAE /* MKScanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKScanViewController.h; sourceTree = "<group>"; };
 		00DA1B552269697A0093DBAE /* MKScanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanViewController.m; sourceTree = "<group>"; };
 		00DA1B5722696A320093DBAE /* MKBXPSDKHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPSDKHeader.h; sourceTree = "<group>"; };
@@ -81,6 +338,7 @@
 				00150591226486C500F69569 /* Interface */,
 				001505752264831E00F69569 /* AppDelegate.h */,
 				001505762264831E00F69569 /* AppDelegate.m */,
+				002532EC2295339D0055D3E7 /* Resource */,
 				0015057E2264831F00F69569 /* Assets.xcassets */,
 				001505832264831F00F69569 /* Info.plist */,
 				001505842264831F00F69569 /* main.m */,
@@ -114,6 +372,125 @@
 			path = MKEddystoneBase;
 			sourceTree = "<group>";
 		};
+		002532EC2295339D0055D3E7 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				002532ED2295339D0055D3E7 /* batteryLower@3x.png */,
+				002532EE2295339D0055D3E7 /* wifisignalIcon@2x.png */,
+				002532EF2295339D0055D3E7 /* cellRight_selected_pic@3x.png */,
+				002532F02295339D0055D3E7 /* signalIcon@3x.png */,
+				002532F12295339D0055D3E7 /* device_manufacture@2x.png */,
+				002532F22295339D0055D3E7 /* settingTabBarItemUnselected@2x.png */,
+				002532F32295339D0055D3E7 /* setting_reset@3x.png */,
+				002532F42295339D0055D3E7 /* setting_password@2x.png */,
+				002532F52295339D0055D3E7 /* rightAddDisableIcon@3x.png */,
+				002532F62295339D0055D3E7 /* searchBlueIcon@3x.png */,
+				002532F72295339D0055D3E7 /* setting_devicename@3x.png */,
+				002532F82295339D0055D3E7 /* setting_devicename@2x.png */,
+				002532F92295339D0055D3E7 /* searchBlueIcon@2x.png */,
+				002532FA2295339D0055D3E7 /* rightAddDisableIcon@2x.png */,
+				002532FB2295339D0055D3E7 /* setting_reset@2x.png */,
+				002532FC2295339D0055D3E7 /* setting_password@3x.png */,
+				002532FD2295339D0055D3E7 /* settingTabBarItemUnselected@3x.png */,
+				002532FE2295339D0055D3E7 /* signalIcon@2x.png */,
+				002532FF2295339D0055D3E7 /* device_manufacture@3x.png */,
+				002533002295339D0055D3E7 /* cellRight_selected_pic@2x.png */,
+				002533012295339D0055D3E7 /* wifisignalIcon@3x.png */,
+				002533022295339D0055D3E7 /* batteryLower@2x.png */,
+				002533032295339D0055D3E7 /* rightIconUnselectedCircle@3x.png */,
+				002533042295339D0055D3E7 /* slotDataTypeCustom@3x.png */,
+				002533052295339D0055D3E7 /* slotTabBarItemSelected@2x.png */,
+				002533062295339D0055D3E7 /* slot_frameType@2x.png */,
+				002533072295339D0055D3E7 /* scanRefresh@2x.png */,
+				002533082295339D0055D3E7 /* slotDataTypeiBeacon@3x.png */,
+				002533092295339D0055D3E7 /* batteryHigher@2x.png */,
+				0025330A2295339D0055D3E7 /* slot_advContent@3x.png */,
+				0025330B2295339D0055D3E7 /* slot_baseParams@2x.png */,
+				0025330C2295339D0055D3E7 /* deviceTabBarItemSelected@3x.png */,
+				0025330D2295339D0055D3E7 /* device_software@2x.png */,
+				0025330E2295339D0055D3E7 /* scanHeaderView_ arrowDownIcon@3x.png */,
+				0025330F2295339D0055D3E7 /* slotInfoTypeIcon@2x.png */,
+				002533102295339D0055D3E7 /* slotDataTypeNoData@2x.png */,
+				002533112295339D0055D3E7 /* searchGrayIcon@3x.png */,
+				002533122295339D0055D3E7 /* goto_next_button@3x.png */,
+				002533132295339D0055D3E7 /* goto_next_button@2x.png */,
+				002533142295339D0055D3E7 /* searchGrayIcon@2x.png */,
+				002533152295339D0055D3E7 /* scanHeaderView_ arrowDownIcon@2x.png */,
+				002533162295339D0055D3E7 /* slotDataTypeNoData@3x.png */,
+				002533172295339D0055D3E7 /* slotInfoTypeIcon@3x.png */,
+				002533182295339D0055D3E7 /* deviceTabBarItemSelected@2x.png */,
+				002533192295339D0055D3E7 /* device_software@3x.png */,
+				0025331A2295339D0055D3E7 /* slot_baseParams@3x.png */,
+				0025331B2295339D0055D3E7 /* slot_advContent@2x.png */,
+				0025331C2295339D0055D3E7 /* batteryHigher@3x.png */,
+				0025331D2295339D0055D3E7 /* slotDataTypeiBeacon@2x.png */,
+				0025331E2295339D0055D3E7 /* scanRefresh@3x.png */,
+				0025331F2295339D0055D3E7 /* slotDataTypeCustom@2x.png */,
+				002533202295339D0055D3E7 /* slotTabBarItemSelected@3x.png */,
+				002533212295339D0055D3E7 /* slot_frameType@3x.png */,
+				002533222295339D0055D3E7 /* rightIconUnselectedCircle@2x.png */,
+				002533232295339D0055D3E7 /* device_runningtime@2x.png */,
+				002533242295339D0055D3E7 /* clearButtonIcon@3x.png */,
+				002533252295339D0055D3E7 /* goNext_whiteButton@2x.png */,
+				002533262295339D0055D3E7 /* refreshIcon@2x.png */,
+				002533272295339D0055D3E7 /* device_soc@2x.png */,
+				002533282295339D0055D3E7 /* littleBluePoint@3x.png */,
+				002533292295339D0055D3E7 /* batteryHighest@2x.png */,
+				0025332A2295339D0055D3E7 /* device_hardware@3x.png */,
+				0025332B2295339D0055D3E7 /* scanHeaderViewBackIcon@3x.png */,
+				0025332C2295339D0055D3E7 /* setting_connectable@3x.png */,
+				0025332D2295339D0055D3E7 /* batteryLowest@2x.png */,
+				0025332E2295339D0055D3E7 /* device_productmodel@2x.png */,
+				0025332F2295339D0055D3E7 /* batteryLow@3x.png */,
+				002533302295339D0055D3E7 /* settingTabBarItemSelected@2x.png */,
+				002533312295339D0055D3E7 /* settingTabBarItemSelected@3x.png */,
+				002533322295339D0055D3E7 /* batteryLow@2x.png */,
+				002533332295339D0055D3E7 /* device_productmodel@3x.png */,
+				002533342295339D0055D3E7 /* batteryLowest@3x.png */,
+				002533352295339D0055D3E7 /* setting_connectable@2x.png */,
+				002533362295339D0055D3E7 /* scanHeaderViewBackIcon@2x.png */,
+				002533372295339D0055D3E7 /* device_hardware@2x.png */,
+				002533382295339D0055D3E7 /* batteryHighest@3x.png */,
+				002533392295339D0055D3E7 /* littleBluePoint@2x.png */,
+				0025333A2295339D0055D3E7 /* refreshIcon@3x.png */,
+				0025333B2295339D0055D3E7 /* device_soc@3x.png */,
+				0025333C2295339D0055D3E7 /* clearButtonIcon@2x.png */,
+				0025333D2295339D0055D3E7 /* goNext_whiteButton@3x.png */,
+				0025333E2295339D0055D3E7 /* device_runningtime@3x.png */,
+				0025333F2295339D0055D3E7 /* navigation_back_button_white@3x.png */,
+				002533402295339D0055D3E7 /* rightAddEnableIcon@3x.png */,
+				002533412295339D0055D3E7 /* scanRightAboutIcon@3x.png */,
+				002533422295339D0055D3E7 /* device_firmware@2x.png */,
+				002533432295339D0055D3E7 /* rightIconSelectedCircle@3x.png */,
+				002533442295339D0055D3E7 /* device_macadress@3x.png */,
+				002533452295339D0055D3E7 /* slotTabBarItemUnselected@2x.png */,
+				002533462295339D0055D3E7 /* aboutIcon@2x.png */,
+				002533472295339D0055D3E7 /* scanHeaderView_ arrowUpIcon@2x.png */,
+				002533482295339D0055D3E7 /* goNext_lightWhiteButton@3x.png */,
+				002533492295339D0055D3E7 /* setting_update@2x.png */,
+				0025334A2295339D0055D3E7 /* navigation_back_button@3x.png */,
+				0025334B2295339D0055D3E7 /* deviceTabBarItemUnselected@2x.png */,
+				0025334C2295339D0055D3E7 /* setting_powerOff@3x.png */,
+				0025334D2295339D0055D3E7 /* slotSaveIcon@3x.png */,
+				0025334E2295339D0055D3E7 /* slotSaveIcon@2x.png */,
+				0025334F2295339D0055D3E7 /* setting_powerOff@2x.png */,
+				002533502295339D0055D3E7 /* deviceTabBarItemUnselected@3x.png */,
+				002533512295339D0055D3E7 /* navigation_back_button@2x.png */,
+				002533522295339D0055D3E7 /* setting_update@3x.png */,
+				002533532295339D0055D3E7 /* goNext_lightWhiteButton@2x.png */,
+				002533542295339D0055D3E7 /* scanHeaderView_ arrowUpIcon@3x.png */,
+				002533552295339D0055D3E7 /* aboutIcon@3x.png */,
+				002533562295339D0055D3E7 /* slotTabBarItemUnselected@3x.png */,
+				002533572295339D0055D3E7 /* device_macadress@2x.png */,
+				002533582295339D0055D3E7 /* device_firmware@3x.png */,
+				002533592295339D0055D3E7 /* rightIconSelectedCircle@2x.png */,
+				0025335A2295339D0055D3E7 /* rightAddEnableIcon@2x.png */,
+				0025335B2295339D0055D3E7 /* scanRightAboutIcon@2x.png */,
+				0025335C2295339D0055D3E7 /* navigation_back_button_white@2x.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		00DA1B4F226969340093DBAE /* Function */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +521,10 @@
 		00DA1B52226969340093DBAE /* model */ = {
 			isa = PBXGroup;
 			children = (
+				00285F0E2296475F00A4CAD4 /* MKScanBeaconModel.h */,
+				00285F0F2296475F00A4CAD4 /* MKScanBeaconModel.m */,
+				00285F11229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.h */,
+				00285F12229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -151,6 +532,24 @@
 		00DA1B53226969340093DBAE /* view */ = {
 			isa = PBXGroup;
 			children = (
+				00131DE222952F1000E613FF /* MKConnectDeviceProgressView.h */,
+				00131DE322952F1000E613FF /* MKConnectDeviceProgressView.m */,
+				002532E422952FBC0055D3E7 /* MKScanBaseCell.h */,
+				002532E522952FBC0055D3E7 /* MKScanBaseCell.m */,
+				002532E7229531470055D3E7 /* MKEddStoneUIDCell.h */,
+				002532E8229531470055D3E7 /* MKEddStoneUIDCell.m */,
+				002533CD229533C30055D3E7 /* MKEddStoneURLCell.h */,
+				002533CE229533C30055D3E7 /* MKEddStoneURLCell.m */,
+				002533D0229535400055D3E7 /* MKEddStoneTLMCell.h */,
+				002533D1229535400055D3E7 /* MKEddStoneTLMCell.m */,
+				002533D3229535F60055D3E7 /* MKScanSearchView.h */,
+				002533D4229535F60055D3E7 /* MKScanSearchView.m */,
+				002533D6229537C60055D3E7 /* MKScanSearchButton.h */,
+				002533D7229537C60055D3E7 /* MKScanSearchButton.m */,
+				002533D9229538100055D3E7 /* MKEddStoneiBeaconCell.h */,
+				002533DA229538100055D3E7 /* MKEddStoneiBeaconCell.m */,
+				00285F142296480F00A4CAD4 /* MKScanInfoCell.h */,
+				00285F152296480F00A4CAD4 /* MKScanInfoCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -232,7 +631,119 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0025335F2295339D0055D3E7 /* cellRight_selected_pic@3x.png in Resources */,
+				002533C42295339D0055D3E7 /* scanHeaderView_ arrowUpIcon@3x.png in Resources */,
+				002533902295339D0055D3E7 /* slotTabBarItemSelected@3x.png in Resources */,
+				002533AA2295339D0055D3E7 /* refreshIcon@3x.png in Resources */,
+				002533B52295339D0055D3E7 /* slotTabBarItemUnselected@2x.png in Resources */,
+				0025339C2295339D0055D3E7 /* setting_connectable@3x.png in Resources */,
+				002533712295339D0055D3E7 /* wifisignalIcon@3x.png in Resources */,
+				002533B82295339D0055D3E7 /* goNext_lightWhiteButton@3x.png in Resources */,
+				002533992295339D0055D3E7 /* batteryHighest@2x.png in Resources */,
+				002533A92295339D0055D3E7 /* littleBluePoint@2x.png in Resources */,
+				0025336B2295339D0055D3E7 /* setting_reset@2x.png in Resources */,
+				002533742295339D0055D3E7 /* slotDataTypeCustom@3x.png in Resources */,
+				002533C12295339D0055D3E7 /* navigation_back_button@2x.png in Resources */,
+				002533C32295339D0055D3E7 /* goNext_lightWhiteButton@2x.png in Resources */,
+				002533C72295339D0055D3E7 /* device_macadress@2x.png in Resources */,
+				0025336C2295339D0055D3E7 /* setting_password@3x.png in Resources */,
+				0025339D2295339D0055D3E7 /* batteryLowest@2x.png in Resources */,
+				002533C22295339D0055D3E7 /* setting_update@3x.png in Resources */,
+				002533A32295339D0055D3E7 /* device_productmodel@3x.png in Resources */,
+				002533722295339D0055D3E7 /* batteryLower@2x.png in Resources */,
+				002533872295339D0055D3E7 /* slotInfoTypeIcon@3x.png in Resources */,
+				0025339A2295339D0055D3E7 /* device_hardware@3x.png in Resources */,
+				002533822295339D0055D3E7 /* goto_next_button@3x.png in Resources */,
+				002533912295339D0055D3E7 /* slot_frameType@3x.png in Resources */,
+				0025336E2295339D0055D3E7 /* signalIcon@2x.png in Resources */,
+				002533BA2295339D0055D3E7 /* navigation_back_button@3x.png in Resources */,
+				0025337E2295339D0055D3E7 /* scanHeaderView_ arrowDownIcon@3x.png in Resources */,
+				002533892295339D0055D3E7 /* device_software@3x.png in Resources */,
+				002533942295339D0055D3E7 /* clearButtonIcon@3x.png in Resources */,
+				002533A82295339D0055D3E7 /* batteryHighest@3x.png in Resources */,
+				002533B32295339D0055D3E7 /* rightIconSelectedCircle@3x.png in Resources */,
+				002533852295339D0055D3E7 /* scanHeaderView_ arrowDownIcon@2x.png in Resources */,
+				002533732295339D0055D3E7 /* rightIconUnselectedCircle@3x.png in Resources */,
+				002533A62295339D0055D3E7 /* scanHeaderViewBackIcon@2x.png in Resources */,
+				002533752295339D0055D3E7 /* slotTabBarItemSelected@2x.png in Resources */,
+				002533792295339D0055D3E7 /* batteryHigher@2x.png in Resources */,
+				002533B42295339D0055D3E7 /* device_macadress@3x.png in Resources */,
+				002533762295339D0055D3E7 /* slot_frameType@2x.png in Resources */,
+				0025338C2295339D0055D3E7 /* batteryHigher@3x.png in Resources */,
+				002533C52295339D0055D3E7 /* aboutIcon@3x.png in Resources */,
+				002533982295339D0055D3E7 /* littleBluePoint@3x.png in Resources */,
+				002533842295339D0055D3E7 /* searchGrayIcon@2x.png in Resources */,
+				002533802295339D0055D3E7 /* slotDataTypeNoData@2x.png in Resources */,
+				002533692295339D0055D3E7 /* searchBlueIcon@2x.png in Resources */,
+				0025335E2295339D0055D3E7 /* wifisignalIcon@2x.png in Resources */,
+				002533CB2295339D0055D3E7 /* scanRightAboutIcon@2x.png in Resources */,
+				002533702295339D0055D3E7 /* cellRight_selected_pic@2x.png in Resources */,
+				002533CA2295339D0055D3E7 /* rightAddEnableIcon@2x.png in Resources */,
+				002533C02295339D0055D3E7 /* deviceTabBarItemUnselected@3x.png in Resources */,
+				0025338D2295339D0055D3E7 /* slotDataTypeiBeacon@2x.png in Resources */,
+				002533AF2295339D0055D3E7 /* navigation_back_button_white@3x.png in Resources */,
+				002533CC2295339D0055D3E7 /* navigation_back_button_white@2x.png in Resources */,
+				0025339E2295339D0055D3E7 /* device_productmodel@2x.png in Resources */,
+				002533972295339D0055D3E7 /* device_soc@2x.png in Resources */,
+				0025338E2295339D0055D3E7 /* scanRefresh@3x.png in Resources */,
+				0025337C2295339D0055D3E7 /* deviceTabBarItemSelected@3x.png in Resources */,
+				002533922295339D0055D3E7 /* rightIconUnselectedCircle@2x.png in Resources */,
+				0025339F2295339D0055D3E7 /* batteryLow@3x.png in Resources */,
+				002533AC2295339D0055D3E7 /* clearButtonIcon@2x.png in Resources */,
+				002533632295339D0055D3E7 /* setting_reset@3x.png in Resources */,
+				002533932295339D0055D3E7 /* device_runningtime@2x.png in Resources */,
+				002533A42295339D0055D3E7 /* batteryLowest@3x.png in Resources */,
+				0025337F2295339D0055D3E7 /* slotInfoTypeIcon@2x.png in Resources */,
+				0025338F2295339D0055D3E7 /* slotDataTypeCustom@2x.png in Resources */,
+				002533962295339D0055D3E7 /* refreshIcon@2x.png in Resources */,
 				0015057F2264831F00F69569 /* Assets.xcassets in Resources */,
+				002533A02295339D0055D3E7 /* settingTabBarItemSelected@2x.png in Resources */,
+				002533BD2295339D0055D3E7 /* slotSaveIcon@3x.png in Resources */,
+				002533882295339D0055D3E7 /* deviceTabBarItemSelected@2x.png in Resources */,
+				002533AB2295339D0055D3E7 /* device_soc@3x.png in Resources */,
+				0025338A2295339D0055D3E7 /* slot_baseParams@3x.png in Resources */,
+				002533BF2295339D0055D3E7 /* setting_powerOff@2x.png in Resources */,
+				0025337D2295339D0055D3E7 /* device_software@2x.png in Resources */,
+				002533772295339D0055D3E7 /* scanRefresh@2x.png in Resources */,
+				002533B22295339D0055D3E7 /* device_firmware@2x.png in Resources */,
+				0025336D2295339D0055D3E7 /* settingTabBarItemUnselected@3x.png in Resources */,
+				0025337A2295339D0055D3E7 /* slot_advContent@3x.png in Resources */,
+				002533A12295339D0055D3E7 /* settingTabBarItemSelected@3x.png in Resources */,
+				002533862295339D0055D3E7 /* slotDataTypeNoData@3x.png in Resources */,
+				0025337B2295339D0055D3E7 /* slot_baseParams@2x.png in Resources */,
+				002533602295339D0055D3E7 /* signalIcon@3x.png in Resources */,
+				002533B62295339D0055D3E7 /* aboutIcon@2x.png in Resources */,
+				002533AD2295339D0055D3E7 /* goNext_whiteButton@3x.png in Resources */,
+				002533782295339D0055D3E7 /* slotDataTypeiBeacon@3x.png in Resources */,
+				002533C92295339D0055D3E7 /* rightIconSelectedCircle@2x.png in Resources */,
+				002533812295339D0055D3E7 /* searchGrayIcon@3x.png in Resources */,
+				002533B12295339D0055D3E7 /* scanRightAboutIcon@3x.png in Resources */,
+				002533BE2295339D0055D3E7 /* slotSaveIcon@2x.png in Resources */,
+				002533C82295339D0055D3E7 /* device_firmware@3x.png in Resources */,
+				002533952295339D0055D3E7 /* goNext_whiteButton@2x.png in Resources */,
+				002533B02295339D0055D3E7 /* rightAddEnableIcon@3x.png in Resources */,
+				002533662295339D0055D3E7 /* searchBlueIcon@3x.png in Resources */,
+				002533A22295339D0055D3E7 /* batteryLow@2x.png in Resources */,
+				002533B72295339D0055D3E7 /* scanHeaderView_ arrowUpIcon@2x.png in Resources */,
+				002533832295339D0055D3E7 /* goto_next_button@2x.png in Resources */,
+				002533642295339D0055D3E7 /* setting_password@2x.png in Resources */,
+				002533BC2295339D0055D3E7 /* setting_powerOff@3x.png in Resources */,
+				002533682295339D0055D3E7 /* setting_devicename@2x.png in Resources */,
+				002533652295339D0055D3E7 /* rightAddDisableIcon@3x.png in Resources */,
+				002533B92295339D0055D3E7 /* setting_update@2x.png in Resources */,
+				0025336A2295339D0055D3E7 /* rightAddDisableIcon@2x.png in Resources */,
+				0025338B2295339D0055D3E7 /* slot_advContent@2x.png in Resources */,
+				002533612295339D0055D3E7 /* device_manufacture@2x.png in Resources */,
+				002533672295339D0055D3E7 /* setting_devicename@3x.png in Resources */,
+				0025336F2295339D0055D3E7 /* device_manufacture@3x.png in Resources */,
+				002533622295339D0055D3E7 /* settingTabBarItemUnselected@2x.png in Resources */,
+				002533AE2295339D0055D3E7 /* device_runningtime@3x.png in Resources */,
+				002533A72295339D0055D3E7 /* device_hardware@2x.png in Resources */,
+				0025339B2295339D0055D3E7 /* scanHeaderViewBackIcon@3x.png in Resources */,
+				002533C62295339D0055D3E7 /* slotTabBarItemUnselected@3x.png in Resources */,
+				002533A52295339D0055D3E7 /* setting_connectable@2x.png in Resources */,
+				0025335D2295339D0055D3E7 /* batteryLower@3x.png in Resources */,
+				002533BB2295339D0055D3E7 /* deviceTabBarItemUnselected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,9 +799,20 @@
 				001CC075226824F600331198 /* MKBXPCentralManager.m in Sources */,
 				00DA1B562269697A0093DBAE /* MKScanViewController.m in Sources */,
 				001CC0882268667D00331198 /* MKBXPBaseBeacon.m in Sources */,
+				00285F13229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m in Sources */,
+				002532E622952FBC0055D3E7 /* MKScanBaseCell.m in Sources */,
+				002533D2229535400055D3E7 /* MKEddStoneTLMCell.m in Sources */,
+				00285F102296475F00A4CAD4 /* MKScanBeaconModel.m in Sources */,
 				001505852264831F00F69569 /* main.m in Sources */,
+				002533CF229533C30055D3E7 /* MKEddStoneURLCell.m in Sources */,
+				002533D8229537C60055D3E7 /* MKScanSearchButton.m in Sources */,
+				00285F162296480F00A4CAD4 /* MKScanInfoCell.m in Sources */,
+				00131DE422952F1000E613FF /* MKConnectDeviceProgressView.m in Sources */,
+				002533DB229538100055D3E7 /* MKEddStoneiBeaconCell.m in Sources */,
 				001CC08B226871E800331198 /* MKEddystoneAdopter.m in Sources */,
+				002532E9229531470055D3E7 /* MKEddStoneUIDCell.m in Sources */,
 				001505772264831E00F69569 /* AppDelegate.m in Sources */,
+				002533D5229535F60055D3E7 /* MKScanSearchView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +936,7 @@
 			baseConfigurationReference = 1DF98C636BB6D238FF05F2F0 /* Pods-BeaconXPlus.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R558LEUW2T;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BeaconXPlus/PrefixHeader.pch";
@@ -434,6 +957,7 @@
 			baseConfigurationReference = 029190BB4C403625DF53C141 /* Pods-BeaconXPlus.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R558LEUW2T;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BeaconXPlus/PrefixHeader.pch";

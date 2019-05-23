@@ -1,3 +1,18 @@
+
+/***第三方头文件****/
+#import <Masonry/Masonry.h>
+#import "MBProgressHUD.h"
+#import "UIView+Toast.h"
+#import "MKHudManager.h"
+#import "MLInputDodger.h"
+#import "CircleProgressBar.h"
+#import "YYKit.h"
+
+
 #import "MKBaseModule.h"
 
 #import "MKBXPSDKHeader.h"
+
+
+//图片的宏定义
+#define LOADIMAGE(file,ext) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@%@",file,(iPhone6Plus || iPhoneX || iPhoneMax) ? @"@3x" : @"@2x"] ofType:ext]]

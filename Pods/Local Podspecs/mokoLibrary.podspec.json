@@ -1,6 +1,6 @@
 {
   "name": "mokoLibrary",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "summary": "基础库",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/Chengang/mokoLibrary",
@@ -13,42 +13,174 @@
   },
   "source": {
     "git": "git@120.27.8.241:mokoBaseLibrary/mokoLibrary.git",
-    "tag": "0.2.0"
+    "tag": "0.2.2"
   },
   "platforms": {
     "ios": "9.0"
   },
-  "source_files": "mokoLibrary/Classes/**/*",
+  "source_files": "mokoLibrary/Classes/MKBaseModule.h",
   "resource_bundles": {
     "mokoLibrary": [
       "mokoLibrary/Assets/*"
     ]
   },
-  "frameworks": [
-    "UIKit",
-    "Foundation"
-  ],
-  "dependencies": {
-    "Masonry": [
+  "subspecs": [
+    {
+      "name": "macroDefines",
+      "source_files": "mokoLibrary/Classes/macroDefines/*.h"
+    },
+    {
+      "name": "category",
+      "source_files": "mokoLibrary/Classes/category/**",
+      "dependencies": {
+        "YYKit": [
 
-    ],
-    "YYKit": [
+        ],
+        "Toast": [
 
-    ],
-    "Toast": [
+        ],
+        "mokoLibrary/macroDefines": [
 
-    ],
-    "MJRefresh": [
+        ]
+      }
+    },
+    {
+      "name": "tools",
+      "subspecs": [
+        {
+          "name": "MKAttributedString",
+          "source_files": "mokoLibrary/Classes/tools/MKAttributedString/**"
+        },
+        {
+          "name": "MKDateFormatter",
+          "source_files": "mokoLibrary/Classes/tools/MKDateFormatter/**"
+        }
+      ]
+    },
+    {
+      "name": "customUI",
+      "subspecs": [
+        {
+          "name": "HaveRefreshView",
+          "source_files": "mokoLibrary/Classes/customUI/HaveRefreshView/**",
+          "dependencies": {
+            "MJRefresh": [
 
-    ],
-    "MBProgressHUD": [
+            ]
+          }
+        },
+        {
+          "name": "MKHexKeyBoard",
+          "source_files": "mokoLibrary/Classes/customUI/MKHexKeyBoard/**",
+          "dependencies": {
+            "YYKit": [
 
-    ],
-    "MLInputDodger": [
+            ],
+            "mokoLibrary/category": [
 
-    ],
-    "CircleProgressBar": [
+            ],
+            "mokoLibrary/macroDefines": [
 
-    ]
-  }
+            ]
+          }
+        },
+        {
+          "name": "MKHudManager",
+          "source_files": "mokoLibrary/Classes/customUI/MKHudManager/**",
+          "dependencies": {
+            "MBProgressHUD": [
+
+            ],
+            "mokoLibrary/macroDefines": [
+
+            ]
+          }
+        },
+        {
+          "name": "MKPageControl",
+          "source_files": "mokoLibrary/Classes/customUI/MKPageControl/**"
+        },
+        {
+          "name": "MKProgressView",
+          "source_files": "mokoLibrary/Classes/customUI/MKProgressView/**",
+          "dependencies": {
+            "YYKit": [
+
+            ],
+            "Masonry": [
+
+            ],
+            "CircleProgressBar": [
+
+            ],
+            "mokoLibrary/category": [
+
+            ],
+            "mokoLibrary/macroDefines": [
+
+            ]
+          }
+        },
+        {
+          "name": "MKTimePicker",
+          "source_files": "mokoLibrary/Classes/customUI/MKTimePicker/**",
+          "dependencies": {
+            "YYKit": [
+
+            ],
+            "mokoLibrary/category": [
+
+            ],
+            "mokoLibrary/macroDefines": [
+
+            ]
+          }
+        },
+        {
+          "name": "XDRefresh",
+          "source_files": "mokoLibrary/Classes/customUI/XDRefresh/**"
+        }
+      ]
+    },
+    {
+      "name": "base",
+      "subspecs": [
+        {
+          "name": "view",
+          "subspecs": [
+            {
+              "name": "collectionView",
+              "source_files": "mokoLibrary/Classes/base/view/collectionView/**"
+            },
+            {
+              "name": "tableView",
+              "source_files": "mokoLibrary/Classes/base/view/tableView/**"
+            },
+            {
+              "name": "WRNavigationBar",
+              "source_files": "mokoLibrary/Classes/base/view/WRNavigationBar/**"
+            }
+          ]
+        },
+        {
+          "name": "controller",
+          "source_files": "mokoLibrary/Classes/base/controller/**",
+          "dependencies": {
+            "YYKit": [
+
+            ],
+            "mokoLibrary/category": [
+
+            ],
+            "mokoLibrary/macroDefines": [
+
+            ],
+            "mokoLibrary/base/view/WRNavigationBar": [
+
+            ]
+          }
+        }
+      ]
+    }
+  ]
 }
