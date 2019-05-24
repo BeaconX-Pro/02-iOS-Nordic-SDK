@@ -11,6 +11,8 @@
 #import "MKEddystoneAdopter.h"
 #import "CBPeripheral+MKAdd.h"
 #import "MKBXPService.h"
+#import "MKBXPTaskOperation.h"
+#import "MKBXPOperationIDDefines.h"
 
 #import "MKBXPBaseBeacon.h"
 
@@ -172,7 +174,7 @@ static dispatch_once_t onceToken;
     if ([self.peripheral getAllCharacteristics]) {
         //所有特征全部设置完毕，可以进行下一步登录操作
         [self updateConnectProgress:40.f];
-//        [self sendPasswordToDevice];
+        [self sendPasswordToDevice];
     }
 }
 
@@ -198,15 +200,15 @@ static dispatch_once_t onceToken;
             return;
         }
     }
-//    @synchronized(self.operationQueue) {
-//        NSArray *operations = [self.operationQueue.operations copy];
-//        for (MKEddystoneOperation *operation in operations) {
-//            if (operation.executing) {
-//                [operation peripheral:peripheral didUpdateValueForCharacteristic:characteristic error:NULL];
-//                break;
-//            }
-//        }
-//    }
+    @synchronized(self.operationQueue) {
+        NSArray *operations = [self.operationQueue.operations copy];
+        for (MKBXPTaskOperation *operation in operations) {
+            if (operation.executing) {
+                [operation peripheral:peripheral didUpdateValueForCharacteristic:characteristic error:NULL];
+                break;
+            }
+        }
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
@@ -214,13 +216,13 @@ static dispatch_once_t onceToken;
         return;
     }
     @synchronized(self.operationQueue) {
-//        NSArray *operations = [self.operationQueue.operations copy];
-//        for (MKEddystoneOperation *operation in operations) {
-//            if (operation.executing) {
-//                [operation peripheral:peripheral didWriteValueForCharacteristic:characteristic error:NULL];
-//                break;
-//            }
-//        }
+        NSArray *operations = [self.operationQueue.operations copy];
+        for (MKBXPTaskOperation *operation in operations) {
+            if (operation.executing) {
+                [operation peripheral:peripheral didWriteValueForCharacteristic:characteristic error:NULL];
+                break;
+            }
+        }
     }
 }
 
@@ -332,7 +334,7 @@ static dispatch_once_t onceToken;
     if (self.peripheral) {
         [self.centralManager cancelPeripheralConnection:self.peripheral];
         [self.operationQueue cancelAllOperations];
-//        [self.peripheral setNil];
+        [self.peripheral setNil];
     }
     self.password = password;
     self.peripheral = nil;
@@ -367,52 +369,52 @@ static dispatch_once_t onceToken;
         return;
     }
     [self.centralManager cancelPeripheralConnection:self.peripheral];
-//    [self.peripheral setNil];
+    [self.peripheral setNil];
     self.peripheral = nil;
 }
 
-//- (void)addTaskWithTaskID:(MKEddystoneOperationID)operationID
-//              commandData:(NSString *)commandData
-//           characteristic:(CBCharacteristic *)characteristic
-//             successBlock:(void (^)(id returnData))successBlock
-//             failureBlock:(void (^)(NSError *error))failureBlock{
-//    MKEddystoneOperation *operation = [self generateOperationWithOperationID:operationID
-//                                                                 commandData:commandData
-//                                                              characteristic:characteristic
-//                                                                successBlock:successBlock
-//                                                                failureBlock:failureBlock];
-//    if (!operation) {
-//        return;
-//    }
-//    @synchronized (self.operationQueue){
-//        [self.operationQueue addOperation:operation];
-//    }
-//}
-//
-//- (void)addReadTaskWithTaskID:(MKEddystoneOperationID)operationID
-//               characteristic:(CBCharacteristic *)characteristic
-//                 successBlock:(void (^)(id returnData))successBlock
-//                 failureBlock:(void (^)(NSError *error))failureBlock{
-//    MKEddystoneOperation *operation = [self generateReadOperationWithID:operationID
-//                                                         characteristic:characteristic
-//                                                           successBlock:successBlock
-//                                                           failureBlock:failureBlock];
-//    if (!operation) {
-//        return;
-//    }
-//    @synchronized (self.operationQueue){
-//        [self.operationQueue addOperation:operation];
-//    }
-//}
-//
-//- (void)addOperation:(MKEddystoneOperation *)operation{
-//    if (!operation) {
-//        return;
-//    }
-//    @synchronized (self.operationQueue){
-//        [self.operationQueue addOperation:operation];
-//    }
-//}
+- (void)addTaskWithTaskID:(MKBXPOperationID)operationID
+              commandData:(NSString *)commandData
+           characteristic:(CBCharacteristic *)characteristic
+             successBlock:(void (^)(id returnData))successBlock
+             failureBlock:(void (^)(NSError *error))failureBlock{
+    MKBXPTaskOperation *operation = [self generateOperationWithOperationID:operationID
+                                                                 commandData:commandData
+                                                              characteristic:characteristic
+                                                                successBlock:successBlock
+                                                                failureBlock:failureBlock];
+    if (!operation) {
+        return;
+    }
+    @synchronized (self.operationQueue){
+        [self.operationQueue addOperation:operation];
+    }
+}
+
+- (void)addReadTaskWithTaskID:(MKBXPOperationID)operationID
+               characteristic:(CBCharacteristic *)characteristic
+                 successBlock:(void (^)(id returnData))successBlock
+                 failureBlock:(void (^)(NSError *error))failureBlock{
+    MKBXPTaskOperation *operation = [self generateReadOperationWithID:operationID
+                                                         characteristic:characteristic
+                                                           successBlock:successBlock
+                                                           failureBlock:failureBlock];
+    if (!operation) {
+        return;
+    }
+    @synchronized (self.operationQueue){
+        [self.operationQueue addOperation:operation];
+    }
+}
+
+- (void)addOperation:(MKBXPTaskOperation *)operation{
+    if (!operation) {
+        return;
+    }
+    @synchronized (self.operationQueue){
+        [self.operationQueue addOperation:operation];
+    }
+}
 
 #pragma mark - private method
 #pragma mark - connect
@@ -463,7 +465,7 @@ static dispatch_once_t onceToken;
     [self resetOriSettings];
     if (self.peripheral) {
         [self.centralManager cancelPeripheralConnection:self.peripheral];
-//        [self.peripheral setNil];
+        [self.peripheral setNil];
     }
     self.peripheral = nil;
     [self updateConnectState:MKBXPConnectStatusConnectedFailed];
@@ -491,7 +493,7 @@ static dispatch_once_t onceToken;
     }
     [self updateConnectState:MKBXPConnectStatusDisconnect];
     [self.centralManager cancelPeripheralConnection:self.peripheral];
-//    [self.peripheral setNil];
+    [self.peripheral setNil];
     self.peripheral = nil;
     [self.operationQueue cancelAllOperations];
 }
@@ -538,130 +540,130 @@ static dispatch_once_t onceToken;
 }
 
 #pragma mark - communication method
-//- (MKEddystoneOperation *)generateOperationWithOperationID:(MKEddystoneOperationID)operationID
-//                                               commandData:(NSString *)commandData
-//                                            characteristic:(CBCharacteristic *)characteristic
-//                                              successBlock:(void (^)(id returnData))successBlock
-//                                              failureBlock:(void (^)(NSError *error))failureBlock{
-//    if (!self.peripheral && self.connectState != MKEddystoneConnectStatusConnected) {
-//        [MKEddystoneAdopter operationDisconnectedErrorBlock:failureBlock];
-//        return nil;
-//    }
-//    if (self.lockState != MKEddystoneLockStateOpen && self.lockState != MKEddystoneLockStateUnlockAutoMaticRelockDisabled) {
-//        //锁定状态
-//        [MKEddystoneAdopter operationLockedErrorBlock:failureBlock];
-//        return nil;
-//    }
-//    if (!MKValidStr(commandData)) {
-//        [MKEddystoneAdopter operationParamsErrorBlock:failureBlock];
-//        return nil;
-//    }
-//    if (!characteristic) {
-//        [MKEddystoneAdopter operationCharacteristicErrorBlock:failureBlock];
-//        return nil;
-//    }
-//    __weak typeof(self) weakSelf = self;
-//    MKEddystoneOperation *operation = [[MKEddystoneOperation alloc] initOperationWithID:operationID resetNum:NO commandBlock:^{
-//        __strong typeof(self) sself = weakSelf;
-//        [sself sendCommandToPeripheral:commandData characteristic:characteristic];
-//    } completeBlock:^(NSError *error, MKEddystoneOperationID operationID, id returnData) {
-//        __strong typeof(self) sself = weakSelf;
-//        [sself parseTaskResult:error returnData:returnData successBlock:successBlock failureBlock:failureBlock];
-//    }];
-//    return operation;
-//}
-//
-//- (MKEddystoneOperation *)generateReadOperationWithID:(MKEddystoneOperationID)operationID
-//                                       characteristic:(CBCharacteristic *)characteristic
-//                                         successBlock:(void (^)(id returnData))successBlock
-//                                         failureBlock:(void (^)(NSError *error))failureBlock{
-//    if (!self.peripheral && self.connectState != MKEddystoneConnectStatusConnected) {
-//        [MKEddystoneAdopter operationDisconnectedErrorBlock:failureBlock];
-//        return nil;
-//    }
-//    if (self.lockState != MKEddystoneLockStateOpen && self.lockState != MKEddystoneLockStateUnlockAutoMaticRelockDisabled) {
-//        //锁定状态
-//        [MKEddystoneAdopter operationLockedErrorBlock:failureBlock];
-//        return nil;
-//    }
-//    if (!characteristic) {
-//        [MKEddystoneAdopter operationCharacteristicErrorBlock:failureBlock];
-//        return nil;
-//    }
-//    __weak typeof(self) weakSelf = self;
-//    MKEddystoneOperation *operation = [[MKEddystoneOperation alloc] initOperationWithID:operationID resetNum:NO commandBlock:^{
-//        __strong typeof(self) sself = weakSelf;
-//        [sself.peripheral readValueForCharacteristic:characteristic];
-//    } completeBlock:^(NSError *error, MKEddystoneOperationID operationID, id returnData) {
-//        __strong typeof(self) sself = weakSelf;
-//        [sself parseTaskResult:error returnData:returnData successBlock:successBlock failureBlock:failureBlock];
-//    }];
-//    return operation;
-//}
-//
-//- (void)parseTaskResult:(NSError *)error
-//             returnData:(id)returnData
-//           successBlock:(void (^)(id returnData))successBlock
-//           failureBlock:(void (^)(NSError *error))failureBlock{
-//    if (error) {
-//        moko_main_safe(^{
-//            if (failureBlock) {
-//                failureBlock(error);
-//            }
-//        });
-//        return ;
-//    }
-//    if (!returnData) {
-//        [MKEddystoneAdopter operationRequestDataErrorBlock:failureBlock];
-//        return ;
-//    }
-//    NSString *lev = returnData[MKEddystoneDataStatusLev];
-//    if ([lev isEqualToString:@"1"]) {
-//        //通用无附加信息的
-//        NSArray *dataList = (NSArray *)returnData[MKEddystoneDataInformation];
-//        if (!MKValidArray(dataList)) {
-//            [MKEddystoneAdopter operationRequestDataErrorBlock:failureBlock];
-//            return;
-//        }
-//        NSDictionary *resultDic = @{@"msg":@"success",
-//                                    @"code":@"1",
-//                                    @"result":dataList[0],
-//                                    };
-//        moko_main_safe(^{
-//            if (successBlock) {
-//                successBlock(resultDic);
-//            }
-//        });
-//        return;
-//    }
-//    //对于有附加信息的
-//    if (![lev isEqualToString:@"2"]) {
-//        //
-//        return;
-//    }
-//    NSDictionary *resultDic = @{@"msg":@"success",
-//                                @"code":@"1",
-//                                @"result":returnData[MKEddystoneDataInformation],
-//                                };
-//    moko_main_safe(^{
-//        if (successBlock) {
-//            successBlock(resultDic);
-//        }
-//    });
-//}
-//
-//- (void)sendCommandToPeripheral:(NSString *)commandData characteristic:(CBCharacteristic *)characteristic{
-//    if (!self.peripheral || !MKValidStr(commandData) || !characteristic) {
-//        return;
-//    }
-//    NSData *data = [MKEddystoneAdopter stringToData:commandData];
-//    if (!MKValidData(data)) {
-//        return;
-//    }
-//    [self.peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-//}
-//
-//#pragma mark - 解锁过程
+- (MKBXPTaskOperation *)generateOperationWithOperationID:(MKBXPOperationID)operationID
+                                               commandData:(NSString *)commandData
+                                            characteristic:(CBCharacteristic *)characteristic
+                                              successBlock:(void (^)(id returnData))successBlock
+                                              failureBlock:(void (^)(NSError *error))failureBlock{
+    if (!self.peripheral && self.connectState != MKBXPConnectStatusConnected) {
+        [MKEddystoneAdopter operationDisconnectedErrorBlock:failureBlock];
+        return nil;
+    }
+    if (self.lockState != MKBXPLockStateOpen && self.lockState != MKBXPLockStateUnlockAutoMaticRelockDisabled) {
+        //锁定状态
+        [MKEddystoneAdopter operationLockedErrorBlock:failureBlock];
+        return nil;
+    }
+    if (!MKValidStr(commandData)) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failureBlock];
+        return nil;
+    }
+    if (!characteristic) {
+        [MKEddystoneAdopter operationCharacteristicErrorBlock:failureBlock];
+        return nil;
+    }
+    __weak typeof(self) weakSelf = self;
+    MKBXPTaskOperation *operation = [[MKBXPTaskOperation alloc] initOperationWithID:operationID resetNum:NO commandBlock:^{
+        __strong typeof(self) sself = weakSelf;
+        [sself sendCommandToPeripheral:commandData characteristic:characteristic];
+    } completeBlock:^(NSError *error, MKBXPOperationID operationID, id returnData) {
+        __strong typeof(self) sself = weakSelf;
+        [sself parseTaskResult:error returnData:returnData successBlock:successBlock failureBlock:failureBlock];
+    }];
+    return operation;
+}
+
+- (MKBXPTaskOperation *)generateReadOperationWithID:(MKBXPOperationID)operationID
+                                       characteristic:(CBCharacteristic *)characteristic
+                                         successBlock:(void (^)(id returnData))successBlock
+                                         failureBlock:(void (^)(NSError *error))failureBlock{
+    if (!self.peripheral && self.connectState != MKBXPConnectStatusConnected) {
+        [MKEddystoneAdopter operationDisconnectedErrorBlock:failureBlock];
+        return nil;
+    }
+    if (self.lockState != MKBXPLockStateOpen && self.lockState != MKBXPLockStateUnlockAutoMaticRelockDisabled) {
+        //锁定状态
+        [MKEddystoneAdopter operationLockedErrorBlock:failureBlock];
+        return nil;
+    }
+    if (!characteristic) {
+        [MKEddystoneAdopter operationCharacteristicErrorBlock:failureBlock];
+        return nil;
+    }
+    __weak typeof(self) weakSelf = self;
+    MKBXPTaskOperation *operation = [[MKBXPTaskOperation alloc] initOperationWithID:operationID resetNum:NO commandBlock:^{
+        __strong typeof(self) sself = weakSelf;
+        [sself.peripheral readValueForCharacteristic:characteristic];
+    } completeBlock:^(NSError *error, MKBXPOperationID operationID, id returnData) {
+        __strong typeof(self) sself = weakSelf;
+        [sself parseTaskResult:error returnData:returnData successBlock:successBlock failureBlock:failureBlock];
+    }];
+    return operation;
+}
+
+- (void)parseTaskResult:(NSError *)error
+             returnData:(id)returnData
+           successBlock:(void (^)(id returnData))successBlock
+           failureBlock:(void (^)(NSError *error))failureBlock{
+    if (error) {
+        moko_main_safe(^{
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        });
+        return ;
+    }
+    if (!returnData) {
+        [MKEddystoneAdopter operationRequestDataErrorBlock:failureBlock];
+        return ;
+    }
+    NSString *lev = returnData[MKBXPDataStatusLev];
+    if ([lev isEqualToString:@"1"]) {
+        //通用无附加信息的
+        NSArray *dataList = (NSArray *)returnData[MKBXPDataInformation];
+        if (!MKValidArray(dataList)) {
+            [MKEddystoneAdopter operationRequestDataErrorBlock:failureBlock];
+            return;
+        }
+        NSDictionary *resultDic = @{@"msg":@"success",
+                                    @"code":@"1",
+                                    @"result":dataList[0],
+                                    };
+        moko_main_safe(^{
+            if (successBlock) {
+                successBlock(resultDic);
+            }
+        });
+        return;
+    }
+    //对于有附加信息的
+    if (![lev isEqualToString:@"2"]) {
+        //
+        return;
+    }
+    NSDictionary *resultDic = @{@"msg":@"success",
+                                @"code":@"1",
+                                @"result":returnData[MKBXPDataInformation],
+                                };
+    moko_main_safe(^{
+        if (successBlock) {
+            successBlock(resultDic);
+        }
+    });
+}
+
+- (void)sendCommandToPeripheral:(NSString *)commandData characteristic:(CBCharacteristic *)characteristic{
+    if (!self.peripheral || !MKValidStr(commandData) || !characteristic) {
+        return;
+    }
+    NSData *data = [MKEddystoneAdopter stringToData:commandData];
+    if (!MKValidData(data)) {
+        return;
+    }
+    [self.peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
+}
+
+#pragma mark - 解锁过程
 - (void)updateConnectProgress:(float)progress{
     moko_main_safe(^{
         if (self.progressBlock) {
@@ -669,150 +671,150 @@ static dispatch_once_t onceToken;
         }
     });
 }
-//- (void)sendPasswordToDevice{
-//    if (self.timeout) {
-//        //如果处于超时
-//        return;
-//    }
-//    dispatch_async(dispatch_queue_create("unlockEddystoneQueue", 0), ^{
-//        MKEddystoneLockState lockState = [self fecthLockState];
-//        [self updateLockState:lockState];
-//        [self updateConnectProgress:50.f];
-//        if (self.timeout) {
-//            return;
-//        }
-//        if (lockState == MKEddystoneLockStateUnknow) {
-//            [self connectPeripheralFailed:NO];
-//            return;
-//        }
-//        if (lockState == MKEddystoneLockStateLock) {
-//            //锁定状态
-//            //先读取设备的unlock数据，返回16位的随机key
-//            NSData *randKey = [self fecthRandDataArray];
-//            [self updateConnectProgress:65.f];
-//            if (self.timeout) {
-//                return;
-//            }
-//            if (!MKValidData(randKey) || randKey.length != 16) {
-//                [self connectPeripheralFailed:NO];
-//                return;
-//            }
-//            NSData *keyToUnlock = [MKEddystoneAdopter fecthKeyToUnlockWithPassword:self.password randKey:randKey];
-//            if (!MKValidData(keyToUnlock)) {
-//                [self connectPeripheralFailed:NO];
-//                return;
-//            }
-//            //当前密码与unlock返回的16位key进行aes128加密之后生成对应的解锁码，发送给设备的unlock特征进行解锁
-//            BOOL sendToUnlockSuccess = [self sendKeyToUnlock:keyToUnlock];
-//            [self updateConnectProgress:80.f];
-//            if (self.timeout) {
-//                return;
-//            }
-//            if (!sendToUnlockSuccess) {
-//                [self connectPeripheralFailed:NO];
-//                return;
-//            }
-//            //解锁码发送给设备之后，再次获取设备的锁定状态，看看是否解锁成功
-//            MKEddystoneLockState newLockState = [self fecthLockState];
-//            [self updateLockState:newLockState];
-//            [self updateConnectProgress:100.f];
-//            if (self.timeout) {
-//                return;
-//            }
-//            if (newLockState == MKEddystoneLockStateUnknow || newLockState == MKEddystoneLockStateLock) {
-//                [self connectPeripheralFailed:YES];
-//                return;
-//            }
-//            [self connectPeripheralSuccess];
-//            return;
-//        }
-//        [self connectPeripheralSuccess];
-//    });
-//
-//}
-//
-//- (MKEddystoneLockState)fecthLockState{
-//    __block MKEddystoneLockState lockState = MKEddystoneLockStateUnknow;
-//    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-//    __weak typeof(self) weakSelf = self;
-//    MKEddystoneOperation *operation = [[MKEddystoneOperation alloc] initOperationWithID:MKEddystoneReadLockStateOperation resetNum:NO commandBlock:^{
-//        __strong typeof(self) sself = weakSelf;
-//        [sself.peripheral readValueForCharacteristic:sself.peripheral.lockState];
-//    } completeBlock:^(NSError *error, MKEddystoneOperationID operationID, id returnData) {
-//        if (!error) {
-//            NSArray *dataList = (NSArray *)returnData[MKEddystoneDataInformation];
-//            NSDictionary *resultDic = dataList[0];
-//            NSString *state = resultDic[@"lockState"];
-//            if ([state isEqualToString:@"00"]) {
-//                //锁定状态
-//                lockState = MKEddystoneLockStateLock;
-//            }else if ([state isEqualToString:@"01"]){
-//                lockState = MKEddystoneLockStateOpen;
-//            }else if ([state isEqualToString:@"02"]){
-//                lockState = MKEddystoneLockStateUnlockAutoMaticRelockDisabled;
-//            }else{
-//                lockState = MKEddystoneLockStateUnknow;
-//            }
-//        }
-//        dispatch_semaphore_signal(semaphore);
-//    }];
-//    if (!operation) {
-//        return lockState;
-//    }
-//    @synchronized (self.operationQueue){
-//        [self.operationQueue addOperation:operation];
-//    }
-//    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-//    return lockState;
-//}
-//
-//- (NSData *)fecthRandDataArray{
-//    __block NSData *RAND_DATA_ARRAY = nil;
-//    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-//    __weak typeof(self) weakSelf = self;
-//    MKEddystoneOperation *operation = [[MKEddystoneOperation alloc] initOperationWithID:MKEddystoneReadUnlockOperation resetNum:NO commandBlock:^{
-//        __strong typeof(self) sself = weakSelf;
-//        [sself.peripheral readValueForCharacteristic:sself.peripheral.unlock];
-//    } completeBlock:^(NSError *error, MKEddystoneOperationID operationID, id returnData) {
-//        if (!error) {
-//            NSArray *dataList = (NSArray *)returnData[MKEddystoneDataInformation];
-//            NSDictionary *resultDic = dataList[0];
-//            RAND_DATA_ARRAY = resultDic[@"RAND_DATA_ARRAY"];
-//        }
-//        dispatch_semaphore_signal(semaphore);
-//    }];
-//    if (!operation) {
-//        return RAND_DATA_ARRAY;
-//    }
-//    @synchronized (self.operationQueue){
-//        [self.operationQueue addOperation:operation];
-//    }
-//    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-//    return RAND_DATA_ARRAY;
-//}
-//
-//- (BOOL)sendKeyToUnlock:(NSData *)keyData{
-//    if (!self.peripheral || !self.peripheral.unlock) {
-//        return NO;
-//    }
-//    __block BOOL success = NO;
-//    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-//    __weak typeof(self) weakSelf = self;
-//    MKEddystoneOperation *operation = [[MKEddystoneOperation alloc] initOperationWithID:MKEddystoneSetUnlockOperation resetNum:NO commandBlock:^{
-//        __strong typeof(self) sself = weakSelf;
-//        [sself.peripheral writeValue:keyData forCharacteristic:sself.peripheral.unlock type:CBCharacteristicWriteWithResponse];
-//    } completeBlock:^(NSError *error, MKEddystoneOperationID operationID, id returnData) {
-//        if (!error) {
-//            success = YES;
-//        }
-//        dispatch_semaphore_signal(semaphore);
-//    }];
-//    @synchronized (self.operationQueue){
-//        [self.operationQueue addOperation:operation];
-//    }
-//    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-//    return success;
-//}
+- (void)sendPasswordToDevice{
+    if (self.timeout) {
+        //如果处于超时
+        return;
+    }
+    dispatch_async(dispatch_queue_create("unlockEddystoneQueue", 0), ^{
+        MKBXPLockState lockState = [self fecthLockState];
+        [self updateLockState:lockState];
+        [self updateConnectProgress:50.f];
+        if (self.timeout) {
+            return;
+        }
+        if (lockState == MKBXPLockStateUnknow) {
+            [self connectPeripheralFailed:NO];
+            return;
+        }
+        if (lockState == MKBXPLockStateLock) {
+            //锁定状态
+            //先读取设备的unlock数据，返回16位的随机key
+            NSData *randKey = [self fecthRandDataArray];
+            [self updateConnectProgress:65.f];
+            if (self.timeout) {
+                return;
+            }
+            if (!MKValidData(randKey) || randKey.length != 16) {
+                [self connectPeripheralFailed:NO];
+                return;
+            }
+            NSData *keyToUnlock = [MKEddystoneAdopter fecthKeyToUnlockWithPassword:self.password randKey:randKey];
+            if (!MKValidData(keyToUnlock)) {
+                [self connectPeripheralFailed:NO];
+                return;
+            }
+            //当前密码与unlock返回的16位key进行aes128加密之后生成对应的解锁码，发送给设备的unlock特征进行解锁
+            BOOL sendToUnlockSuccess = [self sendKeyToUnlock:keyToUnlock];
+            [self updateConnectProgress:80.f];
+            if (self.timeout) {
+                return;
+            }
+            if (!sendToUnlockSuccess) {
+                [self connectPeripheralFailed:NO];
+                return;
+            }
+            //解锁码发送给设备之后，再次获取设备的锁定状态，看看是否解锁成功
+            MKBXPLockState newLockState = [self fecthLockState];
+            [self updateLockState:newLockState];
+            [self updateConnectProgress:100.f];
+            if (self.timeout) {
+                return;
+            }
+            if (newLockState == MKBXPLockStateUnknow || newLockState == MKBXPLockStateLock) {
+                [self connectPeripheralFailed:YES];
+                return;
+            }
+            [self connectPeripheralSuccess];
+            return;
+        }
+        [self connectPeripheralSuccess];
+    });
+
+}
+
+- (MKBXPLockState)fecthLockState{
+    __block MKBXPLockState lockState = MKBXPLockStateUnknow;
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    __weak typeof(self) weakSelf = self;
+    MKBXPTaskOperation *operation = [[MKBXPTaskOperation alloc] initOperationWithID:MKBXPReadLockStateOperation resetNum:NO commandBlock:^{
+        __strong typeof(self) sself = weakSelf;
+        [sself.peripheral readValueForCharacteristic:sself.peripheral.lockState];
+    } completeBlock:^(NSError *error, MKBXPOperationID operationID, id returnData) {
+        if (!error) {
+            NSArray *dataList = (NSArray *)returnData[MKBXPDataInformation];
+            NSDictionary *resultDic = dataList[0];
+            NSString *state = resultDic[@"lockState"];
+            if ([state isEqualToString:@"00"]) {
+                //锁定状态
+                lockState = MKBXPLockStateLock;
+            }else if ([state isEqualToString:@"01"]){
+                lockState = MKBXPLockStateOpen;
+            }else if ([state isEqualToString:@"02"]){
+                lockState = MKBXPLockStateUnlockAutoMaticRelockDisabled;
+            }else{
+                lockState = MKBXPLockStateUnknow;
+            }
+        }
+        dispatch_semaphore_signal(semaphore);
+    }];
+    if (!operation) {
+        return lockState;
+    }
+    @synchronized (self.operationQueue){
+        [self.operationQueue addOperation:operation];
+    }
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    return lockState;
+}
+
+- (NSData *)fecthRandDataArray{
+    __block NSData *RAND_DATA_ARRAY = nil;
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    __weak typeof(self) weakSelf = self;
+    MKBXPTaskOperation *operation = [[MKBXPTaskOperation alloc] initOperationWithID:MKBXPReadUnlockOperation resetNum:NO commandBlock:^{
+        __strong typeof(self) sself = weakSelf;
+        [sself.peripheral readValueForCharacteristic:sself.peripheral.unlock];
+    } completeBlock:^(NSError *error, MKBXPOperationID operationID, id returnData) {
+        if (!error) {
+            NSArray *dataList = (NSArray *)returnData[MKBXPDataInformation];
+            NSDictionary *resultDic = dataList[0];
+            RAND_DATA_ARRAY = resultDic[@"RAND_DATA_ARRAY"];
+        }
+        dispatch_semaphore_signal(semaphore);
+    }];
+    if (!operation) {
+        return RAND_DATA_ARRAY;
+    }
+    @synchronized (self.operationQueue){
+        [self.operationQueue addOperation:operation];
+    }
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    return RAND_DATA_ARRAY;
+}
+
+- (BOOL)sendKeyToUnlock:(NSData *)keyData{
+    if (!self.peripheral || !self.peripheral.unlock) {
+        return NO;
+    }
+    __block BOOL success = NO;
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    __weak typeof(self) weakSelf = self;
+    MKBXPTaskOperation *operation = [[MKBXPTaskOperation alloc] initOperationWithID:MKBXPSetUnlockOperation resetNum:NO commandBlock:^{
+        __strong typeof(self) sself = weakSelf;
+        [sself.peripheral writeValue:keyData forCharacteristic:sself.peripheral.unlock type:CBCharacteristicWriteWithResponse];
+    } completeBlock:^(NSError *error, MKBXPOperationID operationID, id returnData) {
+        if (!error) {
+            success = YES;
+        }
+        dispatch_semaphore_signal(semaphore);
+    }];
+    @synchronized (self.operationQueue){
+        [self.operationQueue addOperation:operation];
+    }
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
 
 #pragma mark - setter & getter
 - (NSOperationQueue *)operationQueue{
