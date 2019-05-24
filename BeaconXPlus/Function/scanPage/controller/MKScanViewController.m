@@ -26,6 +26,7 @@
 #import "MKScanSearchView.h"
 
 //#import "MKMainTabBarController.h"
+#import "MKDeviceInfoController.h"
 
 
 static NSString *const MKLeftButtonAnimationKey = @"MKLeftButtonAnimationKey";
@@ -570,8 +571,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
         [progressView setProgress:(progress * 0.01)];
     } sucBlock:^(CBPeripheral *peripheral) {
         [progressView dismiss];
-//        HCKMainTabBarController *vc = [[HCKMainTabBarController alloc] init];
-//        [weakSelf.navigationController pushViewController:vc animated:YES];
+        [weakSelf readDeviceType];
         weakSelf.needScan = YES;
     } failedBlock:^(NSError *error) {
 //        [HCKDataManager share].password = @"";
@@ -597,6 +597,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
 //        [HCKDataManager share].password = password;
         weakSelf.localPassword = password;
         [progressView dismiss];
+        [weakSelf readDeviceType];
 //        HCKMainTabBarController *vc = [[HCKMainTabBarController alloc] init];
 //        NSDictionary *dic = @{
 //                              peripheralIdenty:peripheral,
@@ -611,6 +612,20 @@ static CGFloat const threeSensorCellHeight = 110.f;
         [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
         weakSelf.leftButton.selected = NO;
         [weakSelf leftButtonMethod];
+    }];
+}
+
+- (void)readDeviceType {
+    [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
+    [MKBXPInterface readBXPDeviceTypeWithSucBlock:^(id  _Nonnull returnData) {
+        [[MKHudManager share] hide];
+        MKDeviceInfoController *vc = [[MKDeviceInfoController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        self.leftButton.selected = NO;
+        [self leftButtonMethod];
     }];
 }
 

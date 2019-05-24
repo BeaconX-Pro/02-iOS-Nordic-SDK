@@ -3,4 +3,5 @@
 #import "MKBXPEnumeration.h"
 #import "MKBXPBaseBeacon.h"
 #import "MKBXPProtocols.h"
+#import "MKBXPInterface.h"
 

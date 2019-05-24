@@ -72,6 +72,9 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:batteryUUID]]){
         //电池服务
         return [self batteryData:readData];
+    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:deviceTypeUUID]]) {
+        //读取设备类型
+        return [self parseDeviceType:readData];
     }
     return nil;
 }
@@ -146,10 +149,10 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
 
 + (NSDictionary *)batteryData:(NSData *)data{
     NSString *content = [MKEddystoneAdopter hexStringFromData:data];
-    if (!MKValidStr(content) || content.length != 2) {
+    if (!MKValidStr(content) || content.length != 4) {
         return nil;
     }
-    NSString *battery = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(0, 2)];
+    NSString *battery = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(0, 4)];
     return [self dataParserGetDataSuccess:@{@"battery":battery} operationID:MKBXPReadBatteryOperation];
 }
 
@@ -263,6 +266,11 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
     return [self dataParserGetDataSuccess:@{@"frameType":@"70"} operationID:MKBXPReadAdvSlotDataOperation];
 }
 
++ (NSDictionary *)parseDeviceType:(NSData *)data {
+    NSString *content = [MKEddystoneAdopter hexStringFromData:data];
+    return [self dataParserGetDataSuccess:@{@"deviceType":content} operationID:MKBXPReadDeviceTypeOperation];
+}
+
 + (NSDictionary *)customData:(NSData *)data{
     NSString *content = [MKEddystoneAdopter hexStringFromData:data];
     if (!MKValidStr(content) || content.length < 8) {
@@ -280,7 +288,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
     NSString *function = [content substringWithRange:NSMakeRange(2, 2)];
     MKBXPOperationID operationID = MKBXPOperationDefaultID;
     NSDictionary *returnDic = nil;
-    if ([function isEqualToString:@"57"] && content.length == 20) {
+    if ([function isEqualToString:@"20"] && content.length == 20) {
         //mac地址
         NSString *tempMac = [[content substringWithRange:NSMakeRange(8, 12)] uppercaseString];
         NSString *macAddress = [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",[tempMac substringWithRange:NSMakeRange(0, 2)],[tempMac substringWithRange:NSMakeRange(2, 2)],[tempMac substringWithRange:NSMakeRange(4, 2)],[tempMac substringWithRange:NSMakeRange(6, 2)],[tempMac substringWithRange:NSMakeRange(8, 2)],[tempMac substringWithRange:NSMakeRange(10, 2)]];

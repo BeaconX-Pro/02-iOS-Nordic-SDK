@@ -45,4 +45,5 @@ typedef NS_ENUM(NSInteger, MKBXPOperationID) {
     MKBXPSetConnectEnableOperation,              //设置eddystone的可连接状态
     MKBXPSetPowerOffOperation,                    //关机命令
     MKBXPReadBatteryOperation,                      //读取battery
+    MKBXPReadDeviceTypeOperation,               //读取设备类型
 };
