@@ -45,9 +45,9 @@ NSString *const MKBXPDataStatusLev = @"MKBXPDataStatusLev";
 /**
  线程结束时候的回调
  */
-@property (nonatomic, copy)communicationCompleteBlock completeBlock;
+@property (nonatomic, copy)void (^completeBlock)(NSError *error, MKBXPOperationID operationID, id returnData);
 
-@property (nonatomic, copy)communicationCommandBlock commandBlock;
+@property (nonatomic, copy)void (^commandBlock)(void);
 
 @property (nonatomic, strong)NSMutableArray *dataList;
 
@@ -94,19 +94,10 @@ NSString *const MKBXPDataStatusLev = @"MKBXPDataStatusLev";
     NSLog(@"任务销毁");
 }
 
-/**
- 初始化通信线程
- 
- @param operationID 当前线程的任务ID
- @param resetNum 是否需要根据外设返回的数据总条数来修改任务需要接受的数据总条数，YES需要，NO不需要
- @param commandBlock 发送命令回调
- @param completeBlock 数据通信完成回调
- @return operation
- */
 - (instancetype)initOperationWithID:(MKBXPOperationID)operationID
                            resetNum:(BOOL)resetNum
-                       commandBlock:(communicationCommandBlock)commandBlock
-                      completeBlock:(communicationCompleteBlock)completeBlock{
+                       commandBlock:(void (^)(void))commandBlock
+                      completeBlock:(void (^)(NSError *error, MKBXPOperationID operationID, id returnData))completeBlock{
     if (self = [super init]) {
         _executing = NO;
         _finished = NO;

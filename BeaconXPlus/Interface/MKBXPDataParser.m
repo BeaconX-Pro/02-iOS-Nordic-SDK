@@ -69,7 +69,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:factoryResetUUID]]){
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:iBeaconNotifyUUID]]){
         return [self customData:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:batteryCBCharacteristicUUID]]){
+    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:batteryUUID]]){
         //电池服务
         return [self batteryData:readData];
     }

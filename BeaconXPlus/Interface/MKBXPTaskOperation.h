@@ -12,20 +12,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- 发送命令回调
- */
-typedef void(^communicationCommandBlock)(void);
-
-/**
- 任务完成回调
- 
- @param error 是否产生了超时错误
- @param operationID 当前任务ID
- @param returnData 返回的数据
- */
-typedef void(^communicationCompleteBlock)(NSError *error, MKBXPOperationID operationID, id returnData);
-
 extern NSString *const MKBXPAdditionalInformation;
 extern NSString *const MKBXPDataInformation;
 extern NSString *const MKBXPDataStatusLev;
@@ -43,8 +29,8 @@ extern NSString *const MKBXPDataStatusLev;
  */
 - (instancetype)initOperationWithID:(MKBXPOperationID)operationID
                            resetNum:(BOOL)resetNum
-                       commandBlock:(communicationCommandBlock)commandBlock
-                      completeBlock:(communicationCompleteBlock)completeBlock;
+                       commandBlock:(void (^)(void))commandBlock
+                      completeBlock:(void (^)(NSError *error, MKBXPOperationID operationID, id returnData))completeBlock;
 
 @end
 

@@ -52,7 +52,13 @@ static NSString *const IEEEInfoUUID = @"2A2A";
 static NSString *const iBeaconConfigServiceUUID = @"E62A0001-1362-4F28-9327-F5B74E970801";
 
 /*************************iBeacon通用配置服务下面的特征**************************************/
-
+static NSString *const deviceTypeUUID = @"e62a0004-1362-4f28-9327-f5b74e970801";
+static NSString *const slotTypeUUID = @"e62a0005-1362-4f28-9327-f5b74e970801";
+static NSString *const batteryUUID = @"e62a0006-1362-4f28-9327-f5b74e970801";
+static NSString *const disconnectListenUUID = @"e62a0007-1362-4f28-9327-f5b74e970801";
+static NSString *const threeSensorUUID = @"e62a0008-1362-4f28-9327-f5b74e970801";
+static NSString *const temperatureHumidityUUID = @"e62a0009-1362-4f28-9327-f5b74e970801";
+static NSString *const recordTHUUID = @"e62a000A-1362-4f28-9327-f5b74e970801";
 static NSString *const iBeaconWriteUUID = @"E62A0002-1362-4F28-9327-F5B74E970801";
 static NSString *const iBeaconNotifyUUID = @"E62A0003-1362-4F28-9327-F5B74E970801";
 
@@ -63,8 +69,3 @@ static NSString *const dfuServiceUUID = @"00001530-1212-EFDE-1523-785FEABCD123";
 
 static NSString *dfuCBCharacteristicUUID = @"8EC90003-F315-4F60-9FB8-838830DAEA50";
 
-#pragma mark - ***************************电池服务******************************************
-static NSString *const batteryServiceUUID = @"180F";
-
-/************************电池服务下面的特征***********************************************/
-static NSString *const batteryCBCharacteristicUUID = @"2A19";

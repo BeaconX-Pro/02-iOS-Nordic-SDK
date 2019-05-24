@@ -23,6 +23,14 @@ static const char *advSlotData = "advSlotData";
 static const char *factoryReset = "factoryReset";
 static const char *remainConnectable = "remainConnectable";
 
+static const char *deviceTypeKey = "deviceTypeKey";
+static const char *slotTypeKey = "slotTypeKey";
+static const char *battery = "battery";
+static const char *disconnectListenKey = "disconnectListenKey";
+static const char *threeSensorKey = "threeSensorKey";
+static const char *temperatureHumidityKey = "temperatureHumidityKey";
+static const char *recordTHKey = "recordTHKey";
+
 static const char *iBeaconWrite = "iBeaconWrite";
 static const char *iBeaconNotify = "iBeaconNotify";
 
@@ -32,7 +40,7 @@ static const char *hardware = "hardware";
 static const char *firmware = "firmware";
 static const char *software = "software";
 static const char *productionDate = "productionDate";
-static const char *battery = "battery";
+
 static const char *dfu = "dfu";
 
 @implementation CBPeripheral (MKAdd)
@@ -53,11 +61,6 @@ static const char *dfu = "dfu";
         [self setDeviceInfoCharacteristic:service];
         return;
     }
-    if ([service.UUID isEqual:[CBUUID UUIDWithString:batteryServiceUUID]]){
-        //电池服务
-        [self setBatteryCharacteristic:service];
-        return;
-    }
     if ([service.UUID isEqual:[CBUUID UUIDWithString:dfuServiceUUID]]){
         //DFU功能
         [self setDFUCharacteristic:service];
@@ -71,7 +74,7 @@ static const char *dfu = "dfu";
 
 - (BOOL)getAllCharacteristics{
     if (![self eddystoneServiceSuccess] || ![self iBeaconServiceSuccess]
-        || ![self deviceInfoServiceSuccess] || ![self batteryServiceSuccess] || ![self dfuServiceSuccess]) {
+        || ![self deviceInfoServiceSuccess] || ![self dfuServiceSuccess]) {
         return NO;
     }
     return YES;
@@ -126,6 +129,34 @@ static const char *dfu = "dfu";
     return objc_getAssociatedObject(self, &remainConnectable);
 }
 
+- (CBCharacteristic *)deviceType {
+    return objc_getAssociatedObject(self, &deviceTypeKey);
+}
+
+- (CBCharacteristic *)slotType {
+    return objc_getAssociatedObject(self, &slotTypeKey);
+}
+
+- (CBCharacteristic *)disconnectListen {
+    return objc_getAssociatedObject(self, &disconnectListenKey);
+}
+
+- (CBCharacteristic *)battery{
+    return objc_getAssociatedObject(self, &battery);
+}
+
+- (CBCharacteristic *)threeSensor {
+    return objc_getAssociatedObject(self, &threeSensorKey);
+}
+
+- (CBCharacteristic *)temperatureHumidity {
+    return objc_getAssociatedObject(self, &temperatureHumidityKey);
+}
+
+- (CBCharacteristic *)recordTH {
+    return objc_getAssociatedObject(self, &recordTHKey);
+}
+
 - (CBCharacteristic *)iBeaconWrite{
     return objc_getAssociatedObject(self, &iBeaconWrite);
 }
@@ -156,10 +187,6 @@ static const char *dfu = "dfu";
 
 - (CBCharacteristic *)vendor{
     return objc_getAssociatedObject(self, &vendor);
-}
-
-- (CBCharacteristic *)battery{
-    return objc_getAssociatedObject(self, &battery);
 }
 
 - (CBCharacteristic *)dfu{
@@ -212,6 +239,24 @@ static const char *dfu = "dfu";
         }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:iBeaconNotifyUUID]]){
             objc_setAssociatedObject(self, &iBeaconNotify, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             [self setNotifyValue:YES forCharacteristic:characteristic];
+        }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:deviceTypeUUID]]) {
+            objc_setAssociatedObject(self, &deviceTypeKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:slotTypeUUID]]) {
+            objc_setAssociatedObject(self, &slotTypeKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:batteryUUID]]) {
+            objc_setAssociatedObject(self, &battery, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:disconnectListenUUID]]) {
+            objc_setAssociatedObject(self, &disconnectListenKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            [self setNotifyValue:YES forCharacteristic:characteristic];
+        }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:threeSensorUUID]]) {
+            objc_setAssociatedObject(self, &threeSensorKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            [self setNotifyValue:YES forCharacteristic:characteristic];
+        }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:temperatureHumidityUUID]]) {
+            objc_setAssociatedObject(self, &temperatureHumidityKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            [self setNotifyValue:YES forCharacteristic:characteristic];
+        }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:recordTHUUID]]) {
+            objc_setAssociatedObject(self, &recordTHKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            [self setNotifyValue:YES forCharacteristic:characteristic];
         }
     }
 }
@@ -244,19 +289,6 @@ static const char *dfu = "dfu";
     }
 }
 
-- (void)setBatteryCharacteristic:(CBService *)service{
-    if (!service) {
-        return;
-    }
-    NSArray *charactList = [service.characteristics mutableCopy];
-    for (CBCharacteristic *characteristic in charactList) {
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:batteryCBCharacteristicUUID]]) {
-            objc_setAssociatedObject(self, &battery, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            break;
-        }
-    }
-}
-
 - (void)setDFUCharacteristic:(CBService *)service{
     if (!service) {
         return;
@@ -280,7 +312,7 @@ static const char *dfu = "dfu";
 }
 
 - (BOOL)iBeaconServiceSuccess{
-    if (!self.iBeaconNotify || !self.iBeaconWrite) {
+    if (!self.iBeaconNotify || !self.iBeaconWrite || !self.deviceType || !self.slotType || !self.disconnectListen || !self.battery || !self.threeSensor || !self.temperatureHumidity || !self.recordTH) {
         return NO;
     }
     return YES;
@@ -289,13 +321,6 @@ static const char *dfu = "dfu";
 - (BOOL)deviceInfoServiceSuccess{
     if (!self.vendor || !self.modeID || !self.hardware || !self.firmware || !self.software
         || !self.productionDate) {
-        return NO;
-    }
-    return YES;
-}
-
-- (BOOL)batteryServiceSuccess{
-    if (!self.battery) {
         return NO;
     }
     return YES;

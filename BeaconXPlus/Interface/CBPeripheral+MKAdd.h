@@ -28,7 +28,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly)CBCharacteristic *remainConnectable;
 
 #pragma mark - iBeacon设置服务下面的特征
-
+@property (nonatomic, strong, readonly)CBCharacteristic *deviceType;
+@property (nonatomic, strong, readonly)CBCharacteristic *slotType;
+@property (nonatomic, strong, readonly)CBCharacteristic *disconnectListen;
+@property (nonatomic, strong, readonly)CBCharacteristic *battery;
+@property (nonatomic, strong, readonly)CBCharacteristic *threeSensor;
+@property (nonatomic, strong, readonly)CBCharacteristic *temperatureHumidity;
+@property (nonatomic, strong, readonly)CBCharacteristic *recordTH;
 @property (nonatomic, strong, readonly)CBCharacteristic *iBeaconWrite;
 @property (nonatomic, strong, readonly)CBCharacteristic *iBeaconNotify;
 
@@ -69,9 +75,6 @@ NS_ASSUME_NONNULL_BEGIN
  dfu升级用的
  */
 @property (nonatomic, strong, readonly)CBCharacteristic *dfu;
-
-#pragma mark - battery下面的特征
-@property (nonatomic, strong, readonly)CBCharacteristic *battery;
 
 - (void)updateCharacterWithService:(CBService *)service;
 

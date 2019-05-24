@@ -256,16 +256,87 @@ static dispatch_once_t onceToken;
     }
 }
 
-/**
- 获取当前设备的lockState状态，00(locked)、02(UnlockAutoMaticRelockDisabled)
- 
- @param peripheral peripheral
- @param sucBlock read success callback
- @param failedBlock read failed callback
- */
+- (void)connectPeripheral:(CBPeripheral *)peripheral
+                 password:(NSString *)password
+            progressBlock:(MKConnectProgressBlock)progressBlock
+                 sucBlock:(MKConnectSuccessBlock)sucBlock
+              failedBlock:(MKConnectFailedBlock)failedBlock{
+    if (!peripheral) {
+        [MKEddystoneAdopter operationConnectFailedBlock:failedBlock];
+        return;
+    }
+    if (!MKValidStr(password) || password.length != 16) {
+        [MKEddystoneAdopter operationPasswordErrorBlock:failedBlock];
+        return;
+    }
+    if (self.managerState != MKBXPCentralManagerStateEnable) {
+        [MKEddystoneAdopter operationCentralBlePowerOffBlock:failedBlock];
+        return;
+    }
+    if (self.isConnecting) {
+        //正在连接
+        [MKEddystoneAdopter operationCannotReconnectErrorBlock:failedBlock];
+        return;
+    }
+    self.isConnecting = YES;
+    if (self.currentMode == managerScanMode) {
+        [self stopScanPeripheral];
+    }
+    BOOL needDelay = NO;
+    if (self.peripheral) {
+        [self.centralManager cancelPeripheralConnection:self.peripheral];
+        [self.operationQueue cancelAllOperations];
+        [self.peripheral setNil];
+        self.peripheral = nil;
+        needDelay = YES;
+    }
+    self.password = password;
+    __weak typeof(self) weakSelf = self;
+    void (^connectSucBlock)(CBPeripheral *peripheral) = ^(CBPeripheral *peripheral){
+        if (sucBlock) {
+            moko_main_safe(^{sucBlock(peripheral);});
+        }
+        __strong typeof(self) sself = weakSelf;
+        [sself clearAllConnectParams];
+    };
+    void (^connectFailedBlock)(NSError *error) = ^(NSError *error){
+        if (failedBlock) {
+            moko_main_safe(^{failedBlock(error);});
+        }
+        __strong typeof(self) sself = weakSelf;
+        [sself clearAllConnectParams];
+    };
+    void (^connectProgressBlock)(float progress) = ^(float progress){
+        if (progressBlock) {
+            moko_main_safe(^{progressBlock(progress);});
+        }
+    };
+    NSDictionary *params = @{
+                             @"sucBlock":connectSucBlock,
+                             @"failedBlock":connectFailedBlock,
+                             @"progressBlock":connectProgressBlock,
+                             @"peripheral":peripheral,
+                             };
+    [self performSelector:@selector(connectPeripheralWithParams:) withObject:params afterDelay:(needDelay ? 1.f : 0.0f)];
+}
+
+- (void)disconnect{
+    self.currentMode = managerDefaultMode;
+    [self.operationQueue cancelAllOperations];
+    [self updateConnectState:MKBXPConnectStatusDisconnect];
+    [self updateLockState:MKBXPLockStateLock];
+    self.isConnecting = NO;
+    if (!self.peripheral || self.centralManager.state != CBCentralManagerStatePoweredOn) {
+        return;
+    }
+    [self.centralManager cancelPeripheralConnection:self.peripheral];
+    [self.peripheral setNil];
+    self.peripheral = nil;
+}
+
 - (void)readLockStateWithPeripheral:(CBPeripheral *)peripheral
                            sucBlock:(void (^)(NSString *lockState))sucBlock
-                        failedBlock:(void (^)(NSError *error))failedBlock {
+                        failedBlock:(void (^)(NSError *error))failedBlock{
     if (self.isConnecting) {
         [MKEddystoneAdopter operationCannotReconnectErrorBlock:failedBlock];
         self.readingLockState = NO;
@@ -306,16 +377,11 @@ static dispatch_once_t onceToken;
 }
 
 - (void)connectPeripheral:(CBPeripheral *)peripheral
-                 password:(NSString *)password
             progressBlock:(MKConnectProgressBlock)progressBlock
                  sucBlock:(MKConnectSuccessBlock)sucBlock
               failedBlock:(MKConnectFailedBlock)failedBlock{
     if (!peripheral) {
         [MKEddystoneAdopter operationConnectFailedBlock:failedBlock];
-        return;
-    }
-    if (!MKValidStr(password) || password.length != 8) {
-        [MKEddystoneAdopter operationPasswordErrorBlock:failedBlock];
         return;
     }
     if (self.managerState != MKBXPCentralManagerStateEnable) {
@@ -331,46 +397,41 @@ static dispatch_once_t onceToken;
     if (self.currentMode == managerScanMode) {
         [self stopScanPeripheral];
     }
+    BOOL needDelay = NO;
     if (self.peripheral) {
         [self.centralManager cancelPeripheralConnection:self.peripheral];
         [self.operationQueue cancelAllOperations];
         [self.peripheral setNil];
+        self.peripheral = nil;
+        needDelay = YES;
     }
-    self.password = password;
-    self.peripheral = nil;
-    self.peripheral = peripheral;
     __weak typeof(self) weakSelf = self;
-    [self connectSucBlock:^(CBPeripheral *peripheral) {
+    void (^connectSucBlock)(CBPeripheral *peripheral) = ^(CBPeripheral *peripheral){
         if (sucBlock) {
             moko_main_safe(^{sucBlock(peripheral);});
         }
         __strong typeof(self) sself = weakSelf;
         [sself clearAllConnectParams];
-    } progressBlock:^(float progress) {
-        if (progressBlock) {
-            moko_main_safe(^{progressBlock(progress);});
-        }
-    } failedBlock:^(NSError *error) {
+    };
+    void (^connectFailedBlock)(NSError *error) = ^(NSError *error){
         if (failedBlock) {
             moko_main_safe(^{failedBlock(error);});
         }
         __strong typeof(self) sself = weakSelf;
         [sself clearAllConnectParams];
-    }];
-}
-
-- (void)disconnect{
-    self.currentMode = managerDefaultMode;
-    [self.operationQueue cancelAllOperations];
-    [self updateConnectState:MKBXPConnectStatusDisconnect];
-    [self updateLockState:MKBXPLockStateLock];
-    self.isConnecting = NO;
-    if (!self.peripheral || self.centralManager.state != CBCentralManagerStatePoweredOn) {
-        return;
-    }
-    [self.centralManager cancelPeripheralConnection:self.peripheral];
-    [self.peripheral setNil];
-    self.peripheral = nil;
+    };
+    void (^connectProgressBlock)(float progress) = ^(float progress){
+        if (progressBlock) {
+            moko_main_safe(^{progressBlock(progress);});
+        }
+    };
+    NSDictionary *params = @{
+                             @"sucBlock":connectSucBlock,
+                             @"failedBlock":connectFailedBlock,
+                             @"progressBlock":connectProgressBlock,
+                             @"peripheral":peripheral,
+                             };
+    [self performSelector:@selector(connectPeripheralWithParams:) withObject:params afterDelay:(needDelay ? 1.f : 0.0f)];
 }
 
 - (void)addTaskWithTaskID:(MKBXPOperationID)operationID
@@ -418,12 +479,11 @@ static dispatch_once_t onceToken;
 
 #pragma mark - private method
 #pragma mark - connect
-- (void)connectSucBlock:(MKConnectSuccessBlock)sucBlock
-          progressBlock:(MKConnectProgressBlock)progressBlock
-            failedBlock:(MKConnectFailedBlock)failedBlock{
-    self.progressBlock = progressBlock;
-    self.sucBlock = sucBlock;
-    self.failedBlock = failedBlock;
+- (void)connectPeripheralWithParams:(NSDictionary *)params{
+    self.progressBlock = params[@"progressBlock"];
+    self.sucBlock = params[@"sucBlock"];
+    self.failedBlock = params[@"failedBlock"];
+    self.peripheral = params[@"peripheral"];
     self.currentMode = managerConnectMode;
     [self startConnectTimer];
     [self updateConnectProgress:5.f];
@@ -537,6 +597,8 @@ static dispatch_once_t onceToken;
     self.failedBlock = nil;
     self.password = nil;
     self.isConnecting = NO;
+    self.readLockStateBlock = nil;
+    self.readingLockState = NO;
 }
 
 #pragma mark - communication method
@@ -677,7 +739,20 @@ static dispatch_once_t onceToken;
         return;
     }
     dispatch_async(dispatch_queue_create("unlockEddystoneQueue", 0), ^{
-        MKBXPLockState lockState = [self fecthLockState];
+        MKBXPLockState lockState = [self fetchLockState];
+        if (self.readingLockState) {
+            //z读取lockState操作，不需要进行后续步骤
+            if (self.readLockStateBlock) {
+                NSString *lockInfo = @"00";
+                if (lockState == MKBXPLockStateUnlockAutoMaticRelockDisabled) {
+                    lockInfo = @"02";
+                }
+                moko_main_safe(^{
+                    self.readLockStateBlock(lockInfo);
+                });
+            }
+            return ;
+        }
         [self updateLockState:lockState];
         [self updateConnectProgress:50.f];
         if (self.timeout) {
@@ -690,7 +765,7 @@ static dispatch_once_t onceToken;
         if (lockState == MKBXPLockStateLock) {
             //锁定状态
             //先读取设备的unlock数据，返回16位的随机key
-            NSData *randKey = [self fecthRandDataArray];
+            NSData *randKey = [self fetchRandDataArray];
             [self updateConnectProgress:65.f];
             if (self.timeout) {
                 return;
@@ -699,7 +774,7 @@ static dispatch_once_t onceToken;
                 [self connectPeripheralFailed:NO];
                 return;
             }
-            NSData *keyToUnlock = [MKEddystoneAdopter fecthKeyToUnlockWithPassword:self.password randKey:randKey];
+            NSData *keyToUnlock = [MKEddystoneAdopter fetchKeyToUnlockWithPassword:self.password randKey:randKey];
             if (!MKValidData(keyToUnlock)) {
                 [self connectPeripheralFailed:NO];
                 return;
@@ -715,7 +790,7 @@ static dispatch_once_t onceToken;
                 return;
             }
             //解锁码发送给设备之后，再次获取设备的锁定状态，看看是否解锁成功
-            MKBXPLockState newLockState = [self fecthLockState];
+            MKBXPLockState newLockState = [self fetchLockState];
             [self updateLockState:newLockState];
             [self updateConnectProgress:100.f];
             if (self.timeout) {
@@ -730,10 +805,10 @@ static dispatch_once_t onceToken;
         }
         [self connectPeripheralSuccess];
     });
-
+    
 }
 
-- (MKBXPLockState)fecthLockState{
+- (MKBXPLockState)fetchLockState{
     __block MKBXPLockState lockState = MKBXPLockStateUnknow;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     __weak typeof(self) weakSelf = self;
@@ -768,7 +843,7 @@ static dispatch_once_t onceToken;
     return lockState;
 }
 
-- (NSData *)fecthRandDataArray{
+- (NSData *)fetchRandDataArray{
     __block NSData *RAND_DATA_ARRAY = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     __weak typeof(self) weakSelf = self;

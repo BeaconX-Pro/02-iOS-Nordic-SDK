@@ -312,7 +312,7 @@ static NSString * const MKCustomErrorDomain = @"com.moko.eddystoneSDKDomain";
     }
 }
 
-+ (NSData *)fecthKeyToUnlockWithPassword:(NSString *)password randKey:(NSData *)randKey{
++ (NSData *)fetchKeyToUnlockWithPassword:(NSString *)password randKey:(NSData *)randKey{
     if (!MKValidStr(password) || password.length != 8 || !MKValidData(randKey) || randKey.length != 16) {
         return nil;
     }

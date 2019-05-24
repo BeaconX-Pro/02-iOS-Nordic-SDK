@@ -53,7 +53,7 @@ typedef NS_ENUM(NSInteger, MKCustomErrorCode){
 + (NSData*)AES128EncryptWithSourceData:(NSData *)sourceData keyData:(NSData *)keyData;
 + (NSString *)getUrlscheme:(char)hexChar;
 + (NSString *)getEncodedString:(char)hexChar;
-+ (NSData *)fecthKeyToUnlockWithPassword:(NSString *)password randKey:(NSData *)randKey;
++ (NSData *)fetchKeyToUnlockWithPassword:(NSString *)password randKey:(NSData *)randKey;
 + (NSString *)fecthUrlStringWithHeader:(NSString *)urlHeader urlContent:(NSString *)urlContent;
 + (NSString *)fetchTxPowerWithContent:(NSString *)content;
 + (NSNumber *)fetchRSSIWithContent:(NSData *)contentData;
