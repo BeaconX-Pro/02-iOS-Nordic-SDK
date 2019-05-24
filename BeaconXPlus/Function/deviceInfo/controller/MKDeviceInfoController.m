@@ -44,9 +44,6 @@ static NSString *const MKDeviceInfoControllerCellIdenty = @"MKDeviceInfoControll
 }
 
 #pragma mark - 父类方法
-- (NSString *)defaultTitle{
-    return @"Device info";
-}
 
 - (void)leftButtonMethod{
     [[NSNotificationCenter defaultCenter] postNotificationName:@"MKPopToRootViewControllerNotification"
@@ -190,6 +187,9 @@ static NSString *const MKDeviceInfoControllerCellIdenty = @"MKDeviceInfoControll
 }
 
 - (void)loadSubViews{
+    self.titleLabel.textColor = COLOR_WHITE_MACROS;
+    self.defaultTitle = @"Device info";
+    self.custom_naviBarColor = UIColorFromRGB(0x2F84D0);
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);

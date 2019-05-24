@@ -16,6 +16,7 @@
 		0019A5BD2297E91B007D67F9 /* MKIconInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0019A5BC2297E91B007D67F9 /* MKIconInfoCell.m */; };
 		0019A5C42297EA23007D67F9 /* MKDeviceInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0019A5C32297EA23007D67F9 /* MKDeviceInfoModel.m */; };
 		0019A5C72297F1E4007D67F9 /* MKDeviceInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0019A5C62297F1E4007D67F9 /* MKDeviceInfoController.m */; };
+		0019A5CE2297F587007D67F9 /* MKSwitchStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0019A5CD2297F587007D67F9 /* MKSwitchStatusCell.m */; };
 		001CC075226824F600331198 /* MKBXPCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC074226824F600331198 /* MKBXPCentralManager.m */; };
 		001CC0882268667D00331198 /* MKBXPBaseBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC0872268667D00331198 /* MKBXPBaseBeacon.m */; };
 		001CC08B226871E800331198 /* MKEddystoneAdopter.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC089226871E800331198 /* MKEddystoneAdopter.m */; };
@@ -173,6 +174,8 @@
 		0019A5C32297EA23007D67F9 /* MKDeviceInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKDeviceInfoModel.m; sourceTree = "<group>"; };
 		0019A5C52297F1E4007D67F9 /* MKDeviceInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKDeviceInfoController.h; sourceTree = "<group>"; };
 		0019A5C62297F1E4007D67F9 /* MKDeviceInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKDeviceInfoController.m; sourceTree = "<group>"; };
+		0019A5CC2297F587007D67F9 /* MKSwitchStatusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSwitchStatusCell.h; sourceTree = "<group>"; };
+		0019A5CD2297F587007D67F9 /* MKSwitchStatusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSwitchStatusCell.m; sourceTree = "<group>"; };
 		001CC073226824F600331198 /* MKBXPCentralManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPCentralManager.h; sourceTree = "<group>"; };
 		001CC074226824F600331198 /* MKBXPCentralManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBXPCentralManager.m; sourceTree = "<group>"; };
 		001CC082226855B100331198 /* MKEddystoneDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEddystoneDefines.h; sourceTree = "<group>"; };
@@ -469,6 +472,39 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		0019A5C82297F47C007D67F9 /* settingPage */ = {
+			isa = PBXGroup;
+			children = (
+				0019A5C92297F47C007D67F9 /* controller */,
+				0019A5CA2297F47C007D67F9 /* model */,
+				0019A5CB2297F47C007D67F9 /* view */,
+			);
+			path = settingPage;
+			sourceTree = "<group>";
+		};
+		0019A5C92297F47C007D67F9 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		0019A5CA2297F47C007D67F9 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		0019A5CB2297F47C007D67F9 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0019A5CC2297F587007D67F9 /* MKSwitchStatusCell.h */,
+				0019A5CD2297F587007D67F9 /* MKSwitchStatusCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		001CC07E2268553400331198 /* MKEddystoneBase */ = {
 			isa = PBXGroup;
 			children = (
@@ -634,6 +670,7 @@
 		00DA1B4F226969340093DBAE /* Function */ = {
 			isa = PBXGroup;
 			children = (
+				0019A5C82297F47C007D67F9 /* settingPage */,
 				0019A5BE2297EA11007D67F9 /* deviceInfo */,
 				0019A5B52297E83B007D67F9 /* infoCell */,
 				00285F1722964E7900A4CAD4 /* about */,
@@ -968,6 +1005,7 @@
 				009B58DA2296A61600133192 /* MKBXPDataParser.m in Sources */,
 				0019A5C72297F1E4007D67F9 /* MKDeviceInfoController.m in Sources */,
 				001505772264831E00F69569 /* AppDelegate.m in Sources */,
+				0019A5CE2297F587007D67F9 /* MKSwitchStatusCell.m in Sources */,
 				0019A5C42297EA23007D67F9 /* MKDeviceInfoModel.m in Sources */,
 				002533D5229535F60055D3E7 /* MKScanSearchView.m in Sources */,
 				009B58CC229674CE00133192 /* MKEddystoneHTCell.m in Sources */,

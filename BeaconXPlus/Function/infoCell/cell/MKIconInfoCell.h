@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class MKMainCellModel;
 @interface MKIconInfoCell : UITableViewCell
 
+@property (nonatomic, strong)NSIndexPath *indexPath;
+
 @property (nonatomic, strong)MKMainCellModel *dataModel;
 
 @end
