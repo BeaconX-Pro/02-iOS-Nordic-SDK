@@ -12,7 +12,6 @@
 #import "CBPeripheral+MKAdd.h"
 #import "MKBXPService.h"
 #import "MKBXPTaskOperation.h"
-#import "MKBXPOperationIDDefines.h"
 
 #import "MKBXPBaseBeacon.h"
 
@@ -265,7 +264,7 @@ static dispatch_once_t onceToken;
         [MKEddystoneAdopter operationConnectFailedBlock:failedBlock];
         return;
     }
-    if (!MKValidStr(password) || password.length != 16) {
+    if (!MKValidStr(password) || password.length > 16) {
         [MKEddystoneAdopter operationPasswordErrorBlock:failedBlock];
         return;
     }

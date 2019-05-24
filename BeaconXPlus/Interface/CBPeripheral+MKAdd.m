@@ -303,7 +303,7 @@ static const char *dfu = "dfu";
 }
 
 - (BOOL)eddystoneServiceSuccess{
-    if (!self.capabilities || !self.activeSlot || !self.advertisingInterval
+    if (!self.activeSlot || !self.advertisingInterval
         || !self.radioTxPower || !self.advertisedTxPower || !self.lockState
         || !self.unlock || !self.advSlotData || !self.factoryReset) {
         return NO;

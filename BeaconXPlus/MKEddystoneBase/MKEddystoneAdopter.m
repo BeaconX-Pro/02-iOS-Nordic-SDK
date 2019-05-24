@@ -313,17 +313,17 @@ static NSString * const MKCustomErrorDomain = @"com.moko.eddystoneSDKDomain";
 }
 
 + (NSData *)fetchKeyToUnlockWithPassword:(NSString *)password randKey:(NSData *)randKey{
-    if (!MKValidStr(password) || password.length != 8 || !MKValidData(randKey) || randKey.length != 16) {
+    if (!MKValidStr(password) || password.length > 16 || !MKValidData(randKey) || randKey.length != 16) {
         return nil;
     }
-    Byte byte[8] = {0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff};
-    NSData *supplement = [NSData dataWithBytes:byte length:8];
+    Byte byte[16] = {0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff};
     NSString *tempString = @"";
     for (NSInteger i = 0; i < password.length; i ++) {
         int asciiCode = [password characterAtIndex:i];
         tempString = [tempString stringByAppendingString:[NSString stringWithFormat:@"%1lx",(unsigned long)asciiCode]];
     }
     NSData *passwordData = [self stringToData:tempString];
+    NSData *supplement = [NSData dataWithBytes:byte length:(16 - passwordData.length)];
     NSMutableData *aesKeyData = [[NSMutableData alloc] init];
     [aesKeyData appendData:passwordData];
     [aesKeyData appendData:supplement];

@@ -182,7 +182,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
             cell.beacon = self.dataList[indexPath.section];
             WS(weakSelf);
             cell.connectPeripheralBlock = ^(NSInteger section) {
-                [weakSelf showPasswordAlert:section];
+                [weakSelf connectPeripheral:section];
             };
             return cell;
         };
@@ -526,11 +526,6 @@ static CGFloat const threeSensorCellHeight = 110.f;
     if (!model) {
         return;
     }
-    NSString *password = self.passwordField.text;
-    if (!ValidStr(password) || password.length != 8) {
-        [self.view showCentralToast:@"Password error"];
-        return;
-    }
     CBPeripheral *peripheral;
     if (model.infoBeacon) {
         peripheral = model.infoBeacon.peripheral;
@@ -538,41 +533,88 @@ static CGFloat const threeSensorCellHeight = 110.f;
         MKBXPBaseBeacon *beacon = model.dataArray[0];
         peripheral = beacon.peripheral;
     }
-    if (!self.leftButton.isSelected) {
-        //停止扫描
-        [self.circleIcon.layer removeAnimationForKey:MKLeftButtonAnimationKey];
-        [[MKBXPCentralManager shared] stopScanPeripheral];
-        if (self.scanTimer) {
-            dispatch_cancel(self.scanTimer);
+    //停止扫描
+    [self.circleIcon.layer removeAnimationForKey:MKLeftButtonAnimationKey];
+    [[MKBXPCentralManager shared] stopScanPeripheral];
+    if (self.scanTimer) {
+        dispatch_cancel(self.scanTimer);
+    }
+    WS(weakSelf);
+    [[MKHudManager share] showHUDWithTitle:@"Loading..." inView:self.view isPenetration:NO];
+    [[MKBXPCentralManager shared] readLockStateWithPeripheral:peripheral sucBlock:^(NSString *lockState) {
+        [[MKHudManager share] hide];
+        if ([lockState isEqualToString:@"00"]) {
+            //密码登录
+            [weakSelf showPasswordAlert:peripheral];
+            return ;
         }
+        if ([lockState isEqualToString:@"02"]) {
+            //免密码登录
+            [weakSelf connectDeviceWithoutPassword:peripheral];
+            return;
+        }
+    } failedBlock:^(NSError *error) {
+//        [HCKDataManager share].password = @"";
+        [[MKHudManager share] hide];
+        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
+        weakSelf.leftButton.selected = NO;
+        [weakSelf leftButtonMethod];
+    }];
+}
+
+- (void)connectDeviceWithoutPassword:(CBPeripheral *)peripheral{
+    MKConnectDeviceProgressView *progressView = [[MKConnectDeviceProgressView alloc] init];
+    [progressView showConnectAlertViewWithTitle:@"Connecting..."];
+    WS(weakSelf);
+    [[MKBXPCentralManager shared] connectPeripheral:peripheral progressBlock:^(float progress) {
+        [progressView setProgress:(progress * 0.01)];
+    } sucBlock:^(CBPeripheral *peripheral) {
+        [progressView dismiss];
+//        HCKMainTabBarController *vc = [[HCKMainTabBarController alloc] init];
+//        [weakSelf.navigationController pushViewController:vc animated:YES];
+        weakSelf.needScan = YES;
+    } failedBlock:^(NSError *error) {
+//        [HCKDataManager share].password = @"";
+        [progressView dismiss];
+        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
+        weakSelf.leftButton.selected = NO;
+        [weakSelf leftButtonMethod];
+    }];
+}
+
+- (void)connectDeviceWithPassword:(CBPeripheral *)peripheral{
+    NSString *password = self.passwordField.text;
+    if (!ValidStr(password) || password.length > 16) {
+        [self.view showCentralToast:@"Password error"];
+        return;
     }
     MKConnectDeviceProgressView *progressView = [[MKConnectDeviceProgressView alloc] init];
     [progressView showConnectAlertViewWithTitle:@"Connecting..."];
     WS(weakSelf);
-//    [[MKBXPCentralManager shared] connectPeripheral:peripheral password:password progressBlock:^(float progress) {
-//        [progressView setProgress:(progress * 0.01)];
-//    } sucBlock:^(CBPeripheral *peripheral) {
-//        [MKDataManager share].password = password;
-//        weakSelf.localPassword = password;
-//        [progressView dismiss];
-//        MKMainTabBarController *vc = [[MKMainTabBarController alloc] init];
+    [[MKBXPCentralManager shared] connectPeripheral:peripheral password:password progressBlock:^(float progress) {
+        [progressView setProgress:(progress * 0.01)];
+    } sucBlock:^(CBPeripheral *peripheral) {
+//        [HCKDataManager share].password = password;
+        weakSelf.localPassword = password;
+        [progressView dismiss];
+//        HCKMainTabBarController *vc = [[HCKMainTabBarController alloc] init];
 //        NSDictionary *dic = @{
 //                              peripheralIdenty:peripheral,
 //                              passwordIdenty : [password copy]
 //                              };
 //        vc.params = dic;
 //        [weakSelf.navigationController pushViewController:vc animated:YES];
-//        weakSelf.needScan = YES;
-//    } failedBlock:^(NSError *error) {
-//        [MKDataManager share].password = @"";
-//        [progressView dismiss];
-//        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        weakSelf.leftButton.selected = NO;
-//        [weakSelf leftButtonMethod];
-//    }];
+        weakSelf.needScan = YES;
+    } failedBlock:^(NSError *error) {
+//        [HCKDataManager share].password = @"";
+        [progressView dismiss];
+        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
+        weakSelf.leftButton.selected = NO;
+        [weakSelf leftButtonMethod];
+    }];
 }
 
-- (void)showPasswordAlert:(NSInteger )section{
+- (void)showPasswordAlert:(CBPeripheral *)peripheral{
     NSString *msg = @"Please enter connection password.";
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter password"
                                                                              message:msg
@@ -584,7 +626,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
         if (ValidStr(weakSelf.localPassword)) {
             textField.text = weakSelf.localPassword;
         }
-        weakSelf.passwordField.placeholder = @"8 characters";
+        weakSelf.passwordField.placeholder = @"16 characters";
         [textField addTarget:self action:@selector(passwordInput) forControlEvents:UIControlEventEditingChanged];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -593,13 +635,12 @@ static CGFloat const threeSensorCellHeight = 110.f;
     }];
     [alertController addAction:cancelAction];
     UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [weakSelf connectPeripheral:section];
+        [weakSelf connectDeviceWithPassword:peripheral];
     }];
     [alertController addAction:moreAction];
     
     [kAppRootController presentViewController:alertController animated:YES completion:nil];
 }
-
 /**
  监听输入的密码
  */
@@ -609,11 +650,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
         self.passwordField.text = @"";
         return;
     }
-    NSString *newInput = [tempInputString substringWithRange:NSMakeRange(tempInputString.length - 1, 1)];
-    //只能是字母、数字
-    BOOL correct = [newInput regularExpressions:isLetterOrRealNumbers];
-    NSString *sourceString = (correct ? tempInputString : [tempInputString substringWithRange:NSMakeRange(0, tempInputString.length - 1)]);
-    self.passwordField.text = (sourceString.length > 8 ? [sourceString substringToIndex:8] : sourceString);
+    self.passwordField.text = (tempInputString.length > 16 ? [tempInputString substringToIndex:16] : tempInputString);
 }
 
 - (void)resetDevicesNum{
