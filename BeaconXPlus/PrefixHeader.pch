@@ -12,6 +12,7 @@
 #import "MKBaseModule.h"
 
 #import "MKBXPSDKHeader.h"
+#import "MKDataManager.h"
 
 
 //图片的宏定义

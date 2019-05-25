@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0012478622990E0700E97868 /* MKSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0012478522990E0700E97868 /* MKSettingController.m */; };
+		00124789229912DE00E97868 /* setting_directed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00124787229912DE00E97868 /* setting_directed@3x.png */; };
+		0012478A229912DE00E97868 /* setting_directed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00124788229912DE00E97868 /* setting_directed@2x.png */; };
+		0012478E2299198F00E97868 /* MKDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0012478D2299198F00E97868 /* MKDataManager.m */; };
+		0012479122991B4600E97868 /* MKBXPInterface+MKConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 0012479022991B4600E97868 /* MKBXPInterface+MKConfig.m */; };
 		00131DE422952F1000E613FF /* MKConnectDeviceProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00131DE322952F1000E613FF /* MKConnectDeviceProgressView.m */; };
 		001505772264831E00F69569 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 001505762264831E00F69569 /* AppDelegate.m */; };
 		0015057F2264831F00F69569 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0015057E2264831F00F69569 /* Assets.xcassets */; };
@@ -153,6 +158,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0012478422990E0700E97868 /* MKSettingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSettingController.h; sourceTree = "<group>"; };
+		0012478522990E0700E97868 /* MKSettingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSettingController.m; sourceTree = "<group>"; };
+		00124787229912DE00E97868 /* setting_directed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_directed@3x.png"; sourceTree = "<group>"; };
+		00124788229912DE00E97868 /* setting_directed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_directed@2x.png"; sourceTree = "<group>"; };
+		0012478C2299198F00E97868 /* MKDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKDataManager.h; sourceTree = "<group>"; };
+		0012478D2299198F00E97868 /* MKDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKDataManager.m; sourceTree = "<group>"; };
+		0012478F22991B4600E97868 /* MKBXPInterface+MKConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MKBXPInterface+MKConfig.h"; sourceTree = "<group>"; };
+		0012479022991B4600E97868 /* MKBXPInterface+MKConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MKBXPInterface+MKConfig.m"; sourceTree = "<group>"; };
 		00131DE222952F1000E613FF /* MKConnectDeviceProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKConnectDeviceProgressView.h; sourceTree = "<group>"; };
 		00131DE322952F1000E613FF /* MKConnectDeviceProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKConnectDeviceProgressView.m; sourceTree = "<group>"; };
 		001505722264831E00F69569 /* BeaconXPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconXPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -350,6 +363,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0012478B2299198400E97868 /* dataManager */ = {
+			isa = PBXGroup;
+			children = (
+				0012478C2299198F00E97868 /* MKDataManager.h */,
+				0012478D2299198F00E97868 /* MKDataManager.m */,
+			);
+			path = dataManager;
+			sourceTree = "<group>";
+		};
 		001505692264831E00F69569 = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +428,8 @@
 				009B58D92296A61600133192 /* MKBXPDataParser.m */,
 				0019A5B22297DEEF007D67F9 /* MKBXPInterface.h */,
 				0019A5B32297DEEF007D67F9 /* MKBXPInterface.m */,
+				0012478F22991B4600E97868 /* MKBXPInterface+MKConfig.h */,
+				0012479022991B4600E97868 /* MKBXPInterface+MKConfig.m */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -485,6 +509,8 @@
 		0019A5C92297F47C007D67F9 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				0012478422990E0700E97868 /* MKSettingController.h */,
+				0012478522990E0700E97868 /* MKSettingController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -518,6 +544,8 @@
 		002532EC2295339D0055D3E7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				00124788229912DE00E97868 /* setting_directed@2x.png */,
+				00124787229912DE00E97868 /* setting_directed@3x.png */,
 				002532ED2295339D0055D3E7 /* batteryLower@3x.png */,
 				002532EE2295339D0055D3E7 /* wifisignalIcon@2x.png */,
 				002532EF2295339D0055D3E7 /* cellRight_selected_pic@3x.png */,
@@ -670,6 +698,7 @@
 		00DA1B4F226969340093DBAE /* Function */ = {
 			isa = PBXGroup;
 			children = (
+				0012478B2299198400E97868 /* dataManager */,
 				0019A5C82297F47C007D67F9 /* settingPage */,
 				0019A5BE2297EA11007D67F9 /* deviceInfo */,
 				0019A5B52297E83B007D67F9 /* infoCell */,
@@ -825,6 +854,7 @@
 				002533B82295339D0055D3E7 /* goNext_lightWhiteButton@3x.png in Resources */,
 				002533992295339D0055D3E7 /* batteryHighest@2x.png in Resources */,
 				002533A92295339D0055D3E7 /* littleBluePoint@2x.png in Resources */,
+				00124789229912DE00E97868 /* setting_directed@3x.png in Resources */,
 				0025336B2295339D0055D3E7 /* setting_reset@2x.png in Resources */,
 				002533742295339D0055D3E7 /* slotDataTypeCustom@3x.png in Resources */,
 				002533C12295339D0055D3E7 /* navigation_back_button@2x.png in Resources */,
@@ -876,6 +906,7 @@
 				002533AC2295339D0055D3E7 /* clearButtonIcon@2x.png in Resources */,
 				002533632295339D0055D3E7 /* setting_reset@3x.png in Resources */,
 				002533932295339D0055D3E7 /* device_runningtime@2x.png in Resources */,
+				0012478A229912DE00E97868 /* setting_directed@2x.png in Resources */,
 				002533A42295339D0055D3E7 /* batteryLowest@3x.png in Resources */,
 				0025337F2295339D0055D3E7 /* slotInfoTypeIcon@2x.png in Resources */,
 				0025338F2295339D0055D3E7 /* slotDataTypeCustom@2x.png in Resources */,
@@ -980,12 +1011,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0012479122991B4600E97868 /* MKBXPInterface+MKConfig.m in Sources */,
 				001CC075226824F600331198 /* MKBXPCentralManager.m in Sources */,
 				00285F1D22964EA200A4CAD4 /* MKAboutController.m in Sources */,
 				009B58CF229682FB00133192 /* MKEddystoneThreeASensorCell.m in Sources */,
 				00DA1B562269697A0093DBAE /* MKScanViewController.m in Sources */,
 				001CC0882268667D00331198 /* MKBXPBaseBeacon.m in Sources */,
 				009B58D22296A20800133192 /* CBPeripheral+MKAdd.m in Sources */,
+				0012478622990E0700E97868 /* MKSettingController.m in Sources */,
 				0019A5B42297DEEF007D67F9 /* MKBXPInterface.m in Sources */,
 				00285F13229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m in Sources */,
 				002532E622952FBC0055D3E7 /* MKScanBaseCell.m in Sources */,
@@ -998,6 +1031,7 @@
 				002533CF229533C30055D3E7 /* MKEddStoneURLCell.m in Sources */,
 				002533D8229537C60055D3E7 /* MKScanSearchButton.m in Sources */,
 				00285F162296480F00A4CAD4 /* MKScanInfoCell.m in Sources */,
+				0012478E2299198F00E97868 /* MKDataManager.m in Sources */,
 				00131DE422952F1000E613FF /* MKConnectDeviceProgressView.m in Sources */,
 				002533DB229538100055D3E7 /* MKEddStoneiBeaconCell.m in Sources */,
 				001CC08B226871E800331198 /* MKEddystoneAdopter.m in Sources */,

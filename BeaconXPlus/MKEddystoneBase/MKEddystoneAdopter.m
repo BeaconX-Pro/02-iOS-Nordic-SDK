@@ -115,9 +115,10 @@ static NSString * const MKCustomErrorDomain = @"com.moko.eddystoneSDKDomain";
 #pragma mark -
 
 + (BOOL)isPassword:(NSString *)password{
-    NSString *regex = @"^[a-zA-Z0-9]{8}$$";
-    NSPredicate *passwordPre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
-    return [passwordPre evaluateWithObject:password];
+    if (!MKValidStr(password) || password.length > 16) {
+        return NO;
+    }
+    return YES;
 }
 
 + (BOOL)checkDeviceName:(NSString *)deviceName{

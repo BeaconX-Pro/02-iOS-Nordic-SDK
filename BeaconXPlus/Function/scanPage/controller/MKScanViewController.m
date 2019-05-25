@@ -26,7 +26,7 @@
 #import "MKScanSearchView.h"
 
 //#import "MKMainTabBarController.h"
-#import "MKDeviceInfoController.h"
+#import "MKSettingController.h"
 
 
 static NSString *const MKLeftButtonAnimationKey = @"MKLeftButtonAnimationKey";
@@ -555,7 +555,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
             return;
         }
     } failedBlock:^(NSError *error) {
-//        [HCKDataManager share].password = @"";
+        [MKDataManager shared].password = @"";
         [[MKHudManager share] hide];
         [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
         weakSelf.leftButton.selected = NO;
@@ -574,7 +574,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
         [weakSelf readDeviceType];
         weakSelf.needScan = YES;
     } failedBlock:^(NSError *error) {
-//        [HCKDataManager share].password = @"";
+        [MKDataManager shared].password = @"";
         [progressView dismiss];
         [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
         weakSelf.leftButton.selected = NO;
@@ -594,7 +594,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
     [[MKBXPCentralManager shared] connectPeripheral:peripheral password:password progressBlock:^(float progress) {
         [progressView setProgress:(progress * 0.01)];
     } sucBlock:^(CBPeripheral *peripheral) {
-//        [HCKDataManager share].password = password;
+        [MKDataManager shared].password = password;
         weakSelf.localPassword = password;
         [progressView dismiss];
         [weakSelf readDeviceType];
@@ -607,7 +607,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
 //        [weakSelf.navigationController pushViewController:vc animated:YES];
         weakSelf.needScan = YES;
     } failedBlock:^(NSError *error) {
-//        [HCKDataManager share].password = @"";
+        [MKDataManager shared].password = @"";
         [progressView dismiss];
         [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
         weakSelf.leftButton.selected = NO;
@@ -619,7 +619,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     [MKBXPInterface readBXPDeviceTypeWithSucBlock:^(id  _Nonnull returnData) {
         [[MKHudManager share] hide];
-        MKDeviceInfoController *vc = [[MKDeviceInfoController alloc] init];
+        MKSettingController *vc = [[MKSettingController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];

@@ -91,4 +91,12 @@
                              failureBlock:failedBlock];
 }
 
++ (void)readBXPConnectEnableStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                   failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addReadTaskWithTaskID:MKBXPReadConnectEnableOperation
+                           characteristic:centralManager.peripheral.remainConnectable
+                             successBlock:sucBlock
+                             failureBlock:failedBlock];
+}
+
 @end

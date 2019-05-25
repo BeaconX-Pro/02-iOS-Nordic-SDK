@@ -75,6 +75,9 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:deviceTypeUUID]]) {
         //读取设备类型
         return [self parseDeviceType:readData];
+    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:remainConnectableUUID]]) {
+        //可连接状态
+        return [self parseConnectStatus:readData];
     }
     return nil;
 }
@@ -432,6 +435,11 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         returnDic = @{@"connectEnable":@(connectEnable)};
     }
     return [self dataParserGetDataSuccess:returnDic operationID:operationID];
+}
+
++ (NSDictionary *)parseConnectStatus:(NSData *)data {
+    NSString *content = [MKEddystoneAdopter hexStringFromData:data];
+    return [self dataParserGetDataSuccess:@{@"connectEnable":@(![content isEqualToString:@"00"])} operationID:MKBXPReadConnectEnableOperation];
 }
 
 #pragma mark - Private method

@@ -84,6 +84,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)readBXPBatteryWithSucBlock:(void (^)(id returnData))sucBlock
                        failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ Reading current connection status
+ 
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)readBXPConnectEnableStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                   failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 
