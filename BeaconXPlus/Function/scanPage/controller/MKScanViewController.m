@@ -25,8 +25,7 @@
 #import "MKAboutController.h"
 #import "MKScanSearchView.h"
 
-//#import "MKMainTabBarController.h"
-#import "MKSettingController.h"
+#import "MKMainTabBarController.h"
 
 
 static NSString *const MKLeftButtonAnimationKey = @"MKLeftButtonAnimationKey";
@@ -571,7 +570,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
         [progressView setProgress:(progress * 0.01)];
     } sucBlock:^(CBPeripheral *peripheral) {
         [progressView dismiss];
-        [weakSelf readDeviceType];
+        [weakSelf readDeviceType:peripheral];
         weakSelf.needScan = YES;
     } failedBlock:^(NSError *error) {
         [MKDataManager shared].password = @"";
@@ -597,14 +596,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
         [MKDataManager shared].password = password;
         weakSelf.localPassword = password;
         [progressView dismiss];
-        [weakSelf readDeviceType];
-//        HCKMainTabBarController *vc = [[HCKMainTabBarController alloc] init];
-//        NSDictionary *dic = @{
-//                              peripheralIdenty:peripheral,
-//                              passwordIdenty : [password copy]
-//                              };
-//        vc.params = dic;
-//        [weakSelf.navigationController pushViewController:vc animated:YES];
+        [weakSelf readDeviceType:peripheral];
         weakSelf.needScan = YES;
     } failedBlock:^(NSError *error) {
         [MKDataManager shared].password = @"";
@@ -615,11 +607,16 @@ static CGFloat const threeSensorCellHeight = 110.f;
     }];
 }
 
-- (void)readDeviceType {
+- (void)readDeviceType:(CBPeripheral *)peripheral {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     [MKBXPInterface readBXPDeviceTypeWithSucBlock:^(id  _Nonnull returnData) {
         [[MKHudManager share] hide];
-        MKSettingController *vc = [[MKSettingController alloc] init];
+        MKMainTabBarController *vc = [[MKMainTabBarController alloc] init];
+        NSDictionary *dic = @{
+                              peripheralIdenty:peripheral,
+                              passwordIdenty : SafeStr(self.localPassword)
+                              };
+        vc.params = dic;
         [self.navigationController pushViewController:vc animated:YES];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];

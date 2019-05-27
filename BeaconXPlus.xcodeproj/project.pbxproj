@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00093700229B800C00501788 /* MKMainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000936FF229B800C00501788 /* MKMainTabBarController.m */; };
+		00093707229B80BB00501788 /* MKSlotController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093706229B80BB00501788 /* MKSlotController.m */; };
 		0012478622990E0700E97868 /* MKSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0012478522990E0700E97868 /* MKSettingController.m */; };
 		00124789229912DE00E97868 /* setting_directed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00124787229912DE00E97868 /* setting_directed@3x.png */; };
 		0012478A229912DE00E97868 /* setting_directed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00124788229912DE00E97868 /* setting_directed@2x.png */; };
@@ -158,6 +160,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		000936FE229B800C00501788 /* MKMainTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKMainTabBarController.h; sourceTree = "<group>"; };
+		000936FF229B800C00501788 /* MKMainTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKMainTabBarController.m; sourceTree = "<group>"; };
+		00093705229B80BB00501788 /* MKSlotController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotController.h; sourceTree = "<group>"; };
+		00093706229B80BB00501788 /* MKSlotController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSlotController.m; sourceTree = "<group>"; };
 		0012478422990E0700E97868 /* MKSettingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSettingController.h; sourceTree = "<group>"; };
 		0012478522990E0700E97868 /* MKSettingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSettingController.m; sourceTree = "<group>"; };
 		00124787229912DE00E97868 /* setting_directed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_directed@3x.png"; sourceTree = "<group>"; };
@@ -363,6 +369,72 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		000936FA229B7FB500501788 /* tabBarPage */ = {
+			isa = PBXGroup;
+			children = (
+				000936FB229B7FB500501788 /* controller */,
+				000936FC229B7FB500501788 /* model */,
+				000936FD229B7FB500501788 /* view */,
+			);
+			path = tabBarPage;
+			sourceTree = "<group>";
+		};
+		000936FB229B7FB500501788 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				000936FE229B800C00501788 /* MKMainTabBarController.h */,
+				000936FF229B800C00501788 /* MKMainTabBarController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		000936FC229B7FB500501788 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		000936FD229B7FB500501788 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		00093701229B809800501788 /* slotPage */ = {
+			isa = PBXGroup;
+			children = (
+				00093702229B809800501788 /* controller */,
+				00093703229B809800501788 /* model */,
+				00093704229B809800501788 /* view */,
+			);
+			path = slotPage;
+			sourceTree = "<group>";
+		};
+		00093702229B809800501788 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				00093705229B80BB00501788 /* MKSlotController.h */,
+				00093706229B80BB00501788 /* MKSlotController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		00093703229B809800501788 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		00093704229B809800501788 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		0012478B2299198400E97868 /* dataManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -698,6 +770,8 @@
 		00DA1B4F226969340093DBAE /* Function */ = {
 			isa = PBXGroup;
 			children = (
+				00093701229B809800501788 /* slotPage */,
+				000936FA229B7FB500501788 /* tabBarPage */,
 				0012478B2299198400E97868 /* dataManager */,
 				0019A5C82297F47C007D67F9 /* settingPage */,
 				0019A5BE2297EA11007D67F9 /* deviceInfo */,
@@ -1027,6 +1101,7 @@
 				00285F102296475F00A4CAD4 /* MKScanBeaconModel.m in Sources */,
 				001505852264831F00F69569 /* main.m in Sources */,
 				0019A5BA2297E8B9007D67F9 /* MKMainCellModel.m in Sources */,
+				00093700229B800C00501788 /* MKMainTabBarController.m in Sources */,
 				0019A5BD2297E91B007D67F9 /* MKIconInfoCell.m in Sources */,
 				002533CF229533C30055D3E7 /* MKEddStoneURLCell.m in Sources */,
 				002533D8229537C60055D3E7 /* MKScanSearchButton.m in Sources */,
@@ -1035,6 +1110,7 @@
 				00131DE422952F1000E613FF /* MKConnectDeviceProgressView.m in Sources */,
 				002533DB229538100055D3E7 /* MKEddStoneiBeaconCell.m in Sources */,
 				001CC08B226871E800331198 /* MKEddystoneAdopter.m in Sources */,
+				00093707229B80BB00501788 /* MKSlotController.m in Sources */,
 				002532E9229531470055D3E7 /* MKEddStoneUIDCell.m in Sources */,
 				009B58DA2296A61600133192 /* MKBXPDataParser.m in Sources */,
 				0019A5C72297F1E4007D67F9 /* MKDeviceInfoController.m in Sources */,
