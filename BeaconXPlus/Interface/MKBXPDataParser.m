@@ -75,6 +75,9 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:deviceTypeUUID]]) {
         //读取设备类型
         return [self parseDeviceType:readData];
+    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:slotTypeUUID]]) {
+        //读取通道类型
+        return [self parseSlotType:readData];
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:remainConnectableUUID]]) {
         //可连接状态
         return [self parseConnectStatus:readData];
@@ -277,6 +280,18 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
     return [self dataParserGetDataSuccess:@{@"deviceType":content} operationID:MKBXPReadDeviceTypeOperation];
 }
 
++ (NSDictionary *)parseSlotType:(NSData *)data {
+    //读取eddyStone设备通道数据类型
+    NSString *content = [MKEddystoneAdopter hexStringFromData:data];
+    NSArray *typeList = @[[content substringWithRange:NSMakeRange(0, 2)],
+                          [content substringWithRange:NSMakeRange(2, 2)],
+                          [content substringWithRange:NSMakeRange(4, 2)],
+                          [content substringWithRange:NSMakeRange(6, 2)],
+                          [content substringWithRange:NSMakeRange(8, 2)],
+                          [content substringWithRange:NSMakeRange(10, 2)]];
+    return [self dataParserGetDataSuccess:@{@"slotTypeList":typeList} operationID:MKBXPReadSlotTypeOperation];
+}
+
 + (NSDictionary *)customData:(NSData *)data{
     NSString *content = [MKEddystoneAdopter hexStringFromData:data];
     if (!MKValidStr(content) || content.length < 8) {
@@ -321,21 +336,6 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         //关机
         operationID = MKBXPSetPowerOffOperation;
         returnDic = @{};
-    }else if ([function isEqualToString:@"61"]){
-        //读取eddyStone设备通道数据类型
-        NSString *errorStatus = [content substringWithRange:NSMakeRange(6, 2)];
-        
-        if (![errorStatus isEqualToString:@"05"]) {
-            return nil;
-        }
-        operationID = MKBXPReadSlotTypeOperation;
-        NSString *subContent = [content substringWithRange:NSMakeRange(8, 10)];
-        NSArray *typeList = @[[subContent substringWithRange:NSMakeRange(0, 2)],
-                              [subContent substringWithRange:NSMakeRange(2, 2)],
-                              [subContent substringWithRange:NSMakeRange(4, 2)],
-                              [subContent substringWithRange:NSMakeRange(6, 2)],
-                              [subContent substringWithRange:NSMakeRange(8, 2)]];
-        returnDic = @{@"slotTypeList":typeList};
     }else if ([function isEqualToString:@"64"]){
         //读取iBeacon设备通道的UUID
         NSString *temp = [content substringWithRange:NSMakeRange(8, 2 * len)];

@@ -620,10 +620,21 @@ static CGFloat const threeSensorCellHeight = 110.f;
         [self.navigationController pushViewController:vc animated:YES];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
-        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
         self.leftButton.selected = NO;
         [self leftButtonMethod];
+        [self showDeviceTypeErrorAlert];
     }];
+}
+
+- (void)showDeviceTypeErrorAlert {
+    NSString *msg = @"Oops! Something went wrong. Please check the device version or contact MOKO.";
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@""
+                                                                             message:msg
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    [alertController addAction:moreAction];
+    [kAppRootController presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)showPasswordAlert:(CBPeripheral *)peripheral{
@@ -707,6 +718,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
 
 - (void)loadSubViews{
     self.custom_naviBarColor = UIColorFromRGB(0x2F84D0);
+    self.titleLabel.textColor = COLOR_WHITE_MACROS;
     [self.leftButton setImage:nil forState:UIControlStateNormal];
     [self.leftButton addSubview:self.circleIcon];
     [self.circleIcon mas_makeConstraints:^(MASConstraintMaker *make) {

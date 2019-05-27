@@ -14,6 +14,8 @@ typedef NS_ENUM(NSInteger, slotFrameType) {
     slotFrameTypeTLM,
     slotFrameTypeNull,
     slotFrameTypeInfo,
+    slotFrameTypeThreeASensor,
+    slotFrameTypeTHSensor,
 };
 
 /**

@@ -137,8 +137,14 @@ static CGFloat const rightIconHeight = 14.f;
             self.leftIcon.image = LOADIMAGE(@"slotDataTypeiBeacon", @"png");
             self.rightMsgLabel.text = @"iBeacon";
             break;
-            
-        default:break;
+        case slotFrameTypeThreeASensor:
+            self.leftIcon.image = LOADIMAGE(@"slotDataTypeThreeAccelerometerIcon", @"png");
+            self.rightMsgLabel.text = @"3-axis Accelerometer";
+            break;
+        case slotFrameTypeTHSensor:
+            self.leftIcon.image = LOADIMAGE(@"slotDataTypeH&TIcon", @"png");
+            self.rightMsgLabel.text = @"H&T";
+            break;
     }
     NSString *slotIndexString = [NSString stringWithFormat:@"%ld",(long)(self.dataModel.slotIndex + 1)];
     self.leftMsgLabel.text = [NSString stringWithFormat:@"SLOT%@",slotIndexString];

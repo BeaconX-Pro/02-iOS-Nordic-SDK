@@ -99,4 +99,12 @@
                              failureBlock:failedBlock];
 }
 
++ (void)readBXPSlotDataTypeWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addReadTaskWithTaskID:MKBXPReadSlotTypeOperation
+                           characteristic:centralManager.peripheral.slotType
+                             successBlock:sucBlock
+                             failureBlock:failedBlock];
+}
+
 @end

@@ -93,6 +93,16 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)readBXPConnectEnableStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                    failedBlock:(void (^)(NSError *error))failedBlock;
 
+/**
+ Reading current frame types of the 5 SLOTs,
+ eg:@"001020506070":@"00":UID,@"10":URL,@"20":TLM,@"40":设备信息,@"50":iBeacon,@"60":3轴加速度计,@"70":温湿度传感器,@"FF":NO DATA
+
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)readBXPSlotDataTypeWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

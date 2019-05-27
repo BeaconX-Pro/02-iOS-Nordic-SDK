@@ -11,8 +11,8 @@
 static CGFloat const msgLabelWidth = 60.f;
 static CGFloat const offset_X = 10.f;
 static CGFloat const offset_Y = 10.f;
-static CGFloat const leftIconWidth = 13.f;
-static CGFloat const leftIconHeight = 13.f;
+static CGFloat const leftIconWidth = 22.f;
+static CGFloat const leftIconHeight = 22.f;
 #define msgFont MKFont(12.f)
 
 @interface MKEddystoneThreeASensorCell ()

@@ -169,6 +169,10 @@
 		009B58D62296A4BB00133192 /* MKBXPTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B58D52296A4BB00133192 /* MKBXPTaskOperation.m */; };
 		009B58DA2296A61600133192 /* MKBXPDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B58D92296A61600133192 /* MKBXPDataParser.m */; };
 		00DA1B562269697A0093DBAE /* MKScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA1B552269697A0093DBAE /* MKScanViewController.m */; };
+		00E0E846229BC7D400D2E188 /* slotDataTypeH&TIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E0E842229BC7D300D2E188 /* slotDataTypeH&TIcon@3x.png */; };
+		00E0E847229BC7D400D2E188 /* slotDataTypeH&TIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E0E843229BC7D300D2E188 /* slotDataTypeH&TIcon@2x.png */; };
+		00E0E848229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E0E844229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png */; };
+		00E0E849229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E0E845229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@3x.png */; };
 		8E33DED9D30D9F9F4CC4BDEC /* libPods-BeaconXPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3DDB61A667539B356F3F757 /* libPods-BeaconXPlus.a */; };
 /* End PBXBuildFile section */
 
@@ -393,6 +397,10 @@
 		00DA1B542269697A0093DBAE /* MKScanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKScanViewController.h; sourceTree = "<group>"; };
 		00DA1B552269697A0093DBAE /* MKScanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanViewController.m; sourceTree = "<group>"; };
 		00DA1B5722696A320093DBAE /* MKBXPSDKHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPSDKHeader.h; sourceTree = "<group>"; };
+		00E0E842229BC7D300D2E188 /* slotDataTypeH&TIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeH&TIcon@3x.png"; sourceTree = "<group>"; };
+		00E0E843229BC7D300D2E188 /* slotDataTypeH&TIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeH&TIcon@2x.png"; sourceTree = "<group>"; };
+		00E0E844229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeThreeAccelerometerIcon@2x.png"; sourceTree = "<group>"; };
+		00E0E845229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeThreeAccelerometerIcon@3x.png"; sourceTree = "<group>"; };
 		029190BB4C403625DF53C141 /* Pods-BeaconXPlus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconXPlus.release.xcconfig"; path = "Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus.release.xcconfig"; sourceTree = "<group>"; };
 		1DF98C636BB6D238FF05F2F0 /* Pods-BeaconXPlus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconXPlus.debug.xcconfig"; path = "Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus.debug.xcconfig"; sourceTree = "<group>"; };
 		A3DDB61A667539B356F3F757 /* libPods-BeaconXPlus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BeaconXPlus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -717,6 +725,10 @@
 		002532EC2295339D0055D3E7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				00E0E843229BC7D300D2E188 /* slotDataTypeH&TIcon@2x.png */,
+				00E0E842229BC7D300D2E188 /* slotDataTypeH&TIcon@3x.png */,
+				00E0E844229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png */,
+				00E0E845229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@3x.png */,
 				00124788229912DE00E97868 /* setting_directed@2x.png */,
 				00124787229912DE00E97868 /* setting_directed@3x.png */,
 				002532ED2295339D0055D3E7 /* batteryLower@3x.png */,
@@ -1068,6 +1080,7 @@
 				002533CB2295339D0055D3E7 /* scanRightAboutIcon@2x.png in Resources */,
 				002533702295339D0055D3E7 /* cellRight_selected_pic@2x.png in Resources */,
 				002533CA2295339D0055D3E7 /* rightAddEnableIcon@2x.png in Resources */,
+				00E0E846229BC7D400D2E188 /* slotDataTypeH&TIcon@3x.png in Resources */,
 				002533C02295339D0055D3E7 /* deviceTabBarItemUnselected@3x.png in Resources */,
 				0025338D2295339D0055D3E7 /* slotDataTypeiBeacon@2x.png in Resources */,
 				002533AF2295339D0055D3E7 /* navigation_back_button_white@3x.png in Resources */,
@@ -1092,8 +1105,10 @@
 				002533882295339D0055D3E7 /* deviceTabBarItemSelected@2x.png in Resources */,
 				002533AB2295339D0055D3E7 /* device_soc@3x.png in Resources */,
 				0025338A2295339D0055D3E7 /* slot_baseParams@3x.png in Resources */,
+				00E0E849229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@3x.png in Resources */,
 				002533BF2295339D0055D3E7 /* setting_powerOff@2x.png in Resources */,
 				0025337D2295339D0055D3E7 /* device_software@2x.png in Resources */,
+				00E0E848229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png in Resources */,
 				002533772295339D0055D3E7 /* scanRefresh@2x.png in Resources */,
 				002533B22295339D0055D3E7 /* device_firmware@2x.png in Resources */,
 				0025336D2295339D0055D3E7 /* settingTabBarItemUnselected@3x.png in Resources */,
@@ -1114,6 +1129,7 @@
 				002533B02295339D0055D3E7 /* rightAddEnableIcon@3x.png in Resources */,
 				002533662295339D0055D3E7 /* searchBlueIcon@3x.png in Resources */,
 				002533A22295339D0055D3E7 /* batteryLow@2x.png in Resources */,
+				00E0E847229BC7D400D2E188 /* slotDataTypeH&TIcon@2x.png in Resources */,
 				002533B72295339D0055D3E7 /* scanHeaderView_ arrowUpIcon@2x.png in Resources */,
 				002533832295339D0055D3E7 /* goto_next_button@2x.png in Resources */,
 				002533642295339D0055D3E7 /* setting_password@2x.png in Resources */,
