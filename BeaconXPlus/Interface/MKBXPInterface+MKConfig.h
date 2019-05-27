@@ -64,6 +64,16 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setBXPConnectStatus:(BOOL)connectEnable
                    sucBlock:(void (^)(id returnData))sucBlock
                 failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ MokoBeaconX provides up to 6 SLOTs for users to configure advertisement frame. Before configering the SLOT’s parameter， you should switch the SLOT to target SLOT fristly; otherwise the configuration is only for the currently active SLOT.
+
+ @param slotNo Target SLOT number to switch to
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPActiveSlot:(bxpActiveSlotNo)slotNo
+                sucBlock:(void (^)(id returnData))sucBlock
+             failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

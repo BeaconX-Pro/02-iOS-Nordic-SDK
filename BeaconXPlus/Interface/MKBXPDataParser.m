@@ -265,14 +265,41 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         return [self dataParserGetDataSuccess:returnData operationID:MKBXPReadAdvSlotDataOperation];
     }
     if (frameType == MKBXPDeviceInfoFrameType) {
-        NSString *nameString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSString *nameString = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(1, data.length - 1)] encoding:NSUTF8StringEncoding];
         NSDictionary *returnData = @{
-                                     @"frameType":@"60",
+                                     @"frameType":@"40",
                                      @"peripheralName":nameString
                                      };
         return [self dataParserGetDataSuccess:returnData operationID:MKBXPReadAdvSlotDataOperation];
     }
-    return [self dataParserGetDataSuccess:@{@"frameType":@"70"} operationID:MKBXPReadAdvSlotDataOperation];
+    if (frameType == MKBXPBeaconFrameType) {
+        NSString *content = [MKEddystoneAdopter hexStringFromData:[data subdataWithRange:NSMakeRange(1, data.length - 1)]];
+        NSMutableArray *array = [NSMutableArray arrayWithObjects:[content substringWithRange:NSMakeRange(0, 8)],
+                                 [content substringWithRange:NSMakeRange(8, 4)],
+                                 [content substringWithRange:NSMakeRange(12, 4)],
+                                 [content substringWithRange:NSMakeRange(16,4)],
+                                 [content substringWithRange:NSMakeRange(20, 12)], nil];
+        [array insertObject:@"-" atIndex:1];
+        [array insertObject:@"-" atIndex:3];
+        [array insertObject:@"-" atIndex:5];
+        [array insertObject:@"-" atIndex:7];
+        NSString *uuid = @"";
+        for (NSString *string in array) {
+            uuid = [uuid stringByAppendingString:string];
+        }
+        uuid = [uuid uppercaseString];
+        NSString *major = [NSString stringWithFormat:@"%ld",(long)strtoul([[content substringWithRange:NSMakeRange(32, 4)] UTF8String],0,16)];
+        NSString *minor = [NSString stringWithFormat:@"%ld",(long)strtoul([[content substringWithRange:NSMakeRange(36, 4)] UTF8String],0,16)];
+        NSDictionary *returnData = @{
+                                     @"frameType":@"50",
+                                     @"major":major,
+                                     @"minor":minor,
+                                     @"uuid":uuid,
+                                     };
+        return [self dataParserGetDataSuccess:returnData operationID:MKBXPReadAdvSlotDataOperation];
+    }
+    NSString *type = [MKEddystoneAdopter hexStringFromData:[data subdataWithRange:NSMakeRange(0, 1)]];
+    return [self dataParserGetDataSuccess:@{@"frameType":type} operationID:MKBXPReadAdvSlotDataOperation];
 }
 
 + (NSDictionary *)parseDeviceType:(NSData *)data {
@@ -336,41 +363,10 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         //关机
         operationID = MKBXPSetPowerOffOperation;
         returnDic = @{};
-    }else if ([function isEqualToString:@"64"]){
-        //读取iBeacon设备通道的UUID
-        NSString *temp = [content substringWithRange:NSMakeRange(8, 2 * len)];
-        NSMutableArray *array = [NSMutableArray arrayWithObjects:[temp substringWithRange:NSMakeRange(0, 8)],
-                                 [temp substringWithRange:NSMakeRange(8, 4)],
-                                 [temp substringWithRange:NSMakeRange(12, 4)],
-                                 [temp substringWithRange:NSMakeRange(16,4)],
-                                 [temp substringWithRange:NSMakeRange(20, 12)], nil];
-        [array insertObject:@"-" atIndex:1];
-        [array insertObject:@"-" atIndex:3];
-        [array insertObject:@"-" atIndex:5];
-        [array insertObject:@"-" atIndex:7];
-        NSString *uuid = @"";
-        for (NSString *string in array) {
-            uuid = [uuid stringByAppendingString:string];
-        }
-        operationID = MKBXPReadiBeaconUUIDOperation;
-        returnDic = @{@"uuid":[uuid uppercaseString]};
     }else if ([function isEqualToString:@"65"]){
         //设置iBeacon的UUID
         operationID = MKBXPSetiBeaconUUIDOperation;
         returnDic = @{};
-    }else if ([function isEqualToString:@"66"] && content.length == 18){
-        NSString *major = [NSString stringWithFormat:@"%ld",(long)strtoul([[content substringWithRange:NSMakeRange(8, 4)] UTF8String],0,16)];
-        NSString *minor = [NSString stringWithFormat:@"%ld",(long)strtoul([[content substringWithRange:NSMakeRange(12, 4)] UTF8String],0,16)];
-        NSInteger advTxPower = 0 - strtoul([[content substringWithRange:NSMakeRange(16, 2)] UTF8String],0,16);
-        NSString *txPower = [NSString stringWithFormat:@"%ld",(long)advTxPower];
-        returnDic = @{
-                      //读取自定义iBeacon信息
-                      @"frameType":@"50",
-                      @"major":major,
-                      @"minor":minor,
-                      @"txPower":txPower,
-                      };
-        operationID = MKBXPReadiBeaconDataOperation;
     }else if ([function isEqualToString:@"67"]){
         //设置iBeacon的主值次值发射功率
         operationID = MKBXPSetiBeaconDataOperation;

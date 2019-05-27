@@ -173,6 +173,7 @@
 		00E0E847229BC7D400D2E188 /* slotDataTypeH&TIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E0E843229BC7D300D2E188 /* slotDataTypeH&TIcon@2x.png */; };
 		00E0E848229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E0E844229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png */; };
 		00E0E849229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E0E845229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@3x.png */; };
+		00E0E84C229BD55D00D2E188 /* MKSlotConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E0E84B229BD55D00D2E188 /* MKSlotConfigController.m */; };
 		8E33DED9D30D9F9F4CC4BDEC /* libPods-BeaconXPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3DDB61A667539B356F3F757 /* libPods-BeaconXPlus.a */; };
 /* End PBXBuildFile section */
 
@@ -401,6 +402,8 @@
 		00E0E843229BC7D300D2E188 /* slotDataTypeH&TIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeH&TIcon@2x.png"; sourceTree = "<group>"; };
 		00E0E844229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeThreeAccelerometerIcon@2x.png"; sourceTree = "<group>"; };
 		00E0E845229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeThreeAccelerometerIcon@3x.png"; sourceTree = "<group>"; };
+		00E0E84A229BD55D00D2E188 /* MKSlotConfigController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotConfigController.h; sourceTree = "<group>"; };
+		00E0E84B229BD55D00D2E188 /* MKSlotConfigController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSlotConfigController.m; sourceTree = "<group>"; };
 		029190BB4C403625DF53C141 /* Pods-BeaconXPlus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconXPlus.release.xcconfig"; path = "Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus.release.xcconfig"; sourceTree = "<group>"; };
 		1DF98C636BB6D238FF05F2F0 /* Pods-BeaconXPlus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconXPlus.debug.xcconfig"; path = "Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus.debug.xcconfig"; sourceTree = "<group>"; };
 		A3DDB61A667539B356F3F757 /* libPods-BeaconXPlus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BeaconXPlus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -466,6 +469,8 @@
 			children = (
 				00093705229B80BB00501788 /* MKSlotController.h */,
 				00093706229B80BB00501788 /* MKSlotController.m */,
+				00E0E84A229BD55D00D2E188 /* MKSlotConfigController.h */,
+				00E0E84B229BD55D00D2E188 /* MKSlotConfigController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1241,6 +1246,7 @@
 				001CC08B226871E800331198 /* MKEddystoneAdopter.m in Sources */,
 				00093707229B80BB00501788 /* MKSlotController.m in Sources */,
 				002532E9229531470055D3E7 /* MKEddStoneUIDCell.m in Sources */,
+				00E0E84C229BD55D00D2E188 /* MKSlotConfigController.m in Sources */,
 				009B58DA2296A61600133192 /* MKBXPDataParser.m in Sources */,
 				0019A5C72297F1E4007D67F9 /* MKDeviceInfoController.m in Sources */,
 				001505772264831E00F69569 /* AppDelegate.m in Sources */,

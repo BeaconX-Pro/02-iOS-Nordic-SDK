@@ -112,4 +112,64 @@
                          failureBlock:failedBlock];
 }
 
++ (void)setBXPActiveSlot:(bxpActiveSlotNo)slotNo
+                sucBlock:(void (^)(id returnData))sucBlock
+             failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *slotNumber = [self fetchSlotNumber:slotNo];
+    [centralManager addTaskWithTaskID:MKBXPSetActiveSlotOperation
+                          commandData:slotNumber
+                       characteristic:centralManager.peripheral.activeSlot
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
+#pragma mark - private method
++ (NSString *)fetchSlotNumber:(bxpActiveSlotNo)slotNo{
+    switch (slotNo) {
+        case bxpActiveSlot1:
+            return @"00";
+        case bxpActiveSlot2:
+            return @"01";
+        case bxpActiveSlot3:
+            return @"02";
+        case bxpActiveSlot4:
+            return @"03";
+        case bxpActiveSlot5:
+            return @"04";
+        case bxpActiveSlot6:
+            return @"05";
+    }
+}
+
++ (NSString *)fetchTxPower:(slotRadioTxPower)radioPower{
+    switch (radioPower) {
+        case slotRadioTxPower4dBm:
+            return @"04";
+            
+        case slotRadioTxPower3dBm:
+            return @"03";
+            
+        case slotRadioTxPower0dBm:
+            return @"00";
+            
+        case slotRadioTxPowerNeg4dBm:
+            return @"fc";
+            
+        case slotRadioTxPowerNeg8dBm:
+            return @"f8";
+            
+        case slotRadioTxPowerNeg12dBm:
+            return @"f4";
+            
+        case slotRadioTxPowerNeg16dBm:
+            return @"f0";
+            
+        case slotRadioTxPowerNeg20dBm:
+            return @"ec";
+            
+        case slotRadioTxPowerNeg40dBm:
+            return @"d8";
+    }
+}
+
 @end

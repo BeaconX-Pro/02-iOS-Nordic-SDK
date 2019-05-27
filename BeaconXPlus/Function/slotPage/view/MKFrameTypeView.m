@@ -119,7 +119,7 @@ static CGFloat const offset_X = 15.f;
     NSString *title = self.dataList[row];
     NSAttributedString *attString = [MKAttributedString getAttributedString:@[title]
                                                                       fonts:@[MKFont(13.f)]
-                                                                     colors:@[NAVIGATION_BAR_COLOR]];
+                                                                     colors:@[UIColorFromRGB(0x2F84D0)]];
     return attString;
 }
 
@@ -207,7 +207,7 @@ static CGFloat const offset_X = 15.f;
         _pickerView.delegate = self;
         
         _pickerView.layer.masksToBounds = YES;
-        _pickerView.layer.borderColor = NAVIGATION_BAR_COLOR.CGColor;
+        _pickerView.layer.borderColor = UIColorFromRGB(0x2F84D0).CGColor;
         _pickerView.layer.borderWidth = 0.5f;
         _pickerView.layer.cornerRadius = 4.f;
     }

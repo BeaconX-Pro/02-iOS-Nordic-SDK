@@ -156,7 +156,7 @@ static CGFloat const signalIconHeight = 15.f;
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         
         _textField.layer.masksToBounds = YES;
-        _textField.layer.borderColor = NAVIGATION_BAR_COLOR.CGColor;
+        _textField.layer.borderColor = UIColorFromRGB(0x2F84D0).CGColor;
         _textField.layer.borderWidth = 0.5f;
         _textField.layer.cornerRadius = 4.f;
     }
@@ -170,7 +170,7 @@ static CGFloat const signalIconHeight = 15.f;
                                        backViewHeight - 45.f - offset_X,
                                        kScreenWidth - 4 * offset_X,
                                        45.f);
-        [_doneButton setBackgroundColor:NAVIGATION_BAR_COLOR];
+        [_doneButton setBackgroundColor:UIColorFromRGB(0x2F84D0)];
         [_doneButton setTitle:@"done" forState:UIControlStateNormal];
         [_doneButton.titleLabel setFont:MKFont(16.f)];
         [_doneButton.layer setMasksToBounds:YES];

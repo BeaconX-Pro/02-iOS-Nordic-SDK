@@ -94,6 +94,16 @@
             return MKBXPURLFrameType;
         case 0x20:
             return MKBXPTLMFrameType;
+        case 0x40:
+            return MKBXPDeviceInfoFrameType;
+        case 0x50:
+            return MKBXPBeaconFrameType;
+        case 0x60:
+            return MKBXPThreeASensorFrameType;
+        case 0x70:
+            return MKBXPTHSensorFrameType;
+        case 0xff:
+            return MKBXPNODATAFrameType;
         default:
             return MKBXPUnknownFrameType;
     }
@@ -317,13 +327,6 @@
         self.interval = [MKEddystoneAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(4, 2)];
         self.battery = [MKEddystoneAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(6, 4)];
         self.lockState = [tempContent substringWithRange:NSMakeRange(10, 2)];
-//        if ([[tempContent substringWithRange:NSMakeRange(10, 2)] isEqualToString:@"01"]) {
-//            self.lockState = MKBXPLockStateOpen;
-//        }else if ([[tempContent substringWithRange:NSMakeRange(10, 2)] isEqualToString:@"02"]) {
-//            self.lockState = MKBXPLockStateUnlockAutoMaticRelockDisabled;
-//        }else {
-//            self.lockState = MKBXPLockStateLock;
-//        }
         if (![[tempContent substringWithRange:NSMakeRange(12, 2)] isEqualToString:@"00"]) {
             self.connectEnable = YES;
         }

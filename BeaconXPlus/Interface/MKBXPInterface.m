@@ -107,4 +107,30 @@
                              failureBlock:failedBlock];
 }
 
++ (void)readBXPRadioTxPowerWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addReadTaskWithTaskID:MKBXPReadRadioTxPowerOperation
+                           characteristic:centralManager.peripheral.radioTxPower
+                             successBlock:sucBlock
+                             failureBlock:failedBlock];
+}
+
++ (void)readBXPAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
+                       failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addReadTaskWithTaskID:MKBXPReadAdvSlotDataOperation
+                           characteristic:centralManager.peripheral.advSlotData
+                             successBlock:sucBlock
+                             failureBlock:failedBlock];
+}
+
++ (void)readBXPAdvTxPowerWithSuccessBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addReadTaskWithTaskID:MKBXPReadAdvTxPowerOperation
+                           characteristic:centralManager.peripheral.advertisedTxPower
+                             successBlock:sucBlock
+                             failureBlock:failedBlock];
+}
+
+#pragma mark - private method
+
 @end

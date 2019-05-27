@@ -102,6 +102,31 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)readBXPSlotDataTypeWithSucBlock:(void (^)(id returnData))sucBlock
                             failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ Reading Radio Tx Power.Radio Tx Power is different for each SLOT. Before reading the target SLOT’s Radio Tx Power, you should switch the SLOT to target SLOT(Please refer to ，setEddystoneActiveSlot:sucBlock:failedBlock:); otherwise the Radio Tx Power read is only for the currently active SLOT.
+
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)readBXPRadioTxPowerWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ Reading the advertisement data set in the active SLOT.The advertisement data is different for each SLOT. Before reading the advertisement data, you should switch the SLOT to target SLOT(Please refer to setEddystoneActiveSlot:sucBlock:failedBlock:); otherwise the advertisement data read is only for the currently active SLOT.
+ To read the advertisement data set in the active SLOT, host must get the current SLOT type(Please refer to readEddStoneSlotDataTypeWithSuccessBlock:failedBlock: to get all 6 SLOTS advertisement types).
+ 
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)readBXPAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
+                       failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ Reading Advertised Tx Power(RSSI@0m, only for eddystone frame).Advertised Tx Power is different for each SLOT. Before reading the target SLOT’s Advertised Tx Power, you should switch the SLOT to target SLOT(Please refer to ，setEddystoneActiveSlot:sucBlock:failedBlock:); otherwise the Advertised Tx Power read is only for the currently active SLOT.
+
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)readBXPAdvTxPowerWithSuccessBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

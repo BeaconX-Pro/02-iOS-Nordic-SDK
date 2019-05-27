@@ -9,7 +9,7 @@
 #import "MKSlotController.h"
 #import "MKHaveRefreshTableView.h"
 #import "MKOptionsCell.h"
-//#import "MKSlotConfigController.h"
+#import "MKSlotConfigController.h"
 #import "MKSlotDataTypeModel.h"
 
 static NSString *const MKSlotControllerCellIdenty = @"MKSlotControllerCellIdenty";
@@ -76,9 +76,9 @@ static NSString *const MKSlotControllerCellIdenty = @"MKSlotControllerCellIdenty
         cell.configSlotDataBlock = ^(MKSlotDataTypeModel *dataModel) {
             weakSelf.needReloadData = YES;
             weakSelf.hidesBottomBarWhenPushed = YES;
-//            MKSlotConfigController *vc = [[MKSlotConfigController alloc] initWithNavigationType:GYNaviTypeShow];
-//            vc.vcModel = dataModel;
-//            [weakSelf.navigationController pushViewController:vc animated:YES];
+            MKSlotConfigController *vc = [[MKSlotConfigController alloc] init];
+            vc.vcModel = dataModel;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
             weakSelf.hidesBottomBarWhenPushed = NO;
         };
     }
