@@ -9,6 +9,19 @@
 /* Begin PBXBuildFile section */
 		00093700229B800C00501788 /* MKMainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000936FF229B800C00501788 /* MKMainTabBarController.m */; };
 		00093707229B80BB00501788 /* MKSlotController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093706229B80BB00501788 /* MKSlotController.m */; };
+		0009370A229B896400501788 /* MKSlotVCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093709229B896400501788 /* MKSlotVCModel.m */; };
+		00093711229B8A8B00501788 /* MKSlotDataTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093710229B8A8B00501788 /* MKSlotDataTypeModel.m */; };
+		00093714229B8B1E00501788 /* MKSlotConfigCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093713229B8B1E00501788 /* MKSlotConfigCellModel.m */; };
+		00093717229B8D5500501788 /* MKSlotLineHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093716229B8D5500501788 /* MKSlotLineHeader.m */; };
+		0009371A229B8D9A00501788 /* MKBaseParamsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093719229B8D9A00501788 /* MKBaseParamsCell.m */; };
+		0009371F229B8EA100501788 /* MKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0009371E229B8EA100501788 /* MKSlider.m */; };
+		00093722229B8ECF00501788 /* MKFrameTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093721229B8ECF00501788 /* MKFrameTypeView.m */; };
+		00093725229B901400501788 /* MKSlotBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093724229B901400501788 /* MKSlotBaseCell.m */; };
+		00093728229B920200501788 /* MKAdvContentBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093727229B920200501788 /* MKAdvContentBaseCell.m */; };
+		0009372B229B931300501788 /* MKAdvContentUIDCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0009372A229B931300501788 /* MKAdvContentUIDCell.m */; };
+		0009372E229B938F00501788 /* MKAdvContentiBeaconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0009372D229B938F00501788 /* MKAdvContentiBeaconCell.m */; };
+		00093731229B93FE00501788 /* MKOptionsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093730229B93FE00501788 /* MKOptionsCell.m */; };
+		00093734229B950400501788 /* MKAdvContentURLCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093733229B950400501788 /* MKAdvContentURLCell.m */; };
 		0012478622990E0700E97868 /* MKSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0012478522990E0700E97868 /* MKSettingController.m */; };
 		00124789229912DE00E97868 /* setting_directed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00124787229912DE00E97868 /* setting_directed@3x.png */; };
 		0012478A229912DE00E97868 /* setting_directed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00124788229912DE00E97868 /* setting_directed@2x.png */; };
@@ -164,6 +177,34 @@
 		000936FF229B800C00501788 /* MKMainTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKMainTabBarController.m; sourceTree = "<group>"; };
 		00093705229B80BB00501788 /* MKSlotController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotController.h; sourceTree = "<group>"; };
 		00093706229B80BB00501788 /* MKSlotController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSlotController.m; sourceTree = "<group>"; };
+		00093708229B896400501788 /* MKSlotVCModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotVCModel.h; sourceTree = "<group>"; };
+		00093709229B896400501788 /* MKSlotVCModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSlotVCModel.m; sourceTree = "<group>"; };
+		0009370D229B8A1A00501788 /* MKEnumerateDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEnumerateDefine.h; sourceTree = "<group>"; };
+		0009370E229B8A4400501788 /* MKNormalDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKNormalDefines.h; sourceTree = "<group>"; };
+		0009370F229B8A8B00501788 /* MKSlotDataTypeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotDataTypeModel.h; sourceTree = "<group>"; };
+		00093710229B8A8B00501788 /* MKSlotDataTypeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSlotDataTypeModel.m; sourceTree = "<group>"; };
+		00093712229B8B1E00501788 /* MKSlotConfigCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotConfigCellModel.h; sourceTree = "<group>"; };
+		00093713229B8B1E00501788 /* MKSlotConfigCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSlotConfigCellModel.m; sourceTree = "<group>"; };
+		00093715229B8D5500501788 /* MKSlotLineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotLineHeader.h; sourceTree = "<group>"; };
+		00093716229B8D5500501788 /* MKSlotLineHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSlotLineHeader.m; sourceTree = "<group>"; };
+		00093718229B8D9A00501788 /* MKBaseParamsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBaseParamsCell.h; sourceTree = "<group>"; };
+		00093719229B8D9A00501788 /* MKBaseParamsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBaseParamsCell.m; sourceTree = "<group>"; };
+		0009371D229B8EA100501788 /* MKSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlider.h; sourceTree = "<group>"; };
+		0009371E229B8EA100501788 /* MKSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSlider.m; sourceTree = "<group>"; };
+		00093720229B8ECF00501788 /* MKFrameTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKFrameTypeView.h; sourceTree = "<group>"; };
+		00093721229B8ECF00501788 /* MKFrameTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKFrameTypeView.m; sourceTree = "<group>"; };
+		00093723229B901400501788 /* MKSlotBaseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotBaseCell.h; sourceTree = "<group>"; };
+		00093724229B901400501788 /* MKSlotBaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSlotBaseCell.m; sourceTree = "<group>"; };
+		00093726229B920200501788 /* MKAdvContentBaseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAdvContentBaseCell.h; sourceTree = "<group>"; };
+		00093727229B920200501788 /* MKAdvContentBaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAdvContentBaseCell.m; sourceTree = "<group>"; };
+		00093729229B931300501788 /* MKAdvContentUIDCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAdvContentUIDCell.h; sourceTree = "<group>"; };
+		0009372A229B931300501788 /* MKAdvContentUIDCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAdvContentUIDCell.m; sourceTree = "<group>"; };
+		0009372C229B938F00501788 /* MKAdvContentiBeaconCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAdvContentiBeaconCell.h; sourceTree = "<group>"; };
+		0009372D229B938F00501788 /* MKAdvContentiBeaconCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAdvContentiBeaconCell.m; sourceTree = "<group>"; };
+		0009372F229B93FE00501788 /* MKOptionsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKOptionsCell.h; sourceTree = "<group>"; };
+		00093730229B93FE00501788 /* MKOptionsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKOptionsCell.m; sourceTree = "<group>"; };
+		00093732229B950400501788 /* MKAdvContentURLCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAdvContentURLCell.h; sourceTree = "<group>"; };
+		00093733229B950400501788 /* MKAdvContentURLCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAdvContentURLCell.m; sourceTree = "<group>"; };
 		0012478422990E0700E97868 /* MKSettingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSettingController.h; sourceTree = "<group>"; };
 		0012478522990E0700E97868 /* MKSettingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSettingController.m; sourceTree = "<group>"; };
 		00124787229912DE00E97868 /* setting_directed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_directed@3x.png"; sourceTree = "<group>"; };
@@ -424,6 +465,12 @@
 		00093703229B809800501788 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				00093708229B896400501788 /* MKSlotVCModel.h */,
+				00093709229B896400501788 /* MKSlotVCModel.m */,
+				0009370F229B8A8B00501788 /* MKSlotDataTypeModel.h */,
+				00093710229B8A8B00501788 /* MKSlotDataTypeModel.m */,
+				00093712229B8B1E00501788 /* MKSlotConfigCellModel.h */,
+				00093713229B8B1E00501788 /* MKSlotConfigCellModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -431,8 +478,61 @@
 		00093704229B809800501788 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				00093715229B8D5500501788 /* MKSlotLineHeader.h */,
+				00093716229B8D5500501788 /* MKSlotLineHeader.m */,
+				00093718229B8D9A00501788 /* MKBaseParamsCell.h */,
+				00093719229B8D9A00501788 /* MKBaseParamsCell.m */,
+				00093720229B8ECF00501788 /* MKFrameTypeView.h */,
+				00093721229B8ECF00501788 /* MKFrameTypeView.m */,
+				00093723229B901400501788 /* MKSlotBaseCell.h */,
+				00093724229B901400501788 /* MKSlotBaseCell.m */,
+				00093726229B920200501788 /* MKAdvContentBaseCell.h */,
+				00093727229B920200501788 /* MKAdvContentBaseCell.m */,
+				00093729229B931300501788 /* MKAdvContentUIDCell.h */,
+				0009372A229B931300501788 /* MKAdvContentUIDCell.m */,
+				0009372C229B938F00501788 /* MKAdvContentiBeaconCell.h */,
+				0009372D229B938F00501788 /* MKAdvContentiBeaconCell.m */,
+				0009372F229B93FE00501788 /* MKOptionsCell.h */,
+				00093730229B93FE00501788 /* MKOptionsCell.m */,
+				00093732229B950400501788 /* MKAdvContentURLCell.h */,
+				00093733229B950400501788 /* MKAdvContentURLCell.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		0009370B229B8A0100501788 /* Expand */ = {
+			isa = PBXGroup;
+			children = (
+				0009371B229B8E8D00501788 /* publicTools */,
+				0009370C229B8A0100501788 /* defines */,
+			);
+			path = Expand;
+			sourceTree = "<group>";
+		};
+		0009370C229B8A0100501788 /* defines */ = {
+			isa = PBXGroup;
+			children = (
+				0009370D229B8A1A00501788 /* MKEnumerateDefine.h */,
+				0009370E229B8A4400501788 /* MKNormalDefines.h */,
+			);
+			path = defines;
+			sourceTree = "<group>";
+		};
+		0009371B229B8E8D00501788 /* publicTools */ = {
+			isa = PBXGroup;
+			children = (
+				0009371C229B8E8D00501788 /* MKSlider */,
+			);
+			path = publicTools;
+			sourceTree = "<group>";
+		};
+		0009371C229B8E8D00501788 /* MKSlider */ = {
+			isa = PBXGroup;
+			children = (
+				0009371D229B8EA100501788 /* MKSlider.h */,
+				0009371E229B8EA100501788 /* MKSlider.m */,
+			);
+			path = MKSlider;
 			sourceTree = "<group>";
 		};
 		0012478B2299198400E97868 /* dataManager */ = {
@@ -465,6 +565,7 @@
 		001505742264831E00F69569 /* BeaconXPlus */ = {
 			isa = PBXGroup;
 			children = (
+				0009370B229B8A0100501788 /* Expand */,
 				00DA1B4F226969340093DBAE /* Function */,
 				001CC07E2268553400331198 /* MKEddystoneBase */,
 				00150591226486C500F69569 /* Interface */,
@@ -1087,27 +1188,39 @@
 			files = (
 				0012479122991B4600E97868 /* MKBXPInterface+MKConfig.m in Sources */,
 				001CC075226824F600331198 /* MKBXPCentralManager.m in Sources */,
+				00093728229B920200501788 /* MKAdvContentBaseCell.m in Sources */,
 				00285F1D22964EA200A4CAD4 /* MKAboutController.m in Sources */,
 				009B58CF229682FB00133192 /* MKEddystoneThreeASensorCell.m in Sources */,
 				00DA1B562269697A0093DBAE /* MKScanViewController.m in Sources */,
 				001CC0882268667D00331198 /* MKBXPBaseBeacon.m in Sources */,
 				009B58D22296A20800133192 /* CBPeripheral+MKAdd.m in Sources */,
 				0012478622990E0700E97868 /* MKSettingController.m in Sources */,
+				00093714229B8B1E00501788 /* MKSlotConfigCellModel.m in Sources */,
+				0009370A229B896400501788 /* MKSlotVCModel.m in Sources */,
+				00093717229B8D5500501788 /* MKSlotLineHeader.m in Sources */,
 				0019A5B42297DEEF007D67F9 /* MKBXPInterface.m in Sources */,
 				00285F13229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m in Sources */,
+				00093711229B8A8B00501788 /* MKSlotDataTypeModel.m in Sources */,
+				00093734229B950400501788 /* MKAdvContentURLCell.m in Sources */,
 				002532E622952FBC0055D3E7 /* MKScanBaseCell.m in Sources */,
 				002533D2229535400055D3E7 /* MKEddStoneTLMCell.m in Sources */,
+				0009371F229B8EA100501788 /* MKSlider.m in Sources */,
 				009B58D62296A4BB00133192 /* MKBXPTaskOperation.m in Sources */,
 				00285F102296475F00A4CAD4 /* MKScanBeaconModel.m in Sources */,
+				0009371A229B8D9A00501788 /* MKBaseParamsCell.m in Sources */,
 				001505852264831F00F69569 /* main.m in Sources */,
 				0019A5BA2297E8B9007D67F9 /* MKMainCellModel.m in Sources */,
 				00093700229B800C00501788 /* MKMainTabBarController.m in Sources */,
+				0009372B229B931300501788 /* MKAdvContentUIDCell.m in Sources */,
+				00093722229B8ECF00501788 /* MKFrameTypeView.m in Sources */,
 				0019A5BD2297E91B007D67F9 /* MKIconInfoCell.m in Sources */,
 				002533CF229533C30055D3E7 /* MKEddStoneURLCell.m in Sources */,
 				002533D8229537C60055D3E7 /* MKScanSearchButton.m in Sources */,
 				00285F162296480F00A4CAD4 /* MKScanInfoCell.m in Sources */,
+				00093731229B93FE00501788 /* MKOptionsCell.m in Sources */,
 				0012478E2299198F00E97868 /* MKDataManager.m in Sources */,
 				00131DE422952F1000E613FF /* MKConnectDeviceProgressView.m in Sources */,
+				00093725229B901400501788 /* MKSlotBaseCell.m in Sources */,
 				002533DB229538100055D3E7 /* MKEddStoneiBeaconCell.m in Sources */,
 				001CC08B226871E800331198 /* MKEddystoneAdopter.m in Sources */,
 				00093707229B80BB00501788 /* MKSlotController.m in Sources */,
@@ -1117,6 +1230,7 @@
 				001505772264831E00F69569 /* AppDelegate.m in Sources */,
 				0019A5CE2297F587007D67F9 /* MKSwitchStatusCell.m in Sources */,
 				0019A5C42297EA23007D67F9 /* MKDeviceInfoModel.m in Sources */,
+				0009372E229B938F00501788 /* MKAdvContentiBeaconCell.m in Sources */,
 				002533D5229535F60055D3E7 /* MKScanSearchView.m in Sources */,
 				009B58CC229674CE00133192 /* MKEddystoneHTCell.m in Sources */,
 			);
