@@ -267,13 +267,13 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
                                      inView:self.view
                               isPenetration:NO];
     WS(weakSelf);
-//    [MKEddystoneInterface eddystoneFactoryDataResetWithSucBlock:^(id returnData) {
-//        [[MKHudManager share] hide];
-//        [weakSelf.view showCentralToast:@"Reset successfully!"];
-//    } failedBlock:^(NSError *error) {
-//        [[MKHudManager share] hide];
-//        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [MKBXPInterface BXPFactoryDataResetWithSucBlock:^(id returnData) {
+        [[MKHudManager share] hide];
+        [weakSelf.view showCentralToast:@"Reset successfully!"];
+    } failedBlock:^(NSError *error) {
+        [[MKHudManager share] hide];
+        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 #pragma mark - 设置可连接状态
@@ -302,16 +302,16 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
                                      inView:self.view
                               isPenetration:NO];
     WS(weakSelf);
-//    [MKEddystoneInterface setEddystoneConnectStatus:connect sucBlock:^(id returnData) {
-//        [[MKHudManager share] hide];
-//        [weakSelf.view showCentralToast:@"Success!"];
-//    } failedBlock:^(NSError *error) {
-//        [[MKHudManager share] hide];
-//        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        MKMainCellModel *model = weakSelf.bottomDataList[0];
-//        model.isOn = !connect;
-//        [weakSelf.tableView reloadData];
-//    }];
+    [MKBXPInterface setBXPConnectStatus:connect sucBlock:^(id returnData) {
+        [[MKHudManager share] hide];
+        [weakSelf.view showCentralToast:@"Success!"];
+    } failedBlock:^(NSError *error) {
+        [[MKHudManager share] hide];
+        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
+        MKMainCellModel *model = weakSelf.bottomDataList[0];
+        model.isOn = !connect;
+        [weakSelf.tableView reloadData];
+    }];
 }
 
 #pragma mark - 开关机
@@ -340,17 +340,16 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
                                      inView:self.view
                               isPenetration:NO];
     WS(weakSelf);
-//    [MKEddystoneInterface setEddystonePowerOffWithSucBlock:^(id returnData) {
-//        [[MKHudManager share] hide];
-//        //        [weakSelf.view showCentralToast:@"Success!"];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:MKEddystonePowerOffNotification object:nil];
-//    } failedBlock:^(NSError *error) {
-//        [[MKHudManager share] hide];
-//        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        MKMainCellModel *model = weakSelf.bottomDataList[1];
-//        model.isOn = YES;
-//        [weakSelf.tableView reloadData];
-//    }];
+    [MKBXPInterface setBXPPowerOffWithSucBlockWithSucBlock:^(id returnData) {
+        [[MKHudManager share] hide];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"MKEddystonePowerOffNotification" object:nil];
+    } failedBlock:^(NSError *error) {
+        [[MKHudManager share] hide];
+        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
+        MKMainCellModel *model = weakSelf.bottomDataList[1];
+        model.isOn = YES;
+        [weakSelf.tableView reloadData];
+    }];
 }
 
 - (void)directedConnectable:(BOOL)isOn{
@@ -376,19 +375,19 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
 - (void)commandForLockState:(BOOL)isOn{
     WS(weakSelf);
     [[MKHudManager share] showHUDWithTitle:@"Setting..." inView:self.view isPenetration:NO];
-//    [MKEddystoneInterface setEddystoneLockState:(isOn ? MKEddystoneLockStateUnlockAutoMaticRelockDisabled : MKEddystoneLockStateOpen)
-//                                       sucBlock:^(id returnData) {
-//                                           [[MKHudManager share] hide];
-//                                           MKMainCellModel *model = self.bottomDataList[2];
-//                                           model.isOn = isOn;
-//                                       }
-//                                    failedBlock:^(NSError *error) {
-//                                        [[MKHudManager share] hide];
-//                                        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
-//                                        MKMainCellModel *model = self.bottomDataList[2];
-//                                        model.isOn = !isOn;
-//                                        [weakSelf.tableView reloadData];
-//                                    }];
+    [MKBXPInterface setBXPLockState:(isOn ? MKBXPLockStateUnlockAutoMaticRelockDisabled : MKBXPLockStateOpen)
+                                       sucBlock:^(id returnData) {
+                                           [[MKHudManager share] hide];
+                                           MKMainCellModel *model = self.bottomDataList[2];
+                                           model.isOn = isOn;
+                                       }
+                                    failedBlock:^(NSError *error) {
+                                        [[MKHudManager share] hide];
+                                        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
+                                        MKMainCellModel *model = self.bottomDataList[2];
+                                        model.isOn = !isOn;
+                                        [weakSelf.tableView reloadData];
+                                    }];
 }
 
 #pragma mark -

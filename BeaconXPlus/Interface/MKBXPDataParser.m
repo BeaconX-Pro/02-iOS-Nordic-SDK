@@ -109,6 +109,9 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
     }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:factoryResetUUID]]){
         //恢复出厂设置
         operationID = MKBXPSetFactoryResetOperation;
+    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:remainConnectableUUID]]) {
+        //可连接状态
+        operationID = MKBXPSetConnectEnableOperation;
     }
     return [self dataParserGetDataSuccess:@{} operationID:operationID];
 }
@@ -314,8 +317,8 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         //设置iBeacon的次值
         operationID = MKBXPSetMinorOperation;
         returnDic = @{};
-    }else if ([function isEqualToString:@"60"]){
-        //设置iBeacon的校验距离
+    }else if ([function isEqualToString:@"26"] && content.length == 8){
+        //关机
         operationID = MKBXPSetPowerOffOperation;
         returnDic = @{};
     }else if ([function isEqualToString:@"61"]){
@@ -333,10 +336,6 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
                               [subContent substringWithRange:NSMakeRange(6, 2)],
                               [subContent substringWithRange:NSMakeRange(8, 2)]];
         returnDic = @{@"slotTypeList":typeList};
-    }else if ([function isEqualToString:@"89"]){
-        //设置eddyStone的可连接状态
-        operationID = MKBXPSetConnectEnableOperation;
-        returnDic = @{};
     }else if ([function isEqualToString:@"64"]){
         //读取iBeacon设备通道的UUID
         NSString *temp = [content substringWithRange:NSMakeRange(8, 2 * len)];

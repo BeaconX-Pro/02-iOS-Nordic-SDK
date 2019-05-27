@@ -68,4 +68,48 @@
                          failureBlock:failedBlock];
 }
 
++ (void)BXPFactoryDataResetWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:MKBXPSetFactoryResetOperation
+                          commandData:@"0b"
+                       characteristic:centralManager.peripheral.factoryReset
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPLockState:(MKBXPLockState)lockState
+               sucBlock:(void (^)(id returnData))sucBlock
+            failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = @"00";
+    if (lockState == MKBXPLockStateOpen) {
+        commandString = @"01";
+    }else if (lockState == MKBXPLockStateUnlockAutoMaticRelockDisabled){
+        commandString = @"02";
+    }
+    [centralManager addTaskWithTaskID:MKBXPSetLockStateOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.lockState
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPPowerOffWithSucBlockWithSucBlock:(void (^)(id returnData))sucBlock
+                                   failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:MKBXPSetPowerOffOperation
+                          commandData:@"ea260000"
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPConnectStatus:(BOOL)connectEnable
+                   sucBlock:(void (^)(id returnData))sucBlock
+                failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:MKBXPSetConnectEnableOperation
+                          commandData:(connectEnable ? @"01" : @"00")
+                       characteristic:centralManager.peripheral.remainConnectable
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
 @end
