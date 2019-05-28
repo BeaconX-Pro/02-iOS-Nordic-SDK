@@ -157,8 +157,13 @@
         return;
     }
     NSString *advInterval = [NSString stringWithFormat:@"%1lx",(unsigned long)(interval * 100)];
+    if (advInterval.length == 2) {
+        advInterval = [@"00" stringByAppendingString:advInterval];
+    }else if (advInterval.length == 3) {
+        advInterval = [@"0" stringByAppendingString:advInterval];
+    }
     [centralManager addTaskWithTaskID:MKBXPSetAdvertisingIntervalOperation
-                          commandData:[@"00" stringByAppendingString:advInterval]
+                          commandData:advInterval
                        characteristic:centralManager.peripheral.advertisingInterval
                          successBlock:sucBlock
                          failureBlock:failedBlock];
@@ -248,7 +253,7 @@
     }
     uuid = [uuid stringByReplacingOccurrencesOfString:@"-" withString:@""];
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"50",uuid,majorHex,minorHex];
-    [centralManager addTaskWithTaskID:MKBXPSetiBeaconDataOperation
+    [centralManager addTaskWithTaskID:MKBXPSetAdvSlotDataOperation
                           commandData:commandString
                        characteristic:centralManager.peripheral.advSlotData
                          successBlock:sucBlock

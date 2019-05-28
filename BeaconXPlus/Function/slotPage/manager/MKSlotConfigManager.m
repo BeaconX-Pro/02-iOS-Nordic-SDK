@@ -36,7 +36,7 @@
             if (successBlock) {
                 moko_dispatch_main_safe(^{
                     NSDictionary *json = @{
-                                           @"advData":@{@"frameType":@"70"}
+                                           @"advData":@{@"frameType":@"ff"}
                                            };
                     successBlock(json);
                 });
@@ -88,20 +88,34 @@
             }
             return ;
         }
+        BOOL advDataSuccess = NO;
         if (slotFrameType == slotFrameTypeTLM) {
-            [self configTLMAdvDatas];
+            advDataSuccess = [self configTLMAdvDatas];
         }else if (slotFrameType == slotFrameTypeUID) {
-            [self configUIDAdvDatas:detailData[@"UID"][@"nameSpace"] instanceID:detailData[@"UID"][@"instanceID"]];
+            advDataSuccess = [self configUIDAdvDatas:detailData[@"UID"][@"nameSpace"] instanceID:detailData[@"UID"][@"instanceID"]];
         }else if (slotFrameType == slotFrameTypeURL) {
-            [self configURLAdvDatas:detailData[@"URL"][@"urlHeader"] content:detailData[@"URL"][@"urlContent"] expansion:detailData[@"URL"][@"urlExpansion"]];
+            advDataSuccess = [self configURLAdvDatas:detailData[@"URL"][@"urlHeader"] content:detailData[@"URL"][@"urlContent"] expansion:detailData[@"URL"][@"urlExpansion"]];
         }else if (slotFrameType == slotFrameTypeiBeacon) {
-            [self configiBeacon:detailData[@"iBeacon"][@"uuid"] major:[detailData[@"iBeacon"][@"major"] integerValue] minor:[detailData[@"iBeacon"][@"minor"] integerValue]];
+            advDataSuccess = [self configiBeacon:detailData[@"iBeacon"][@"uuid"] major:[detailData[@"iBeacon"][@"major"] integerValue] minor:[detailData[@"iBeacon"][@"minor"] integerValue]];
         }else if (slotFrameType == slotFrameTypeNull) {
-            [self configNoDatas];
+            advDataSuccess = [self configNoDatas];
+        }
+        if (!advDataSuccess) {
+            if (failedBlock) {
+                moko_dispatch_main_safe(^{
+                    failedBlock([self configError]);
+                });
+            }
+            return;
         }
         [self configAdvTxPower:[detailData[@"baseParam"][@"advTxPower"] integerValue]];
         [self configRadioTxPower:[self getRadioTxPower:detailData[@"baseParam"][@"txPower"]]];
         [self configAdvInterval:[detailData[@"baseParam"][@"advInterval"] integerValue]];
+        if (successBlock) {
+            moko_dispatch_main_safe(^{
+                successBlock();
+            });
+        }
     });
 }
 

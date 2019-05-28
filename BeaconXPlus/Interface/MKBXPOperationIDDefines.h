@@ -33,14 +33,10 @@ typedef NS_ENUM(NSInteger, MKBXPOperationID) {
     MKBXPSetFactoryResetOperation,
     MKBXPReadMacAddressOperation,                   //获取eddystone的mac地址
     MKBXPReadSlotTypeOperation,                     //获取eddystone的通道类型
-    MKBXPReadiBeaconDataOperation,                  //获取eddystone的iBeacon主值次值和发射功率
-    MKBXPReadiBeaconUUIDOperation,                  //获取eddystone的iBeacon UUID
     MKBXPReadDeviceNameOperation,                   //获取eddystone的设备名字
     MKBXPReadConnectEnableOperation,                //获取eddystone的可连接状态
     MKBXPSetMajorOperation,                         //设置iBeacon的主值iBeaconMajor
     MKBXPSetMinorOperation,                         //设置iBeacon的次值
-    MKBXPSetiBeaconDataOperation,                   //设置eddystone的iBeacon主值次值和发射功率
-    MKBXPSetiBeaconUUIDOperation,                //设置eddystone的iBeacon UUID
     MKBXPSetDeviceNameOperation,                 //设置eddystone的设备名字
     MKBXPSetConnectEnableOperation,              //设置eddystone的可连接状态
     MKBXPSetPowerOffOperation,                    //关机命令

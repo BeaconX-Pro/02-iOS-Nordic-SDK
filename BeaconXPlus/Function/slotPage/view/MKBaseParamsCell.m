@@ -160,7 +160,7 @@ static CGFloat const unitLabelWidth = 60.f;
  */
 - (NSDictionary *)getContentData{
     NSString *interval = [self.intervalTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-    if (ValidStr(interval)) {
+    if (!ValidStr(interval)) {
         return [self errorDic:@"advInterval error"];
     }
     //rssi

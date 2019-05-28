@@ -363,14 +363,6 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         //关机
         operationID = MKBXPSetPowerOffOperation;
         returnDic = @{};
-    }else if ([function isEqualToString:@"65"]){
-        //设置iBeacon的UUID
-        operationID = MKBXPSetiBeaconUUIDOperation;
-        returnDic = @{};
-    }else if ([function isEqualToString:@"67"]){
-        //设置iBeacon的主值次值发射功率
-        operationID = MKBXPSetiBeaconDataOperation;
-        returnDic = @{};
     }else if ([function isEqualToString:@"69"]){
         //设置fast mode
         operationID = MKBXPSetFastModeOperation;
