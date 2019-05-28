@@ -19,6 +19,8 @@
 #import "MKFrameTypeView.h"
 #import "MKSlotLineHeader.h"
 
+#import "MKSlotConfigManager.h"
+
 static CGFloat const offset_X = 15.f;
 static CGFloat const headerViewHeight = 130.f;
 static CGFloat const baseParamsCellHeight = 155.f;
@@ -40,6 +42,8 @@ static CGFloat const urlAdvCellHeight = 100.f;
  进来的时候拿的当前通道数据
  */
 @property (nonatomic, strong)NSDictionary *originalDic;
+
+@property (nonatomic, strong)MKSlotConfigManager *configManager;
 
 @end
 
@@ -181,7 +185,7 @@ static CGFloat const urlAdvCellHeight = 100.f;
                                      inView:self.view
                               isPenetration:NO];
     WS(weakSelf);
-    [[MKDataManager shared] readSlotDetailData:self.vcModel successBlock:^(id returnData) {
+    [self.configManager readSlotDetailData:self.vcModel successBlock:^(id returnData) {
         [[MKHudManager share] hide];
         weakSelf.originalDic = returnData;
         weakSelf.frameType = [weakSelf loadFrameType:returnData[@"advData"][@"frameType"]];
@@ -441,7 +445,7 @@ static CGFloat const urlAdvCellHeight = 100.f;
                                      inView:self.view
                               isPenetration:NO];
     WS(weakSelf);
-    [[MKDataManager shared] setSlotDetailData:self.vcModel.slotIndex slotFrameType:self.frameType detailData:detailDic successBlock:^{
+    [self.configManager setSlotDetailData:self.vcModel.slotIndex slotFrameType:self.frameType detailData:detailDic successBlock:^{
         [[MKHudManager share] hide];
         [weakSelf.view showCentralToast:@"success"];
         [weakSelf performSelector:@selector(leftButtonMethod) withObject:nil afterDelay:0.5f];
@@ -494,6 +498,13 @@ static CGFloat const urlAdvCellHeight = 100.f;
         _dataList = [NSMutableArray array];
     }
     return _dataList;
+}
+
+- (MKSlotConfigManager *)configManager {
+    if (!_configManager) {
+        _configManager = [[MKSlotConfigManager alloc] init];
+    }
+    return _configManager;
 }
 
 @end

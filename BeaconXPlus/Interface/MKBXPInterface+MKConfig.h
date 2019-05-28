@@ -74,6 +74,90 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setBXPActiveSlot:(bxpActiveSlotNo)slotNo
                 sucBlock:(void (^)(id returnData))sucBlock
              failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ Setting Advertised Tx Power(RSSI@0m, only for eddystone frame).Advertised Tx Power is different for each SLOT. Before setting the target SLOT’s Advertised Tx Power, you should switch the SLOT to target SLOT(Please refer to ，setEddystoneActiveSlot:sucBlock:failedBlock:); otherwise the Advertised Tx Power set is only for the currently active SLOT.
+ 
+ @param advTxPower Advertised Tx Power, range from -100dBm to +20dBm
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPAdvTxPower:(NSInteger)advTxPower
+                sucBlock:(void (^)(id returnData))sucBlock
+             failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ Setting Radio Tx Power.Radio Tx Power is different for each SLOT. Before setting the target SLOT’s Radio Tx Power, you should switch the SLOT to target SLOT(Please refer to ，setEddystoneActiveSlot:sucBlock:failedBlock:); otherwise the Radio Tx Power set is only for the currently active SLOT.
+
+ @param power power
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPRadioTxPower:(slotRadioTxPower )power
+                  sucBlock:(void (^)(id returnData))sucBlock
+               failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ 设置当前通道的广播间隔
+
+ @param interval 广播间隔，单位100ms，范围:1~100
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPAdvInterval:(NSInteger)interval
+                 sucBlock:(void (^)(id returnData))sucBlock
+              failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ Configuring currently active SLOT as TLM.To configure the target SLOT type as TLM, you should switch the SLOT to target SLOT(Please refer to setEddystoneActiveSlot:sucBlock:failedBlock:); otherwise the currently active SLOT will configured as TLM.
+ 
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPTLMAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
+                         failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ configuring currently active SLOT as UID.To configure the target SLOT type as UID, you should switch the SLOT to target SLOT(Please refer to setEddystoneActiveSlot:sucBlock:failedBlock:); otherwise the currently active SLOT will configured as UID.
+ 
+ @param nameSpace NameSpace, 20 characters
+ @param instanceID Instance，12 characters
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPUIDAdvDataWithNameSpace:(NSString *)nameSpace
+                           instanceID:(NSString *)instanceID
+                             sucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ Configuring currently active SLOT as URL.To configure the target SLOT type as URL, you should switch the SLOT to target SLOT(Please refer to setEddystoneActiveSlot:sucBlock:failedBlock:); otherwise the currently active SLOT will configured as URL.
+ 
+ @param urlHeader URL Scheme Prefix.
+ @param urlContent Encoded URL. If the URL contains HTTP URL encoding, the length of the left datas should be 16bytes at most. If the URL doesn’t contain HTTP URL encoding, the full length of Encoded URL should be 2-17bytes.
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPURLAdvData:(urlHeaderType )urlHeader
+              urlContent:(NSString *)urlContent
+                sucBlock:(void (^)(id returnData))sucBlock
+             failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ Configuring currently active SLOT as iBeacon.To configure the target SLOT type as iBeacon, you should switch the SLOT to target SLOT(Please refer to setEddystoneActiveSlot:sucBlock:failedBlock:); otherwise the currently active SLOT will configured as iBeacon.
+ 
+ @param major major,0~65535
+ @param minor minor,0~65535
+ @param uuid uuid
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPiBeaconAdvDataWithMajor:(NSInteger)major
+                                minor:(NSInteger)minor
+                                 uuid:(NSString *)uuid
+                             sucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ Configuring currently active SLOT as NO DATA.To configure the target SLOT type as NO DATA, you should switch the SLOT to target SLOT(Please refer to setEddystoneActiveSlot:sucBlock:failedBlock:); otherwise the currently active SLOT will configured as NO DATA.
+ 
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPNODATAAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

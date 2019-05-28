@@ -230,7 +230,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
 + (NSDictionary *)advDataWithOriData:(NSData *)data{
     MKBXPDataFrameType frameType = [MKBXPBaseBeacon parseDataTypeWithSlotData:data];
     //当前slot广播信息如果是iBeacon，则不能用下面的解析方式解析,需要用专用的iBeacon解析方式
-    if (frameType == MKBXPUnknownFrameType || frameType == MKBXPBeaconFrameType) {
+    if (frameType == MKBXPUnknownFrameType) {
         return nil;
     }
     if (frameType == MKBXPTLMFrameType) {
@@ -250,8 +250,8 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         NSDictionary *returnData = @{
                                      @"frameType":@"00",
                                      @"txPower":[NSString stringWithFormat:@"%ld",(long)[beacon.txPower integerValue]],
-                                     @"namespaceId":beacon.namespaceId,
-                                     @"instanceId":beacon.instanceId,
+                                     @"namespaceId":SafeStr(beacon.namespaceId),
+                                     @"instanceId":SafeStr(beacon.instanceId),
                                      };
         return [self dataParserGetDataSuccess:returnData operationID:MKBXPReadAdvSlotDataOperation];
     }
@@ -268,7 +268,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         NSString *nameString = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(1, data.length - 1)] encoding:NSUTF8StringEncoding];
         NSDictionary *returnData = @{
                                      @"frameType":@"40",
-                                     @"peripheralName":nameString
+                                     @"peripheralName":SafeStr(nameString)
                                      };
         return [self dataParserGetDataSuccess:returnData operationID:MKBXPReadAdvSlotDataOperation];
     }

@@ -194,7 +194,7 @@
 - (MKBXPUIDBeacon *)initWithAdvertiseData:(NSData *)advData {
     if (self = [super init]) {
         // On the spec, its 20 bytes. But some beacons doesn't advertise the last 2 RFU bytes.
-        if (advData.length <= 18) {
+        if (advData.length < 18) {
             return nil;
         }
         const unsigned char *cData = [advData bytes];

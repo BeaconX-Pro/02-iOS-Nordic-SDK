@@ -127,6 +127,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)readBXPAdvTxPowerWithSuccessBlock:(void (^)(id returnData))sucBlock
                               failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ 读取当前通道的广播间隔
+
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)readBXPAdvIntervalWithSuccessBlock:(void (^)(id returnData))sucBlock
+                               failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

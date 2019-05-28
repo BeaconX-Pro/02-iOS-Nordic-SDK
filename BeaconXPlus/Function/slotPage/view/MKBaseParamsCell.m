@@ -23,6 +23,14 @@ static CGFloat const unitLabelWidth = 60.f;
 
 @property (nonatomic, strong)UILabel *msgLabel;
 
+@property (nonatomic, strong)UILabel *advIntervalLabel;
+
+@property (nonatomic, strong)UILabel *advNoteLabel;
+
+@property (nonatomic, strong)UITextField *intervalTextField;
+
+@property (nonatomic, strong)UILabel *advIntervalUnitLabel;
+
 @property (nonatomic, strong)UILabel *rssiLabel;
 
 @property (nonatomic, strong)MKSlider *rssiSlider;
@@ -51,6 +59,10 @@ static CGFloat const unitLabelWidth = 60.f;
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self.contentView addSubview:self.icon];
         [self.contentView addSubview:self.msgLabel];
+        [self.contentView addSubview:self.advIntervalLabel];
+        [self.contentView addSubview:self.advNoteLabel];
+        [self.contentView addSubview:self.intervalTextField];
+        [self.contentView addSubview:self.advIntervalUnitLabel];
         [self.contentView addSubview:self.rssiLabel];
         [self.contentView addSubview:self.rssiSlider];
         [self.contentView addSubview:self.rssiUnitLabel];
@@ -76,11 +88,35 @@ static CGFloat const unitLabelWidth = 60.f;
         make.centerY.mas_equalTo(self.icon.mas_centerY);
         make.height.mas_equalTo(MKFont(15.f).lineHeight);
     }];
-    CGFloat postion_Y = ([self needHiddenRssiInfo] ? 2 * offset_Y : offset_Y);
+    [self.advIntervalLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(offset_X);
+        make.width.mas_equalTo(120);
+        make.top.mas_equalTo(self.icon.mas_bottom).mas_offset(offset_Y);
+        make.height.mas_equalTo(MKFont(15).lineHeight);
+    }];
+    [self.advNoteLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(offset_X);
+        make.width.mas_equalTo(140);
+        make.top.mas_equalTo(self.advIntervalLabel.mas_bottom).mas_offset(3.f);
+        make.height.mas_equalTo(MKFont(11).lineHeight);
+    }];
+    [self.intervalTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.advNoteLabel.mas_right).mas_offset(5.f);
+        make.width.mas_equalTo(30.f);
+        make.top.mas_equalTo(self.icon.mas_bottom).mas_offset(offset_Y);
+        make.height.mas_equalTo(20.f);
+    }];
+    [self.advIntervalUnitLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.intervalTextField.mas_right).mas_offset(2.f);
+        make.right.mas_equalTo(-offset_X);
+        make.centerY.mas_equalTo(self.intervalTextField.mas_centerY);
+        make.height.mas_equalTo(MKFont(12.f).lineHeight);
+    }];
+    
     [self.rssiLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(offset_X);
         make.right.mas_equalTo(-offset_X);
-        make.top.mas_equalTo(self.icon.mas_bottom).mas_offset(postion_Y);
+        make.top.mas_equalTo(self.advNoteLabel.mas_bottom).mas_offset(offset_Y);
         make.height.mas_equalTo(MKFont(15).lineHeight);
     }];
     [self.rssiSlider mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -95,21 +131,12 @@ static CGFloat const unitLabelWidth = 60.f;
         make.centerY.mas_equalTo(self.rssiSlider.mas_centerY);
         make.height.mas_equalTo(MKFont(12.f).lineHeight);
     }];
-    if ([self needHiddenRssiInfo]) {
-        [self.txPowerLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(offset_X);
-            make.right.mas_equalTo(-offset_X);
-            make.top.mas_equalTo(self.icon.mas_bottom).mas_offset(postion_Y);
-            make.height.mas_equalTo(MKFont(15).lineHeight);
-        }];
-    }else{
-        [self.txPowerLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(offset_X);
-            make.right.mas_equalTo(-offset_X);
-            make.top.mas_equalTo(self.rssiSlider.mas_bottom).mas_offset(offset_Y);
-            make.height.mas_equalTo(MKFont(15).lineHeight);
-        }];
-    }
+    [self.txPowerLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(offset_X);
+        make.right.mas_equalTo(-offset_X);
+        make.top.mas_equalTo(self.rssiSlider.mas_bottom).mas_offset(offset_Y);
+        make.height.mas_equalTo(MKFont(15).lineHeight);
+    }];
     
     [self.txPowerSlider mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(offset_X);
@@ -132,6 +159,10 @@ static CGFloat const unitLabelWidth = 60.f;
  @return dic
  */
 - (NSDictionary *)getContentData{
+    NSString *interval = [self.intervalTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (ValidStr(interval)) {
+        return [self errorDic:@"advInterval error"];
+    }
     //rssi
     NSString *rssi = [NSString stringWithFormat:@"%.f",self.rssiSlider.value];
     //tx power
@@ -143,7 +174,21 @@ static CGFloat const unitLabelWidth = 60.f;
                      @"type":@"baseParam",
                      @"advTxPower":rssi,
                      @"txPower":txPower,
+                     @"advInterval":interval,
                      }
+             };
+}
+
+/**
+ 生成错误的dic
+ 
+ @param errorMsg 错误内容
+ @return dic
+ */
+- (NSDictionary *)errorDic:(NSString *)errorMsg{
+    return @{
+             @"code":@"2",
+             @"msg":SafeStr(errorMsg),
              };
 }
 
@@ -205,13 +250,6 @@ static CGFloat const unitLabelWidth = 60.f;
     }
     return 0.f;
 }
-//只有UID、URL、iBeacon才有rssi信息
-- (BOOL)needHiddenRssiInfo{
-    if ([self.baseCellType isEqualToString:MKSlotBaseCellTLMType]) {
-        return YES;
-    }
-    return NO;
-}
 
 //iBeacon下面的rssi信息与UID、URL不一样
 - (BOOL)isiBeaconType{
@@ -232,13 +270,10 @@ static CGFloat const unitLabelWidth = 60.f;
     _dataDic = nil;
     _dataDic = dataDic;
     if ([self isiBeaconType]) {
-        _rssiLabel.text = @"RSSI@1M";
+        _rssiLabel.attributedText = [MKAttributedString getAttributedString:@[@"RSSI@1M",@"    (-100dBm~+20dBm)"] fonts:@[MKFont(15.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
     }else{
-        _rssiLabel.text = @"RSSI@0M";
+        _rssiLabel.attributedText = [MKAttributedString getAttributedString:@[@"RSSI@0M",@"    (-100dBm~+20dBm)"] fonts:@[MKFont(15.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
     }
-    [self.rssiSlider setHidden:[self needHiddenRssiInfo]];
-    [self.rssiLabel setHidden:[self needHiddenRssiInfo]];
-    [self.rssiUnitLabel setHidden:[self needHiddenRssiInfo]];
     if (!ValidDict(_dataDic)) {
         if ([self isiBeaconType]) {
             [self.rssiSlider setValue:-59];
@@ -274,6 +309,9 @@ static CGFloat const unitLabelWidth = 60.f;
         [self.txPowerSlider setValue:66.6];
         [self.txPowerUnitLabel setText:@"0dBm"];
     }
+    if (ValidStr(_dataDic[@"advInterval"])) {
+        self.intervalTextField.text = [NSString stringWithFormat:@"%ld",(long)([_dataDic[@"advInterval"] integerValue] / 100)];
+    }
     [self setNeedsLayout];
 }
 
@@ -300,9 +338,60 @@ static CGFloat const unitLabelWidth = 60.f;
         _msgLabel.textColor = DEFAULT_TEXT_COLOR;
         _msgLabel.font = MKFont(15.f);
         _msgLabel.textAlignment = NSTextAlignmentLeft;
-        _msgLabel.text = @"Base Params";
+        _msgLabel.text = @"Adv Parameters";
     }
     return _msgLabel;
+}
+
+- (UILabel *)advIntervalLabel {
+    if (!_advIntervalLabel) {
+        _advIntervalLabel = [self functionLabelWithFont:MKFont(15.f)];
+        _advIntervalLabel.text = @"Adv Interval";
+    }
+    return _advIntervalLabel;
+}
+
+- (UILabel *)advNoteLabel {
+    if (!_advNoteLabel) {
+        _advNoteLabel = [[UILabel alloc] init];
+        _advNoteLabel.textColor = RGBCOLOR(223, 223, 223);
+        _advNoteLabel.textAlignment = NSTextAlignmentLeft;
+        _advNoteLabel.font = MKFont(11.f);
+        _advNoteLabel.text = @"Min:100ms Max:10000ms";
+    }
+    return _advNoteLabel;
+}
+
+- (UITextField *)intervalTextField {
+    if (!_intervalTextField) {
+        _intervalTextField = [[UITextField alloc] initWithTextFieldType:realNumberOnly];
+        _intervalTextField.textColor = DEFAULT_TEXT_COLOR;
+        _intervalTextField.textAlignment = NSTextAlignmentCenter;
+        _intervalTextField.font = MKFont(12.f);
+        _intervalTextField.borderStyle = UITextBorderStyleNone;
+        _intervalTextField.text = @"10";
+        
+        UIView *lineView = [[UIView alloc] init];
+        lineView.backgroundColor = DEFAULT_TEXT_COLOR;
+        [_intervalTextField addSubview:lineView];
+        [lineView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(0);
+            make.right.mas_equalTo(0);
+            make.bottom.mas_equalTo(0);
+            make.height.mas_equalTo(1.f);
+        }];
+    }
+    return _intervalTextField;
+}
+
+- (UILabel *)advIntervalUnitLabel {
+    if (!_advIntervalUnitLabel) {
+        _advIntervalUnitLabel = [[UILabel alloc] init];
+        _advIntervalUnitLabel.textAlignment = NSTextAlignmentLeft;
+        NSAttributedString *att = [MKAttributedString getAttributedString:@[@" x 100ms",@"    (1~100)"] fonts:@[MKFont(12.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
+        _advIntervalUnitLabel.attributedText = att;
+    }
+    return _advIntervalUnitLabel;
 }
 
 - (UILabel *)rssiLabel{
@@ -315,9 +404,9 @@ static CGFloat const unitLabelWidth = 60.f;
 - (MKSlider *)rssiSlider{
     if (!_rssiSlider) {
         _rssiSlider = [[MKSlider alloc] init];
-        _rssiSlider.maximumValue = 0.f;
-        _rssiSlider.minimumValue = -127.f;
-        _rssiSlider.value = -127.f;
+        _rssiSlider.maximumValue = 20;
+        _rssiSlider.minimumValue = -100;
+        _rssiSlider.value = -100;
         [_rssiSlider addTarget:self
                         action:@selector(sliderValueChanged:)
               forControlEvents:UIControlEventValueChanged];

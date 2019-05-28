@@ -123,6 +123,147 @@
                          failureBlock:failedBlock];
 }
 
++ (void)setBXPAdvTxPower:(NSInteger)advTxPower
+                sucBlock:(void (^)(id returnData))sucBlock
+             failedBlock:(void (^)(NSError *error))failedBlock {
+    if (advTxPower < -100 || advTxPower > 20) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *advPower = [MKEddystoneAdopter hexStringFromSignedNumber:advTxPower];
+    [centralManager addTaskWithTaskID:MKBXPSetAdvTxPowerOperation
+                          commandData:advPower
+                       characteristic:centralManager.peripheral.advertisedTxPower
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPRadioTxPower:(slotRadioTxPower)power
+                  sucBlock:(void (^)(id returnData))sucBlock
+               failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = [self fetchTxPower:power];
+    [centralManager addTaskWithTaskID:MKBXPSetRadioTxPowerOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.radioTxPower
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPAdvInterval:(NSInteger)interval
+                 sucBlock:(void (^)(id returnData))sucBlock
+              failedBlock:(void (^)(NSError *error))failedBlock {
+    if (interval < 1 || interval > 100) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *advInterval = [NSString stringWithFormat:@"%1lx",(unsigned long)(interval * 100)];
+    [centralManager addTaskWithTaskID:MKBXPSetAdvertisingIntervalOperation
+                          commandData:[@"00" stringByAppendingString:advInterval]
+                       characteristic:centralManager.peripheral.advertisingInterval
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPTLMAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
+                         failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:MKBXPSetAdvSlotDataOperation
+                          commandData:@"20"
+                       characteristic:centralManager.peripheral.advSlotData
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPUIDAdvDataWithNameSpace:(NSString *)nameSpace
+                           instanceID:(NSString *)instanceID
+                             sucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock {
+    if (![MKEddystoneAdopter isNameSpace:nameSpace] || ![MKEddystoneAdopter isInstanceID:instanceID]) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"00",nameSpace,instanceID];
+    [centralManager addTaskWithTaskID:MKBXPSetAdvSlotDataOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.advSlotData
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPURLAdvData:(urlHeaderType )urlHeader
+              urlContent:(NSString *)urlContent
+                sucBlock:(void (^)(id returnData))sucBlock
+             failedBlock:(void (^)(NSError *error))failedBlock {
+    if (![MKEddystoneAdopter checkUrlContent:urlContent]) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *header = @"";
+    NSString *tempHeader = @"";
+    if (urlHeader == urlHeaderType1) {
+        header = @"00";
+        tempHeader = @"http://www.";
+    }else if (urlHeader == urlHeaderType2){
+        header = @"01";
+        tempHeader = @"https://www.";
+    }else if (urlHeader == urlHeaderType3){
+        header = @"02";
+        tempHeader = @"http://";
+    }else if (urlHeader == urlHeaderType4){
+        header = @"03";
+        tempHeader = @"https://";
+    }
+    NSString *urlString = [MKEddystoneAdopter fetchUrlStringWithHeader:tempHeader urlContent:urlContent];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"10",header,urlString];
+    [centralManager addTaskWithTaskID:MKBXPSetAdvSlotDataOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.advSlotData
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPiBeaconAdvDataWithMajor:(NSInteger)major
+                                minor:(NSInteger)minor
+                                 uuid:(NSString *)uuid
+                             sucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock {
+    if (major < 0 || major > 65535 || minor < 0 || minor > 65535 || ![MKEddystoneAdopter isUUIDString:uuid]) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *majorHex = [NSString stringWithFormat:@"%1lx",(unsigned long)major];
+    if (majorHex.length == 1) {
+        majorHex = [@"000" stringByAppendingString:majorHex];
+    }else if (majorHex.length == 2){
+        majorHex = [@"00" stringByAppendingString:majorHex];
+    }else if (majorHex.length == 3){
+        majorHex = [@"0" stringByAppendingString:majorHex];
+    }
+    NSString *minorHex = [NSString stringWithFormat:@"%1lx",(unsigned long)minor];
+    if (minorHex.length == 1) {
+        minorHex = [@"000" stringByAppendingString:minorHex];
+    }else if (minorHex.length == 2){
+        minorHex = [@"00" stringByAppendingString:minorHex];
+    }else if (minorHex.length == 3){
+        minorHex = [@"0" stringByAppendingString:minorHex];
+    }
+    uuid = [uuid stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"50",uuid,majorHex,minorHex];
+    [centralManager addTaskWithTaskID:MKBXPSetiBeaconDataOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.advSlotData
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPNODATAAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:MKBXPSetAdvSlotDataOperation
+                          commandData:@"ff"
+                       characteristic:centralManager.peripheral.advSlotData
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
 #pragma mark - private method
 + (NSString *)fetchSlotNumber:(bxpActiveSlotNo)slotNo{
     switch (slotNo) {

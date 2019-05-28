@@ -54,8 +54,9 @@ typedef NS_ENUM(NSInteger, MKCustomErrorCode){
 + (NSString *)getUrlscheme:(char)hexChar;
 + (NSString *)getEncodedString:(char)hexChar;
 + (NSData *)fetchKeyToUnlockWithPassword:(NSString *)password randKey:(NSData *)randKey;
-+ (NSString *)fecthUrlStringWithHeader:(NSString *)urlHeader urlContent:(NSString *)urlContent;
++ (NSString *)fetchUrlStringWithHeader:(NSString *)urlHeader urlContent:(NSString *)urlContent;
 + (NSString *)fetchTxPowerWithContent:(NSString *)content;
 + (NSNumber *)fetchRSSIWithContent:(NSData *)contentData;
++ (NSString *)hexStringFromSignedNumber:(NSInteger)number;
 
 @end

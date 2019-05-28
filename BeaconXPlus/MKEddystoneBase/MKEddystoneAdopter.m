@@ -340,7 +340,7 @@ static NSString * const MKCustomErrorDomain = @"com.moko.eddystoneSDKDomain";
     return ![contentList containsObject:urlContent];
 }
 
-+ (NSString *)fecthUrlStringWithHeader:(NSString *)urlHeader urlContent:(NSString *)urlContent{
++ (NSString *)fetchUrlStringWithHeader:(NSString *)urlHeader urlContent:(NSString *)urlContent{
     NSString *url = [urlHeader stringByAppendingString:urlContent];
     if ([self checkUrl:url]) {
         //合法的url
@@ -356,6 +356,13 @@ static NSString * const MKCustomErrorDomain = @"com.moko.eddystoneSDKDomain";
         content = [content stringByAppendingString:[NSString stringWithFormat:@"%1lx",(unsigned long)asciiCode]];
     }
     return content;
+}
+
++ (NSString *)hexStringFromSignedNumber:(NSInteger)number {
+    NSString *tempNumber = [NSString stringWithFormat:@"%lX", (long)number];
+    NSData *data = [self stringToData:tempNumber];
+    NSData *resultData = [data subdataWithRange:NSMakeRange(data.length - 1, 1)];
+    return [self hexStringFromData:resultData];
 }
 
 #pragma mark - private method

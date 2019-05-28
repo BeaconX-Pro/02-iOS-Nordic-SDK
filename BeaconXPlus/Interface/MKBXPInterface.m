@@ -131,6 +131,14 @@
                              failureBlock:failedBlock];
 }
 
++ (void)readBXPAdvIntervalWithSuccessBlock:(void (^)(id returnData))sucBlock
+                               failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addReadTaskWithTaskID:MKBXPReadAdvertisingIntervalOperation
+                           characteristic:centralManager.peripheral.advertisingInterval
+                             successBlock:sucBlock
+                             failureBlock:failedBlock];
+}
+
 #pragma mark - private method
 
 @end
