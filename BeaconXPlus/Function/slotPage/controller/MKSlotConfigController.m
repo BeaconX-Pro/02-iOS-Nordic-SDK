@@ -23,7 +23,7 @@
 
 static CGFloat const offset_X = 15.f;
 static CGFloat const headerViewHeight = 130.f;
-static CGFloat const baseParamsCellHeight = 155.f;
+static CGFloat const baseParamsCellHeight = 180.f;
 static CGFloat const iBeaconAdvCellHeight = 145.f;
 static CGFloat const uidAdvCellHeight = 120.f;
 static CGFloat const urlAdvCellHeight = 100.f;
