@@ -33,4 +33,5 @@ typedef NS_ENUM(NSInteger, MKBXPOperationID) {
     MKBXPSetPowerOffOperation,                    //关机命令
     MKBXPReadBatteryOperation,                      //读取battery
     MKBXPReadDeviceTypeOperation,               //读取设备类型
+    MKBXPReadThreeAxisParamsOperation,          //读取三轴传感器参数
 };

@@ -21,6 +21,8 @@ typedef NS_ENUM(NSInteger, managerMode) {
     managerConnectMode,
 };
 
+NSString *const MKBXPReceiveThreeAxisAccelerometerDataNotification = @"MKBXPReceiveThreeAxisAccelerometerDataNotification";
+
 static MKBXPCentralManager *manager = nil;
 static dispatch_once_t onceToken;
 
@@ -198,6 +200,28 @@ static dispatch_once_t onceToken;
             [self updateLockState:lockState];
             return;
         }
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:threeSensorUUID]]) {
+        //监听的三轴加速度数据
+        NSString *content = [MKEddystoneAdopter hexStringFromData:characteristic.value];
+        if (content.length >= 12) {
+            NSMutableArray *dataList = [NSMutableArray array];
+            for (NSInteger i = 0; i < content.length / 12; i ++) {
+                NSString *subContent = [[content substringWithRange:NSMakeRange(i * 12, 12)] uppercaseString];
+                NSDictionary *dic = @{
+                                      @"x-Data":[subContent substringWithRange:NSMakeRange(0, 4)],
+                                      @"y-Data":[subContent substringWithRange:NSMakeRange(4, 4)],
+                                      @"z-Data":[subContent substringWithRange:NSMakeRange(8, 4)],
+                                      };
+                [dataList addObject:dic];
+            }
+            moko_main_safe(^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:MKBXPReceiveThreeAxisAccelerometerDataNotification
+                                                                    object:nil
+                                                                  userInfo:@{@"axisData":dataList}];
+            });
+        }
+        return;
     }
     @synchronized(self.operationQueue) {
         NSArray *operations = [self.operationQueue.operations copy];
@@ -474,6 +498,22 @@ static dispatch_once_t onceToken;
     @synchronized (self.operationQueue){
         [self.operationQueue addOperation:operation];
     }
+}
+
+- (BOOL)notifyThreeAxisAcceleration:(BOOL)notify {
+    if (self.connectState != MKBXPConnectStatusConnected || self.peripheral == nil || self.peripheral.threeSensor == nil) {
+        return NO;
+    }
+    [self.peripheral setNotifyValue:notify forCharacteristic:self.peripheral.threeSensor];
+    return YES;
+}
+
+- (BOOL)notifyTHData:(BOOL)notify {
+    if (self.connectState != MKBXPConnectStatusConnected || self.peripheral == nil || self.peripheral.temperatureHumidity == nil) {
+        return NO;
+    }
+    [self.peripheral setNotifyValue:notify forCharacteristic:self.peripheral.temperatureHumidity];
+    return YES;
 }
 
 #pragma mark - private method

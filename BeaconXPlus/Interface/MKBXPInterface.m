@@ -139,6 +139,16 @@
                              failureBlock:failedBlock];
 }
 
++ (void)readBXPThreeAxisDataParamsWithSuccessBlock:(void (^)(id returnData))sucBlock
+                                       failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = @"ea210000";
+    [centralManager addTaskWithTaskID:MKBXPReadThreeAxisParamsOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
 #pragma mark - private method
 
 @end

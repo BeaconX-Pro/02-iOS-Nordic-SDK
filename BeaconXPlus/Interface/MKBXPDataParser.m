@@ -342,6 +342,14 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         NSString *macAddress = [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",[tempMac substringWithRange:NSMakeRange(0, 2)],[tempMac substringWithRange:NSMakeRange(2, 2)],[tempMac substringWithRange:NSMakeRange(4, 2)],[tempMac substringWithRange:NSMakeRange(6, 2)],[tempMac substringWithRange:NSMakeRange(8, 2)],[tempMac substringWithRange:NSMakeRange(10, 2)]];
         operationID = MKBXPReadMacAddressOperation;
         returnDic = @{@"macAddress":macAddress};
+    }else if ([function isEqualToString:@"21"] && content.length == 14){
+        //三轴传感器参数
+        operationID = MKBXPReadThreeAxisParamsOperation;
+        returnDic = @{
+                      @"samplingRate":[content substringWithRange:NSMakeRange(8, 2)],
+                      @"gravityReference":[content substringWithRange:NSMakeRange(10, 2)],
+                      @"sensitivity":[MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(12, 2)],
+                      };
     }else if ([function isEqualToString:@"26"] && content.length == 8){
         //关机
         operationID = MKBXPSetPowerOffOperation;

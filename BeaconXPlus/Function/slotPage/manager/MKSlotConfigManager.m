@@ -46,7 +46,17 @@
         NSString *radioTxPower = [self readRadioTxPower];
         NSString *advTxPower = [self readAdvTxPower];
         NSString *advInterval = [self readAdvInterval];
-        NSDictionary *advDic = [self readAdvData];
+        NSDictionary *advDic = @{};
+        if (slotModel.slotType == slotFrameTypeThreeASensor) {
+            NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[self readThreeAxisParams]];
+            [dic setObject:@"60" forKey:@"frameType"];
+            advDic = dic;
+        }else if (slotModel.slotType == slotFrameTypeTHSensor) {
+            
+        }else {
+            advDic = [self readAdvData];
+        }
+        
         NSDictionary *baseParams = @{
                                      @"radioTxPower":radioTxPower,
                                      @"advTxPower":advTxPower,
@@ -227,6 +237,18 @@
     }];
     dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
     return interval;
+}
+
+- (NSDictionary *)readThreeAxisParams {
+    __block NSDictionary *dataDic = @{};
+    [MKBXPInterface readBXPThreeAxisDataParamsWithSuccessBlock:^(id  _Nonnull returnData) {
+        dataDic = returnData[@"result"];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return dataDic;
 }
 
 - (BOOL)configAdvInterval:(NSInteger)interval {

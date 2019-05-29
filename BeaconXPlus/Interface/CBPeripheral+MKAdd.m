@@ -250,10 +250,8 @@ static const char *dfu = "dfu";
             [self setNotifyValue:YES forCharacteristic:characteristic];
         }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:threeSensorUUID]]) {
             objc_setAssociatedObject(self, &threeSensorKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            [self setNotifyValue:YES forCharacteristic:characteristic];
         }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:temperatureHumidityUUID]]) {
             objc_setAssociatedObject(self, &temperatureHumidityKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            [self setNotifyValue:YES forCharacteristic:characteristic];
         }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:recordTHUUID]]) {
             objc_setAssociatedObject(self, &recordTHKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             [self setNotifyValue:YES forCharacteristic:characteristic];

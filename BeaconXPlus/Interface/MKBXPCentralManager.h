@@ -15,6 +15,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString *const MKBXPReceiveThreeAxisAccelerometerDataNotification;
+
 @class MKBXPTaskOperation;
 @interface MKBXPCentralManager : NSObject
 
@@ -123,6 +125,22 @@ NS_ASSUME_NONNULL_BEGIN
  @param operation operation
  */
 - (void)addOperation:(MKBXPTaskOperation *)operation;
+
+/**
+ 是否监听三轴加速度数据
+
+ @param notify BOOL
+ @return result
+ */
+- (BOOL)notifyThreeAxisAcceleration:(BOOL)notify;
+
+/**
+ 是否监听温湿度数据
+
+ @param notify BOOL
+ @return result
+ */
+- (BOOL)notifyTHData:(BOOL)notify;
 
 @end
 

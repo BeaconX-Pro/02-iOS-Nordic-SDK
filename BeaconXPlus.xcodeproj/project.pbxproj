@@ -165,6 +165,10 @@
 		00285F13229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F12229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m */; };
 		00285F162296480F00A4CAD4 /* MKScanInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F152296480F00A4CAD4 /* MKScanInfoCell.m */; };
 		00285F1D22964EA200A4CAD4 /* MKAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F1C22964EA200A4CAD4 /* MKAboutController.m */; };
+		005F1B2B229E61B500386B2B /* MKAxisAcceDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 005F1B2A229E61B500386B2B /* MKAxisAcceDataCell.m */; };
+		005F1B2E229E61CD00386B2B /* MKAxisParametersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 005F1B2D229E61CC00386B2B /* MKAxisParametersCell.m */; };
+		005F1B31229E694400386B2B /* threeAxisAcceLoadingIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 005F1B2F229E694300386B2B /* threeAxisAcceLoadingIcon@3x.png */; };
+		005F1B32229E694400386B2B /* threeAxisAcceLoadingIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 005F1B30229E694400386B2B /* threeAxisAcceLoadingIcon@2x.png */; };
 		0095880B229E2C0A009F910C /* MKAdvContentDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0095880A229E2C0A009F910C /* MKAdvContentDeviceCell.m */; };
 		009B58CC229674CE00133192 /* MKEddystoneHTCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B58CB229674CE00133192 /* MKEddystoneHTCell.m */; };
 		009B58CF229682FB00133192 /* MKEddystoneThreeASensorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B58CE229682FB00133192 /* MKEddystoneThreeASensorCell.m */; };
@@ -390,6 +394,12 @@
 		00285F152296480F00A4CAD4 /* MKScanInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanInfoCell.m; sourceTree = "<group>"; };
 		00285F1B22964EA200A4CAD4 /* MKAboutController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAboutController.h; sourceTree = "<group>"; };
 		00285F1C22964EA200A4CAD4 /* MKAboutController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAboutController.m; sourceTree = "<group>"; };
+		005F1B29229E61B500386B2B /* MKAxisAcceDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAxisAcceDataCell.h; sourceTree = "<group>"; };
+		005F1B2A229E61B500386B2B /* MKAxisAcceDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAxisAcceDataCell.m; sourceTree = "<group>"; };
+		005F1B2C229E61CC00386B2B /* MKAxisParametersCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAxisParametersCell.h; sourceTree = "<group>"; };
+		005F1B2D229E61CC00386B2B /* MKAxisParametersCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAxisParametersCell.m; sourceTree = "<group>"; };
+		005F1B2F229E694300386B2B /* threeAxisAcceLoadingIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "threeAxisAcceLoadingIcon@3x.png"; sourceTree = "<group>"; };
+		005F1B30229E694400386B2B /* threeAxisAcceLoadingIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "threeAxisAcceLoadingIcon@2x.png"; sourceTree = "<group>"; };
 		00958809229E2C0A009F910C /* MKAdvContentDeviceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAdvContentDeviceCell.h; sourceTree = "<group>"; };
 		0095880A229E2C0A009F910C /* MKAdvContentDeviceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAdvContentDeviceCell.m; sourceTree = "<group>"; };
 		009B58CA229674CE00133192 /* MKEddystoneHTCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEddystoneHTCell.h; sourceTree = "<group>"; };
@@ -523,6 +533,10 @@
 				000A21CB229D081000F26206 /* MKAdvTriggerCell.m */,
 				00958809229E2C0A009F910C /* MKAdvContentDeviceCell.h */,
 				0095880A229E2C0A009F910C /* MKAdvContentDeviceCell.m */,
+				005F1B29229E61B500386B2B /* MKAxisAcceDataCell.h */,
+				005F1B2A229E61B500386B2B /* MKAxisAcceDataCell.m */,
+				005F1B2C229E61CC00386B2B /* MKAxisParametersCell.h */,
+				005F1B2D229E61CC00386B2B /* MKAxisParametersCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -753,6 +767,8 @@
 		002532EC2295339D0055D3E7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				005F1B30229E694400386B2B /* threeAxisAcceLoadingIcon@2x.png */,
+				005F1B2F229E694300386B2B /* threeAxisAcceLoadingIcon@3x.png */,
 				00E0E843229BC7D300D2E188 /* slotDataTypeH&TIcon@2x.png */,
 				00E0E842229BC7D300D2E188 /* slotDataTypeH&TIcon@3x.png */,
 				00E0E844229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png */,
@@ -1130,12 +1146,14 @@
 				0015057F2264831F00F69569 /* Assets.xcassets in Resources */,
 				002533A02295339D0055D3E7 /* settingTabBarItemSelected@2x.png in Resources */,
 				002533BD2295339D0055D3E7 /* slotSaveIcon@3x.png in Resources */,
+				005F1B32229E694400386B2B /* threeAxisAcceLoadingIcon@2x.png in Resources */,
 				002533882295339D0055D3E7 /* deviceTabBarItemSelected@2x.png in Resources */,
 				002533AB2295339D0055D3E7 /* device_soc@3x.png in Resources */,
 				0025338A2295339D0055D3E7 /* slot_baseParams@3x.png in Resources */,
 				00E0E849229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@3x.png in Resources */,
 				002533BF2295339D0055D3E7 /* setting_powerOff@2x.png in Resources */,
 				0025337D2295339D0055D3E7 /* device_software@2x.png in Resources */,
+				005F1B31229E694400386B2B /* threeAxisAcceLoadingIcon@3x.png in Resources */,
 				00E0E848229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png in Resources */,
 				002533772295339D0055D3E7 /* scanRefresh@2x.png in Resources */,
 				002533B22295339D0055D3E7 /* device_firmware@2x.png in Resources */,
@@ -1233,9 +1251,11 @@
 				0012479122991B4600E97868 /* MKBXPInterface+MKConfig.m in Sources */,
 				001CC075226824F600331198 /* MKBXPCentralManager.m in Sources */,
 				00093728229B920200501788 /* MKAdvContentBaseCell.m in Sources */,
+				005F1B2E229E61CD00386B2B /* MKAxisParametersCell.m in Sources */,
 				00285F1D22964EA200A4CAD4 /* MKAboutController.m in Sources */,
 				009B58CF229682FB00133192 /* MKEddystoneThreeASensorCell.m in Sources */,
 				00DA1B562269697A0093DBAE /* MKScanViewController.m in Sources */,
+				005F1B2B229E61B500386B2B /* MKAxisAcceDataCell.m in Sources */,
 				001CC0882268667D00331198 /* MKBXPBaseBeacon.m in Sources */,
 				009B58D22296A20800133192 /* CBPeripheral+MKAdd.m in Sources */,
 				0012478622990E0700E97868 /* MKSettingController.m in Sources */,

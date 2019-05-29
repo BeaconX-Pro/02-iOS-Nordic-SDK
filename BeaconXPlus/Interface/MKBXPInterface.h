@@ -136,6 +136,21 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)readBXPAdvIntervalWithSuccessBlock:(void (^)(id returnData))sucBlock
                                failedBlock:(void (^)(NSError *error))failedBlock;
 
+/**
+ 读取通道里面三轴传感器采样率、重力加速度参考值和灵敏度
+ 
+ @{
+ @"samplingRate":采样率一共5个档，分别为00--1hz，01--10hz，02--25hz，03--50hz，04--100hz
+ @"gravityReference":重力加速度参考值一共4个档，分别为00--±2g；01--±4g；02--±8g；03--±16g
+ @"sensitivity":代表设备判断设备发生移动的灵敏度，数值越大，越迟钝。
+ }
+
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)readBXPThreeAxisDataParamsWithSuccessBlock:(void (^)(id returnData))sucBlock
+                                       failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

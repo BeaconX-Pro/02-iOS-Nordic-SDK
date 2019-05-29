@@ -15,6 +15,7 @@ static NSString *const MKSlotBaseCellUIDType = @"MKSlotBaseCellUIDType";
 static NSString *const MKSlotBaseCellURLType = @"MKSlotBaseCellURLType";
 static NSString *const MKSlotBaseCelliBeaconType = @"MKSlotBaseCelliBeaconType";
 static NSString *const MKSlotBaseCellDeviceInfoType = @"MKSlotBaseCellDeviceInfoType";
+static NSString *const MKSlotBaseCellAxisAcceDataType = @"MKSlotBaseCellAxisAcceDataType";
 
 @interface MKBaseParamsCell : MKSlotBaseCell
 

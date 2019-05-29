@@ -20,6 +20,8 @@
 #import "MKFrameTypeView.h"
 #import "MKSlotLineHeader.h"
 #import "MKAdvContentDeviceCell.h"
+#import "MKAxisAcceDataCell.h"
+#import "MKAxisParametersCell.h"
 
 #import "MKSlotConfigManager.h"
 
@@ -30,8 +32,10 @@ static CGFloat const iBeaconAdvCellHeight = 145.f;
 static CGFloat const uidAdvCellHeight = 120.f;
 static CGFloat const urlAdvCellHeight = 100.f;
 static CGFloat const deviceAdvCellHeight = 100.f;
+static CGFloat const axisAcceDataCellHeight = 100.f;
+static CGFloat const axisParamsCellHeight = 170.f;
 
-@interface MKSlotConfigController ()<UITableViewDelegate, UITableViewDataSource>
+@interface MKSlotConfigController ()<UITableViewDelegate, UITableViewDataSource, MKAxisAcceDataCellDelegate>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
 
@@ -55,7 +59,7 @@ static CGFloat const deviceAdvCellHeight = 100.f;
 #pragma mark - life circle
 - (void)dealloc{
     NSLog(@"MKSlotConfigController销毁");
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MKPeripheralConnectStateChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -90,6 +94,12 @@ static CGFloat const deviceAdvCellHeight = 100.f;
                                              selector:@selector(peripheralConnectStateChanged)
                                                  name:MKPeripheralConnectStateChangedNotification
                                                object:nil];
+    if (self.vcModel.slotType == slotFrameTypeThreeASensor) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(receiveThreeAxisData:)
+                                                     name:MKBXPReceiveThreeAxisAccelerometerDataNotification
+                                                   object:nil];
+    }
     // Do any additional setup after loading the view.
 }
 
@@ -107,17 +117,18 @@ static CGFloat const deviceAdvCellHeight = 100.f;
         switch (model.cellType) {
             case iBeaconAdvContent:
                 return iBeaconAdvCellHeight;
-                
             case uidAdvContent:
                 return uidAdvCellHeight;
-                
             case urlAdvContent:
                 return urlAdvCellHeight;
-                
             case baseParam:
                 return baseParamsCellHeight;
             case deviceAdvContent:
                 return deviceAdvCellHeight;
+            case axisAcceDataContent:
+                return axisAcceDataCellHeight;
+            case axisAcceParamsContent:
+                return axisParamsCellHeight;
             default:
                 break;
         }
@@ -164,6 +175,13 @@ static CGFloat const deviceAdvCellHeight = 100.f;
                 break;
             case deviceAdvContent:
                 cell = [MKAdvContentDeviceCell initCellWithTable:tableView];
+                break;
+            case axisAcceDataContent:
+                cell = [self axisAcceCell];
+                break;
+            case axisAcceParamsContent:
+                cell = [MKAxisParametersCell initCellWithTableView:tableView];
+                break;
             default:
                 break;
         }
@@ -174,12 +192,25 @@ static CGFloat const deviceAdvCellHeight = 100.f;
     return cell;
 }
 
+#pragma mark - MKAxisAcceDataCellDelegate
+- (void)updateThreeAxisNotifyStatus:(BOOL)notify {
+    [[MKBXPCentralManager shared] notifyThreeAxisAcceleration:notify];
+}
+
 #pragma mark - note method
 - (void)peripheralConnectStateChanged{
     if ([MKBXPCentralManager shared].connectState != MKBXPConnectStatusConnected
         && [MKBXPCentralManager shared].managerState == MKBXPCentralManagerStateEnable) {
         [self leftButtonMethod];
     }
+}
+
+- (void)receiveThreeAxisData:(NSNotification *)note {
+    MKAxisAcceDataCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    if (!cell || ![cell isKindOfClass:NSClassFromString(@"MKAxisAcceDataCell")]) {
+        return;
+    }
+    [cell setAxisData:note.userInfo];
 }
 
 #pragma mark - Private method
@@ -228,6 +259,8 @@ static CGFloat const deviceAdvCellHeight = 100.f;
         type = MKSlotBaseCellURLType;
     }else if (self.frameType == slotFrameTypeInfo) {
         type = MKSlotBaseCellDeviceInfoType;
+    }else if (self.frameType == slotFrameTypeThreeASensor) {
+        type = MKSlotBaseCellAxisAcceDataType;
     }
     [cell performSelector:@selector(setBaseCellType:) withObject:type];
 }
@@ -253,6 +286,9 @@ static CGFloat const deviceAdvCellHeight = 100.f;
             
         case slotFrameTypeInfo:
             return [self createNewDeviceInfoList];
+            
+        case slotFrameTypeThreeASensor:
+            return [self createNewThreeAxisList];
             
         case slotFrameTypeNull:
             return @[];
@@ -340,6 +376,28 @@ static CGFloat const deviceAdvCellHeight = 100.f;
         advModel.dataDic = self.originalDic[@"advData"];
     }
     return @[advModel, baseParamModel];
+}
+
+- (NSArray *)createNewThreeAxisList {
+    MKSlotConfigCellModel *advModel = [[MKSlotConfigCellModel alloc] init];
+    advModel.cellType = axisAcceDataContent;
+    
+    MKSlotConfigCellModel *paramsModel = [[MKSlotConfigCellModel alloc] init];
+    paramsModel.cellType = axisAcceParamsContent;
+    
+    MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
+    baseParamModel.cellType = baseParam;
+    baseParamModel.dataDic = self.originalDic[@"baseParam"];
+    if (self.vcModel.slotType == slotFrameTypeThreeASensor && ValidDict(self.originalDic)) {
+        paramsModel.dataDic = self.originalDic[@"advData"];
+    }
+    return @[advModel,paramsModel,baseParamModel];
+}
+
+- (MKAxisAcceDataCell *)axisAcceCell {
+    MKAxisAcceDataCell *cell = [MKAxisAcceDataCell initCellWithTableView:self.tableView];
+    cell.delegate = self;
+    return cell;
 }
 
 - (slotFrameType )loadFrameType:(NSString *)type{
@@ -494,8 +552,9 @@ static CGFloat const deviceAdvCellHeight = 100.f;
         _tableView.backgroundColor = RGBCOLOR(242, 242, 242);
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        
-        _tableView.tableHeaderView = [self tableHeader];
+        if (self.vcModel.slotType != slotFrameTypeThreeASensor && self.vcModel.slotType != slotFrameTypeTHSensor) {
+            _tableView.tableHeaderView = [self tableHeader];
+        }
     }
     return _tableView;
 }
