@@ -18,8 +18,8 @@ static CGFloat const rssiIconWidth = 22.f;
 static CGFloat const rssiIconHeight = 11.f;
 static CGFloat const connectButtonWidth = 80.f;
 static CGFloat const connectButtonHeight = 30.f;
-static CGFloat const batteryIconWidth = 22.f;
-static CGFloat const batteryIconHeight = 12.f;
+static CGFloat const batteryIconWidth = 25.f;
+static CGFloat const batteryIconHeight = 25.f;
 
 @interface MKScanInfoCell()
 

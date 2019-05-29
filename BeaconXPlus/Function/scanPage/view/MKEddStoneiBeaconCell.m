@@ -12,8 +12,8 @@ static NSString *const MKEddStoneiBeaconCellIdenty = @"MKEddStoneiBeaconCellIden
 
 static CGFloat const offset_X = 10.f;
 static CGFloat const offset_Y = 10.f;
-static CGFloat const leftIconWidth = 22.f;
-static CGFloat const leftIconHeight = 22.f;
+static CGFloat const leftIconWidth = 7.f;
+static CGFloat const leftIconHeight = 7.f;
 
 #define msgFont MKFont(12.f)
 
@@ -42,6 +42,10 @@ static CGFloat const leftIconHeight = 22.f;
 @property (nonatomic, strong)UILabel *txPowerLabel;
 
 @property (nonatomic, strong)UILabel *txPowerValueLabel;
+
+@property (nonatomic, strong)UILabel *distanceLabel;
+
+@property (nonatomic, strong)UILabel *distanceValueLabel;
 
 /**
  uuid
@@ -87,6 +91,8 @@ static CGFloat const leftIconHeight = 22.f;
         [self.contentView addSubview:self.rssiValueLabel];
         [self.contentView addSubview:self.txPowerLabel];
         [self.contentView addSubview:self.txPowerValueLabel];
+        [self.contentView addSubview:self.distanceLabel];
+        [self.contentView addSubview:self.distanceValueLabel];
         [self.contentView addSubview:self.uuidLabel];
         [self.contentView addSubview:self.uuidIDLabel];
         [self.contentView addSubview:self.majorLabel];
@@ -139,10 +145,22 @@ static CGFloat const leftIconHeight = 22.f;
         make.centerY.mas_equalTo(self.txPowerLabel.mas_centerY);
         make.height.mas_equalTo(msgFont.lineHeight);
     }];
-    [self.uuidLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.distanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.typeLabel.mas_left);
         make.width.mas_equalTo(self.typeLabel.mas_width);
         make.top.mas_equalTo(self.txPowerLabel.mas_bottom).mas_offset(5.f);
+        make.height.mas_equalTo(msgFont.lineHeight);
+    }];
+    [self.distanceValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.rssiLabel.mas_left);
+        make.right.mas_equalTo(-offset_X);
+        make.centerY.mas_equalTo(self.distanceLabel.mas_centerY);
+        make.height.mas_equalTo(msgFont.lineHeight);
+    }];
+    [self.uuidLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.typeLabel.mas_left);
+        make.width.mas_equalTo(self.typeLabel.mas_width);
+        make.top.mas_equalTo(self.distanceLabel.mas_bottom).mas_offset(5.f);
         make.height.mas_equalTo(msgFont.lineHeight);
     }];
     CGSize uuidIDSize = [NSString sizeWithText:self.uuidIDLabel.text
@@ -212,17 +230,33 @@ static CGFloat const leftIconHeight = 22.f;
     if (ValidNum(_beacon.rssi)) {
         self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld%@",(long)[_beacon.rssi integerValue],@"dBm"];
     }
+    NSString *distanceValue = [self calcDistByRSSI:[beacon.rssi intValue] measurePower:[beacon.rssi1M integerValue]];
+    if ([distanceValue floatValue] <= 1.f) {
+        self.distanceValueLabel.text = @"Immediate";
+    }else if ([distanceValue floatValue] > 1.f && [distanceValue floatValue] <= 3.f) {
+        self.distanceValueLabel.text = @"Near";
+    }else if ([distanceValue floatValue] > 3.f) {
+        self.distanceValueLabel.text = @"Far";
+    }else {
+        self.distanceValueLabel.text = @"Unknown";
+    }
     [self setNeedsLayout];
 }
 
 + (CGFloat)getCellHeightWithUUID:(NSString *)uuid{
     if (!ValidStr(uuid)) {
-        return 90.f;
+        return 110.f;
     }
     CGSize uuidIDSize = [NSString sizeWithText:uuid
                                        andFont:MKFont(16.f)
                                     andMaxSize:CGSizeMake(kScreenWidth - 2 * offset_X - 100.f, MAXFLOAT)];
-    return 85 + uuidIDSize.height;
+    return 105 + uuidIDSize.height;
+}
+
+- (NSString *)calcDistByRSSI:(int)rssi measurePower:(NSInteger)measurePower{
+    int iRssi = abs(rssi);
+    float power = (iRssi - measurePower) / (10 * 2.0);
+    return [NSString stringWithFormat:@"%.2fm",pow(10, power)];
 }
 
 #pragma mark - setter & getter
@@ -271,6 +305,22 @@ static CGFloat const leftIconHeight = 22.f;
         _txPowerValueLabel = [self createLabelWithFont:msgFont];
     }
     return _txPowerValueLabel;
+}
+
+- (UILabel *)distanceLabel {
+    if (!_distanceLabel) {
+        _distanceLabel = [self createLabelWithFont:msgFont];
+        _distanceLabel.textColor = RGBCOLOR(184, 184, 184);
+        _distanceLabel.text = @"Distance";
+    }
+    return _distanceLabel;
+}
+
+- (UILabel *)distanceValueLabel {
+    if (!_distanceValueLabel) {
+        _distanceValueLabel = [self createLabelWithFont:msgFont];
+    }
+    return _distanceValueLabel;
 }
 
 - (UILabel *)uuidLabel{

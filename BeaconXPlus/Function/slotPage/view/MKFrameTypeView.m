@@ -134,6 +134,7 @@ static CGFloat const offset_X = 15.f;
 #pragma mark - Private method
 
 - (slotFrameType )getFrameType{
+    //@"TLM",@"UID",@"URL",@"iBeacon",@"Device Info",@"NO DATA"
     switch (self.index) {
         case 0:
             return slotFrameTypeTLM;
@@ -148,7 +149,7 @@ static CGFloat const offset_X = 15.f;
             return slotFrameTypeiBeacon;
             
         case 4:
-            return slotFrameTypeNull;
+            return slotFrameTypeInfo;
             
         case 5:
             return slotFrameTypeNull;
@@ -216,7 +217,7 @@ static CGFloat const offset_X = 15.f;
 
 - (NSMutableArray *)dataList{
     if (!_dataList) {
-        _dataList = [NSMutableArray arrayWithObjects:@"TLM",@"UID",@"URL",@"iBeacon",@"NO DATA", nil];
+        _dataList = [NSMutableArray arrayWithObjects:@"TLM",@"UID",@"URL",@"iBeacon",@"Device Info",@"NO DATA", nil];
     }
     return _dataList;
 }

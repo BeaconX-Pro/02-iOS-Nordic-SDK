@@ -165,6 +165,7 @@
 		00285F13229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F12229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m */; };
 		00285F162296480F00A4CAD4 /* MKScanInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F152296480F00A4CAD4 /* MKScanInfoCell.m */; };
 		00285F1D22964EA200A4CAD4 /* MKAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F1C22964EA200A4CAD4 /* MKAboutController.m */; };
+		0095880B229E2C0A009F910C /* MKAdvContentDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0095880A229E2C0A009F910C /* MKAdvContentDeviceCell.m */; };
 		009B58CC229674CE00133192 /* MKEddystoneHTCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B58CB229674CE00133192 /* MKEddystoneHTCell.m */; };
 		009B58CF229682FB00133192 /* MKEddystoneThreeASensorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B58CE229682FB00133192 /* MKEddystoneThreeASensorCell.m */; };
 		009B58D22296A20800133192 /* CBPeripheral+MKAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B58D12296A20800133192 /* CBPeripheral+MKAdd.m */; };
@@ -389,6 +390,8 @@
 		00285F152296480F00A4CAD4 /* MKScanInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanInfoCell.m; sourceTree = "<group>"; };
 		00285F1B22964EA200A4CAD4 /* MKAboutController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAboutController.h; sourceTree = "<group>"; };
 		00285F1C22964EA200A4CAD4 /* MKAboutController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAboutController.m; sourceTree = "<group>"; };
+		00958809229E2C0A009F910C /* MKAdvContentDeviceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAdvContentDeviceCell.h; sourceTree = "<group>"; };
+		0095880A229E2C0A009F910C /* MKAdvContentDeviceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAdvContentDeviceCell.m; sourceTree = "<group>"; };
 		009B58CA229674CE00133192 /* MKEddystoneHTCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEddystoneHTCell.h; sourceTree = "<group>"; };
 		009B58CB229674CE00133192 /* MKEddystoneHTCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKEddystoneHTCell.m; sourceTree = "<group>"; };
 		009B58CD229682FB00133192 /* MKEddystoneThreeASensorCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEddystoneThreeASensorCell.h; sourceTree = "<group>"; };
@@ -518,6 +521,8 @@
 				00093733229B950400501788 /* MKAdvContentURLCell.m */,
 				000A21CA229D081000F26206 /* MKAdvTriggerCell.h */,
 				000A21CB229D081000F26206 /* MKAdvTriggerCell.m */,
+				00958809229E2C0A009F910C /* MKAdvContentDeviceCell.h */,
+				0095880A229E2C0A009F910C /* MKAdvContentDeviceCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1259,6 +1264,7 @@
 				00093731229B93FE00501788 /* MKOptionsCell.m in Sources */,
 				000A21CC229D081100F26206 /* MKAdvTriggerCell.m in Sources */,
 				0012478E2299198F00E97868 /* MKDataManager.m in Sources */,
+				0095880B229E2C0A009F910C /* MKAdvContentDeviceCell.m in Sources */,
 				00131DE422952F1000E613FF /* MKConnectDeviceProgressView.m in Sources */,
 				00093725229B901400501788 /* MKSlotBaseCell.m in Sources */,
 				002533DB229538100055D3E7 /* MKEddStoneiBeaconCell.m in Sources */,

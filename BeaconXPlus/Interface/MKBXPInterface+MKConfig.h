@@ -159,6 +159,17 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setBXPNODATAAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
                             failedBlock:(void (^)(NSError *error))failedBlock;
 
+/**
+ Setting Device Name
+
+ @param deviceName deviceName，1~20 characters
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPDeviceInfoAdvDataWithDeviceName:(NSString *)deviceName
+                                     sucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

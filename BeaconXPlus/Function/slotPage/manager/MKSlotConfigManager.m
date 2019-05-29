@@ -99,6 +99,8 @@
             advDataSuccess = [self configiBeacon:detailData[@"iBeacon"][@"uuid"] major:[detailData[@"iBeacon"][@"major"] integerValue] minor:[detailData[@"iBeacon"][@"minor"] integerValue]];
         }else if (slotFrameType == slotFrameTypeNull) {
             advDataSuccess = [self configNoDatas];
+        }else if (slotFrameType == slotFrameTypeInfo) {
+            advDataSuccess = [self configDeviceName:detailData[@"deviceInfo"][@"deviceName"]];
         }
         if (!advDataSuccess) {
             if (failedBlock) {
@@ -270,12 +272,6 @@
         tempContent = [tempContent stringByAppendingString:expansion];
     }
     urlHeaderType urlType = urlHeaderType1;
-    /*
-     urlHeaderType1,             //http://www.
-     urlHeaderType2,             //https://www.
-     urlHeaderType3,             //http://
-     urlHeaderType4,             //https://
-     */
     if ([urlHeader isEqualToString:@"https://www."]){
         urlType = urlHeaderType2;
     }else if ([urlHeader isEqualToString:@"http://"]){
@@ -308,6 +304,18 @@
 - (BOOL)configNoDatas {
     __block BOOL success = NO;
     [MKBXPInterface setBXPNODATAAdvDataWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configDeviceName:(NSString *)deviceName {
+    __block BOOL success = NO;
+    [MKBXPInterface setBXPDeviceInfoAdvDataWithDeviceName:deviceName sucBlock:^(id  _Nonnull returnData) {
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

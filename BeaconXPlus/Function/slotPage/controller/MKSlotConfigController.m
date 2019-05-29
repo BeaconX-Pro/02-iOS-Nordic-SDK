@@ -10,6 +10,7 @@
 #import "MKSlotDataTypeModel.h"
 #import "MKBaseTableView.h"
 #import "MKSlotConfigCellModel.h"
+
 #import "MKSlotBaseCell.h"
 #import "MKAdvContentiBeaconCell.h"
 #import "MKAdvContentUIDCell.h"
@@ -18,15 +19,17 @@
 #import "MKBaseParamsCell.h"
 #import "MKFrameTypeView.h"
 #import "MKSlotLineHeader.h"
+#import "MKAdvContentDeviceCell.h"
 
 #import "MKSlotConfigManager.h"
 
 static CGFloat const offset_X = 15.f;
 static CGFloat const headerViewHeight = 130.f;
-static CGFloat const baseParamsCellHeight = 180.f;
+static CGFloat const baseParamsCellHeight = 190.f;
 static CGFloat const iBeaconAdvCellHeight = 145.f;
 static CGFloat const uidAdvCellHeight = 120.f;
 static CGFloat const urlAdvCellHeight = 100.f;
+static CGFloat const deviceAdvCellHeight = 100.f;
 
 @interface MKSlotConfigController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -113,6 +116,8 @@ static CGFloat const urlAdvCellHeight = 100.f;
                 
             case baseParam:
                 return baseParamsCellHeight;
+            case deviceAdvContent:
+                return deviceAdvCellHeight;
             default:
                 break;
         }
@@ -157,6 +162,8 @@ static CGFloat const urlAdvCellHeight = 100.f;
                 cell = [MKBaseParamsCell initCellWithTableView:tableView];
                 [self setBaseCellType:cell];
                 break;
+            case deviceAdvContent:
+                cell = [MKAdvContentDeviceCell initCellWithTable:tableView];
             default:
                 break;
         }
@@ -219,6 +226,8 @@ static CGFloat const urlAdvCellHeight = 100.f;
         type = MKSlotBaseCellUIDType;
     }else if (self.frameType == slotFrameTypeURL){
         type = MKSlotBaseCellURLType;
+    }else if (self.frameType == slotFrameTypeInfo) {
+        type = MKSlotBaseCellDeviceInfoType;
     }
     [cell performSelector:@selector(setBaseCellType:) withObject:type];
 }
@@ -243,7 +252,7 @@ static CGFloat const urlAdvCellHeight = 100.f;
             return [self createNewTLMOrInfoList];
             
         case slotFrameTypeInfo:
-            return [self createNewTLMOrInfoList];
+            return [self createNewDeviceInfoList];
             
         case slotFrameTypeNull:
             return @[];
@@ -318,6 +327,19 @@ static CGFloat const urlAdvCellHeight = 100.f;
     baseParamModel.cellType = baseParam;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
     return @[baseParamModel];
+}
+
+- (NSArray *)createNewDeviceInfoList {
+    MKSlotConfigCellModel *advModel = [[MKSlotConfigCellModel alloc] init];
+    advModel.cellType = deviceAdvContent;
+    
+    MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
+    baseParamModel.cellType = baseParam;
+    baseParamModel.dataDic = self.originalDic[@"baseParam"];
+    if (self.vcModel.slotType == slotFrameTypeInfo && ValidDict(self.originalDic)) {
+        advModel.dataDic = self.originalDic[@"advData"];
+    }
+    return @[advModel, baseParamModel];
 }
 
 - (slotFrameType )loadFrameType:(NSString *)type{
@@ -398,7 +420,7 @@ static CGFloat const urlAdvCellHeight = 100.f;
             return 4;
             
         case slotFrameTypeNull:
-            return 4;
+            return 5;
             
         default:
             break;
@@ -469,6 +491,7 @@ static CGFloat const urlAdvCellHeight = 100.f;
 -(MKBaseTableView *)tableView{
     if (!_tableView) {
         _tableView = [[MKBaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableView.backgroundColor = RGBCOLOR(242, 242, 242);
         _tableView.delegate = self;
         _tableView.dataSource = self;
         

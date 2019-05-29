@@ -25,19 +25,10 @@ typedef NS_ENUM(NSInteger, MKBXPOperationID) {
     MKBXPSetPublicECDHKeyOperation,
     MKBXPSetEidIdentityKeyOperation,
     MKBXPSetAdvSlotDataOperation,
-    MKBXPSetLedControlConfigOperation,              //配置eddystone的led Control参数
-    MKBXPSetFastModeOperation,                      //配置快速模式参数
-    MKBXPReadFastModeOperation,                     //读取快速模式参数
-    MKBXPSetSlowModeOperation,
-    MKBXPReadSlowModeOperation,
     MKBXPSetFactoryResetOperation,
     MKBXPReadMacAddressOperation,                   //获取eddystone的mac地址
     MKBXPReadSlotTypeOperation,                     //获取eddystone的通道类型
-    MKBXPReadDeviceNameOperation,                   //获取eddystone的设备名字
     MKBXPReadConnectEnableOperation,                //获取eddystone的可连接状态
-    MKBXPSetMajorOperation,                         //设置iBeacon的主值iBeaconMajor
-    MKBXPSetMinorOperation,                         //设置iBeacon的次值
-    MKBXPSetDeviceNameOperation,                 //设置eddystone的设备名字
     MKBXPSetConnectEnableOperation,              //设置eddystone的可连接状态
     MKBXPSetPowerOffOperation,                    //关机命令
     MKBXPReadBatteryOperation,                      //读取battery

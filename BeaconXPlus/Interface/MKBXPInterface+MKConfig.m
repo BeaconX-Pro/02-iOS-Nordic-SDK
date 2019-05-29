@@ -269,6 +269,26 @@
                          failureBlock:failedBlock];
 }
 
++ (void)setBXPDeviceInfoAdvDataWithDeviceName:(NSString *)deviceName
+                                     sucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock {
+    if (!ValidStr(deviceName) || deviceName.length > 20) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *tempString = @"";
+    for (NSInteger i = 0; i < deviceName.length; i ++) {
+        int asciiCode = [deviceName characterAtIndex:i];
+        tempString = [tempString stringByAppendingString:[NSString stringWithFormat:@"%1lx",(unsigned long)asciiCode]];
+    }
+    NSString *commandString = [@"40" stringByAppendingString:tempString];
+    [centralManager addTaskWithTaskID:MKBXPSetAdvSlotDataOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.advSlotData
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
 #pragma mark - private method
 + (NSString *)fetchSlotNumber:(bxpActiveSlotNo)slotNo{
     switch (slotNo) {

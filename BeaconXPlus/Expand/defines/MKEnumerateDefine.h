@@ -26,5 +26,6 @@ typedef NS_ENUM(NSInteger, MKSlotConfigCellType) {
     iBeaconAdvContent,              //
     uidAdvContent,
     urlAdvContent,
+    deviceAdvContent,
     baseParam,
 };

@@ -342,78 +342,10 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         NSString *macAddress = [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",[tempMac substringWithRange:NSMakeRange(0, 2)],[tempMac substringWithRange:NSMakeRange(2, 2)],[tempMac substringWithRange:NSMakeRange(4, 2)],[tempMac substringWithRange:NSMakeRange(6, 2)],[tempMac substringWithRange:NSMakeRange(8, 2)],[tempMac substringWithRange:NSMakeRange(10, 2)]];
         operationID = MKBXPReadMacAddressOperation;
         returnDic = @{@"macAddress":macAddress};
-    }else if ([function isEqualToString:@"58"]){
-        //设置eddyStone设备名称
-        operationID = MKBXPSetDeviceNameOperation;
-        returnDic = @{};
-    }else if ([function isEqualToString:@"59"]){
-        //获取eddyStone设备名称
-        NSString *tempString = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(4, data.length - 4)] encoding:NSUTF8StringEncoding];
-        operationID = MKBXPReadDeviceNameOperation;
-        returnDic = @{@"deviceName":tempString};
-    }else if ([function isEqualToString:@"5e"]){
-        //设置iBeacon的主值
-        operationID = MKBXPSetMajorOperation;
-        returnDic = @{};
-    }else if ([function isEqualToString:@"5f"]){
-        //设置iBeacon的次值
-        operationID = MKBXPSetMinorOperation;
-        returnDic = @{};
     }else if ([function isEqualToString:@"26"] && content.length == 8){
         //关机
         operationID = MKBXPSetPowerOffOperation;
         returnDic = @{};
-    }else if ([function isEqualToString:@"69"]){
-        //设置fast mode
-        operationID = MKBXPSetFastModeOperation;
-        returnDic = @{};
-    }else if ([function isEqualToString:@"6a"]){
-        //读取fast mode
-        operationID = MKBXPReadFastModeOperation;
-        BOOL enable = [[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"];
-        NSString *timeout = [NSString stringWithFormat:@"%ld",(long)strtoul([[content substringWithRange:NSMakeRange(10, 2)] UTF8String],0,16)];
-        NSString *interval = [NSString stringWithFormat:@"%ld",(long)strtoul([[content substringWithRange:NSMakeRange(12, 4)] UTF8String],0,16)];
-        NSInteger rssiValue = [[MKEddystoneAdopter fetchRSSIWithContent:[data subdataWithRange:NSMakeRange(6, 1)]] integerValue];
-        NSString *rssi = @"";
-        if (rssiValue == 0) {
-            rssi = @"0dBm";
-        }else{
-            rssi = [NSString stringWithFormat:@"%@%ld%@",@"-",(long)rssiValue,@"dBm"];
-        }
-        NSString *txPower = [MKEddystoneAdopter fetchTxPowerWithContent:[content substringWithRange:NSMakeRange(18, 2)]];
-        returnDic = @{
-                      @"enable":@(enable),
-                      @"timeout":timeout,
-                      @"interval":interval,
-                      @"rssi":rssi,
-                      @"txPower":txPower,
-                      };
-    }else if ([function isEqualToString:@"6b"]){
-        //设置LED Control
-        operationID = MKBXPSetLedControlConfigOperation;
-        returnDic = @{};
-    }else if ([function isEqualToString:@"6c"]){
-        //设置slow mode
-        operationID = MKBXPSetSlowModeOperation;
-        returnDic = @{};
-    }else if ([function isEqualToString:@"6d"]){
-        //读取slow mode
-        operationID = MKBXPReadSlowModeOperation;
-        NSString *interval = [NSString stringWithFormat:@"%ld",(long)strtoul([[content substringWithRange:NSMakeRange(8, 4)] UTF8String],0,16)];
-        NSInteger rssiValue = [[MKEddystoneAdopter fetchRSSIWithContent:[data subdataWithRange:NSMakeRange(6, 1)]] integerValue];
-        NSString *rssi = @"";
-        if (rssiValue == 0) {
-            rssi = @"0dBm";
-        }else{
-            rssi = [NSString stringWithFormat:@"%ld%@",(long)rssiValue,@"dBm"];
-        }
-        
-        NSString *txPower = [MKEddystoneAdopter fetchTxPowerWithContent:[content substringWithRange:NSMakeRange(14, 2)]];
-        returnDic = @{
-                      @"interval":interval,
-                      @"rssi":rssi,
-                      @"txPower":txPower,
-                      };
     }else if ([function isEqualToString:@"90"]){
         //获取eddyStone的可连接状态
         NSString *state = [content substringFromIndex:(content.length - 2)];
