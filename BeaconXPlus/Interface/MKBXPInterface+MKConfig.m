@@ -289,11 +289,25 @@
                          failureBlock:failedBlock];
 }
 
-+ (void)setBXPThreeAxisAdvData:(BOOL)advertising
-                      sucBlock:(void (^)(id returnData))sucBlock
-                   failedBlock:(void (^)(NSError *error))failedBlock {
++ (void)setBXPThreeAxisAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
+                               failedBlock:(void (^)(NSError *error))failedBlock {
     [centralManager addTaskWithTaskID:MKBXPSetAdvSlotDataOperation
-                          commandData:(advertising ? @"60" : @"ff")
+                          commandData:@"60"
+                       characteristic:centralManager.peripheral.advSlotData
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
+/**
+ 设置当前通道为温湿度数据通道
+ 
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPHTAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:MKBXPSetAdvSlotDataOperation
+                          commandData:@"70"
                        characteristic:centralManager.peripheral.advSlotData
                          successBlock:sucBlock
                          failureBlock:failedBlock];

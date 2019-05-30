@@ -134,7 +134,7 @@ static CGFloat const offset_X = 15.f;
 #pragma mark - Private method
 
 - (slotFrameType )getFrameType{
-    //@"TLM",@"UID",@"URL",@"iBeacon",@"Device Info",@"NO DATA"
+    //@"TLM",@"UID",@"URL",@"iBeacon",@"Device Info",@"T&H",@"3-Axis",@"NO DATA"
     switch (self.index) {
         case 0:
             return slotFrameTypeTLM;
@@ -152,6 +152,10 @@ static CGFloat const offset_X = 15.f;
             return slotFrameTypeInfo;
             
         case 5:
+            return slotFrameTypeTHSensor;
+        case 6:
+            return slotFrameTypeThreeASensor;
+        case 7:
             return slotFrameTypeNull;
         default:
             return 9;
@@ -162,8 +166,8 @@ static CGFloat const offset_X = 15.f;
 
 - (void)setIndex:(NSInteger)index{
     _index = index;
-    if (index > 5) {
-        //一共只有6行
+    if (index > 7) {
+        //一共只有8行
         return;
     }
     [self.pickerView selectRow:index inComponent:0 animated:YES];
@@ -217,7 +221,7 @@ static CGFloat const offset_X = 15.f;
 
 - (NSMutableArray *)dataList{
     if (!_dataList) {
-        _dataList = [NSMutableArray arrayWithObjects:@"TLM",@"UID",@"URL",@"iBeacon",@"Device Info",@"NO DATA", nil];
+        _dataList = [NSMutableArray arrayWithObjects:@"TLM",@"UID",@"URL",@"iBeacon",@"Device Info",@"T&H",@"3-Axis",@"NO DATA", nil];
     }
     return _dataList;
 }

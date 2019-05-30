@@ -171,15 +171,22 @@ NS_ASSUME_NONNULL_BEGIN
                                   failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 如果当前通道为三轴传感器，设置要不要广播传感器数据
+ 设置当前通道为三轴传感器
 
- @param advertising YES:广播,NO:不广播
  @param sucBlock success callback
  @param failedBlock failed callback
  */
-+ (void)setBXPThreeAxisAdvData:(BOOL)advertising
-                      sucBlock:(void (^)(id returnData))sucBlock
-                   failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)setBXPThreeAxisAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
+                               failedBlock:(void (^)(NSError *error))failedBlock;
+
+/**
+ 设置当前通道为温湿度数据通道
+
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPHTAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
  设置3轴传感器采样率、重力加速度参考值、灵敏度

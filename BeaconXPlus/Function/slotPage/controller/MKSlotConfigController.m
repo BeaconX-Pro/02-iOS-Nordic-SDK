@@ -52,11 +52,6 @@ static CGFloat const axisParamsCellHeight = 170.f;
 
 @property (nonatomic, strong)MKSlotConfigManager *configManager;
 
-/**
- 只有温湿度和三轴传感器会用到，baseParam里面有个开关，开关打开和关闭的baseCell效果不一样
- */
-@property (nonatomic, assign)BOOL advertising;
-
 @end
 
 @implementation MKSlotConfigController
@@ -128,9 +123,6 @@ static CGFloat const axisParamsCellHeight = 170.f;
         return urlAdvCellHeight;
     }
     if (model.cellType == baseParam) {
-        if ((self.vcModel.slotType == slotFrameTypeThreeASensor || self.vcModel.slotType == slotFrameTypeTHSensor) && !self.advertising) {
-            return 50.f;
-        }
         return baseParamsCellHeight;
     }
     if (model.cellType == deviceAdvContent) {
@@ -139,7 +131,7 @@ static CGFloat const axisParamsCellHeight = 170.f;
     if (model.cellType == axisAcceDataContent) {
         return axisAcceDataCellHeight;
     }
-    if (model.cellType == axisAcceParamsContent) {
+    if (model.cellType == THDataContent) {
         return axisParamsCellHeight;
     }
     return 0.f;
@@ -207,7 +199,6 @@ static CGFloat const axisParamsCellHeight = 170.f;
 
 #pragma mark - MKBaseParamsCellDelegate
 - (void)advertisingStatusChanged:(BOOL)isOn {
-    self.advertising = isOn;
     NSMutableDictionary *baseParams = [NSMutableDictionary dictionaryWithDictionary:self.originalDic[@"baseParam"]];
     [baseParams setObject:@(isOn) forKey:@"advertisingIsOn"];
     [self.originalDic setObject:baseParams forKey:@"baseParam"];
@@ -246,9 +237,6 @@ static CGFloat const axisParamsCellHeight = 170.f;
         [[MKHudManager share] hide];
         weakSelf.originalDic = [NSMutableDictionary dictionaryWithDictionary:returnData];
         weakSelf.frameType = [weakSelf loadFrameType:returnData[@"advData"][@"frameType"]];
-        if (weakSelf.vcModel.slotType == slotFrameTypeThreeASensor || weakSelf.vcModel.slotType == slotFrameTypeTHSensor) {
-            weakSelf.advertising = [returnData[@"baseParam"][@"advertisingIsOn"] boolValue];
-        }
         weakSelf.tableHeader.index = [weakSelf getHeaderViewSelectedRow];
         [weakSelf reloadTableViewData];
     } failedBlock:^(NSError *error) {
@@ -290,12 +278,11 @@ static CGFloat const axisParamsCellHeight = 170.f;
             
         case slotFrameTypeThreeASensor:
             return [self createNewThreeAxisList];
+        case slotFrameTypeTHSensor:
+            return [self createNewTHList];
             
         case slotFrameTypeNull:
             return @[];
-        default:
-            return nil;
-            break;
     }
 }
 
@@ -380,19 +367,26 @@ static CGFloat const axisParamsCellHeight = 170.f;
 }
 
 - (NSArray *)createNewThreeAxisList {
-    MKSlotConfigCellModel *advModel = [[MKSlotConfigCellModel alloc] init];
-    advModel.cellType = axisAcceDataContent;
-    
-    MKSlotConfigCellModel *paramsModel = [[MKSlotConfigCellModel alloc] init];
-    paramsModel.cellType = axisAcceParamsContent;
+//    MKSlotConfigCellModel *advModel = [[MKSlotConfigCellModel alloc] init];
+//    advModel.cellType = axisAcceDataContent;
+//
+//    MKSlotConfigCellModel *paramsModel = [[MKSlotConfigCellModel alloc] init];
+//    paramsModel.cellType = axisAcceParamsContent;
     
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
     baseParamModel.cellType = baseParam;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
-    if (self.vcModel.slotType == slotFrameTypeThreeASensor && ValidDict(self.originalDic)) {
-        paramsModel.dataDic = self.originalDic[@"advData"];
-    }
-    return @[advModel,paramsModel,baseParamModel];
+//    if (self.vcModel.slotType == slotFrameTypeThreeASensor && ValidDict(self.originalDic)) {
+//        paramsModel.dataDic = self.originalDic[@"advData"];
+//    }
+    return @[baseParamModel];
+}
+
+- (NSArray *)createNewTHList {
+    MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
+    baseParamModel.cellType = baseParam;
+    baseParamModel.dataDic = self.originalDic[@"baseParam"];
+    return @[baseParamModel];
 }
 
 - (MKAxisAcceDataCell *)axisAcceCell {
@@ -498,9 +492,12 @@ static CGFloat const axisParamsCellHeight = 170.f;
             
         case slotFrameTypeInfo:
             return 4;
-            
-        case slotFrameTypeNull:
+        case slotFrameTypeTHSensor:
             return 5;
+        case slotFrameTypeThreeASensor:
+            return 6;
+        case slotFrameTypeNull:
+            return 7;
             
         default:
             break;
@@ -546,9 +543,6 @@ static CGFloat const axisParamsCellHeight = 170.f;
     if (!canSet) {
         return;
     }
-    if (self.vcModel.slotType == slotFrameTypeThreeASensor || self.vcModel.slotType == slotFrameTypeTHSensor) {
-        [detailDic setObject:@(self.advertising) forKey:@"advertising"];
-    }
     [[MKHudManager share] showHUDWithTitle:@"Setting..."
                                      inView:self.view
                               isPenetration:NO];
@@ -580,9 +574,7 @@ static CGFloat const axisParamsCellHeight = 170.f;
         _tableView.backgroundColor = RGBCOLOR(242, 242, 242);
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        if (self.vcModel.slotType != slotFrameTypeThreeASensor && self.vcModel.slotType != slotFrameTypeTHSensor) {
-            _tableView.tableHeaderView = [self tableHeader];
-        }
+        _tableView.tableHeaderView = [self tableHeader];
     }
     return _tableView;
 }

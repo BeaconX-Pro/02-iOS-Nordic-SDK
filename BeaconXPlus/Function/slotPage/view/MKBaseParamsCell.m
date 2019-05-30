@@ -314,16 +314,19 @@ static CGFloat const unitLabelWidth = 60.f;
     }else{
         _rssiLabel.attributedText = [MKAttributedString getAttributedString:@[@"RSSI@0M",@"    (-100dBm~+20dBm)"] fonts:@[MKFont(15.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
     }
-    if ([self isThreeAsixType] || [self isTHDataType]) {
-        self.icon.image = LOADIMAGE(@"slot_baseParams_advertising", @"png");
-        self.switchView.hidden = NO;
-        [self.switchView setOn:[dataDic[@"advertisingIsOn"] boolValue]];
-        [self reloadSubViews:!self.switchView.isOn];
-    }else {
-        self.icon.image = LOADIMAGE(@"slot_baseParams", @"png");
-        self.switchView.hidden = YES;
-        [self reloadSubViews:NO];
-    }
+//    if ([self isThreeAsixType] || [self isTHDataType]) {
+//        self.icon.image = LOADIMAGE(@"slot_baseParams_advertising", @"png");
+//        self.switchView.hidden = NO;
+//        [self.switchView setOn:[dataDic[@"advertisingIsOn"] boolValue]];
+//        [self reloadSubViews:!self.switchView.isOn];
+//    }else {
+//        self.icon.image = LOADIMAGE(@"slot_baseParams", @"png");
+//        self.switchView.hidden = YES;
+//        [self reloadSubViews:NO];
+//    }
+    self.icon.image = LOADIMAGE(@"slot_baseParams", @"png");
+    self.switchView.hidden = YES;
+    [self reloadSubViews:NO];
     if (!ValidDict(_dataDic)) {
         if ([self isiBeaconType]) {
             [self.rssiSlider setValue:-59];

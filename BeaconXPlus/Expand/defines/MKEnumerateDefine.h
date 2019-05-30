@@ -29,5 +29,6 @@ typedef NS_ENUM(NSInteger, MKSlotConfigCellType) {
     deviceAdvContent,
     axisAcceDataContent,
     axisAcceParamsContent,
+    THDataContent,
     baseParam,
 };
