@@ -21,6 +21,8 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
 
 @property (nonatomic, strong)NSMutableArray *topDataList;
 
+@property (nonatomic, strong)NSMutableArray *centerDataList;
+
 @property (nonatomic, strong)NSMutableArray *bottomDataList;
 
 /**
@@ -91,30 +93,39 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section != 0 || !self.showPassword) {
+    if (indexPath.section == 0 && self.showPassword) {
+        if (indexPath.row == 0) {
+            //password
+            [self setPassword];
+            return;
+        }
+        if (indexPath.row == 1) {
+            //reset
+            [self factoryReset];
+            return;
+        }
         return;
     }
-    if (indexPath.row == 0) {
-        //password
-        [self setPassword];
-        return;
-    }
-    if (indexPath.row == 1) {
-        //reset
-        [self factoryReset];
-        return;
+    if (indexPath.section == 1) {
+        MKMainCellModel *model = self.centerDataList[indexPath.row];
+        UIViewController *vc = (UIViewController *)[[model.destVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
     }
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return self.topDataList.count;
+    }
+    if (section == 1) {
+        return self.centerDataList.count;
     }
     return self.bottomDataList.count;
 }
@@ -126,6 +137,15 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
             cell = [[MKIconInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MKSettingControllerCellIdenty];
         }
         cell.dataModel = self.topDataList[indexPath.row];
+        
+        return cell;
+    }
+    if (indexPath.section == 1) {
+        MKIconInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:MKSettingControllerCellIdenty];
+        if (!cell) {
+            cell = [[MKIconInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MKSettingControllerCellIdenty];
+        }
+        cell.dataModel = self.centerDataList[indexPath.row];
         
         return cell;
     }
@@ -405,6 +425,35 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
         [self.topDataList addObject:resetModel];
     }
     
+    if ([[MKDataManager shared].deviceType isEqualToString:@"01"]) {
+        //带LIS3DH3轴加速度计
+        MKMainCellModel *threeAxisModel = [[MKMainCellModel alloc] init];
+        threeAxisModel.leftIconName = @"setting_password";
+        threeAxisModel.leftMsg = @"3-Axis config";
+        threeAxisModel.destVC = NSClassFromString(@"MKThreeAxisConfigController");
+        [self.centerDataList addObject:threeAxisModel];
+    }else if ([[MKDataManager shared].deviceType isEqualToString:@"02"]) {
+        //带SHT3X温湿度传感器
+        MKMainCellModel *THModel = [[MKMainCellModel alloc] init];
+        THModel.leftIconName = @"setting_password";
+        THModel.leftMsg = @"T&H config";
+        THModel.destVC = NSClassFromString(@"MKHTConfigController");
+        [self.centerDataList addObject:THModel];
+    }else if ([[MKDataManager shared].deviceType isEqualToString:@"03"]) {
+        //同时带有LIS3DH及SHT3X传感器
+        MKMainCellModel *THModel = [[MKMainCellModel alloc] init];
+        THModel.leftIconName = @"setting_password";
+        THModel.leftMsg = @"T&H config";
+        THModel.destVC = NSClassFromString(@"MKHTConfigController");
+        [self.centerDataList addObject:THModel];
+        
+        MKMainCellModel *threeAxisModel = [[MKMainCellModel alloc] init];
+        threeAxisModel.leftIconName = @"setting_password";
+        threeAxisModel.leftMsg = @"3-Axis config";
+        threeAxisModel.destVC = NSClassFromString(@"MKThreeAxisConfigController");
+        [self.centerDataList addObject:threeAxisModel];
+    }
+    
     MKMainCellModel *connectModel = [[MKMainCellModel alloc] init];
     connectModel.leftIconName = @"setting_connectable";
     connectModel.leftMsg = @"Connectable";
@@ -456,6 +505,13 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
         _topDataList = [NSMutableArray array];
     }
     return _topDataList;
+}
+
+- (NSMutableArray *)centerDataList {
+    if (!_centerDataList) {
+        _centerDataList = [NSMutableArray array];
+    }
+    return _centerDataList;
 }
 
 - (NSMutableArray *)bottomDataList{

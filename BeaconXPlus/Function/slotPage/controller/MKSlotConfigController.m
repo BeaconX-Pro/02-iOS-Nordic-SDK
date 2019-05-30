@@ -94,12 +94,6 @@ static CGFloat const axisParamsCellHeight = 170.f;
                                              selector:@selector(peripheralConnectStateChanged)
                                                  name:MKPeripheralConnectStateChangedNotification
                                                object:nil];
-    if (self.vcModel.slotType == slotFrameTypeThreeASensor) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(receiveThreeAxisData:)
-                                                     name:MKBXPReceiveThreeAxisAccelerometerDataNotification
-                                                   object:nil];
-    }
     // Do any additional setup after loading the view.
 }
 
@@ -213,14 +207,6 @@ static CGFloat const axisParamsCellHeight = 170.f;
         && [MKBXPCentralManager shared].managerState == MKBXPCentralManagerStateEnable) {
         [self leftButtonMethod];
     }
-}
-
-- (void)receiveThreeAxisData:(NSNotification *)note {
-    MKAxisAcceDataCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    if (!cell || ![cell isKindOfClass:NSClassFromString(@"MKAxisAcceDataCell")]) {
-        return;
-    }
-    [cell setAxisData:note.userInfo];
 }
 
 #pragma mark - Private method
@@ -571,6 +557,7 @@ static CGFloat const axisParamsCellHeight = 170.f;
 -(MKBaseTableView *)tableView{
     if (!_tableView) {
         _tableView = [[MKBaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = RGBCOLOR(242, 242, 242);
         _tableView.delegate = self;
         _tableView.dataSource = self;

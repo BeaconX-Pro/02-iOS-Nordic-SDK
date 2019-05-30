@@ -47,7 +47,7 @@
         [self.contentView addSubview:self.xDataLabel];
         [self.contentView addSubview:self.yDataLabel];
         [self.contentView addSubview:self.zDataLabel];
-        [self.contentView addSubview:self.bottomLabel];
+//        [self.contentView addSubview:self.bottomLabel];
     }
     return self;
 }
@@ -97,12 +97,12 @@
         make.centerY.mas_equalTo(self.xDataLabel.mas_centerY);
         make.height.mas_equalTo(MKFont(12.f).lineHeight);
     }];
-    [self.bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.xDataLabel.mas_left);
-        make.right.mas_equalTo(self.zDataLabel.mas_right);
-        make.top.mas_equalTo(self.xDataLabel.mas_bottom).mas_offset(5.f);
-        make.height.mas_equalTo(MKFont(11.f).lineHeight);
-    }];
+//    [self.bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(self.xDataLabel.mas_left);
+//        make.right.mas_equalTo(self.zDataLabel.mas_right);
+//        make.top.mas_equalTo(self.xDataLabel.mas_bottom).mas_offset(5.f);
+//        make.height.mas_equalTo(MKFont(11.f).lineHeight);
+//    }];
 }
 
 #pragma mark - event method

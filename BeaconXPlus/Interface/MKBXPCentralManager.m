@@ -22,6 +22,7 @@ typedef NS_ENUM(NSInteger, managerMode) {
 };
 
 NSString *const MKBXPReceiveThreeAxisAccelerometerDataNotification = @"MKBXPReceiveThreeAxisAccelerometerDataNotification";
+NSString *const MKBXPReceiveHTDataNotification = @"MKBXPReceiveHTDataNotification";
 
 static MKBXPCentralManager *manager = nil;
 static dispatch_once_t onceToken;

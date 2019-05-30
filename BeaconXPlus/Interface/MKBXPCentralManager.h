@@ -16,6 +16,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const MKBXPReceiveThreeAxisAccelerometerDataNotification;
+extern NSString *const MKBXPReceiveHTDataNotification;
 
 @class MKBXPTaskOperation;
 @interface MKBXPCentralManager : NSObject
