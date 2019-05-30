@@ -47,7 +47,14 @@
         NSString *advTxPower = [self readAdvTxPower];
         NSString *advInterval = [self readAdvInterval];
         NSDictionary *advDic = @{};
+        NSMutableDictionary *baseParams = [NSMutableDictionary dictionary];
+        [baseParams setObject:radioTxPower forKey:@"radioTxPower"];
+        [baseParams setObject:advTxPower forKey:@"advTxPower"];
+        [baseParams setObject:advInterval forKey:@"advInterval"];
         if (slotModel.slotType == slotFrameTypeThreeASensor) {
+            NSDictionary *tempAdvDic = [self readAdvData];
+            BOOL advertisingIsOn = [tempAdvDic[@"frameType"] isEqualToString:@"60"];
+            [baseParams setObject:@(advertisingIsOn) forKey:@"advertisingIsOn"];
             NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[self readThreeAxisParams]];
             [dic setObject:@"60" forKey:@"frameType"];
             advDic = dic;
@@ -56,12 +63,6 @@
         }else {
             advDic = [self readAdvData];
         }
-        
-        NSDictionary *baseParams = @{
-                                     @"radioTxPower":radioTxPower,
-                                     @"advTxPower":advTxPower,
-                                     @"advInterval":advInterval,
-                                     };
         NSDictionary *resultDic = @{
                                     @"baseParam":baseParams,
                                     @"advData":advDic,
@@ -111,6 +112,11 @@
             advDataSuccess = [self configNoDatas];
         }else if (slotFrameType == slotFrameTypeInfo) {
             advDataSuccess = [self configDeviceName:detailData[@"deviceInfo"][@"deviceName"]];
+        }else if (slotFrameType == slotFrameTypeThreeASensor) {
+            advDataSuccess = [self configThreeAxisAdvData:[detailData[@"advertising"] boolValue]];
+            if (advDataSuccess) {
+                [self configThreeAxisDataParams:[detailData[@"threeAxis"][@"dataRate"] integerValue] acceleration:[detailData[@"threeAxis"][@"scale"] integerValue] sensitivity:[detailData[@"threeAxis"][@"sensitivity"] integerValue]];
+            }
         }
         if (!advDataSuccess) {
             if (failedBlock) {
@@ -338,6 +344,32 @@
 - (BOOL)configDeviceName:(NSString *)deviceName {
     __block BOOL success = NO;
     [MKBXPInterface setBXPDeviceInfoAdvDataWithDeviceName:deviceName sucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configThreeAxisAdvData:(BOOL)advertising {
+    __block BOOL success = NO;
+    [MKBXPInterface setBXPThreeAxisAdvData:advertising sucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configThreeAxisDataParams:(threeAxisDataRate)dataRate
+                     acceleration:(threeAxisDataAG)acceleration
+                      sensitivity:(NSInteger)sensitivity {
+    __block BOOL success = NO;
+    [MKBXPInterface setBXPThreeAxisDataParams:dataRate acceleration:acceleration sensitivity:sensitivity sucBlock:^(id  _Nonnull returnData) {
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

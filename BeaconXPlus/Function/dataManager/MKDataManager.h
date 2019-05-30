@@ -19,6 +19,8 @@ extern NSString *const MKPeripheralLockStateChangedNotification;
 @interface MKDataManager : NSObject
 
 @property (nonatomic, copy)NSString *password;
+//00:无传感器,01:带LIS3DH3轴加速度计,02:带SHT3X温湿度传感器,03:同时带有LIS3DH及SHT3X传感器
+@property (nonatomic, copy)NSString *deviceType;
 
 + (MKDataManager *)shared;
 

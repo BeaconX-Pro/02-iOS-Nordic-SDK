@@ -8,6 +8,7 @@
 
 #import "MKAxisParametersCell.h"
 #import "MKSlider.h"
+#import "MKSlotConfigPickView.h"
 
 @interface MKAxisParametersCell ()
 
@@ -115,13 +116,71 @@
     }];
 }
 
+- (NSDictionary *)getContentData {
+    threeAxisDataAG scale = threeAxisDataAG0;
+    if ([self.scaleValueLabel.text isEqualToString:@"±4g"]) {
+        scale = threeAxisDataAG1;
+    }else if ([self.scaleValueLabel.text isEqualToString:@"±8g"]) {
+        scale = threeAxisDataAG2;
+    }else if ([self.scaleValueLabel.text isEqualToString:@"±16g"]) {
+        scale = threeAxisDataAG3;
+    }
+    threeAxisDataRate dataRate = threeAxisDataRate1hz;
+    if ([self.dataRateValueLabel.text isEqualToString:@"10hz"]) {
+        dataRate = threeAxisDataRate10hz;
+    }else if ([self.dataRateValueLabel.text isEqualToString:@"25hz"]) {
+        dataRate = threeAxisDataRate25hz;
+    }else if ([self.dataRateValueLabel.text isEqualToString:@"50hz"]) {
+        dataRate = threeAxisDataRate50hz;
+    }else if ([self.dataRateValueLabel.text isEqualToString:@"100hz"]) {
+        dataRate = threeAxisDataRate100hz;
+    }
+    return @{
+             @"code":@"1",
+             @"result":@{
+                     @"type":@"threeAxis",
+                     @"scale":@(scale),
+                     @"dataRate":@(dataRate),
+                     @"sensitivity":SafeStr(self.sensitivityUnitLabel.text)
+                     },
+             };
+}
+
 #pragma mark - event method
 - (void)scaleValueLabelPressed {
-    
+    NSArray *dataList = @[@"±2g",@"±4g",@"±8g",@"±16g"];
+    NSInteger index = 0;
+    if ([self.scaleValueLabel.text isEqualToString:@"±4g"]) {
+        index = 1;
+    }else if ([self.scaleValueLabel.text isEqualToString:@"±8g"]) {
+        index = 2;
+    }else if ([self.scaleValueLabel.text isEqualToString:@"±16g"]) {
+        index = 3;
+    }
+    MKSlotConfigPickView *pickView = [[MKSlotConfigPickView alloc] init];
+    pickView.dataList = dataList;
+    [pickView showPickViewWithIndex:index block:^(NSInteger currentRow) {
+        self.scaleValueLabel.text = dataList[currentRow];
+    }];
 }
 
 - (void)dataRateValueLabelPressed {
-    
+    NSArray *dataList = @[@"1hz",@"10hz",@"25hz",@"50hz",@"100hz"];
+    NSInteger index = 0;
+    if ([self.dataRateValueLabel.text isEqualToString:@"10hz"]) {
+        index = 1;
+    }else if ([self.dataRateValueLabel.text isEqualToString:@"25hz"]) {
+        index = 2;
+    }else if ([self.dataRateValueLabel.text isEqualToString:@"50hz"]) {
+        index = 3;
+    }else if ([self.dataRateValueLabel.text isEqualToString:@"100hz"]) {
+        index = 4;
+    }
+    MKSlotConfigPickView *pickView = [[MKSlotConfigPickView alloc] init];
+    pickView.dataList = dataList;
+    [pickView showPickViewWithIndex:index block:^(NSInteger currentRow) {
+        self.dataRateValueLabel.text = dataList[currentRow];
+    }];
 }
 
 - (void)sliderValueChanged {

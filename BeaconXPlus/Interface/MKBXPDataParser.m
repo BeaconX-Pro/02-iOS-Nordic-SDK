@@ -343,13 +343,17 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         operationID = MKBXPReadMacAddressOperation;
         returnDic = @{@"macAddress":macAddress};
     }else if ([function isEqualToString:@"21"] && content.length == 14){
-        //三轴传感器参数
+        //读取三轴传感器参数
         operationID = MKBXPReadThreeAxisParamsOperation;
         returnDic = @{
                       @"samplingRate":[content substringWithRange:NSMakeRange(8, 2)],
                       @"gravityReference":[content substringWithRange:NSMakeRange(10, 2)],
                       @"sensitivity":[MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(12, 2)],
                       };
+    }else if ([function isEqualToString:@"21"] && content.length == 8){
+        //设置三轴传感器参数
+        operationID = MKBXPSetThreeAxisParamsOperation;
+        returnDic = @{};
     }else if ([function isEqualToString:@"26"] && content.length == 8){
         //关机
         operationID = MKBXPSetPowerOffOperation;

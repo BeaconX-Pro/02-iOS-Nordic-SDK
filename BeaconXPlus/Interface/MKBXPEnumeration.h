@@ -73,3 +73,18 @@ typedef NS_ENUM(NSInteger, urlHeaderType) {
     urlHeaderType3,             //http://
     urlHeaderType4,             //https://
 };
+
+typedef NS_ENUM(NSInteger, threeAxisDataRate) {
+    threeAxisDataRate1hz,           //1hz
+    threeAxisDataRate10hz,          //10hz
+    threeAxisDataRate25hz,          //25hz
+    threeAxisDataRate50hz,          //50hz
+    threeAxisDataRate100hz          //100hz
+};
+
+typedef NS_ENUM(NSInteger, threeAxisDataAG) {
+    threeAxisDataAG0,               //±2g
+    threeAxisDataAG1,               //±4g
+    threeAxisDataAG2,               //±8g
+    threeAxisDataAG3                //±16g
+};

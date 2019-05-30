@@ -289,6 +289,39 @@
                          failureBlock:failedBlock];
 }
 
++ (void)setBXPThreeAxisAdvData:(BOOL)advertising
+                      sucBlock:(void (^)(id returnData))sucBlock
+                   failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:MKBXPSetAdvSlotDataOperation
+                          commandData:(advertising ? @"60" : @"ff")
+                       characteristic:centralManager.peripheral.advSlotData
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPThreeAxisDataParams:(threeAxisDataRate)dataRate
+                     acceleration:(threeAxisDataAG)acceleration
+                      sensitivity:(NSInteger)sensitivity
+                         sucBlock:(void (^)(id returnData))sucBlock
+                      failedBlock:(void (^)(NSError *error))failedBlock {
+    if (sensitivity < 7 || sensitivity > 255) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *rate = [self fetchThreeAxisDataRate:dataRate];
+    NSString *ag = [self fetchThreeAxisDataAG:acceleration];
+    NSString *sen = [NSString stringWithFormat:@"%1lx",(unsigned long)sensitivity];
+    if (sen.length == 1) {
+        sen = [@"0" stringByAppendingString:sen];
+    }
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ea210003",rate,ag,sen];
+    [centralManager addTaskWithTaskID:MKBXPSetThreeAxisParamsOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
 #pragma mark - private method
 + (NSString *)fetchSlotNumber:(bxpActiveSlotNo)slotNo{
     switch (slotNo) {
@@ -335,6 +368,34 @@
             
         case slotRadioTxPowerNeg40dBm:
             return @"d8";
+    }
+}
+
++ (NSString *)fetchThreeAxisDataRate:(threeAxisDataRate)dataRate {
+    switch (dataRate) {
+        case threeAxisDataRate1hz:
+            return @"00";
+        case threeAxisDataRate10hz:
+            return @"01";
+        case threeAxisDataRate25hz:
+            return @"02";
+        case threeAxisDataRate50hz:
+            return @"03";
+        case threeAxisDataRate100hz:
+            return @"04";
+    }
+}
+
++ (NSString *)fetchThreeAxisDataAG:(threeAxisDataAG)ag {
+    switch (ag) {
+        case threeAxisDataAG0:
+            return @"00";
+        case threeAxisDataAG1:
+            return @"01";
+        case threeAxisDataAG2:
+            return @"02";
+        case threeAxisDataAG3:
+            return @"03";
     }
 }
 

@@ -132,6 +132,29 @@ static NSString *const MKSlotControllerCellIdenty = @"MKSlotControllerCellIdenty
         slotInfo.slotIndex = i;
         [self.dataList addObject:slotInfo];
     }
+    if ([[MKDataManager shared].deviceType isEqualToString:@"01"]) {
+        //带LIS3DH3轴加速度计
+        MKSlotDataTypeModel *lastModel = [self.dataList lastObject];
+        lastModel.slotType = slotFrameTypeThreeASensor;
+    }else if ([[MKDataManager shared].deviceType isEqualToString:@"02"]) {
+        //带SHT3X温湿度传感器
+        MKSlotDataTypeModel *lastModel = [self.dataList lastObject];
+        lastModel.slotType = slotFrameTypeTHSensor;
+    }else if ([[MKDataManager shared].deviceType isEqualToString:@"03"]) {
+        //同时带有LIS3DH及SHT3X传感器
+        MKSlotDataTypeModel *lastModel = [self.dataList lastObject];
+        lastModel.slotType = slotFrameTypeThreeASensor;
+        MKSlotDataTypeModel *lastModel1 = self.dataList[4];
+        lastModel1.slotType = slotFrameTypeTHSensor;
+    }
+    /*
+     目前设备有四种类型，无传感器版本、带LIS3DH3轴加速度计版本、带SHT31温湿度传感器版本、同时带有LIS3DH及SHT30传感器版本，
+     根据新的业务需求，
+     无传感器版本:
+     带LIS3DH3轴加速度计版本:最后一个通道固定为传感器通道
+     带SHT31温湿度传感器版本:最后一个通道固定为温湿度传感器通道
+     同时带有LIS3DH及SHT30传感器版本:最后两个通道分别固定为温湿度传感器通道、传感器通道
+     */
     
     [self.tableView reloadData];
 }

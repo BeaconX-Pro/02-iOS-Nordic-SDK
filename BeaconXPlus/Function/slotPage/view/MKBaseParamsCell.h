@@ -16,6 +16,13 @@ static NSString *const MKSlotBaseCellURLType = @"MKSlotBaseCellURLType";
 static NSString *const MKSlotBaseCelliBeaconType = @"MKSlotBaseCelliBeaconType";
 static NSString *const MKSlotBaseCellDeviceInfoType = @"MKSlotBaseCellDeviceInfoType";
 static NSString *const MKSlotBaseCellAxisAcceDataType = @"MKSlotBaseCellAxisAcceDataType";
+static NSString *const MKSlotBaseCellTHDataType = @"MKSlotBaseCellTHDataType";
+
+@protocol MKBaseParamsCellDelegate <NSObject>
+
+- (void)advertisingStatusChanged:(BOOL)isOn;
+
+@end
 
 @interface MKBaseParamsCell : MKSlotBaseCell
 
@@ -24,6 +31,8 @@ static NSString *const MKSlotBaseCellAxisAcceDataType = @"MKSlotBaseCellAxisAcce
 @property (nonatomic, strong)NSDictionary *dataDic;
 
 @property (nonatomic, copy)NSString *baseCellType;
+
+@property (nonatomic, weak)id <MKBaseParamsCellDelegate>delegate;
 
 @end
 

@@ -43,6 +43,8 @@ static CGFloat const unitLabelWidth = 60.f;
 
 @property (nonatomic, strong)UILabel *txPowerUnitLabel;
 
+@property (nonatomic, strong)UISwitch *switchView;
+
 @end
 
 @implementation MKBaseParamsCell
@@ -59,6 +61,7 @@ static CGFloat const unitLabelWidth = 60.f;
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self.contentView addSubview:self.icon];
         [self.contentView addSubview:self.msgLabel];
+        [self.contentView addSubview:self.switchView];
         [self.contentView addSubview:self.advIntervalLabel];
         [self.contentView addSubview:self.advNoteLabel];
         [self.contentView addSubview:self.intervalTextField];
@@ -84,9 +87,15 @@ static CGFloat const unitLabelWidth = 60.f;
     }];
     [self.msgLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.icon.mas_right).mas_offset(5.f);
-        make.right.mas_equalTo(-offset_X);
+        make.right.mas_equalTo(self.switchView.mas_left).mas_offset(-5.f);
         make.centerY.mas_equalTo(self.icon.mas_centerY);
         make.height.mas_equalTo(MKFont(15.f).lineHeight);
+    }];
+    [self.switchView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-offset_X);
+        make.top.mas_equalTo(offset_Y);
+        make.width.mas_equalTo(45.f);
+        make.height.mas_equalTo(30.f);
     }];
     [self.advIntervalLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(offset_X);
@@ -192,8 +201,7 @@ static CGFloat const unitLabelWidth = 60.f;
              };
 }
 
-#pragma mark - Private method
-
+#pragma mark - event method
 - (void)sliderValueChanged:(UISlider *)slider{
     if (slider == self.rssiSlider){
         self.rssiUnitLabel.text = [NSString stringWithFormat:@"%.fdBm",slider.value];
@@ -201,6 +209,15 @@ static CGFloat const unitLabelWidth = 60.f;
         self.txPowerUnitLabel.text = [self getTxPowerUnitWithValue:slider.value];
     }
 }
+
+- (void)switchViewValueChanged {
+    [self reloadSubViews:!self.switchView.isOn];
+    if ([self.delegate respondsToSelector:@selector(advertisingStatusChanged:)]) {
+        [self.delegate advertisingStatusChanged:self.switchView.isOn];
+    }
+}
+
+#pragma mark - Private method
 
 - (NSString *)getTxPowerUnitWithValue:(float)value{
     if (value >=0 && value < 11.1) {
@@ -256,6 +273,14 @@ static CGFloat const unitLabelWidth = 60.f;
     return [self.baseCellType isEqualToString:MKSlotBaseCelliBeaconType];
 }
 
+- (BOOL)isThreeAsixType {
+    return [self.baseCellType isEqualToString:MKSlotBaseCellAxisAcceDataType];
+}
+
+- (BOOL)isTHDataType {
+    return [self.baseCellType isEqualToString:MKSlotBaseCellTHDataType];
+}
+
 - (UILabel *)functionLabelWithFont:(UIFont *)font{
     UILabel *funcLabel = [[UILabel alloc] init];
     funcLabel.textColor = DEFAULT_TEXT_COLOR;
@@ -264,15 +289,40 @@ static CGFloat const unitLabelWidth = 60.f;
     return funcLabel;
 }
 
+- (void)reloadSubViews:(BOOL)hidden {
+    self.advIntervalLabel.hidden = hidden;
+    self.advNoteLabel.hidden = hidden;
+    self.intervalTextField.hidden = hidden;
+    self.advIntervalUnitLabel.hidden = hidden;
+    self.rssiLabel.hidden = hidden;
+    self.rssiSlider.hidden = hidden;
+    self.rssiUnitLabel.hidden = hidden;
+    self.txPowerLabel.hidden = hidden;
+    self.txPowerSlider.hidden = hidden;
+    self.txPowerUnitLabel.hidden = hidden;
+}
 
 #pragma mark - Public method
 - (void)setDataDic:(NSDictionary *)dataDic{
     _dataDic = nil;
     _dataDic = dataDic;
+    if (!ValidDict(_dataDic)) {
+        return;
+    }
     if ([self isiBeaconType]) {
         _rssiLabel.attributedText = [MKAttributedString getAttributedString:@[@"RSSI@1M",@"    (-100dBm~+20dBm)"] fonts:@[MKFont(15.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
     }else{
         _rssiLabel.attributedText = [MKAttributedString getAttributedString:@[@"RSSI@0M",@"    (-100dBm~+20dBm)"] fonts:@[MKFont(15.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
+    }
+    if ([self isThreeAsixType] || [self isTHDataType]) {
+        self.icon.image = LOADIMAGE(@"slot_baseParams_advertising", @"png");
+        self.switchView.hidden = NO;
+        [self.switchView setOn:[dataDic[@"advertisingIsOn"] boolValue]];
+        [self reloadSubViews:!self.switchView.isOn];
+    }else {
+        self.icon.image = LOADIMAGE(@"slot_baseParams", @"png");
+        self.switchView.hidden = YES;
+        [self reloadSubViews:NO];
     }
     if (!ValidDict(_dataDic)) {
         if ([self isiBeaconType]) {
@@ -315,14 +365,6 @@ static CGFloat const unitLabelWidth = 60.f;
     [self setNeedsLayout];
 }
 
-- (void)setBaseCellType:(NSString *)baseCellType{
-    _baseCellType = nil;
-    _baseCellType = baseCellType;
-    if (!ValidStr(_baseCellType)) {
-        return;
-    }
-}
-
 #pragma mark - setter & getter
 - (UIImageView *)icon{
     if (!_icon) {
@@ -341,6 +383,16 @@ static CGFloat const unitLabelWidth = 60.f;
         _msgLabel.text = @"Adv Parameters";
     }
     return _msgLabel;
+}
+
+- (UISwitch *)switchView {
+    if (!_switchView) {
+        _switchView = [[UISwitch alloc] init];
+        [_switchView addTarget:self
+                        action:@selector(switchViewValueChanged)
+              forControlEvents:UIControlEventValueChanged];
+    }
+    return _switchView;
 }
 
 - (UILabel *)advIntervalLabel {

@@ -35,7 +35,7 @@ static CGFloat const deviceAdvCellHeight = 100.f;
 static CGFloat const axisAcceDataCellHeight = 100.f;
 static CGFloat const axisParamsCellHeight = 170.f;
 
-@interface MKSlotConfigController ()<UITableViewDelegate, UITableViewDataSource, MKAxisAcceDataCellDelegate>
+@interface MKSlotConfigController ()<UITableViewDelegate, UITableViewDataSource, MKAxisAcceDataCellDelegate ,MKBaseParamsCellDelegate>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
 
@@ -48,9 +48,14 @@ static CGFloat const axisParamsCellHeight = 170.f;
 /**
  进来的时候拿的当前通道数据
  */
-@property (nonatomic, strong)NSDictionary *originalDic;
+@property (nonatomic, strong)NSMutableDictionary *originalDic;
 
 @property (nonatomic, strong)MKSlotConfigManager *configManager;
+
+/**
+ 只有温湿度和三轴传感器会用到，baseParam里面有个开关，开关打开和关闭的baseCell效果不一样
+ */
+@property (nonatomic, assign)BOOL advertising;
 
 @end
 
@@ -112,26 +117,30 @@ static CGFloat const axisParamsCellHeight = 170.f;
 #pragma mark - 代理方法
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section < self.dataList.count) {
-        MKSlotConfigCellModel *model = self.dataList[indexPath.section];
-        switch (model.cellType) {
-            case iBeaconAdvContent:
-                return iBeaconAdvCellHeight;
-            case uidAdvContent:
-                return uidAdvCellHeight;
-            case urlAdvContent:
-                return urlAdvCellHeight;
-            case baseParam:
-                return baseParamsCellHeight;
-            case deviceAdvContent:
-                return deviceAdvCellHeight;
-            case axisAcceDataContent:
-                return axisAcceDataCellHeight;
-            case axisAcceParamsContent:
-                return axisParamsCellHeight;
-            default:
-                break;
+    MKSlotConfigCellModel *model = self.dataList[indexPath.section];
+    if (model.cellType == iBeaconAdvContent) {
+        return iBeaconAdvCellHeight;
+    }
+    if (model.cellType == uidAdvContent) {
+        return uidAdvCellHeight;
+    }
+    if (model.cellType == urlAdvContent) {
+        return urlAdvCellHeight;
+    }
+    if (model.cellType == baseParam) {
+        if ((self.vcModel.slotType == slotFrameTypeThreeASensor || self.vcModel.slotType == slotFrameTypeTHSensor) && !self.advertising) {
+            return 50.f;
         }
+        return baseParamsCellHeight;
+    }
+    if (model.cellType == deviceAdvContent) {
+        return deviceAdvCellHeight;
+    }
+    if (model.cellType == axisAcceDataContent) {
+        return axisAcceDataCellHeight;
+    }
+    if (model.cellType == axisAcceParamsContent) {
+        return axisParamsCellHeight;
     }
     return 0.f;
 }
@@ -170,8 +179,7 @@ static CGFloat const axisParamsCellHeight = 170.f;
                 cell = [MKAdvContentURLCell initCellWithTableView:tableView];
                 break;
             case baseParam:
-                cell = [MKBaseParamsCell initCellWithTableView:tableView];
-                [self setBaseCellType:cell];
+                cell = [self baseParamsCell];
                 break;
             case deviceAdvContent:
                 cell = [MKAdvContentDeviceCell initCellWithTable:tableView];
@@ -195,6 +203,17 @@ static CGFloat const axisParamsCellHeight = 170.f;
 #pragma mark - MKAxisAcceDataCellDelegate
 - (void)updateThreeAxisNotifyStatus:(BOOL)notify {
     [[MKBXPCentralManager shared] notifyThreeAxisAcceleration:notify];
+}
+
+#pragma mark - MKBaseParamsCellDelegate
+- (void)advertisingStatusChanged:(BOOL)isOn {
+    self.advertising = isOn;
+    NSMutableDictionary *baseParams = [NSMutableDictionary dictionaryWithDictionary:self.originalDic[@"baseParam"]];
+    [baseParams setObject:@(isOn) forKey:@"advertisingIsOn"];
+    [self.originalDic setObject:baseParams forKey:@"baseParam"];
+    MKSlotConfigCellModel *baseParamModel = self.dataList[2];
+    baseParamModel.dataDic = self.originalDic[@"baseParam"];
+    [self.tableView reloadRow:0 inSection:2 withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - note method
@@ -225,8 +244,11 @@ static CGFloat const axisParamsCellHeight = 170.f;
     WS(weakSelf);
     [self.configManager readSlotDetailData:self.vcModel successBlock:^(id returnData) {
         [[MKHudManager share] hide];
-        weakSelf.originalDic = returnData;
+        weakSelf.originalDic = [NSMutableDictionary dictionaryWithDictionary:returnData];
         weakSelf.frameType = [weakSelf loadFrameType:returnData[@"advData"][@"frameType"]];
+        if (weakSelf.vcModel.slotType == slotFrameTypeThreeASensor || weakSelf.vcModel.slotType == slotFrameTypeTHSensor) {
+            weakSelf.advertising = [returnData[@"baseParam"][@"advertisingIsOn"] boolValue];
+        }
         weakSelf.tableHeader.index = [weakSelf getHeaderViewSelectedRow];
         [weakSelf reloadTableViewData];
     } failedBlock:^(NSError *error) {
@@ -242,27 +264,6 @@ static CGFloat const axisParamsCellHeight = 170.f;
     [self.dataList removeAllObjects];
     [self.dataList addObjectsFromArray:[self reloadDatasWithType]];
     [self.tableView reloadData];
-}
-
-- (void)setBaseCellType:(UITableViewCell *)cell{
-    if (!cell) {
-        return;
-    }
-    NSString *type = @"";
-    if (self.frameType == slotFrameTypeiBeacon) {
-        type = MKSlotBaseCelliBeaconType;
-    }else if (self.frameType == slotFrameTypeTLM){
-        type = MKSlotBaseCellTLMType;
-    }else if (self.frameType == slotFrameTypeUID){
-        type = MKSlotBaseCellUIDType;
-    }else if (self.frameType == slotFrameTypeURL){
-        type = MKSlotBaseCellURLType;
-    }else if (self.frameType == slotFrameTypeInfo) {
-        type = MKSlotBaseCellDeviceInfoType;
-    }else if (self.frameType == slotFrameTypeThreeASensor) {
-        type = MKSlotBaseCellAxisAcceDataType;
-    }
-    [cell performSelector:@selector(setBaseCellType:) withObject:type];
 }
 
 /**
@@ -400,6 +401,27 @@ static CGFloat const axisParamsCellHeight = 170.f;
     return cell;
 }
 
+- (MKBaseParamsCell *)baseParamsCell {
+    MKBaseParamsCell *cell = [MKBaseParamsCell initCellWithTableView:self.tableView];
+    NSString *type = @"";
+    if (self.frameType == slotFrameTypeiBeacon) {
+        type = MKSlotBaseCelliBeaconType;
+    }else if (self.frameType == slotFrameTypeTLM){
+        type = MKSlotBaseCellTLMType;
+    }else if (self.frameType == slotFrameTypeUID){
+        type = MKSlotBaseCellUIDType;
+    }else if (self.frameType == slotFrameTypeURL){
+        type = MKSlotBaseCellURLType;
+    }else if (self.frameType == slotFrameTypeInfo) {
+        type = MKSlotBaseCellDeviceInfoType;
+    }else if (self.frameType == slotFrameTypeThreeASensor) {
+        type = MKSlotBaseCellAxisAcceDataType;
+    }
+    cell.baseCellType = type;
+    cell.delegate = self;
+    return cell;
+}
+
 - (slotFrameType )loadFrameType:(NSString *)type{
     //@"00":UID,@"10":URL,@"20":TLM,@"40":设备信息,@"50":iBeacon,@"60":3轴加速度计,@"70":温湿度传感器,@"FF":NO DATA
     if (!ValidStr(type) || [type isEqualToString:@"ff"]) {
@@ -500,26 +522,32 @@ static CGFloat const axisParamsCellHeight = 170.f;
             return;
         }
         for (MKSlotBaseCell *cell in cellList) {
-            NSDictionary *dic = [cell getContentData];
-            if (!ValidDict(dic)) {
-                canSet = NO;
-                break;
-            }
-            NSString *code = dic[@"code"];
-            if ([code isEqualToString:@"2"]) {
-                canSet = NO;
-                [self.view showCentralToast:dic[@"msg"]];
-                break;
-            }
-            NSString *type = dic[@"result"][@"type"];
-            if (ValidStr(type)) {
-                [detailDic setObject:dic[@"result"] forKey:type];
+            if (![cell isKindOfClass:NSClassFromString(@"MKAxisAcceDataCell")]) {
+                //三轴传感器监听cell不需要设置
+                NSDictionary *dic = [cell getContentData];
+                if (!ValidDict(dic)) {
+                    canSet = NO;
+                    break;
+                }
+                NSString *code = dic[@"code"];
+                if ([code isEqualToString:@"2"]) {
+                    canSet = NO;
+                    [self.view showCentralToast:dic[@"msg"]];
+                    break;
+                }
+                NSString *type = dic[@"result"][@"type"];
+                if (ValidStr(type)) {
+                    [detailDic setObject:dic[@"result"] forKey:type];
+                }
             }
         }
     }
     
     if (!canSet) {
         return;
+    }
+    if (self.vcModel.slotType == slotFrameTypeThreeASensor || self.vcModel.slotType == slotFrameTypeTHSensor) {
+        [detailDic setObject:@(self.advertising) forKey:@"advertising"];
     }
     [[MKHudManager share] showHUDWithTitle:@"Setting..."
                                      inView:self.view
@@ -587,6 +615,13 @@ static CGFloat const axisParamsCellHeight = 170.f;
         _configManager = [[MKSlotConfigManager alloc] init];
     }
     return _configManager;
+}
+
+- (NSMutableDictionary *)originalDic {
+    if (!_originalDic) {
+        _originalDic = [NSMutableDictionary dictionary];
+    }
+    return _originalDic;
 }
 
 @end

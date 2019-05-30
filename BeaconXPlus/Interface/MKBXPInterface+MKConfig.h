@@ -170,6 +170,32 @@ NS_ASSUME_NONNULL_BEGIN
                                      sucBlock:(void (^)(id returnData))sucBlock
                                   failedBlock:(void (^)(NSError *error))failedBlock;
 
+/**
+ 如果当前通道为三轴传感器，设置要不要广播传感器数据
+
+ @param advertising YES:广播,NO:不广播
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPThreeAxisAdvData:(BOOL)advertising
+                      sucBlock:(void (^)(id returnData))sucBlock
+                   failedBlock:(void (^)(NSError *error))failedBlock;
+
+/**
+ 设置3轴传感器采样率、重力加速度参考值、灵敏度
+
+ @param dataRate 采样率
+ @param acceleration 重力加速度参考值
+ @param sensitivity 设备发生移动的灵敏度，数值越大，越迟钝。7~255
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPThreeAxisDataParams:(threeAxisDataRate)dataRate
+                     acceleration:(threeAxisDataAG)acceleration
+                      sensitivity:(NSInteger)sensitivity
+                         sucBlock:(void (^)(id returnData))sucBlock
+                      failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

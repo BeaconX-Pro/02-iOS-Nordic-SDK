@@ -611,6 +611,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     [MKBXPInterface readBXPDeviceTypeWithSucBlock:^(id  _Nonnull returnData) {
         [[MKHudManager share] hide];
+        [MKDataManager shared].deviceType = returnData[@"result"][@"deviceType"];
         MKMainTabBarController *vc = [[MKMainTabBarController alloc] init];
         NSDictionary *dic = @{
                               peripheralIdenty:peripheral,
