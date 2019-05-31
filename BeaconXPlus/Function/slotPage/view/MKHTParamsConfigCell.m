@@ -135,6 +135,7 @@ static CGFloat const pickViewRowHeight = 30.f;
     [self.pickerView reloadAllComponents];
     //开始刷新UI
     [self setNeedsLayout];
+    [self setupNoteMsg];
 }
 
 #pragma mark - event method
@@ -145,6 +146,7 @@ static CGFloat const pickViewRowHeight = 30.f;
     pickView.dataList = dataList;
     [pickView showPickViewWithIndex:row block:^(NSInteger currentRow) {
         self.temperValueLabel.text = dataList[currentRow];
+        [self setupNoteMsg];
     }];
 }
 
@@ -155,7 +157,12 @@ static CGFloat const pickViewRowHeight = 30.f;
     pickView.dataList = dataList;
     [pickView showPickViewWithIndex:row block:^(NSInteger currentRow) {
         self.humiValueLabel.text = dataList[currentRow];
+        [self setupNoteMsg];
     }];
+}
+
+- (void)timeTextFieldValueChanged {
+    [self setupNoteMsg];
 }
 
 #pragma mark - private method
@@ -186,6 +193,54 @@ static CGFloat const pickViewRowHeight = 30.f;
     return dataList;
 }
 
+- (void)setupNoteMsg {
+    if (self.index == 0) {
+        //温度
+        if ([self.temperValueLabel.text isEqualToString:@"0.0"]) {
+            self.noteLabel.text = @"The device records T&H data when the temperature changes arbitrarily.";
+            return;
+        }
+        self.noteLabel.text = [NSString stringWithFormat:@"The device records H&T data when the temperature changes by more than %@ ℃.",self.temperValueLabel.text];
+        return;
+    }
+    if (self.index == 1) {
+        //湿度
+        if ([self.humiValueLabel.text isEqualToString:@"0"]) {
+            self.noteLabel.text = @"The device records T&H data when the humidity changes arbitrarily.";
+            return;
+        }
+        self.noteLabel.text = [NSString stringWithFormat:@"The device records T&H data when the humidity changes by more than %@%@.",self.humiValueLabel.text,@"%"];
+        return;
+    }
+    if (self.index == 2) {
+        //温湿度
+        CGFloat temperValue = [self.temperValueLabel.text floatValue];
+        CGFloat humiValue = [self.humiValueLabel.text floatValue];
+        if (temperValue == 0.0 && humiValue == 0.0) {
+            //都任意变化
+            self.noteLabel.text = @"The device records T&H data when the temperature or humidity changes arbitrarily.";
+            return;
+        }
+        if (temperValue == 0 && humiValue > 0) {
+            self.noteLabel.text = [NSString stringWithFormat:@"The device records T&H data when the temperature changes arbitrarily or humidity changes by more than %@%@.",self.humiValueLabel.text,@"%"];
+            return;
+        }
+        if (temperValue > 0.0 && humiValue == 0) {
+            self.noteLabel.text = [NSString stringWithFormat:@"The device records T&H data when the temperature changes by more than %@ ℃ or humidity changes arbitrarily.",self.temperValueLabel.text];
+            return;
+        }
+        if (temperValue > 0.0 && humiValue > 0.0) {
+            self.noteLabel.text = [NSString stringWithFormat:@"The device records T&H data when the temperature changes by more than %@ ℃ or humidity changes by more than %@%@.",self.temperValueLabel.text,self.humiValueLabel.text,@"%"];
+        }
+        return;
+    }
+    if (self.index == 3) {
+        //时间
+        self.noteLabel.text = [NSString stringWithFormat:@"The device records T&H data every %@ minute(s).",self.timeTextField.text];
+        return;
+    }
+}
+
 #pragma mark - setupUI
 
 - (void)setupUI {
@@ -211,7 +266,7 @@ static CGFloat const pickViewRowHeight = 30.f;
         make.left.mas_equalTo(self.pickerView.mas_right).mas_offset(5.f);
         make.right.mas_equalTo(-15.f);
         make.bottom.mas_equalTo(-1.f);
-        make.height.mas_equalTo(30.f);
+        make.height.mas_equalTo(45.f);
     }];
     if (self.index == 0) {
         //温度
@@ -438,6 +493,9 @@ static CGFloat const pickViewRowHeight = 30.f;
         _timeTextField.font = MKFont(12.f);
         _timeTextField.borderStyle = UITextBorderStyleNone;
         _timeTextField.text = @"10";
+        [_timeTextField addTarget:self
+                           action:@selector(timeTextFieldValueChanged)
+                 forControlEvents:UIControlEventEditingChanged];
         
         UIView *lineView = [[UIView alloc] init];
         lineView.backgroundColor = UIColorFromRGB(0x2F84D0);
