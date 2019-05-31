@@ -336,6 +336,45 @@
                          failureBlock:failedBlock];
 }
 
++ (void)setBXPDeviceTime:(id <MKBXPDeviceTimeProtocol>)protocol
+                sucBlock:(void (^)(id returnData))sucBlock
+             failedBlock:(void (^)(NSError *error))failedBlock {
+    if (![self validTimeProtocol:protocol]) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *hexTime = [self getTimeString:protocol];
+    if (!MKValidStr(hexTime)) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *commandString = [@"ea250006" stringByAppendingString:hexTime];
+    [centralManager addTaskWithTaskID:MKBXPSetDeviceTimeOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPHTStorageConditions:(id <MKBXPHTStorageConditionsProtocol>)protocol
+                         sucBlock:(void (^)(id returnData))sucBlock
+                      failedBlock:(void (^)(NSError *error))failedBlock {
+    if (![self validHTStorageConditionsProtocol:protocol]) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *commandString = [self fetchHTStorageConditionsCommand:protocol];
+    if (!MKValidStr(commandString)) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    [centralManager addTaskWithTaskID:MKBXPSetHTStorageConditionsOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
 #pragma mark - private method
 + (NSString *)fetchSlotNumber:(bxpActiveSlotNo)slotNo{
     switch (slotNo) {
@@ -411,6 +450,146 @@
         case threeAxisDataAG3:
             return @"03";
     }
+}
+
++ (BOOL)validTimeProtocol:(id <MKBXPDeviceTimeProtocol>)protocol{
+    if (!protocol) {
+        return NO;
+    }
+    if (protocol.year < 2000 || protocol.year > 2099) {
+        return NO;
+    }
+    if (protocol.month < 1 || protocol.month > 12) {
+        return NO;
+    }
+    if (protocol.day < 1 || protocol.day > 31) {
+        return NO;
+    }
+    if (protocol.hour < 0 || protocol.hour > 23) {
+        return NO;
+    }
+    if (protocol.minutes < 0 || protocol.minutes > 59) {
+        return NO;
+    }
+    if (protocol.seconds < 0 || protocol.seconds > 59) {
+        return NO;
+    }
+    return YES;
+}
+
++ (NSString *)getTimeString:(id <MKBXPDeviceTimeProtocol>)protocol{
+    if (!protocol) {
+        return nil;
+    }
+    
+    unsigned long yearValue = protocol.year - 2000;
+    NSString *yearString = [NSString stringWithFormat:@"%1lx",yearValue];
+    if (yearString.length == 1) {
+        yearString = [@"0" stringByAppendingString:yearString];
+    }
+    NSString *monthString = [NSString stringWithFormat:@"%1lx",(long)protocol.month];
+    if (monthString.length == 1) {
+        monthString = [@"0" stringByAppendingString:monthString];
+    }
+    NSString *dayString = [NSString stringWithFormat:@"%1lx",(long)protocol.day];
+    if (dayString.length == 1) {
+        dayString = [@"0" stringByAppendingString:dayString];
+    }
+    NSString *hourString = [NSString stringWithFormat:@"%1lx",(long)protocol.hour];
+    if (hourString.length == 1) {
+        hourString = [@"0" stringByAppendingString:hourString];
+    }
+    NSString *minString = [NSString stringWithFormat:@"%1lx",(long)protocol.minutes];
+    if (minString.length == 1) {
+        minString = [@"0" stringByAppendingString:minString];
+    }
+    NSString *secString = [NSString stringWithFormat:@"%1lx",(long)protocol.seconds];
+    if (secString.length == 1) {
+        secString = [@"0" stringByAppendingString:minString];
+    }
+    return [NSString stringWithFormat:@"%@%@%@%@%@%@",yearString,monthString,dayString,hourString,minString,secString];
+}
+
++ (BOOL)validHTStorageConditionsProtocol:(id <MKBXPHTStorageConditionsProtocol>)protocol {
+    if (!protocol) {
+        return NO;
+    }
+    if (protocol.condition == HTStorageConditionsT) {
+        if (protocol.temperature < 0 || protocol.temperature > 1000) {
+            return NO;
+        }
+    }
+    if (protocol.condition == HTStorageConditionsH) {
+        if (protocol.humidity < 0 || protocol.humidity > 100) {
+            return NO;
+        }
+    }
+    if (protocol.condition == HTStorageConditionsTH) {
+        if (protocol.temperature < 0 || protocol.temperature > 1000) {
+            return NO;
+        }
+        if (protocol.humidity < 0 || protocol.humidity > 100) {
+            return NO;
+        }
+    }
+    if (protocol.condition == HTStorageConditionsTime) {
+        if (protocol.time < 1 || protocol.time > 255) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
++ (NSString *)fetchHTStorageConditionsCommand:(id<MKBXPHTStorageConditionsProtocol>)protocol {
+    if (protocol.condition == HTStorageConditionsT) {
+        NSString *temper = [NSString stringWithFormat:@"%1lx",(long)protocol.temperature];
+        if (temper.length == 1) {
+            temper = [@"000" stringByAppendingString:temper];
+        }else if (temper.length == 2) {
+            temper = [@"00" stringByAppendingString:temper];
+        }else if (temper.length == 3) {
+            temper = [@"0" stringByAppendingString:temper];
+        }
+        return [@"ea22000300" stringByAppendingString:temper];
+    }
+    if (protocol.condition == HTStorageConditionsH) {
+        NSString *humi = [NSString stringWithFormat:@"%1lx",(long)protocol.humidity];
+        if (humi.length == 1) {
+            humi = [@"000" stringByAppendingString:humi];
+        }else if (humi.length == 2) {
+            humi = [@"00" stringByAppendingString:humi];
+        }else if (humi.length == 3) {
+            humi = [@"0" stringByAppendingString:humi];
+        }
+        return [@"ea22000301" stringByAppendingString:humi];
+    }
+    if (protocol.condition == HTStorageConditionsTH) {
+        NSString *temper = [NSString stringWithFormat:@"%1lx",(long)protocol.temperature];
+        if (temper.length == 1) {
+            temper = [@"000" stringByAppendingString:temper];
+        }else if (temper.length == 2) {
+            temper = [@"00" stringByAppendingString:temper];
+        }else if (temper.length == 3) {
+            temper = [@"0" stringByAppendingString:temper];
+        }
+        NSString *humi = [NSString stringWithFormat:@"%1lx",(long)protocol.humidity];
+        if (humi.length == 1) {
+            humi = [@"000" stringByAppendingString:humi];
+        }else if (humi.length == 2) {
+            humi = [@"00" stringByAppendingString:humi];
+        }else if (humi.length == 3) {
+            humi = [@"0" stringByAppendingString:humi];
+        }
+        return [NSString stringWithFormat:@"%@%@%@",@"ea22000502",temper,humi];
+    }
+    if (protocol.condition == HTStorageConditionsTime) {
+        NSString *time = [NSString stringWithFormat:@"%1lx",(long)protocol.time];
+        if (time.length == 1) {
+            time = [@"0" stringByAppendingString:time];
+            return [@"ea22000203" stringByAppendingString:time];
+        }
+    }
+    return @"";
 }
 
 @end

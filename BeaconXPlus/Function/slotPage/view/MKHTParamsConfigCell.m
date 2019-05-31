@@ -165,6 +165,28 @@ static CGFloat const pickViewRowHeight = 30.f;
     [self setupNoteMsg];
 }
 
+#pragma mark -
+-(void)setDataDic:(NSDictionary *)dataDic {
+    _dataDic = nil;
+    _dataDic = dataDic;
+    if (!ValidDict(_dataDic)) {
+        return;
+    }
+    self.index = [dataDic[@"functionType"] integerValue];
+    if (ValidStr(dataDic[@"temperature"])) {
+        self.temperValueLabel.text = dataDic[@"temperature"];
+    }
+    if (ValidStr(dataDic[@"humidity"])) {
+        self.humiValueLabel.text = dataDic[@"humidity"];
+    }
+    if (ValidStr(dataDic[@"storageTime"])) {
+        self.timeTextField.text = dataDic[@"storageTime"];
+    }
+    [self setupUI];
+    [self setupNoteMsg];
+    [self.pickerView selectRow:self.index inComponent:0 animated:YES];
+}
+
 #pragma mark - private method
 - (NSArray *)fetchTemperDataList {
     NSMutableArray *dataList = [NSMutableArray array];
@@ -492,7 +514,7 @@ static CGFloat const pickViewRowHeight = 30.f;
         _timeTextField.textAlignment = NSTextAlignmentCenter;
         _timeTextField.font = MKFont(12.f);
         _timeTextField.borderStyle = UITextBorderStyleNone;
-        _timeTextField.text = @"10";
+        _timeTextField.text = @"1";
         [_timeTextField addTarget:self
                            action:@selector(timeTextFieldValueChanged)
                  forControlEvents:UIControlEventEditingChanged];

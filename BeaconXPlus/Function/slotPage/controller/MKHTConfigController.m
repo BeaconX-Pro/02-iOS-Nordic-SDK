@@ -11,10 +11,38 @@
 #import "MKSlotLineHeader.h"
 #import "MKHTDataCell.h"
 #import "MKHTParamsConfigCell.h"
+#import "MKHTDateTimeCell.h"
+#import "MKExportHTDataCell.h"
 
-@interface MKHTConfigController ()<UITableViewDelegate, UITableViewDataSource>
+@interface MKHTDateModel : NSObject<MKBXPDeviceTimeProtocol>
+
+@property (nonatomic, assign)NSInteger year;
+
+@property (nonatomic, assign)NSInteger month;
+
+@property (nonatomic, assign)NSInteger day;
+
+@property (nonatomic, assign)NSInteger hour;
+
+@property (nonatomic, assign)NSInteger minutes;
+
+@property (nonatomic, assign)NSInteger seconds;
+
+@end
+
+@implementation MKHTDateModel
+
+@end
+
+@interface MKHTConfigController ()<UITableViewDelegate, UITableViewDataSource, MKHTDateTimeCellDelegate>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
+
+@property (nonatomic, strong)NSMutableArray *dataList;
+
+@property (nonatomic, strong)dispatch_queue_t configQueue;
+
+@property (nonatomic, strong)dispatch_semaphore_t semaphore;
 
 @end
 
@@ -44,6 +72,7 @@
                                              selector:@selector(receiveHTData:)
                                                  name:MKBXPReceiveHTDataNotification
                                                object:nil];
+    [self loadCells];
     [self readParamsFromDevice];
     // Do any additional setup after loading the view.
 }
@@ -58,7 +87,13 @@
     if (indexPath.section == 0) {
         return 150.f;
     }
-    return 170.f;
+    if (indexPath.section == 1) {
+        return 170.f;
+    }
+    if (indexPath.section == 2) {
+        return 80.f;
+    }
+    return 44.f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -72,7 +107,7 @@
 
 #pragma mark -
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return self.dataList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -80,25 +115,86 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        MKHTDataCell *cell = [MKHTDataCell initCellWithTableView:tableView];
-        return cell;
-    }
-    MKHTParamsConfigCell *cell = [MKHTParamsConfigCell initCellWithTableView:tableView];
-    return cell;
+    return self.dataList[indexPath.section];
 }
 
+#pragma mark - MKHTDateTimeCellDelegate
+- (void)bxpUpdateDeviceTime {
+    [[MKHudManager share] showHUDWithTitle:@"Setting..." inView:self.view isPenetration:NO];
+    dispatch_async(self.configQueue, ^{
+        BOOL success = [self setDeviceTime];
+        if (!success) {
+            moko_dispatch_main_safe(^{
+                [[MKHudManager share] hide];
+                [self.view showCentralToast:@"Set the current time failure equipment"];
+            });
+            return ;
+        }
+        NSString *deviceTime = [self readDeviceTime];
+        if (!ValidStr(deviceTime)) {
+            moko_dispatch_main_safe(^{
+                [[MKHudManager share] hide];
+                [self.view showCentralToast:@"Reading equipment current time failed"];
+            });
+            return;
+        }
+        moko_dispatch_main_safe((^{
+            [[MKHudManager share] hide];
+            MKHTDateTimeCell *timeCell = self.dataList[2];
+            if ([timeCell isKindOfClass:NSClassFromString(@"MKHTDateTimeCell")]) {
+                NSArray *dateList = [deviceTime componentsSeparatedByString:@"-"];
+                timeCell.timeLabel.text = [NSString stringWithFormat:@"%@/%@/%@   %@:%@:%@",dateList[0],dateList[1],dateList[2],dateList[3],dateList[4],dateList[5]];
+            }
+        }));
+    });
+    
+}
+
+#pragma mark - note
 - (void)receiveHTData:(NSNotification *)note {
-//    MKAxisAcceDataCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-//    if (!cell || ![cell isKindOfClass:NSClassFromString(@"MKAxisAcceDataCell")]) {
-//        return;
-//    }
-//    [cell setAxisData:note.userInfo];
+    MKHTDataCell *cell = self.dataList[0];
+    if (![cell isKindOfClass:NSClassFromString(@"MKHTDataCell")]) {
+        return;
+    }
+    cell.dataDic = note.userInfo;
 }
 
 #pragma mark - interface
 - (void)readParamsFromDevice {
-    
+    [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
+    dispatch_async(self.configQueue, ^{
+        NSString *samplingRate = [self readSamplingRate];
+        NSDictionary *storageConditions = [self readHTStorageConditions];
+        NSString *deviceTime = [self readDeviceTime];
+        moko_dispatch_main_safe((^{
+            [[MKHudManager share] hide];
+            if (!ValidStr(samplingRate)) {
+                [self.view showCentralToast:@"Read the temperature and humidity sampling rate errors"];
+                return ;
+            }
+            if (!ValidDict(storageConditions)) {
+                [self.view showCentralToast:@"Error reading the temperature and humidity storage conditions"];
+                return;
+            }
+            if (!ValidStr(deviceTime)) {
+                [self.view showCentralToast:@"Reading equipment current time failed"];
+                return;
+            }
+            MKHTDataCell *cell = self.dataList[0];
+            if ([cell isKindOfClass:NSClassFromString(@"MKHTDataCell")]) {
+                cell.textField.text = samplingRate;
+            }
+            MKHTParamsConfigCell *paramsCell = self.dataList[1];
+            if ([paramsCell isKindOfClass:NSClassFromString(@"MKHTParamsConfigCell")]) {
+                [paramsCell setDataDic:storageConditions];
+            }
+            MKHTDateTimeCell *timeCell = self.dataList[2];
+            if ([timeCell isKindOfClass:NSClassFromString(@"MKHTDateTimeCell")]) {
+                NSArray *dateList = [deviceTime componentsSeparatedByString:@"-"];
+                timeCell.timeLabel.text = [NSString stringWithFormat:@"%@/%@/%@   %@:%@:%@",dateList[0],dateList[1],dateList[2],dateList[3],dateList[4],dateList[5]];
+            }
+        }));
+    });
 }
 
 - (void)configParams {
@@ -117,7 +213,84 @@
     }];
 }
 
+- (NSString *)readSamplingRate {
+    __block NSString *samplingRate = @"";
+    [MKBXPInterface readBXPHTSamplingRateWithSuccessBlock:^(id  _Nonnull returnData) {
+        samplingRate = returnData[@"result"][@"samplingRate"];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return samplingRate;
+}
+
+- (NSDictionary *)readHTStorageConditions {
+    __block NSDictionary *dataDic = @{};
+    [MKBXPInterface readBXPHTStorageConditionsWithSuccessBlock:^(id  _Nonnull returnData) {
+        dataDic = returnData[@"result"];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return dataDic;
+}
+
+- (NSString *)readDeviceTime {
+    __block NSString *deviceTime = @"";
+    [MKBXPInterface readBXPDeviceTimeWithSuccessBlock:^(id  _Nonnull returnData) {
+        deviceTime = returnData[@"result"][@"deviceTime"];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return deviceTime;
+}
+
+- (BOOL)setDeviceTime {
+    __block BOOL success = NO;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *toTimeZone = [NSTimeZone localTimeZone];
+    //转换后源日期与世界标准时间的偏移量
+    NSInteger toGMTOffset = [toTimeZone secondsFromGMTForDate:[NSDate date]];
+    formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
+    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:toGMTOffset];
+    NSString *date = [formatter stringFromDate:[NSDate date]];
+    NSArray *dateList = [date componentsSeparatedByString:@"-"];
+    MKHTDateModel *dateModel = [[MKHTDateModel alloc] init];
+    dateModel.year = [dateList[0] integerValue];
+    dateModel.month = [dateList[1] integerValue];
+    dateModel.day = [dateList[2] integerValue];
+    dateModel.hour = [dateList[3] integerValue];
+    dateModel.minutes = [dateList[4] integerValue];
+    dateModel.seconds = [dateList[5] integerValue];
+    [MKBXPInterface setBXPDeviceTime:dateModel sucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
 #pragma mark - private method
+
+- (void)loadCells {
+    MKHTDataCell *htCell = [MKHTDataCell initCellWithTableView:self.tableView];
+    [self.dataList addObject:htCell];
+    MKHTParamsConfigCell *paramsCell = [MKHTParamsConfigCell initCellWithTableView:self.tableView];
+    [self.dataList addObject:paramsCell];
+    MKHTDateTimeCell *dateCell = [MKHTDateTimeCell initCellWithTableView:self.tableView];
+    dateCell.delegate = self;
+    [self.dataList addObject:dateCell];
+    MKExportHTDataCell *exportCell = [MKExportHTDataCell initCellWithTableView:self.tableView];
+    [self.dataList addObject:exportCell];
+    [self.tableView reloadData];
+}
 
 - (void)loadSubViews {
     self.defaultTitle = @"H&T";
@@ -144,6 +317,27 @@
         _tableView.dataSource = self;
     }
     return _tableView;
+}
+
+- (NSMutableArray *)dataList {
+    if (!_dataList) {
+        _dataList = [NSMutableArray array];
+    }
+    return _dataList;
+}
+
+- (dispatch_semaphore_t)semaphore {
+    if (!_semaphore) {
+        _semaphore = dispatch_semaphore_create(0);
+    }
+    return _semaphore;
+}
+
+- (dispatch_queue_t)configQueue {
+    if (!_configQueue) {
+        _configQueue = dispatch_queue_create("HTConfigParamsQueue", DISPATCH_QUEUE_SERIAL);
+    }
+    return _configQueue;
 }
 
 @end

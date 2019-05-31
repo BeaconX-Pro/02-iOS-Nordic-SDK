@@ -48,6 +48,8 @@
 		001CC075226824F600331198 /* MKBXPCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC074226824F600331198 /* MKBXPCentralManager.m */; };
 		001CC0882268667D00331198 /* MKBXPBaseBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC0872268667D00331198 /* MKBXPBaseBeacon.m */; };
 		001CC08B226871E800331198 /* MKEddystoneAdopter.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC089226871E800331198 /* MKEddystoneAdopter.m */; };
+		001DB75822A10E5C008D2FA4 /* slot_htDataSaveIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 001DB75622A10E5B008D2FA4 /* slot_htDataSaveIcon@2x.png */; };
+		001DB75922A10E5C008D2FA4 /* slot_htDataSaveIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 001DB75722A10E5B008D2FA4 /* slot_htDataSaveIcon@3x.png */; };
 		002532E622952FBC0055D3E7 /* MKScanBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002532E522952FBC0055D3E7 /* MKScanBaseCell.m */; };
 		002532E9229531470055D3E7 /* MKEddStoneUIDCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002532E8229531470055D3E7 /* MKEddStoneUIDCell.m */; };
 		0025335D2295339D0055D3E7 /* batteryLower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532ED2295339D0055D3E7 /* batteryLower@3x.png */; };
@@ -174,6 +176,10 @@
 		00385EEC22A0B98500A8D00E /* MKHTParamsConfigCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00385EEB22A0B98500A8D00E /* MKHTParamsConfigCell.m */; };
 		00385EEF22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00385EED22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@2x.png */; };
 		00385EF022A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00385EEE22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@3x.png */; };
+		00385EF322A106C000A8D00E /* MKHTDateTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00385EF222A106C000A8D00E /* MKHTDateTimeCell.m */; };
+		00385EF622A107EE00A8D00E /* slot_htUpdateTimeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00385EF422A107ED00A8D00E /* slot_htUpdateTimeIcon@2x.png */; };
+		00385EF722A107EE00A8D00E /* slot_htUpdateTimeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00385EF522A107EE00A8D00E /* slot_htUpdateTimeIcon@3x.png */; };
+		00385EFA22A10C4000A8D00E /* MKExportHTDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00385EF922A10C4000A8D00E /* MKExportHTDataCell.m */; };
 		005F1B2B229E61B500386B2B /* MKAxisAcceDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 005F1B2A229E61B500386B2B /* MKAxisAcceDataCell.m */; };
 		005F1B2E229E61CD00386B2B /* MKAxisParametersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 005F1B2D229E61CC00386B2B /* MKAxisParametersCell.m */; };
 		005F1B31229E694400386B2B /* threeAxisAcceLoadingIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 005F1B2F229E694300386B2B /* threeAxisAcceLoadingIcon@3x.png */; };
@@ -283,6 +289,8 @@
 		001CC089226871E800331198 /* MKEddystoneAdopter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKEddystoneAdopter.m; sourceTree = "<group>"; };
 		001CC08A226871E800331198 /* MKEddystoneAdopter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKEddystoneAdopter.h; sourceTree = "<group>"; };
 		001CC08C2268748200331198 /* MKBXPEnumeration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPEnumeration.h; sourceTree = "<group>"; };
+		001DB75622A10E5B008D2FA4 /* slot_htDataSaveIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_htDataSaveIcon@2x.png"; sourceTree = "<group>"; };
+		001DB75722A10E5B008D2FA4 /* slot_htDataSaveIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_htDataSaveIcon@3x.png"; sourceTree = "<group>"; };
 		002532E422952FBC0055D3E7 /* MKScanBaseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKScanBaseCell.h; sourceTree = "<group>"; };
 		002532E522952FBC0055D3E7 /* MKScanBaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanBaseCell.m; sourceTree = "<group>"; };
 		002532E7229531470055D3E7 /* MKEddStoneUIDCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEddStoneUIDCell.h; sourceTree = "<group>"; };
@@ -421,6 +429,12 @@
 		00385EEB22A0B98500A8D00E /* MKHTParamsConfigCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKHTParamsConfigCell.m; sourceTree = "<group>"; };
 		00385EED22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_htParamsConfig_saveIcon@2x.png"; sourceTree = "<group>"; };
 		00385EEE22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_htParamsConfig_saveIcon@3x.png"; sourceTree = "<group>"; };
+		00385EF122A106C000A8D00E /* MKHTDateTimeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKHTDateTimeCell.h; sourceTree = "<group>"; };
+		00385EF222A106C000A8D00E /* MKHTDateTimeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKHTDateTimeCell.m; sourceTree = "<group>"; };
+		00385EF422A107ED00A8D00E /* slot_htUpdateTimeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_htUpdateTimeIcon@2x.png"; sourceTree = "<group>"; };
+		00385EF522A107EE00A8D00E /* slot_htUpdateTimeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_htUpdateTimeIcon@3x.png"; sourceTree = "<group>"; };
+		00385EF822A10C4000A8D00E /* MKExportHTDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKExportHTDataCell.h; sourceTree = "<group>"; };
+		00385EF922A10C4000A8D00E /* MKExportHTDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKExportHTDataCell.m; sourceTree = "<group>"; };
 		005F1B29229E61B500386B2B /* MKAxisAcceDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAxisAcceDataCell.h; sourceTree = "<group>"; };
 		005F1B2A229E61B500386B2B /* MKAxisAcceDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAxisAcceDataCell.m; sourceTree = "<group>"; };
 		005F1B2C229E61CC00386B2B /* MKAxisParametersCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAxisParametersCell.h; sourceTree = "<group>"; };
@@ -578,6 +592,10 @@
 				000C3917229FD5B700A3813E /* MKHTDataCell.m */,
 				00385EEA22A0B98500A8D00E /* MKHTParamsConfigCell.h */,
 				00385EEB22A0B98500A8D00E /* MKHTParamsConfigCell.m */,
+				00385EF122A106C000A8D00E /* MKHTDateTimeCell.h */,
+				00385EF222A106C000A8D00E /* MKHTDateTimeCell.m */,
+				00385EF822A10C4000A8D00E /* MKExportHTDataCell.h */,
+				00385EF922A10C4000A8D00E /* MKExportHTDataCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -808,6 +826,10 @@
 		002532EC2295339D0055D3E7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				001DB75622A10E5B008D2FA4 /* slot_htDataSaveIcon@2x.png */,
+				001DB75722A10E5B008D2FA4 /* slot_htDataSaveIcon@3x.png */,
+				00385EF422A107ED00A8D00E /* slot_htUpdateTimeIcon@2x.png */,
+				00385EF522A107EE00A8D00E /* slot_htUpdateTimeIcon@3x.png */,
 				00385EED22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@2x.png */,
 				00385EEE22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@3x.png */,
 				00843966229FD7E40079E3BE /* slot_config_humidityIcon@2x.png */,
@@ -1190,6 +1212,7 @@
 				00385EEF22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@2x.png in Resources */,
 				0025339F2295339D0055D3E7 /* batteryLow@3x.png in Resources */,
 				002533AC2295339D0055D3E7 /* clearButtonIcon@2x.png in Resources */,
+				001DB75922A10E5C008D2FA4 /* slot_htDataSaveIcon@3x.png in Resources */,
 				000C390B229F69E600A3813E /* slot_baseParams_advertising@3x.png in Resources */,
 				002533632295339D0055D3E7 /* setting_reset@3x.png in Resources */,
 				002533932295339D0055D3E7 /* device_runningtime@2x.png in Resources */,
@@ -1207,6 +1230,7 @@
 				0025338A2295339D0055D3E7 /* slot_baseParams@3x.png in Resources */,
 				00E0E849229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@3x.png in Resources */,
 				002533BF2295339D0055D3E7 /* setting_powerOff@2x.png in Resources */,
+				00385EF622A107EE00A8D00E /* slot_htUpdateTimeIcon@2x.png in Resources */,
 				0025337D2295339D0055D3E7 /* device_software@2x.png in Resources */,
 				005F1B31229E694400386B2B /* threeAxisAcceLoadingIcon@3x.png in Resources */,
 				00E0E848229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png in Resources */,
@@ -1233,11 +1257,13 @@
 				002533A22295339D0055D3E7 /* batteryLow@2x.png in Resources */,
 				00E0E847229BC7D400D2E188 /* slotDataTypeH&TIcon@2x.png in Resources */,
 				00843968229FD7E40079E3BE /* slot_config_humidityIcon@3x.png in Resources */,
+				001DB75822A10E5C008D2FA4 /* slot_htDataSaveIcon@2x.png in Resources */,
 				002533B72295339D0055D3E7 /* scanHeaderView_ arrowUpIcon@2x.png in Resources */,
 				002533832295339D0055D3E7 /* goto_next_button@2x.png in Resources */,
 				002533642295339D0055D3E7 /* setting_password@2x.png in Resources */,
 				002533BC2295339D0055D3E7 /* setting_powerOff@3x.png in Resources */,
 				002533682295339D0055D3E7 /* setting_devicename@2x.png in Resources */,
+				00385EF722A107EE00A8D00E /* slot_htUpdateTimeIcon@3x.png in Resources */,
 				002533652295339D0055D3E7 /* rightAddDisableIcon@3x.png in Resources */,
 				002533B92295339D0055D3E7 /* setting_update@2x.png in Resources */,
 				0025336A2295339D0055D3E7 /* rightAddDisableIcon@2x.png in Resources */,
@@ -1312,6 +1338,7 @@
 				00285F1D22964EA200A4CAD4 /* MKAboutController.m in Sources */,
 				009B58CF229682FB00133192 /* MKEddystoneThreeASensorCell.m in Sources */,
 				00DA1B562269697A0093DBAE /* MKScanViewController.m in Sources */,
+				00385EFA22A10C4000A8D00E /* MKExportHTDataCell.m in Sources */,
 				005F1B2B229E61B500386B2B /* MKAxisAcceDataCell.m in Sources */,
 				001CC0882268667D00331198 /* MKBXPBaseBeacon.m in Sources */,
 				00385EEC22A0B98500A8D00E /* MKHTParamsConfigCell.m in Sources */,
@@ -1340,6 +1367,7 @@
 				000C390F229F6D4900A3813E /* MKSlotConfigPickView.m in Sources */,
 				002533D8229537C60055D3E7 /* MKScanSearchButton.m in Sources */,
 				00285F162296480F00A4CAD4 /* MKScanInfoCell.m in Sources */,
+				00385EF322A106C000A8D00E /* MKHTDateTimeCell.m in Sources */,
 				00093731229B93FE00501788 /* MKOptionsCell.m in Sources */,
 				000A21CC229D081100F26206 /* MKAdvTriggerCell.m in Sources */,
 				0012478E2299198F00E97868 /* MKDataManager.m in Sources */,

@@ -149,6 +149,36 @@
                          failureBlock:failedBlock];
 }
 
++ (void)readBXPHTSamplingRateWithSuccessBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = @"ea230000";
+    [centralManager addTaskWithTaskID:MKBXPReadHTSamplingRateOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)readBXPHTStorageConditionsWithSuccessBlock:(void (^)(id returnData))sucBlock
+                                       failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = @"ea220000";
+    [centralManager addTaskWithTaskID:MKBXPReadHTStorageConditionsOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)readBXPDeviceTimeWithSuccessBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = @"ea250000";
+    [centralManager addTaskWithTaskID:MKBXPReadDeviceTimeOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
 #pragma mark - private method
 
 @end

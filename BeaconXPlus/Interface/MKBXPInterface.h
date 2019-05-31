@@ -151,6 +151,45 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)readBXPThreeAxisDataParamsWithSuccessBlock:(void (^)(id returnData))sucBlock
                                        failedBlock:(void (^)(NSError *error))failedBlock;
 
+/**
+ 读取温湿度采样率
+
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)readBXPHTSamplingRateWithSuccessBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock;
+
+/**
+ 读取温湿度存储条件
+
+ @{
+ @"functionType":tempFunction,
+ @"temperature":temperValue,
+ @"humidity":humidity,
+ @"storageTime":time,
+ };
+ @"functionType":
+ 1、只预设温度值，即当温度变化超过预设值，记录一次温湿度数据（00）；
+ 2、只预设湿度值，即当湿度变化超过预设值，记录一次温湿度数据（01）；
+ 3、同时预设温湿度值，温度或湿度任意一个变化超过预设值，便记录一次温湿度数据（02）；
+ 4、按照预设时间存储，即达到预设时长，存储一次温湿度数据（03）
+ 
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)readBXPHTStorageConditionsWithSuccessBlock:(void (^)(id returnData))sucBlock
+                                       failedBlock:(void (^)(NSError *error))failedBlock;
+
+/**
+ 读取设备当前时间
+
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)readBXPDeviceTimeWithSuccessBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

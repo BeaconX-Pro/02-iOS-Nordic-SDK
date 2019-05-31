@@ -78,9 +78,9 @@
     }];
     [self.temperValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.temperUnitLabel.mas_left).mas_offset(-5.f);
-        make.width.mas_equalTo(60.f);
+        make.width.mas_equalTo(85.f);
         make.centerY.mas_equalTo(self.temperIcon.mas_centerY);
-        make.height.mas_equalTo(MKFont(20.f).lineHeight);
+        make.height.mas_equalTo(MKFont(28.f).lineHeight);
     }];
     [self.temperUnitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-15.f);
@@ -103,9 +103,9 @@
     }];
     [self.humiValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.humiUnitLabel.mas_left).mas_offset(-5.f);
-        make.width.mas_equalTo(60.f);
+        make.width.mas_equalTo(85.f);
         make.centerY.mas_equalTo(self.humiIcon.mas_centerY);
-        make.height.mas_equalTo(MKFont(20.f).lineHeight);
+        make.height.mas_equalTo(MKFont(28.f).lineHeight);
     }];
     [self.humiUnitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-15.f);
@@ -133,6 +133,17 @@
     }];
 }
 
+#pragma mark -
+- (void)setDataDic:(NSDictionary *)dataDic {
+    _dataDic = nil;
+    _dataDic = dataDic;
+    if (!ValidDict(_dataDic)) {
+        return;
+    }
+    self.temperValueLabel.text = dataDic[@"temperature"];
+    self.humiValueLabel.text = dataDic[@"humidity"];
+}
+
 #pragma mark - setter & getter
 - (UIImageView *)temperIcon {
     if (!_temperIcon) {
@@ -158,7 +169,7 @@
         _temperValueLabel = [[UILabel alloc] init];
         _temperValueLabel.textColor = DEFAULT_TEXT_COLOR;
         _temperValueLabel.textAlignment = NSTextAlignmentLeft;
-        _temperValueLabel.font = MKFont(20.f);
+        _temperValueLabel.font = MKFont(28.f);
         _temperValueLabel.text = @"0.0";
     }
     return _temperValueLabel;
@@ -199,7 +210,7 @@
         _humiValueLabel = [[UILabel alloc] init];
         _humiValueLabel.textColor = DEFAULT_TEXT_COLOR;
         _humiValueLabel.textAlignment = NSTextAlignmentLeft;
-        _humiValueLabel.font = MKFont(20.f);
+        _humiValueLabel.font = MKFont(28.f);
         _humiValueLabel.text = @"0.0";
     }
     return _humiValueLabel;

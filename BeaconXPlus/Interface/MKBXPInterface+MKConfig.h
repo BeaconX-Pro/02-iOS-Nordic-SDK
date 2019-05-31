@@ -8,6 +8,7 @@
 
 #import "MKBXPInterface.h"
 #import "MKBXPEnumeration.h"
+#import "MKBXPProtocols.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -200,6 +201,28 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setBXPThreeAxisDataParams:(threeAxisDataRate)dataRate
                      acceleration:(threeAxisDataAG)acceleration
                       sensitivity:(NSInteger)sensitivity
+                         sucBlock:(void (^)(id returnData))sucBlock
+                      failedBlock:(void (^)(NSError *error))failedBlock;
+
+/**
+ 设置设备的当前时间
+
+ @param protocol time
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPDeviceTime:(id <MKBXPDeviceTimeProtocol>)protocol
+                sucBlock:(void (^)(id returnData))sucBlock
+             failedBlock:(void (^)(NSError *error))failedBlock;
+
+/**
+ 设置传感器温湿度储存数据条件
+
+ @param protocol protocol
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPHTStorageConditions:(id <MKBXPHTStorageConditionsProtocol>)protocol
                          sucBlock:(void (^)(id returnData))sucBlock
                       failedBlock:(void (^)(NSError *error))failedBlock;
 

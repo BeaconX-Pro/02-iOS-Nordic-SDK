@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (MKHTDataCell *)initCellWithTableView:(UITableView *)tableView;
 
+@property (nonatomic, strong)NSDictionary *dataDic;
+
+@property (nonatomic, strong, readonly)UITextField *textField;
+
 @end
 
 NS_ASSUME_NONNULL_END

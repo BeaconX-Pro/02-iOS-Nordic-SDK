@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (MKHTParamsConfigCell *)initCellWithTableView:(UITableView *)tableView;
 
+@property (nonatomic, strong)NSDictionary *dataDic;
+
 @end
 
 NS_ASSUME_NONNULL_END

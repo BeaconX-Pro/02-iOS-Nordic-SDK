@@ -354,6 +354,51 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         //设置三轴传感器参数
         operationID = MKBXPSetThreeAxisParamsOperation;
         returnDic = @{};
+    }else if ([function isEqualToString:@"22"]){
+        //读取温湿度存储条件
+        NSString *tempFunction = [content substringWithRange:NSMakeRange(8, 2)];
+        NSString *temperValue = @"";
+        NSString *humidity = @"";
+        NSString *time = @"";
+        if ([tempFunction isEqualToString:@"00"]) {
+            //温度
+            temperValue = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 4)];
+        }else if ([tempFunction isEqualToString:@"01"]) {
+            //湿度
+            humidity = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 4)];
+        }else if ([tempFunction isEqualToString:@"02"]) {
+            //温湿度
+            temperValue = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 4)];
+            humidity = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(14, 4)];
+        }else if ([tempFunction isEqualToString:@"03"]) {
+            //时间
+            time = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 2)];
+        }
+        returnDic = @{
+                      @"functionType":tempFunction,
+                      @"temperature":temperValue,
+                      @"humidity":humidity,
+                      @"storageTime":time,
+                      };
+        operationID = MKBXPReadHTStorageConditionsOperation;
+    }else if ([function isEqualToString:@"23"] && content.length == 12){
+        //读取温湿度采样率
+        operationID = MKBXPReadHTSamplingRateOperation;
+        returnDic = @{
+                      @"samplingRate":[MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 4)],
+                      };
+    }else if ([function isEqualToString:@"25"] && content.length == 20){
+        //读取设备当前时间
+        operationID = MKBXPReadDeviceTimeOperation;
+        
+        returnDic = @{
+                      @"deviceTime":[self deviceTime:[content substringWithRange:NSMakeRange(8, 12)]],
+                      };
+    }else if ([function isEqualToString:@"25"] && content.length == 8){
+        //设置设备当前时间
+        operationID = MKBXPSetDeviceTimeOperation;
+        
+        returnDic = @{};
     }else if ([function isEqualToString:@"26"] && content.length == 8){
         //关机
         operationID = MKBXPSetPowerOffOperation;
@@ -379,6 +424,31 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         return nil;
     }
     return @{@"returnData":returnData,@"operationID":@(operationID)};
+}
+
++ (NSString *)deviceTime:(NSString *)content {
+    NSString *year = [NSString stringWithFormat:@"%ld",(long)([MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(0, 2)] + 2000)];
+    NSString *month = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 2)];
+    if (month.length == 1) {
+        month = [@"0" stringByAppendingString:month];
+    }
+    NSString *day = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(4, 2)];
+    if (day.length == 1) {
+        day = [@"0" stringByAppendingString:day];
+    }
+    NSString *hour = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(6, 2)];
+    if (hour.length == 1) {
+        hour = [@"0" stringByAppendingString:hour];
+    }
+    NSString *minutes = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 2)];
+    if (minutes.length == 1) {
+        minutes = [@"0" stringByAppendingString:minutes];
+    }
+    NSString *sec = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 2)];
+    if (sec.length == 1) {
+        sec = [@"0" stringByAppendingString:minutes];
+    }
+    return [NSString stringWithFormat:@"%@-%@-%@-%@-%@-%@",year,month,day,hour,minutes,sec];
 }
 
 @end

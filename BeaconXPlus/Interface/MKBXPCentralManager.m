@@ -224,6 +224,26 @@ static dispatch_once_t onceToken;
         }
         return;
     }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:temperatureHumidityUUID]]) {
+        //监听的温湿度数据
+        NSString *content = [MKEddystoneAdopter hexStringFromData:characteristic.value];
+        if (content.length == 8) {
+            NSInteger tempTemp = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(0, 4)];
+            NSInteger tempHui = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(4, 4)];
+            NSString *temperature = [NSString stringWithFormat:@"%.1f",(tempTemp * 0.1)];
+            NSString *humidity = [NSString stringWithFormat:@"%.1f",(tempHui * 0.1)];
+            NSDictionary *htData = @{
+                                     @"temperature":temperature,
+                                     @"humidity":humidity,
+                                     };
+            moko_main_safe(^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:MKBXPReceiveHTDataNotification
+                                                                    object:nil
+                                                                  userInfo:htData];
+            });
+        }
+        return;
+    }
     @synchronized(self.operationQueue) {
         NSArray *operations = [self.operationQueue.operations copy];
         for (MKBXPTaskOperation *operation in operations) {

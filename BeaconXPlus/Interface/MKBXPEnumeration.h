@@ -88,3 +88,10 @@ typedef NS_ENUM(NSInteger, threeAxisDataAG) {
     threeAxisDataAG2,               //±8g
     threeAxisDataAG3                //±16g
 };
+
+typedef NS_ENUM(NSInteger, HTStorageConditions) {
+    HTStorageConditionsT,               //温度改变存储数据
+    HTStorageConditionsH,               //湿度改变存储数据
+    HTStorageConditionsTH,              //温度或者湿度改变存储数据
+    HTStorageConditionsTime,            //时间改变存储数据
+};
