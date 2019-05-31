@@ -171,6 +171,9 @@
 		00285F13229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F12229647BA00A4CAD4 /* MKBXPBaseBeacon+MKAdd.m */; };
 		00285F162296480F00A4CAD4 /* MKScanInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F152296480F00A4CAD4 /* MKScanInfoCell.m */; };
 		00285F1D22964EA200A4CAD4 /* MKAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00285F1C22964EA200A4CAD4 /* MKAboutController.m */; };
+		00385EEC22A0B98500A8D00E /* MKHTParamsConfigCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00385EEB22A0B98500A8D00E /* MKHTParamsConfigCell.m */; };
+		00385EEF22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00385EED22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@2x.png */; };
+		00385EF022A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00385EEE22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@3x.png */; };
 		005F1B2B229E61B500386B2B /* MKAxisAcceDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 005F1B2A229E61B500386B2B /* MKAxisAcceDataCell.m */; };
 		005F1B2E229E61CD00386B2B /* MKAxisParametersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 005F1B2D229E61CC00386B2B /* MKAxisParametersCell.m */; };
 		005F1B31229E694400386B2B /* threeAxisAcceLoadingIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 005F1B2F229E694300386B2B /* threeAxisAcceLoadingIcon@3x.png */; };
@@ -414,6 +417,10 @@
 		00285F152296480F00A4CAD4 /* MKScanInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanInfoCell.m; sourceTree = "<group>"; };
 		00285F1B22964EA200A4CAD4 /* MKAboutController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAboutController.h; sourceTree = "<group>"; };
 		00285F1C22964EA200A4CAD4 /* MKAboutController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAboutController.m; sourceTree = "<group>"; };
+		00385EEA22A0B98500A8D00E /* MKHTParamsConfigCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKHTParamsConfigCell.h; sourceTree = "<group>"; };
+		00385EEB22A0B98500A8D00E /* MKHTParamsConfigCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKHTParamsConfigCell.m; sourceTree = "<group>"; };
+		00385EED22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_htParamsConfig_saveIcon@2x.png"; sourceTree = "<group>"; };
+		00385EEE22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_htParamsConfig_saveIcon@3x.png"; sourceTree = "<group>"; };
 		005F1B29229E61B500386B2B /* MKAxisAcceDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAxisAcceDataCell.h; sourceTree = "<group>"; };
 		005F1B2A229E61B500386B2B /* MKAxisAcceDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAxisAcceDataCell.m; sourceTree = "<group>"; };
 		005F1B2C229E61CC00386B2B /* MKAxisParametersCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAxisParametersCell.h; sourceTree = "<group>"; };
@@ -569,6 +576,8 @@
 				000C390E229F6D4900A3813E /* MKSlotConfigPickView.m */,
 				000C3916229FD5B700A3813E /* MKHTDataCell.h */,
 				000C3917229FD5B700A3813E /* MKHTDataCell.m */,
+				00385EEA22A0B98500A8D00E /* MKHTParamsConfigCell.h */,
+				00385EEB22A0B98500A8D00E /* MKHTParamsConfigCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -799,6 +808,8 @@
 		002532EC2295339D0055D3E7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				00385EED22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@2x.png */,
+				00385EEE22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@3x.png */,
 				00843966229FD7E40079E3BE /* slot_config_humidityIcon@2x.png */,
 				00843964229FD7E40079E3BE /* slot_config_humidityIcon@3x.png */,
 				00843963229FD7E30079E3BE /* slot_config_temperatureIcon@2x.png */,
@@ -1174,7 +1185,9 @@
 				002533972295339D0055D3E7 /* device_soc@2x.png in Resources */,
 				0025338E2295339D0055D3E7 /* scanRefresh@3x.png in Resources */,
 				0025337C2295339D0055D3E7 /* deviceTabBarItemSelected@3x.png in Resources */,
+				00385EF022A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@3x.png in Resources */,
 				002533922295339D0055D3E7 /* rightIconUnselectedCircle@2x.png in Resources */,
+				00385EEF22A0CF5500A8D00E /* slot_htParamsConfig_saveIcon@2x.png in Resources */,
 				0025339F2295339D0055D3E7 /* batteryLow@3x.png in Resources */,
 				002533AC2295339D0055D3E7 /* clearButtonIcon@2x.png in Resources */,
 				000C390B229F69E600A3813E /* slot_baseParams_advertising@3x.png in Resources */,
@@ -1301,6 +1314,7 @@
 				00DA1B562269697A0093DBAE /* MKScanViewController.m in Sources */,
 				005F1B2B229E61B500386B2B /* MKAxisAcceDataCell.m in Sources */,
 				001CC0882268667D00331198 /* MKBXPBaseBeacon.m in Sources */,
+				00385EEC22A0B98500A8D00E /* MKHTParamsConfigCell.m in Sources */,
 				009B58D22296A20800133192 /* CBPeripheral+MKAdd.m in Sources */,
 				0012478622990E0700E97868 /* MKSettingController.m in Sources */,
 				00093714229B8B1E00501788 /* MKSlotConfigCellModel.m in Sources */,

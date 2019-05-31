@@ -10,6 +10,7 @@
 #import "MKBaseTableView.h"
 #import "MKSlotLineHeader.h"
 #import "MKHTDataCell.h"
+#import "MKHTParamsConfigCell.h"
 
 @interface MKHTConfigController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -71,7 +72,7 @@
 
 #pragma mark -
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -79,7 +80,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MKHTDataCell *cell = [MKHTDataCell initCellWithTableView:tableView];
+    if (indexPath.section == 0) {
+        MKHTDataCell *cell = [MKHTDataCell initCellWithTableView:tableView];
+        return cell;
+    }
+    MKHTParamsConfigCell *cell = [MKHTParamsConfigCell initCellWithTableView:tableView];
     return cell;
 }
 
@@ -125,7 +130,7 @@
         make.left.mas_equalTo(15.f);
         make.right.mas_equalTo(-15.f);
         make.top.mas_equalTo(defaultTopInset + 5.f);
-        make.bottom.mas_equalTo(0);
+        make.bottom.mas_equalTo(-VirtualHomeHeight);
     }];
 }
 

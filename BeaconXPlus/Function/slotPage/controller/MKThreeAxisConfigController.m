@@ -141,7 +141,7 @@
         make.left.mas_equalTo(15.f);
         make.right.mas_equalTo(-15.f);
         make.top.mas_equalTo(defaultTopInset + 5.f);
-        make.bottom.mas_equalTo(0);
+        make.bottom.mas_equalTo(-VirtualHomeHeight);
     }];
 }
 

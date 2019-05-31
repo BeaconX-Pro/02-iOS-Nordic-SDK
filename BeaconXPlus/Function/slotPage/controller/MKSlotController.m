@@ -196,7 +196,7 @@ static NSString *const MKSlotControllerCellIdenty = @"MKSlotControllerCellIdenty
         make.left.mas_equalTo(0);
         make.right.mas_equalTo(0);
         make.top.mas_equalTo(defaultTopInset);
-        make.bottom.mas_equalTo(-49.f);
+        make.bottom.mas_equalTo(-VirtualHomeHeight);
     }];
 }
 

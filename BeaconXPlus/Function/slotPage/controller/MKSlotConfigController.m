@@ -86,7 +86,7 @@ static CGFloat const axisParamsCellHeight = 170.f;
         make.left.mas_equalTo(offset_X);
         make.right.mas_equalTo(-offset_X);
         make.top.mas_equalTo(defaultTopInset + 5.f);
-        make.bottom.mas_equalTo(0);
+        make.bottom.mas_equalTo(-VirtualHomeHeight);
     }];
     [self reloadTableViewData];
     [self readSlotDetailData];
