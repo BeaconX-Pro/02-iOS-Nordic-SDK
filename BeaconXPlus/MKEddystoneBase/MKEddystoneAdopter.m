@@ -365,6 +365,20 @@ static NSString * const MKCustomErrorDomain = @"com.moko.eddystoneSDKDomain";
     return [self hexStringFromData:resultData];
 }
 
++ (NSNumber *)signedHexTurnString:(NSString *)content{
+    if (!content) {
+        return nil;
+    }
+    NSData *tempData = [self stringToData:content];
+    NSInteger lenth = [tempData length];
+    NSString *maxHexString = [self headString:@"F" trilString:@"F" strLenth:lenth];
+    NSString *centerHexString = [self headString:@"8" trilString:@"0" strLenth:lenth];
+    if ([[self numberHexString:content] longLongValue] - [[self numberHexString:centerHexString] longLongValue] < 0) {
+        return [self numberHexString:content];
+    }
+    return [NSNumber numberWithLongLong:[[self numberHexString:content] longLongValue] - [[self numberHexString:maxHexString] longLongValue]];
+}
+
 #pragma mark - private method
 + (NSString *)getUrlIllegalContent:(NSString *)urlContent{
     if (!MKValidStr(urlContent)) {
@@ -490,6 +504,30 @@ static NSString * const MKCustomErrorDomain = @"com.moko.eddystoneSDKDomain";
     else {
         return [NSNumber numberWithInt:txPowerChar];
     }
+}
+
+// 16进制转10进制
++ (NSNumber *) numberHexString:(NSString *)aHexString {
+    if (nil == aHexString) {
+        return nil;
+    }
+    NSScanner * scanner = [NSScanner scannerWithString:aHexString];
+    unsigned long long longlongValue;
+    [scanner scanHexLongLong:&longlongValue];
+    NSNumber * hexNumber = [NSNumber numberWithLongLong:longlongValue];
+    return hexNumber;
+}
+
++ (NSString *)headString:(NSString *)headStr trilString:(NSString *)trilStr strLenth:(NSInteger)lenth {
+    if (!headStr || !trilStr) {
+        return nil;
+    }
+    NSMutableString *string = [NSMutableString stringWithFormat:@"0x%@", headStr];
+    for (int i = 0; i < lenth * 2 - 1; i++)
+    {
+        [string appendString:trilStr];
+    }
+    return string;
 }
 
 @end

@@ -59,4 +59,12 @@ typedef NS_ENUM(NSInteger, MKCustomErrorCode){
 + (NSNumber *)fetchRSSIWithContent:(NSData *)contentData;
 + (NSString *)hexStringFromSignedNumber:(NSInteger)number;
 
+/**
+ 有符号16进制转10进制
+
+ @param content signed number
+ @return number
+ */
++ (NSNumber *)signedHexTurnString:(NSString *)content;
+
 @end

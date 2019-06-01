@@ -47,6 +47,7 @@
         NSString *advTxPower = [self readAdvTxPower];
         NSString *advInterval = [self readAdvInterval];
         NSDictionary *advDic = [self readAdvData];
+        NSDictionary *triggerConditions = [self readTriggerConditions];
         NSDictionary *baseParams = @{
                                      @"radioTxPower":radioTxPower,
                                      @"advTxPower":advTxPower,
@@ -55,6 +56,7 @@
         NSDictionary *resultDic = @{
                                     @"baseParam":baseParams,
                                     @"advData":advDic,
+                                    @"triggerConditions":triggerConditions
                                     };
         if (successBlock) {
             moko_dispatch_main_safe(^{
@@ -236,6 +238,18 @@
 - (NSDictionary *)readThreeAxisParams {
     __block NSDictionary *dataDic = @{};
     [MKBXPInterface readBXPThreeAxisDataParamsWithSuccessBlock:^(id  _Nonnull returnData) {
+        dataDic = returnData[@"result"];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return dataDic;
+}
+
+- (NSDictionary *)readTriggerConditions {
+    __block NSDictionary *dataDic = @{};
+    [MKBXPInterface readBXPTriggerConditionsWithSuccessBlock:^(id  _Nonnull returnData) {
         dataDic = returnData[@"result"];
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

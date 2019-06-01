@@ -22,6 +22,7 @@
 #import "MKAdvContentDeviceCell.h"
 #import "MKAxisAcceDataCell.h"
 #import "MKAxisParametersCell.h"
+#import "MKSlotTriggerCell.h"
 
 #import "MKSlotConfigManager.h"
 
@@ -34,8 +35,9 @@ static CGFloat const urlAdvCellHeight = 100.f;
 static CGFloat const deviceAdvCellHeight = 100.f;
 static CGFloat const axisAcceDataCellHeight = 100.f;
 static CGFloat const axisParamsCellHeight = 170.f;
+static CGFloat const slotTriggerCellHeight = 270.f;
 
-@interface MKSlotConfigController ()<UITableViewDelegate, UITableViewDataSource, MKAxisAcceDataCellDelegate ,MKBaseParamsCellDelegate>
+@interface MKSlotConfigController ()<UITableViewDelegate, UITableViewDataSource, MKAxisAcceDataCellDelegate ,MKBaseParamsCellDelegate, MKSlotTriggerCellDelegate>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
 
@@ -51,6 +53,8 @@ static CGFloat const axisParamsCellHeight = 170.f;
 @property (nonatomic, strong)NSMutableDictionary *originalDic;
 
 @property (nonatomic, strong)MKSlotConfigManager *configManager;
+
+@property (nonatomic, assign)BOOL triggerIsOn;
 
 @end
 
@@ -128,6 +132,12 @@ static CGFloat const axisParamsCellHeight = 170.f;
     if (model.cellType == THDataContent) {
         return axisParamsCellHeight;
     }
+    if (model.cellType == triggerPramsContent) {
+        if (self.triggerIsOn) {
+            return slotTriggerCellHeight;
+        }
+        return 44.f;
+    }
     return 0.f;
 }
 
@@ -176,6 +186,8 @@ static CGFloat const axisParamsCellHeight = 170.f;
             case axisAcceParamsContent:
                 cell = [MKAxisParametersCell initCellWithTableView:tableView];
                 break;
+            case triggerPramsContent:
+                cell = [self triggerCell];
             default:
                 break;
         }
@@ -201,6 +213,12 @@ static CGFloat const axisParamsCellHeight = 170.f;
     [self.tableView reloadRow:0 inSection:2 withRowAnimation:UITableViewRowAnimationNone];
 }
 
+#pragma mark - MKSlotTriggerCellDelegate
+- (void)triggerSwitchStatusChanged:(BOOL)isOn {
+    self.triggerIsOn = isOn;
+    [self.tableView reloadRow:0 inSection:(self.dataList.count - 1) withRowAnimation:UITableViewRowAnimationNone];
+}
+
 #pragma mark - note method
 - (void)peripheralConnectStateChanged{
     if ([MKBXPCentralManager shared].connectState != MKBXPConnectStatusConnected
@@ -224,6 +242,7 @@ static CGFloat const axisParamsCellHeight = 170.f;
         weakSelf.originalDic = [NSMutableDictionary dictionaryWithDictionary:returnData];
         weakSelf.frameType = [weakSelf loadFrameType:returnData[@"advData"][@"frameType"]];
         weakSelf.tableHeader.index = [weakSelf getHeaderViewSelectedRow];
+        weakSelf.triggerIsOn = (![returnData[@"triggerConditions"][@"type"] isEqualToString:@"00"]);
         [weakSelf reloadTableViewData];
     } failedBlock:^(NSError *error) {
         [[MKHudManager share] hide];
@@ -281,6 +300,10 @@ static CGFloat const axisParamsCellHeight = 170.f;
     MKSlotConfigCellModel *advModel = [[MKSlotConfigCellModel alloc] init];
     advModel.cellType = iBeaconAdvContent;
     
+    MKSlotConfigCellModel *triggerModel = [[MKSlotConfigCellModel alloc] init];
+    triggerModel.cellType = triggerPramsContent;
+    triggerModel.dataDic = self.originalDic[@"triggerConditions"];
+    
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
     baseParamModel.cellType = baseParam;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
@@ -288,7 +311,7 @@ static CGFloat const axisParamsCellHeight = 170.f;
         advModel.dataDic = self.originalDic[@"advData"];
     }
     
-    return @[advModel, baseParamModel];
+    return @[advModel, baseParamModel, triggerModel];
 }
 
 /**
@@ -300,13 +323,17 @@ static CGFloat const axisParamsCellHeight = 170.f;
     MKSlotConfigCellModel *advModel = [[MKSlotConfigCellModel alloc] init];
     advModel.cellType = uidAdvContent;
     
+    MKSlotConfigCellModel *triggerModel = [[MKSlotConfigCellModel alloc] init];
+    triggerModel.cellType = triggerPramsContent;
+    triggerModel.dataDic = self.originalDic[@"triggerConditions"];
+    
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
     baseParamModel.cellType = baseParam;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
     if (self.vcModel.slotType == slotFrameTypeUID && ValidDict(self.originalDic)) {
         advModel.dataDic = self.originalDic[@"advData"];
     }
-    return @[advModel, baseParamModel];
+    return @[advModel, baseParamModel, triggerModel];
 }
 
 /**
@@ -318,13 +345,17 @@ static CGFloat const axisParamsCellHeight = 170.f;
     MKSlotConfigCellModel *advModel = [[MKSlotConfigCellModel alloc] init];
     advModel.cellType = urlAdvContent;
     
+    MKSlotConfigCellModel *triggerModel = [[MKSlotConfigCellModel alloc] init];
+    triggerModel.cellType = triggerPramsContent;
+    triggerModel.dataDic = self.originalDic[@"triggerConditions"];
+    
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
     baseParamModel.cellType = baseParam;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
     if (self.vcModel.slotType == slotFrameTypeURL && ValidDict(self.originalDic)) {
         advModel.dataDic = self.originalDic[@"advData"];
     }
-    return @[advModel, baseParamModel];
+    return @[advModel, baseParamModel, triggerModel];
 }
 
 /**
@@ -336,12 +367,21 @@ static CGFloat const axisParamsCellHeight = 170.f;
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
     baseParamModel.cellType = baseParam;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
-    return @[baseParamModel];
+    
+    MKSlotConfigCellModel *triggerModel = [[MKSlotConfigCellModel alloc] init];
+    triggerModel.cellType = triggerPramsContent;
+    triggerModel.dataDic = self.originalDic[@"triggerConditions"];
+    
+    return @[baseParamModel, triggerModel];
 }
 
 - (NSArray *)createNewDeviceInfoList {
     MKSlotConfigCellModel *advModel = [[MKSlotConfigCellModel alloc] init];
     advModel.cellType = deviceAdvContent;
+    
+    MKSlotConfigCellModel *triggerModel = [[MKSlotConfigCellModel alloc] init];
+    triggerModel.cellType = triggerPramsContent;
+    triggerModel.dataDic = self.originalDic[@"triggerConditions"];
     
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
     baseParamModel.cellType = baseParam;
@@ -349,7 +389,7 @@ static CGFloat const axisParamsCellHeight = 170.f;
     if (self.vcModel.slotType == slotFrameTypeInfo && ValidDict(self.originalDic)) {
         advModel.dataDic = self.originalDic[@"advData"];
     }
-    return @[advModel, baseParamModel];
+    return @[advModel, baseParamModel, triggerModel];
 }
 
 - (NSArray *)createNewThreeAxisList {
@@ -362,22 +402,39 @@ static CGFloat const axisParamsCellHeight = 170.f;
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
     baseParamModel.cellType = baseParam;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
+    
+    MKSlotConfigCellModel *triggerModel = [[MKSlotConfigCellModel alloc] init];
+    triggerModel.cellType = triggerPramsContent;
+    triggerModel.dataDic = self.originalDic[@"triggerConditions"];
+    
 //    if (self.vcModel.slotType == slotFrameTypeThreeASensor && ValidDict(self.originalDic)) {
 //        paramsModel.dataDic = self.originalDic[@"advData"];
 //    }
-    return @[baseParamModel];
+    return @[baseParamModel, triggerModel];
 }
 
 - (NSArray *)createNewTHList {
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
     baseParamModel.cellType = baseParam;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
-    return @[baseParamModel];
+    
+    MKSlotConfigCellModel *triggerModel = [[MKSlotConfigCellModel alloc] init];
+    triggerModel.cellType = triggerPramsContent;
+    triggerModel.dataDic = self.originalDic[@"triggerConditions"];
+    
+    return @[baseParamModel, triggerModel];
 }
 
 - (MKAxisAcceDataCell *)axisAcceCell {
     MKAxisAcceDataCell *cell = [MKAxisAcceDataCell initCellWithTableView:self.tableView];
     cell.delegate = self;
+    return cell;
+}
+
+- (MKSlotTriggerCell *)triggerCell {
+    MKSlotTriggerCell *cell = [MKSlotTriggerCell initCellWithTableView:self.tableView];
+    cell.delegate = self;
+    [cell updateSwitchStatus:self.triggerIsOn];
     return cell;
 }
 

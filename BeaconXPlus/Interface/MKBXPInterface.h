@@ -190,6 +190,15 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)readBXPDeviceTimeWithSuccessBlock:(void (^)(id returnData))sucBlock
                               failedBlock:(void (^)(NSError *error))failedBlock;
 
+/**
+ 读取设备当前触发条件
+
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)readBXPTriggerConditionsWithSuccessBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

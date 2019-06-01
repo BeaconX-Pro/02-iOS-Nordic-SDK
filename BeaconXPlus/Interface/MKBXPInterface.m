@@ -179,6 +179,16 @@
                          failureBlock:failedBlock];
 }
 
++ (void)readBXPTriggerConditionsWithSuccessBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = @"ea290000";
+    [centralManager addTaskWithTaskID:MKBXPReadTriggerConditionsOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
 #pragma mark - private method
 
 @end

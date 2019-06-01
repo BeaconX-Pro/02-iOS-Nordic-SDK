@@ -23,13 +23,22 @@
 		00093731229B93FE00501788 /* MKOptionsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093730229B93FE00501788 /* MKOptionsCell.m */; };
 		00093734229B950400501788 /* MKAdvContentURLCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093733229B950400501788 /* MKAdvContentURLCell.m */; };
 		000A21C9229CC9B100F26206 /* MKSlotConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 000A21C8229CC9B100F26206 /* MKSlotConfigManager.m */; };
-		000A21CC229D081100F26206 /* MKAdvTriggerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 000A21CB229D081000F26206 /* MKAdvTriggerCell.m */; };
 		000C390B229F69E600A3813E /* slot_baseParams_advertising@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000C3909229F69E500A3813E /* slot_baseParams_advertising@3x.png */; };
 		000C390C229F69E600A3813E /* slot_baseParams_advertising@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000C390A229F69E500A3813E /* slot_baseParams_advertising@2x.png */; };
 		000C390F229F6D4900A3813E /* MKSlotConfigPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C390E229F6D4900A3813E /* MKSlotConfigPickView.m */; };
 		000C3912229FC46B00A3813E /* MKThreeAxisConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C3911229FC46B00A3813E /* MKThreeAxisConfigController.m */; };
 		000C3915229FC47700A3813E /* MKHTConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C3914229FC47700A3813E /* MKHTConfigController.m */; };
 		000C3918229FD5B700A3813E /* MKHTDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C3917229FD5B700A3813E /* MKHTDataCell.m */; };
+		000FDDAA22A215A0009A7312 /* MKSlotTriggerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 000FDDA922A215A0009A7312 /* MKSlotTriggerCell.m */; };
+		000FDDAE22A21ED5009A7312 /* MKTriggerTemperatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 000FDDAD22A21ED5009A7312 /* MKTriggerTemperatureView.m */; };
+		000FDDB322A22BC8009A7312 /* slot_paramsConfig_unselectedIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000FDDAF22A22BC8009A7312 /* slot_paramsConfig_unselectedIcon@3x.png */; };
+		000FDDB422A22BC8009A7312 /* slot_paramsConfig_selectedIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000FDDB022A22BC8009A7312 /* slot_paramsConfig_selectedIcon@3x.png */; };
+		000FDDB522A22BC8009A7312 /* slot_paramsConfig_selectedIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000FDDB122A22BC8009A7312 /* slot_paramsConfig_selectedIcon@2x.png */; };
+		000FDDB622A22BC8009A7312 /* slot_paramsConfig_unselectedIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000FDDB222A22BC8009A7312 /* slot_paramsConfig_unselectedIcon@2x.png */; };
+		000FDDB922A24525009A7312 /* MKTriggerHumidityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 000FDDB822A24525009A7312 /* MKTriggerHumidityView.m */; };
+		000FDDBC22A247C7009A7312 /* MKTriggerTapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 000FDDBB22A247C7009A7312 /* MKTriggerTapView.m */; };
+		000FDDBF22A26AAC009A7312 /* slot_params_triggerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000FDDBD22A26AAC009A7312 /* slot_params_triggerIcon@2x.png */; };
+		000FDDC022A26AAC009A7312 /* slot_params_triggerIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000FDDBE22A26AAC009A7312 /* slot_params_triggerIcon@3x.png */; };
 		0012478622990E0700E97868 /* MKSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0012478522990E0700E97868 /* MKSettingController.m */; };
 		00124789229912DE00E97868 /* setting_directed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00124787229912DE00E97868 /* setting_directed@3x.png */; };
 		0012478A229912DE00E97868 /* setting_directed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00124788229912DE00E97868 /* setting_directed@2x.png */; };
@@ -238,8 +247,6 @@
 		00093733229B950400501788 /* MKAdvContentURLCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAdvContentURLCell.m; sourceTree = "<group>"; };
 		000A21C7229CC9B100F26206 /* MKSlotConfigManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotConfigManager.h; sourceTree = "<group>"; };
 		000A21C8229CC9B100F26206 /* MKSlotConfigManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSlotConfigManager.m; sourceTree = "<group>"; };
-		000A21CA229D081000F26206 /* MKAdvTriggerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAdvTriggerCell.h; sourceTree = "<group>"; };
-		000A21CB229D081000F26206 /* MKAdvTriggerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAdvTriggerCell.m; sourceTree = "<group>"; };
 		000C3909229F69E500A3813E /* slot_baseParams_advertising@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_baseParams_advertising@3x.png"; sourceTree = "<group>"; };
 		000C390A229F69E500A3813E /* slot_baseParams_advertising@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_baseParams_advertising@2x.png"; sourceTree = "<group>"; };
 		000C390D229F6D4900A3813E /* MKSlotConfigPickView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotConfigPickView.h; sourceTree = "<group>"; };
@@ -250,6 +257,20 @@
 		000C3914229FC47700A3813E /* MKHTConfigController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKHTConfigController.m; sourceTree = "<group>"; };
 		000C3916229FD5B700A3813E /* MKHTDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKHTDataCell.h; sourceTree = "<group>"; };
 		000C3917229FD5B700A3813E /* MKHTDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKHTDataCell.m; sourceTree = "<group>"; };
+		000FDDA822A215A0009A7312 /* MKSlotTriggerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotTriggerCell.h; sourceTree = "<group>"; };
+		000FDDA922A215A0009A7312 /* MKSlotTriggerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSlotTriggerCell.m; sourceTree = "<group>"; };
+		000FDDAC22A21ED5009A7312 /* MKTriggerTemperatureView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKTriggerTemperatureView.h; sourceTree = "<group>"; };
+		000FDDAD22A21ED5009A7312 /* MKTriggerTemperatureView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKTriggerTemperatureView.m; sourceTree = "<group>"; };
+		000FDDAF22A22BC8009A7312 /* slot_paramsConfig_unselectedIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_paramsConfig_unselectedIcon@3x.png"; sourceTree = "<group>"; };
+		000FDDB022A22BC8009A7312 /* slot_paramsConfig_selectedIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_paramsConfig_selectedIcon@3x.png"; sourceTree = "<group>"; };
+		000FDDB122A22BC8009A7312 /* slot_paramsConfig_selectedIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_paramsConfig_selectedIcon@2x.png"; sourceTree = "<group>"; };
+		000FDDB222A22BC8009A7312 /* slot_paramsConfig_unselectedIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_paramsConfig_unselectedIcon@2x.png"; sourceTree = "<group>"; };
+		000FDDB722A24525009A7312 /* MKTriggerHumidityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKTriggerHumidityView.h; sourceTree = "<group>"; };
+		000FDDB822A24525009A7312 /* MKTriggerHumidityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKTriggerHumidityView.m; sourceTree = "<group>"; };
+		000FDDBA22A247C7009A7312 /* MKTriggerTapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKTriggerTapView.h; sourceTree = "<group>"; };
+		000FDDBB22A247C7009A7312 /* MKTriggerTapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKTriggerTapView.m; sourceTree = "<group>"; };
+		000FDDBD22A26AAC009A7312 /* slot_params_triggerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_params_triggerIcon@2x.png"; sourceTree = "<group>"; };
+		000FDDBE22A26AAC009A7312 /* slot_params_triggerIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_params_triggerIcon@3x.png"; sourceTree = "<group>"; };
 		0012478422990E0700E97868 /* MKSettingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSettingController.h; sourceTree = "<group>"; };
 		0012478522990E0700E97868 /* MKSettingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSettingController.m; sourceTree = "<group>"; };
 		00124787229912DE00E97868 /* setting_directed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_directed@3x.png"; sourceTree = "<group>"; };
@@ -560,6 +581,7 @@
 		00093704229B809800501788 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				000FDDAB22A21E2A009A7312 /* trigger */,
 				00093715229B8D5500501788 /* MKSlotLineHeader.h */,
 				00093716229B8D5500501788 /* MKSlotLineHeader.m */,
 				00093718229B8D9A00501788 /* MKBaseParamsCell.h */,
@@ -578,8 +600,6 @@
 				00093730229B93FE00501788 /* MKOptionsCell.m */,
 				00093732229B950400501788 /* MKAdvContentURLCell.h */,
 				00093733229B950400501788 /* MKAdvContentURLCell.m */,
-				000A21CA229D081000F26206 /* MKAdvTriggerCell.h */,
-				000A21CB229D081000F26206 /* MKAdvTriggerCell.m */,
 				00958809229E2C0A009F910C /* MKAdvContentDeviceCell.h */,
 				0095880A229E2C0A009F910C /* MKAdvContentDeviceCell.m */,
 				005F1B29229E61B500386B2B /* MKAxisAcceDataCell.h */,
@@ -596,6 +616,8 @@
 				00385EF222A106C000A8D00E /* MKHTDateTimeCell.m */,
 				00385EF822A10C4000A8D00E /* MKExportHTDataCell.h */,
 				00385EF922A10C4000A8D00E /* MKExportHTDataCell.m */,
+				000FDDA822A215A0009A7312 /* MKSlotTriggerCell.h */,
+				000FDDA922A215A0009A7312 /* MKSlotTriggerCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -642,6 +664,19 @@
 				000A21C8229CC9B100F26206 /* MKSlotConfigManager.m */,
 			);
 			path = manager;
+			sourceTree = "<group>";
+		};
+		000FDDAB22A21E2A009A7312 /* trigger */ = {
+			isa = PBXGroup;
+			children = (
+				000FDDAC22A21ED5009A7312 /* MKTriggerTemperatureView.h */,
+				000FDDAD22A21ED5009A7312 /* MKTriggerTemperatureView.m */,
+				000FDDB722A24525009A7312 /* MKTriggerHumidityView.h */,
+				000FDDB822A24525009A7312 /* MKTriggerHumidityView.m */,
+				000FDDBA22A247C7009A7312 /* MKTriggerTapView.h */,
+				000FDDBB22A247C7009A7312 /* MKTriggerTapView.m */,
+			);
+			path = trigger;
 			sourceTree = "<group>";
 		};
 		0012478B2299198400E97868 /* dataManager */ = {
@@ -826,6 +861,12 @@
 		002532EC2295339D0055D3E7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				000FDDBD22A26AAC009A7312 /* slot_params_triggerIcon@2x.png */,
+				000FDDBE22A26AAC009A7312 /* slot_params_triggerIcon@3x.png */,
+				000FDDB122A22BC8009A7312 /* slot_paramsConfig_selectedIcon@2x.png */,
+				000FDDB022A22BC8009A7312 /* slot_paramsConfig_selectedIcon@3x.png */,
+				000FDDB222A22BC8009A7312 /* slot_paramsConfig_unselectedIcon@2x.png */,
+				000FDDAF22A22BC8009A7312 /* slot_paramsConfig_unselectedIcon@3x.png */,
 				001DB75622A10E5B008D2FA4 /* slot_htDataSaveIcon@2x.png */,
 				001DB75722A10E5B008D2FA4 /* slot_htDataSaveIcon@3x.png */,
 				00385EF422A107ED00A8D00E /* slot_htUpdateTimeIcon@2x.png */,
@@ -1162,8 +1203,10 @@
 				002533742295339D0055D3E7 /* slotDataTypeCustom@3x.png in Resources */,
 				002533C12295339D0055D3E7 /* navigation_back_button@2x.png in Resources */,
 				002533C32295339D0055D3E7 /* goNext_lightWhiteButton@2x.png in Resources */,
+				000FDDC022A26AAC009A7312 /* slot_params_triggerIcon@3x.png in Resources */,
 				002533C72295339D0055D3E7 /* device_macadress@2x.png in Resources */,
 				0025336C2295339D0055D3E7 /* setting_password@3x.png in Resources */,
+				000FDDB322A22BC8009A7312 /* slot_paramsConfig_unselectedIcon@3x.png in Resources */,
 				0025339D2295339D0055D3E7 /* batteryLowest@2x.png in Resources */,
 				002533C22295339D0055D3E7 /* setting_update@3x.png in Resources */,
 				002533A32295339D0055D3E7 /* device_productmodel@3x.png in Resources */,
@@ -1191,6 +1234,7 @@
 				002533C52295339D0055D3E7 /* aboutIcon@3x.png in Resources */,
 				0084396A229FD7E40079E3BE /* slot_config_humidityIcon@2x.png in Resources */,
 				002533982295339D0055D3E7 /* littleBluePoint@3x.png in Resources */,
+				000FDDB522A22BC8009A7312 /* slot_paramsConfig_selectedIcon@2x.png in Resources */,
 				002533842295339D0055D3E7 /* searchGrayIcon@2x.png in Resources */,
 				002533802295339D0055D3E7 /* slotDataTypeNoData@2x.png in Resources */,
 				002533692295339D0055D3E7 /* searchBlueIcon@2x.png in Resources */,
@@ -1236,10 +1280,12 @@
 				00E0E848229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png in Resources */,
 				00843969229FD7E40079E3BE /* slot_config_temperatureIcon@3x.png in Resources */,
 				002533772295339D0055D3E7 /* scanRefresh@2x.png in Resources */,
+				000FDDBF22A26AAC009A7312 /* slot_params_triggerIcon@2x.png in Resources */,
 				002533B22295339D0055D3E7 /* device_firmware@2x.png in Resources */,
 				0025336D2295339D0055D3E7 /* settingTabBarItemUnselected@3x.png in Resources */,
 				0025337A2295339D0055D3E7 /* slot_advContent@3x.png in Resources */,
 				002533A12295339D0055D3E7 /* settingTabBarItemSelected@3x.png in Resources */,
+				000FDDB422A22BC8009A7312 /* slot_paramsConfig_selectedIcon@3x.png in Resources */,
 				002533862295339D0055D3E7 /* slotDataTypeNoData@3x.png in Resources */,
 				0025337B2295339D0055D3E7 /* slot_baseParams@2x.png in Resources */,
 				002533602295339D0055D3E7 /* signalIcon@3x.png in Resources */,
@@ -1264,6 +1310,7 @@
 				002533BC2295339D0055D3E7 /* setting_powerOff@3x.png in Resources */,
 				002533682295339D0055D3E7 /* setting_devicename@2x.png in Resources */,
 				00385EF722A107EE00A8D00E /* slot_htUpdateTimeIcon@3x.png in Resources */,
+				000FDDB622A22BC8009A7312 /* slot_paramsConfig_unselectedIcon@2x.png in Resources */,
 				002533652295339D0055D3E7 /* rightAddDisableIcon@3x.png in Resources */,
 				002533B92295339D0055D3E7 /* setting_update@2x.png in Resources */,
 				0025336A2295339D0055D3E7 /* rightAddDisableIcon@2x.png in Resources */,
@@ -1353,6 +1400,7 @@
 				00093734229B950400501788 /* MKAdvContentURLCell.m in Sources */,
 				002532E622952FBC0055D3E7 /* MKScanBaseCell.m in Sources */,
 				002533D2229535400055D3E7 /* MKEddStoneTLMCell.m in Sources */,
+				000FDDBC22A247C7009A7312 /* MKTriggerTapView.m in Sources */,
 				0009371F229B8EA100501788 /* MKSlider.m in Sources */,
 				009B58D62296A4BB00133192 /* MKBXPTaskOperation.m in Sources */,
 				00285F102296475F00A4CAD4 /* MKScanBeaconModel.m in Sources */,
@@ -1366,12 +1414,13 @@
 				002533CF229533C30055D3E7 /* MKEddStoneURLCell.m in Sources */,
 				000C390F229F6D4900A3813E /* MKSlotConfigPickView.m in Sources */,
 				002533D8229537C60055D3E7 /* MKScanSearchButton.m in Sources */,
+				000FDDAE22A21ED5009A7312 /* MKTriggerTemperatureView.m in Sources */,
 				00285F162296480F00A4CAD4 /* MKScanInfoCell.m in Sources */,
 				00385EF322A106C000A8D00E /* MKHTDateTimeCell.m in Sources */,
 				00093731229B93FE00501788 /* MKOptionsCell.m in Sources */,
-				000A21CC229D081100F26206 /* MKAdvTriggerCell.m in Sources */,
 				0012478E2299198F00E97868 /* MKDataManager.m in Sources */,
 				000C3912229FC46B00A3813E /* MKThreeAxisConfigController.m in Sources */,
+				000FDDAA22A215A0009A7312 /* MKSlotTriggerCell.m in Sources */,
 				0095880B229E2C0A009F910C /* MKAdvContentDeviceCell.m in Sources */,
 				00131DE422952F1000E613FF /* MKConnectDeviceProgressView.m in Sources */,
 				00093725229B901400501788 /* MKSlotBaseCell.m in Sources */,
@@ -1384,6 +1433,7 @@
 				009B58DA2296A61600133192 /* MKBXPDataParser.m in Sources */,
 				000C3915229FC47700A3813E /* MKHTConfigController.m in Sources */,
 				0019A5C72297F1E4007D67F9 /* MKDeviceInfoController.m in Sources */,
+				000FDDB922A24525009A7312 /* MKTriggerHumidityView.m in Sources */,
 				001505772264831E00F69569 /* AppDelegate.m in Sources */,
 				0019A5CE2297F587007D67F9 /* MKSwitchStatusCell.m in Sources */,
 				0019A5C42297EA23007D67F9 /* MKDeviceInfoModel.m in Sources */,

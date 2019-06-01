@@ -30,5 +30,6 @@ typedef NS_ENUM(NSInteger, MKSlotConfigCellType) {
     axisAcceDataContent,
     axisAcceParamsContent,
     THDataContent,
+    triggerPramsContent,
     baseParam,
 };

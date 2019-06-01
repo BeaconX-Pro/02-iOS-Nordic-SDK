@@ -360,17 +360,17 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         NSString *temperValue = @"";
         NSString *humidity = @"";
         NSString *time = @"";
-        if ([tempFunction isEqualToString:@"00"]) {
+        if ([tempFunction isEqualToString:@"00"] && content.length == 14) {
             //温度
             temperValue = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 4)];
-        }else if ([tempFunction isEqualToString:@"01"]) {
+        }else if ([tempFunction isEqualToString:@"01"] && content.length == 14) {
             //湿度
             humidity = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 4)];
-        }else if ([tempFunction isEqualToString:@"02"]) {
+        }else if ([tempFunction isEqualToString:@"02"] && content.length == 18) {
             //温湿度
             temperValue = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 4)];
             humidity = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(14, 4)];
-        }else if ([tempFunction isEqualToString:@"03"]) {
+        }else if ([tempFunction isEqualToString:@"03"] && content.length == 12) {
             //时间
             time = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 2)];
         }
@@ -403,12 +403,10 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         //关机
         operationID = MKBXPSetPowerOffOperation;
         returnDic = @{};
-    }else if ([function isEqualToString:@"90"]){
-        //获取eddyStone的可连接状态
-        NSString *state = [content substringFromIndex:(content.length - 2)];
-        BOOL connectEnable = [state isEqualToString:@"01"];
-        operationID = MKBXPReadConnectEnableOperation;
-        returnDic = @{@"connectEnable":@(connectEnable)};
+    }else if ([function isEqualToString:@"29"] && content.length >= 10){
+        //读取触发条件
+        operationID = MKBXPReadTriggerConditionsOperation;
+        returnDic = [self parseTriggerConditions:[content substringWithRange:NSMakeRange(8, 2 * len)]];
     }
     return [self dataParserGetDataSuccess:returnDic operationID:operationID];
 }
@@ -449,6 +447,59 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         sec = [@"0" stringByAppendingString:minutes];
     }
     return [NSString stringWithFormat:@"%@-%@-%@-%@-%@-%@",year,month,day,hour,minutes,sec];
+}
+
++ (NSDictionary *)parseTriggerConditions:(NSString *)content {
+    NSString *type = [content substringWithRange:NSMakeRange(0, 2)];
+    NSDictionary *resultDic = @{};
+    if ([type isEqualToString:@"00"] && content.length == 2) {
+        resultDic = @{
+                      @"type":type,
+                      };
+    }else if ([type isEqualToString:@"01"] && content.length == 10) {
+        resultDic = @{
+                      @"type":type,
+                      @"conditions":@{
+                              @"above":@([[content substringWithRange:NSMakeRange(2, 2)] isEqualToString:@"01"]),
+                              @"temperature":[MKEddystoneAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(4, 4)]],
+                              @"start":@([[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"])
+                              }
+                      };
+    }else if ([type isEqualToString:@"02"] && content.length == 10) {
+        resultDic = @{
+                      @"type":type,
+                      @"conditions":@{
+                              @"above":@([[content substringWithRange:NSMakeRange(2, 2)] isEqualToString:@"01"]),
+                              @"humidity":[MKEddystoneAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(4, 4)]],
+                              @"start":@([[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"])
+                              }
+                      };
+    }else if ([type isEqualToString:@"03"] && content.length == 8) {
+        resultDic = @{
+                      @"type":type,
+                      @"conditions":@{
+                              @"time":[MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)],
+                              @"start":@([[content substringWithRange:NSMakeRange(6, 2)] isEqualToString:@"01"])
+                              }
+                      };
+    }else if ([type isEqualToString:@"04"] && content.length == 8) {
+        resultDic = @{
+                      @"type":type,
+                      @"conditions":@{
+                              @"time":[MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)],
+                              @"start":@([[content substringWithRange:NSMakeRange(6, 2)] isEqualToString:@"01"])
+                              }
+                      };
+    }else if ([type isEqualToString:@"05"] && content.length == 8) {
+        resultDic = @{
+                      @"type":type,
+                      @"conditions":@{
+                              @"time":[MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)],
+                              @"start":@([[content substringWithRange:NSMakeRange(6, 2)] isEqualToString:@"01"])
+                              }
+                      };
+    }
+    return resultDic;
 }
 
 @end
