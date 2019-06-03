@@ -24,8 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak)id <MKSlotTriggerCellDelegate>delegate;
 
-- (void)updateSwitchStatus:(BOOL)isOn;
-
 @end
 
 NS_ASSUME_NONNULL_END

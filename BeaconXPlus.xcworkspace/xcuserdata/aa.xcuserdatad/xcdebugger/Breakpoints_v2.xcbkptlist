@@ -19,13 +19,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BeaconXPlus/Function/slotPage/manager/MKSlotConfigManager.m"
-            timestampString = "581079773.974515"
+            filePath = "BeaconXPlus/Interface/MKBXPInterface+MKConfig.m"
+            timestampString = "581259812.3677779"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "-readSlotDetailData:successBlock:failedBlock:"
+            startingLineNumber = "436"
+            endingLineNumber = "436"
+            landmarkName = "+setBXPTriggerConditionsWithHudimity:humidity:startAdvertising:sucBlock:failedBlock:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BeaconXPlus/Function/slotPage/manager/MKSlotConfigManager.m"
+            timestampString = "581259812.367857"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "-setSlotDetailData:slotFrameType:detailData:successBlock:failedBlock:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BeaconXPlus/Function/slotPage/view/MKSlotTriggerCell.m"
+            timestampString = "581259812.368313"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "342"
+            endingLineNumber = "342"
+            landmarkName = "-updateIndexValue"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BeaconXPlus/Function/slotPage/view/trigger/MKTriggerTapView.m"
+            timestampString = "581254790.913995"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
+            landmarkName = "-updateIndex:timeValue:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -36,11 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeaconXPlus/Interface/MKBXPDataParser.m"
-            timestampString = "581079773.9745899"
+            timestampString = "581259812.368628"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "453"
-            endingLineNumber = "453"
+            startingLineNumber = "457"
+            endingLineNumber = "457"
             landmarkName = "+parseTriggerConditions:"
             landmarkType = "7">
          </BreakpointContent>
@@ -51,29 +99,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BeaconXPlus/Function/slotPage/view/MKSlotTriggerCell.m"
-            timestampString = "581079773.974646"
+            filePath = "BeaconXPlus/Interface/MKBXPDataParser.m"
+            timestampString = "581259812.368685"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "-switchViewValueChanged"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BeaconXPlus/Function/slotPage/view/MKSlotTriggerCell.m"
-            timestampString = "581079773.974997"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "-setDataDic:"
+            startingLineNumber = "323"
+            endingLineNumber = "323"
+            landmarkName = "+customData:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

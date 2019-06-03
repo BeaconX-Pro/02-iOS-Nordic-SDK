@@ -47,7 +47,8 @@
         NSString *advTxPower = [self readAdvTxPower];
         NSString *advInterval = [self readAdvInterval];
         NSDictionary *advDic = [self readAdvData];
-        NSDictionary *triggerConditions = [self readTriggerConditions];
+        NSMutableDictionary *triggerConditions = [NSMutableDictionary dictionaryWithDictionary:[self readTriggerConditions]];
+        [triggerConditions setObject:@(![triggerConditions[@"type"] isEqualToString:@"00"]) forKey:@"trigger"];
         NSDictionary *baseParams = @{
                                      @"radioTxPower":radioTxPower,
                                      @"advTxPower":advTxPower,
@@ -119,6 +120,8 @@
         [self configAdvTxPower:[detailData[@"baseParam"][@"advTxPower"] integerValue]];
         [self configRadioTxPower:[self getRadioTxPower:detailData[@"baseParam"][@"txPower"]]];
         [self configAdvInterval:[detailData[@"baseParam"][@"advInterval"] integerValue]];
+        NSDictionary *paramsDic = detailData[@"triggerConditions"];
+        [self configTriggerConditions:paramsDic];
         if (successBlock) {
             moko_dispatch_main_safe(^{
                 successBlock();
@@ -384,6 +387,111 @@
                       sensitivity:(NSInteger)sensitivity {
     __block BOOL success = NO;
     [MKBXPInterface setBXPThreeAxisDataParams:dataRate acceleration:acceleration sensitivity:sensitivity sucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configTriggerConditions:(NSDictionary *)conditions {
+    BOOL trigger = [conditions[@"trigger"] boolValue];
+    if (!trigger) {
+        return [self closeTriggerConditions];
+    }
+    NSDictionary *tempParams = conditions[@"conditions"];
+    if ([tempParams[@"triggerType"] isEqualToString:@"01"]) {
+        //温度触发
+        return [self setBXPTriggerConditionsWithTemperature:[tempParams[@"above"] boolValue] temperature:[tempParams[@"temperature"] integerValue] startAdvertising:[tempParams[@"start"] boolValue]];
+    }
+    if ([tempParams[@"triggerType"] isEqualToString:@"02"]) {
+        //湿度触发
+        return [self setBXPTriggerConditionsWithHudimity:[tempParams[@"above"] boolValue] humidity:[tempParams[@"humidity"] integerValue] startAdvertising:[tempParams[@"start"] boolValue]];
+    }
+    if ([tempParams[@"triggerType"] isEqualToString:@"03"]) {
+        //双击触发
+        return [self setBXPTriggerConditionsWithDoubleTap:[tempParams[@"time"] integerValue] start:[tempParams[@"start"] boolValue]];
+    }
+    if ([tempParams[@"triggerType"] isEqualToString:@"04"]) {
+        //三击触发
+        return [self setBXPTriggerConditionsWithTripleTap:[tempParams[@"time"] integerValue] start:[tempParams[@"start"] boolValue]];
+    }
+    //移动触发
+    return [self setBXPTriggerConditionsWithMoves:[tempParams[@"time"] integerValue] start:[tempParams[@"start"] boolValue]];
+}
+
+- (BOOL)closeTriggerConditions {
+    __block BOOL success = NO;
+    [MKBXPInterface setBXPTriggerConditionsNoneWithSuccessBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)setBXPTriggerConditionsWithTemperature:(BOOL)above
+                                   temperature:(NSInteger)temperature
+                              startAdvertising:(BOOL)start {
+    __block BOOL success = NO;
+    [MKBXPInterface setBXPTriggerConditionsWithTemperature:above temperature:temperature startAdvertising:start sucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)setBXPTriggerConditionsWithHudimity:(BOOL)above
+                                   humidity:(NSInteger)humidity
+                           startAdvertising:(BOOL)start {
+    __block BOOL success = NO;
+    [MKBXPInterface setBXPTriggerConditionsWithHudimity:above humidity:humidity startAdvertising:start sucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)setBXPTriggerConditionsWithDoubleTap:(NSInteger)time
+                                       start:(BOOL)start {
+    __block BOOL success = NO;
+    [MKBXPInterface setBXPTriggerConditionsWithDoubleTap:time start:start sucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)setBXPTriggerConditionsWithTripleTap:(NSInteger)time
+                                       start:(BOOL)start {
+    __block BOOL success = NO;
+    [MKBXPInterface setBXPTriggerConditionsWithTripleTap:time start:start sucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)setBXPTriggerConditionsWithMoves:(NSInteger)time
+                                   start:(BOOL)start {
+    __block BOOL success = NO;
+    [MKBXPInterface setBXPTriggerConditionsWithMoves:time start:start sucBlock:^(id  _Nonnull returnData) {
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

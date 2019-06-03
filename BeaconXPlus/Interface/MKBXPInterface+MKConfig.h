@@ -226,6 +226,82 @@ NS_ASSUME_NONNULL_BEGIN
                          sucBlock:(void (^)(id returnData))sucBlock
                       failedBlock:(void (^)(NSError *error))failedBlock;
 
+/**
+ 设置当前活跃通道无触发条件
+
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPTriggerConditionsNoneWithSuccessBlock:(void (^)(id returnData))sucBlock
+                                        failedBlock:(void (^)(NSError *error))failedBlock;
+
+/**
+ 设置当前活跃通道温度触发条件
+
+ @param above YES:当温度高于temperature时触发,NO:当温度低于temperature时触发
+ @param temperature 触发的温度条件,-20~90
+ @param start YES:开始广播,NO:停止广播
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPTriggerConditionsWithTemperature:(BOOL)above
+                                   temperature:(NSInteger)temperature
+                              startAdvertising:(BOOL)start
+                                      sucBlock:(void (^)(id returnData))sucBlock
+                                   failedBlock:(void (^)(NSError *error))failedBlock;
+
+/**
+ 设置当前活跃通道湿度触发条件
+
+ @param above YES:当温度高于humidity时触发,NO:当温度低于humidity时触发
+ @param humidity 触发的湿度条件,0~100
+ @param start YES:开始广播,NO:停止广播
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPTriggerConditionsWithHudimity:(BOOL)above
+                                   humidity:(NSInteger)humidity
+                           startAdvertising:(BOOL)start
+                                   sucBlock:(void (^)(id returnData))sucBlock
+                                failedBlock:(void (^)(NSError *error))failedBlock;
+
+/**
+ 设置当前活跃通道双击触发条件
+
+ @param time 持续时间，单位s,0~65535
+ @param start YES:开始广播,NO:停止广播
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPTriggerConditionsWithDoubleTap:(NSInteger)time
+                                       start:(BOOL)start
+                                    sucBlock:(void (^)(id returnData))sucBlock
+                                 failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ 设置当前活跃通道三击触发条件
+ 
+ @param time 持续时间，单位s,0~65535
+ @param start YES:开始广播,NO:停止广播
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPTriggerConditionsWithTripleTap:(NSInteger)time
+                                       start:(BOOL)start
+                                    sucBlock:(void (^)(id returnData))sucBlock
+                                 failedBlock:(void (^)(NSError *error))failedBlock;
+/**
+ 设置当前活跃通道移动触发条件
+ 
+ @param time 持续时间，单位s,0~65535
+ @param start YES:开始广播,NO:停止广播
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPTriggerConditionsWithMoves:(NSInteger)time
+                                   start:(BOOL)start
+                                sucBlock:(void (^)(id returnData))sucBlock
+                             failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

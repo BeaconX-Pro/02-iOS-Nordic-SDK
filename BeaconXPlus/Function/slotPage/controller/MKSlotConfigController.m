@@ -28,16 +28,8 @@
 
 static CGFloat const offset_X = 15.f;
 static CGFloat const headerViewHeight = 130.f;
-static CGFloat const baseParamsCellHeight = 190.f;
-static CGFloat const iBeaconAdvCellHeight = 145.f;
-static CGFloat const uidAdvCellHeight = 120.f;
-static CGFloat const urlAdvCellHeight = 100.f;
-static CGFloat const deviceAdvCellHeight = 100.f;
-static CGFloat const axisAcceDataCellHeight = 100.f;
-static CGFloat const axisParamsCellHeight = 170.f;
-static CGFloat const slotTriggerCellHeight = 270.f;
 
-@interface MKSlotConfigController ()<UITableViewDelegate, UITableViewDataSource, MKAxisAcceDataCellDelegate ,MKBaseParamsCellDelegate, MKSlotTriggerCellDelegate>
+@interface MKSlotConfigController ()<UITableViewDelegate, UITableViewDataSource ,MKBaseParamsCellDelegate, MKSlotTriggerCellDelegate>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
 
@@ -55,6 +47,18 @@ static CGFloat const slotTriggerCellHeight = 270.f;
 @property (nonatomic, strong)MKSlotConfigManager *configManager;
 
 @property (nonatomic, assign)BOOL triggerIsOn;
+
+@property (nonatomic, strong)MKAdvContentiBeaconCell *iBeaconCell;
+
+@property (nonatomic, strong)MKAdvContentUIDCell *uidCell;
+
+@property (nonatomic, strong)MKAdvContentURLCell *urlCell;
+
+@property (nonatomic, strong)MKBaseParamsCell *baseParamsCell;
+
+@property (nonatomic, strong)MKAdvContentDeviceCell *deviceAdvCell;
+
+@property (nonatomic, strong)MKSlotTriggerCell *triggerCell;
 
 @end
 
@@ -111,34 +115,10 @@ static CGFloat const slotTriggerCellHeight = 270.f;
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     MKSlotConfigCellModel *model = self.dataList[indexPath.section];
-    if (model.cellType == iBeaconAdvContent) {
-        return iBeaconAdvCellHeight;
+    if ([model.cell isKindOfClass:NSClassFromString(@"MKSlotTriggerCell")] && !self.triggerIsOn) {
+        return 50.f;
     }
-    if (model.cellType == uidAdvContent) {
-        return uidAdvCellHeight;
-    }
-    if (model.cellType == urlAdvContent) {
-        return urlAdvCellHeight;
-    }
-    if (model.cellType == baseParam) {
-        return baseParamsCellHeight;
-    }
-    if (model.cellType == deviceAdvContent) {
-        return deviceAdvCellHeight;
-    }
-    if (model.cellType == axisAcceDataContent) {
-        return axisAcceDataCellHeight;
-    }
-    if (model.cellType == THDataContent) {
-        return axisParamsCellHeight;
-    }
-    if (model.cellType == triggerPramsContent) {
-        if (self.triggerIsOn) {
-            return slotTriggerCellHeight;
-        }
-        return 44.f;
-    }
-    return 0.f;
+    return model.cell.cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -161,46 +141,12 @@ static CGFloat const slotTriggerCellHeight = 270.f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MKSlotBaseCell *cell;
-    if (indexPath.section < self.dataList.count) {
-        MKSlotConfigCellModel *model = self.dataList[indexPath.section];
-        switch (model.cellType) {
-            case iBeaconAdvContent:
-                cell = [MKAdvContentiBeaconCell initCellWithTableView:tableView];
-                break;
-            case uidAdvContent:
-                cell = [MKAdvContentUIDCell initCellWithTableView:tableView];
-                break;
-            case urlAdvContent:
-                cell = [MKAdvContentURLCell initCellWithTableView:tableView];
-                break;
-            case baseParam:
-                cell = [self baseParamsCell];
-                break;
-            case deviceAdvContent:
-                cell = [MKAdvContentDeviceCell initCellWithTable:tableView];
-                break;
-            case axisAcceDataContent:
-                cell = [self axisAcceCell];
-                break;
-            case axisAcceParamsContent:
-                cell = [MKAxisParametersCell initCellWithTableView:tableView];
-                break;
-            case triggerPramsContent:
-                cell = [self triggerCell];
-            default:
-                break;
-        }
-        if ([cell respondsToSelector:@selector(setDataDic:)]) {
-            [cell performSelector:@selector(setDataDic:) withObject:model.dataDic];
-        }
+    MKSlotConfigCellModel *model = self.dataList[indexPath.section];
+    MKSlotBaseCell *cell = model.cell;
+    if ([cell respondsToSelector:@selector(setDataDic:)]) {
+        [cell performSelector:@selector(setDataDic:) withObject:model.dataDic];
     }
     return cell;
-}
-
-#pragma mark - MKAxisAcceDataCellDelegate
-- (void)updateThreeAxisNotifyStatus:(BOOL)notify {
-    [[MKBXPCentralManager shared] notifyThreeAxisAcceleration:notify];
 }
 
 #pragma mark - MKBaseParamsCellDelegate
@@ -216,6 +162,14 @@ static CGFloat const slotTriggerCellHeight = 270.f;
 #pragma mark - MKSlotTriggerCellDelegate
 - (void)triggerSwitchStatusChanged:(BOOL)isOn {
     self.triggerIsOn = isOn;
+    NSDictionary *dic = self.originalDic[@"triggerConditions"];
+    if (ValidDict(dic)) {
+        NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+        [tempDic setObject:@(isOn) forKey:@"trigger"];
+        [self.originalDic setObject:tempDic forKey:@"triggerConditions"];
+    }
+    MKSlotConfigCellModel *triggerModel = [self.dataList lastObject];
+    triggerModel.dataDic = self.originalDic[@"triggerConditions"];
     [self.tableView reloadRow:0 inSection:(self.dataList.count - 1) withRowAnimation:UITableViewRowAnimationNone];
 }
 
@@ -234,15 +188,15 @@ static CGFloat const slotTriggerCellHeight = 270.f;
  */
 - (void)readSlotDetailData{
     [[MKHudManager share] showHUDWithTitle:@"Loading..."
-                                     inView:self.view
-                              isPenetration:NO];
+                                    inView:self.view
+                             isPenetration:NO];
     WS(weakSelf);
     [self.configManager readSlotDetailData:self.vcModel successBlock:^(id returnData) {
         [[MKHudManager share] hide];
         weakSelf.originalDic = [NSMutableDictionary dictionaryWithDictionary:returnData];
         weakSelf.frameType = [weakSelf loadFrameType:returnData[@"advData"][@"frameType"]];
         weakSelf.tableHeader.index = [weakSelf getHeaderViewSelectedRow];
-        weakSelf.triggerIsOn = (![returnData[@"triggerConditions"][@"type"] isEqualToString:@"00"]);
+        weakSelf.triggerIsOn = [returnData[@"triggerConditions"][@"trigger"] boolValue];
         [weakSelf reloadTableViewData];
     } failedBlock:^(NSError *error) {
         [[MKHudManager share] hide];
@@ -256,6 +210,7 @@ static CGFloat const slotTriggerCellHeight = 270.f;
 - (void)reloadTableViewData{
     [self.dataList removeAllObjects];
     [self.dataList addObjectsFromArray:[self reloadDatasWithType]];
+    [self setBaseParamsType];
     [self.tableView reloadData];
 }
 
@@ -298,15 +253,15 @@ static CGFloat const slotTriggerCellHeight = 270.f;
  */
 - (NSArray *)createNewIbeaconList{
     MKSlotConfigCellModel *advModel = [[MKSlotConfigCellModel alloc] init];
-    advModel.cellType = iBeaconAdvContent;
+    advModel.cell = self.iBeaconCell;
     
     MKSlotConfigCellModel *triggerModel = [[MKSlotConfigCellModel alloc] init];
-    triggerModel.cellType = triggerPramsContent;
     triggerModel.dataDic = self.originalDic[@"triggerConditions"];
+    triggerModel.cell = self.triggerCell;
     
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
-    baseParamModel.cellType = baseParam;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
+    baseParamModel.cell = self.baseParamsCell;
     if (self.vcModel.slotType == slotFrameTypeiBeacon && ValidDict(self.originalDic)) {
         advModel.dataDic = self.originalDic[@"advData"];
     }
@@ -321,15 +276,15 @@ static CGFloat const slotTriggerCellHeight = 270.f;
  */
 - (NSArray *)createNewUIDList{
     MKSlotConfigCellModel *advModel = [[MKSlotConfigCellModel alloc] init];
-    advModel.cellType = uidAdvContent;
+    advModel.cell = self.uidCell;
     
     MKSlotConfigCellModel *triggerModel = [[MKSlotConfigCellModel alloc] init];
-    triggerModel.cellType = triggerPramsContent;
     triggerModel.dataDic = self.originalDic[@"triggerConditions"];
+    triggerModel.cell = self.triggerCell;
     
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
-    baseParamModel.cellType = baseParam;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
+    baseParamModel.cell = self.baseParamsCell;
     if (self.vcModel.slotType == slotFrameTypeUID && ValidDict(self.originalDic)) {
         advModel.dataDic = self.originalDic[@"advData"];
     }
@@ -343,15 +298,15 @@ static CGFloat const slotTriggerCellHeight = 270.f;
  */
 - (NSArray *)createNewUrlList{
     MKSlotConfigCellModel *advModel = [[MKSlotConfigCellModel alloc] init];
-    advModel.cellType = urlAdvContent;
+    advModel.cell = self.urlCell;
     
     MKSlotConfigCellModel *triggerModel = [[MKSlotConfigCellModel alloc] init];
-    triggerModel.cellType = triggerPramsContent;
     triggerModel.dataDic = self.originalDic[@"triggerConditions"];
+    triggerModel.cell = self.triggerCell;
     
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
-    baseParamModel.cellType = baseParam;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
+    baseParamModel.cell = self.baseParamsCell;
     if (self.vcModel.slotType == slotFrameTypeURL && ValidDict(self.originalDic)) {
         advModel.dataDic = self.originalDic[@"advData"];
     }
@@ -365,26 +320,26 @@ static CGFloat const slotTriggerCellHeight = 270.f;
  */
 - (NSArray *)createNewTLMOrInfoList{
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
-    baseParamModel.cellType = baseParam;
+    baseParamModel.cell = self.baseParamsCell;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
     
     MKSlotConfigCellModel *triggerModel = [[MKSlotConfigCellModel alloc] init];
-    triggerModel.cellType = triggerPramsContent;
     triggerModel.dataDic = self.originalDic[@"triggerConditions"];
+    triggerModel.cell = self.triggerCell;
     
     return @[baseParamModel, triggerModel];
 }
 
 - (NSArray *)createNewDeviceInfoList {
     MKSlotConfigCellModel *advModel = [[MKSlotConfigCellModel alloc] init];
-    advModel.cellType = deviceAdvContent;
+    advModel.cell = self.deviceAdvCell;
     
     MKSlotConfigCellModel *triggerModel = [[MKSlotConfigCellModel alloc] init];
-    triggerModel.cellType = triggerPramsContent;
+    triggerModel.cell = self.triggerCell;
     triggerModel.dataDic = self.originalDic[@"triggerConditions"];
     
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
-    baseParamModel.cellType = baseParam;
+    baseParamModel.cell = self.baseParamsCell;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
     if (self.vcModel.slotType == slotFrameTypeInfo && ValidDict(self.originalDic)) {
         advModel.dataDic = self.originalDic[@"advData"];
@@ -393,53 +348,39 @@ static CGFloat const slotTriggerCellHeight = 270.f;
 }
 
 - (NSArray *)createNewThreeAxisList {
-//    MKSlotConfigCellModel *advModel = [[MKSlotConfigCellModel alloc] init];
-//    advModel.cellType = axisAcceDataContent;
-//
-//    MKSlotConfigCellModel *paramsModel = [[MKSlotConfigCellModel alloc] init];
-//    paramsModel.cellType = axisAcceParamsContent;
+    //    MKSlotConfigCellModel *advModel = [[MKSlotConfigCellModel alloc] init];
+    //    advModel.cellType = axisAcceDataContent;
+    //
+    //    MKSlotConfigCellModel *paramsModel = [[MKSlotConfigCellModel alloc] init];
+    //    paramsModel.cellType = axisAcceParamsContent;
     
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
-    baseParamModel.cellType = baseParam;
+    baseParamModel.cell = self.baseParamsCell;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
     
     MKSlotConfigCellModel *triggerModel = [[MKSlotConfigCellModel alloc] init];
-    triggerModel.cellType = triggerPramsContent;
+    triggerModel.cell = self.triggerCell;
     triggerModel.dataDic = self.originalDic[@"triggerConditions"];
     
-//    if (self.vcModel.slotType == slotFrameTypeThreeASensor && ValidDict(self.originalDic)) {
-//        paramsModel.dataDic = self.originalDic[@"advData"];
-//    }
+    //    if (self.vcModel.slotType == slotFrameTypeThreeASensor && ValidDict(self.originalDic)) {
+    //        paramsModel.dataDic = self.originalDic[@"advData"];
+    //    }
     return @[baseParamModel, triggerModel];
 }
 
 - (NSArray *)createNewTHList {
     MKSlotConfigCellModel *baseParamModel = [[MKSlotConfigCellModel alloc] init];
-    baseParamModel.cellType = baseParam;
+    baseParamModel.cell = self.baseParamsCell;
     baseParamModel.dataDic = self.originalDic[@"baseParam"];
     
     MKSlotConfigCellModel *triggerModel = [[MKSlotConfigCellModel alloc] init];
-    triggerModel.cellType = triggerPramsContent;
+    triggerModel.cell = self.triggerCell;
     triggerModel.dataDic = self.originalDic[@"triggerConditions"];
     
     return @[baseParamModel, triggerModel];
 }
 
-- (MKAxisAcceDataCell *)axisAcceCell {
-    MKAxisAcceDataCell *cell = [MKAxisAcceDataCell initCellWithTableView:self.tableView];
-    cell.delegate = self;
-    return cell;
-}
-
-- (MKSlotTriggerCell *)triggerCell {
-    MKSlotTriggerCell *cell = [MKSlotTriggerCell initCellWithTableView:self.tableView];
-    cell.delegate = self;
-    [cell updateSwitchStatus:self.triggerIsOn];
-    return cell;
-}
-
-- (MKBaseParamsCell *)baseParamsCell {
-    MKBaseParamsCell *cell = [MKBaseParamsCell initCellWithTableView:self.tableView];
+- (void)setBaseParamsType {
     NSString *type = @"";
     if (self.frameType == slotFrameTypeiBeacon) {
         type = MKSlotBaseCelliBeaconType;
@@ -454,9 +395,7 @@ static CGFloat const slotTriggerCellHeight = 270.f;
     }else if (self.frameType == slotFrameTypeThreeASensor) {
         type = MKSlotBaseCellAxisAcceDataType;
     }
-    cell.baseCellType = type;
-    cell.delegate = self;
-    return cell;
+    self.baseParamsCell.baseCellType = type;
 }
 
 - (slotFrameType )loadFrameType:(NSString *)type{
@@ -587,8 +526,8 @@ static CGFloat const slotTriggerCellHeight = 270.f;
         return;
     }
     [[MKHudManager share] showHUDWithTitle:@"Setting..."
-                                     inView:self.view
-                              isPenetration:NO];
+                                    inView:self.view
+                             isPenetration:NO];
     WS(weakSelf);
     [self.configManager setSlotDetailData:self.vcModel.slotIndex slotFrameType:self.frameType detailData:detailDic successBlock:^{
         [[MKHudManager share] hide];
@@ -626,9 +565,9 @@ static CGFloat const slotTriggerCellHeight = 270.f;
 - (MKFrameTypeView *)tableHeader{
     if (!_tableHeader) {
         _tableHeader = [[MKFrameTypeView alloc] initWithFrame:CGRectMake(0,
-                                                                          0,
-                                                                          kScreenWidth - 2 * offset_X,
-                                                                          headerViewHeight)];
+                                                                         0,
+                                                                         kScreenWidth - 2 * offset_X,
+                                                                         headerViewHeight)];
         WS(weakSelf);
         _tableHeader.frameTypeChangedBlock = ^(slotFrameType frameType) {
             weakSelf.frameType = frameType;
@@ -658,6 +597,56 @@ static CGFloat const slotTriggerCellHeight = 270.f;
         _originalDic = [NSMutableDictionary dictionary];
     }
     return _originalDic;
+}
+
+- (MKAdvContentiBeaconCell *)iBeaconCell {
+    if (!_iBeaconCell) {
+        _iBeaconCell = [MKAdvContentiBeaconCell initCellWithTableView:self.tableView];
+        _iBeaconCell.cellHeight = 145.f;
+    }
+    return _iBeaconCell;
+}
+
+- (MKAdvContentUIDCell *)uidCell {
+    if (!_uidCell) {
+        _uidCell = [MKAdvContentUIDCell initCellWithTableView:self.tableView];
+        _uidCell.cellHeight = 120.f;
+    }
+    return _uidCell;
+}
+
+- (MKAdvContentURLCell *)urlCell {
+    if (!_urlCell) {
+        _urlCell = [MKAdvContentURLCell initCellWithTableView:self.tableView];
+        _urlCell.cellHeight = 100.f;
+    }
+    return _urlCell;
+}
+
+- (MKBaseParamsCell *)baseParamsCell {
+    if (!_baseParamsCell) {
+        _baseParamsCell = [MKBaseParamsCell initCellWithTableView:self.tableView];
+        _baseParamsCell.delegate = self;
+        _baseParamsCell.cellHeight = 190.f;
+    }
+    return _baseParamsCell;
+}
+
+- (MKAdvContentDeviceCell *)deviceAdvCell {
+    if (!_deviceAdvCell) {
+        _deviceAdvCell = [MKAdvContentDeviceCell initCellWithTable:self.tableView];
+        _deviceAdvCell.cellHeight = 100.f;
+    }
+    return _deviceAdvCell;
+}
+
+- (MKSlotTriggerCell *)triggerCell {
+    if (!_triggerCell) {
+        _triggerCell = [MKSlotTriggerCell initCellWithTableView:self.tableView];
+        _triggerCell.delegate = self;
+        _triggerCell.cellHeight = 270.f;
+    }
+    return _triggerCell;
 }
 
 @end

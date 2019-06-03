@@ -41,4 +41,5 @@ typedef NS_ENUM(NSInteger, MKBXPOperationID) {
     MKBXPReadDeviceTimeOperation,               //读取设备当前时间
     MKBXPSetDeviceTimeOperation,                //设置设备当前时间
     MKBXPReadTriggerConditionsOperation,        //读取触发条件
+    MKBXPSetTriggerConditionsOperation,         //设置触发条件
 };

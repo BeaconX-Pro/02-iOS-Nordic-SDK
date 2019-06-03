@@ -375,6 +375,146 @@
                          failureBlock:failedBlock];
 }
 
++ (void)setBXPTriggerConditionsNoneWithSuccessBlock:(void (^)(id returnData))sucBlock
+                                        failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = @"ea39000100";
+    [centralManager addTaskWithTaskID:MKBXPSetTriggerConditionsOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPTriggerConditionsWithTemperature:(BOOL)above
+                                   temperature:(NSInteger)temperature
+                              startAdvertising:(BOOL)start
+                                      sucBlock:(void (^)(id returnData))sucBlock
+                                   failedBlock:(void (^)(NSError *error))failedBlock {
+    if (temperature < -20 || temperature > 90) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *tempString = [NSString stringWithFormat:@"%lX", (long)(temperature * 10)];
+    if (tempString.length == 1) {
+        tempString = [@"000" stringByAppendingString:tempString];
+    }else if (tempString.length == 2) {
+        tempString = [@"00" stringByAppendingString:tempString];
+    }else if (tempString.length == 3) {
+        tempString = [@"0" stringByAppendingString:tempString];
+    }else if (tempString.length > 4) {
+        tempString = [tempString substringWithRange:NSMakeRange(tempString.length - 4, 4)];
+    }
+    NSString *aboveString = (above ? @"01" : @"02");
+    NSString *advertising = (start ? @"01" : @"02");
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ea39000501",aboveString,tempString,advertising];
+    [centralManager addTaskWithTaskID:MKBXPSetTriggerConditionsOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPTriggerConditionsWithHudimity:(BOOL)above
+                                   humidity:(NSInteger)humidity
+                           startAdvertising:(BOOL)start
+                                   sucBlock:(void (^)(id returnData))sucBlock
+                                failedBlock:(void (^)(NSError *error))failedBlock {
+    if (humidity < 0 || humidity > 100) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *tempString = [NSString stringWithFormat:@"%lX", (long)(humidity * 10)];
+    if (tempString.length == 1) {
+        tempString = [@"000" stringByAppendingString:tempString];
+    }else if (tempString.length == 2) {
+        tempString = [@"00" stringByAppendingString:tempString];
+    }else if (tempString.length == 3) {
+        tempString = [@"0" stringByAppendingString:tempString];
+    }else if (tempString.length > 4) {
+        tempString = [tempString substringWithRange:NSMakeRange(tempString.length - 4, 4)];
+    }
+    NSString *aboveString = (above ? @"01" : @"02");
+    NSString *advertising = (start ? @"01" : @"02");
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ea39000502",aboveString,tempString,advertising];
+    [centralManager addTaskWithTaskID:MKBXPSetTriggerConditionsOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPTriggerConditionsWithDoubleTap:(NSInteger)time
+                                       start:(BOOL)start
+                                    sucBlock:(void (^)(id returnData))sucBlock
+                                 failedBlock:(void (^)(NSError *error))failedBlock{
+    if (time < 0 || time > 65535) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *timeString = [NSString stringWithFormat:@"%1lx",(unsigned long)time];
+    if (timeString.length == 1) {
+        timeString = [@"000" stringByAppendingString:timeString];
+    }else if (timeString.length == 2) {
+        timeString = [@"00" stringByAppendingString:timeString];
+    }else if (timeString.length == 3) {
+        timeString = [@"0" stringByAppendingString:timeString];
+    }
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ea39000403",timeString,(start ? @"01" : @"02")];
+    [centralManager addTaskWithTaskID:MKBXPSetTriggerConditionsOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPTriggerConditionsWithTripleTap:(NSInteger)time
+                                       start:(BOOL)start
+                                    sucBlock:(void (^)(id returnData))sucBlock
+                                 failedBlock:(void (^)(NSError *error))failedBlock {
+    if (time < 0 || time > 65535) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *timeString = [NSString stringWithFormat:@"%1lx",(unsigned long)time];
+    if (timeString.length == 1) {
+        timeString = [@"000" stringByAppendingString:timeString];
+    }else if (timeString.length == 2) {
+        timeString = [@"00" stringByAppendingString:timeString];
+    }else if (timeString.length == 3) {
+        timeString = [@"0" stringByAppendingString:timeString];
+    }
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ea39000404",timeString,(start ? @"01" : @"02")];
+    [centralManager addTaskWithTaskID:MKBXPSetTriggerConditionsOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPTriggerConditionsWithMoves:(NSInteger)time
+                                   start:(BOOL)start
+                                sucBlock:(void (^)(id returnData))sucBlock
+                             failedBlock:(void (^)(NSError *error))failedBlock {
+    if (time < 0 || time > 65535) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *timeString = [NSString stringWithFormat:@"%1lx",(unsigned long)time];
+    if (timeString.length == 1) {
+        timeString = [@"000" stringByAppendingString:timeString];
+    }else if (timeString.length == 2) {
+        timeString = [@"00" stringByAppendingString:timeString];
+    }else if (timeString.length == 3) {
+        timeString = [@"0" stringByAppendingString:timeString];
+    }
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ea39000405",timeString,(start ? @"01" : @"02")];
+    [centralManager addTaskWithTaskID:MKBXPSetTriggerConditionsOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
 #pragma mark - private method
 + (NSString *)fetchSlotNumber:(bxpActiveSlotNo)slotNo{
     switch (slotNo) {

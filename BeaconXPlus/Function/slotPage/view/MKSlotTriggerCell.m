@@ -13,6 +13,7 @@
 #import "MKTriggerTapView.h"
 
 #import "MKSlotConfigPickView.h"
+#import "MKSlider.h"
 
 @interface MKSlotTriggerCell ()
 
@@ -21,8 +22,6 @@
 @property (nonatomic, strong)UILabel *msgLabel;
 
 @property (nonatomic, strong)UISwitch *switchView;
-
-@property (nonatomic, strong)UIView *bottomView;
 
 @property (nonatomic, strong)UILabel *triggerTypeLabel;
 
@@ -57,15 +56,20 @@
         [self.contentView addSubview:self.leftIcon];
         [self.contentView addSubview:self.msgLabel];
         [self.contentView addSubview:self.switchView];
-        [self.contentView addSubview:self.bottomView];
-        [self.bottomView addSubview:self.triggerLabel];
-        [self.bottomView addSubview:self.triggerTypeLabel];
-        [self.bottomView addSubview:self.temperView];
-        [self.bottomView addSubview:self.humidityView];
-        [self.bottomView addSubview:self.doubleTapView];
-        [self.bottomView addSubview:self.tripleTapView];
-        [self.bottomView addSubview:self.movesView];
-        [self setupUI];
+        [self.contentView addSubview:self.triggerLabel];
+        [self.contentView addSubview:self.triggerTypeLabel];
+        [self.contentView addSubview:self.temperView];
+        [self.contentView addSubview:self.humidityView];
+        [self.contentView addSubview:self.doubleTapView];
+        [self.contentView addSubview:self.tripleTapView];
+        [self.contentView addSubview:self.movesView];
+        [self.triggerTypeLabel setHidden:YES];
+        [self.triggerLabel setHidden:YES];
+        [self.doubleTapView setHidden:YES];
+        [self.temperView setHidden:YES];
+        [self.humidityView setHidden:YES];
+        [self.tripleTapView setHidden:YES];
+        [self.movesView setHidden:YES];
     }
     return self;
 }
@@ -86,15 +90,9 @@
     }];
     [self.switchView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-15.f);
-        make.width.mas_equalTo(45.f);
+        make.width.mas_equalTo(51.f);
         make.top.mas_equalTo(10.f);
         make.height.mas_equalTo(30.f);
-    }];
-    [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(0);
-        make.right.mas_equalTo(0);
-        make.top.mas_equalTo(self.switchView.mas_bottom).mas_offset(10.f);
-        make.bottom.mas_equalTo(0);
     }];
     [self.triggerTypeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15.f);
@@ -105,14 +103,14 @@
     [self.triggerLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.triggerTypeLabel.mas_right).mas_offset(10.f);
         make.right.mas_equalTo(-15.f);
-        make.top.mas_equalTo(0);
+        make.top.mas_equalTo(self.switchView.mas_bottom).mas_offset(10.f);
         make.height.mas_equalTo(25.f);
     }];
     [self.temperView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15.f);
         make.right.mas_equalTo(-15.f);
-        make.bottom.mas_equalTo(-5.f);
         make.top.mas_equalTo(self.triggerLabel.mas_bottom).mas_offset(5.f);
+        make.height.mas_equalTo(225.f);
     }];
     [self.humidityView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.temperView);
@@ -126,6 +124,66 @@
     [self.movesView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.temperView);
     }];
+}
+
+/**
+ 获取当前cell上面的信息。先查状态位@"code",当@"code":@"1"的时候说明数据都有，可以进行设置，
+ 当@"code":@"2"的时候，表明某些必填项没有设置，报错
+ 
+ @return dic
+ */
+- (NSDictionary *)getContentData{
+    if (!self.switchView.isOn) {
+        //关闭触发条件
+        return @{
+                 @"code":@"1",
+                 @"result":@{
+                         @"type":@"triggerConditions",
+                         @"trigger":@(NO),
+                         },
+                 };
+    }
+    //打开触发情况下，需要校验参数
+    if (self.index == 0) {
+        //Button double tap
+        return [self fetchTriggerTapViewData:self.doubleTapView];
+    }
+    if (self.index == 1) {
+        //Button triple tap
+        return [self fetchTriggerTapViewData:self.tripleTapView];
+    }
+    if ([[MKDataManager shared].deviceType isEqualToString:@"01"]) {
+        //带LIS3DH3轴加速度计
+        if (self.index == 2) {
+            //Device moves
+            return [self fetchTriggerTapViewData:self.movesView];
+        }
+        return [self errorDic:@"params error"];
+    }
+    if ([[MKDataManager shared].deviceType isEqualToString:@"02"] || [[MKDataManager shared].deviceType isEqualToString:@"03"]) {
+        //带SHT3X温湿度传感器或者同时带有LIS3DH及SHT3X传感器
+        if (self.index == 2 || self.index == 3) {
+            //3.Temperature above
+            //4.Temperature below
+            return [self fetchTemperViewData];
+        }
+        if (self.index == 4 || self.index == 5) {
+            //5.Humidity above
+            //6.Humidity below
+            return [self fetchHumidityViewData];
+        }
+        return [self errorDic:@"params error"];
+    }
+    
+    if ([[MKDataManager shared].deviceType isEqualToString:@"03"]) {
+        //同时带有LIS3DH及SHT3X传感器
+        if (self.index == 6) {
+            //Device moves
+            return [self fetchTriggerTapViewData:self.movesView];
+        }
+        return [self errorDic:@"params error"];
+    }
+    return [self errorDic:@"params error"];
 }
 
 #pragma mark - event method
@@ -142,8 +200,7 @@
 }
 
 - (void)switchViewValueChanged {
-    BOOL hidden = !self.switchView.isOn;
-    self.bottomView.alpha = (hidden ? 0 : 1);
+    [self reloadSubViews];
     if ([self.delegate respondsToSelector:@selector(triggerSwitchStatusChanged:)]) {
         [self.delegate triggerSwitchStatusChanged:self.switchView.isOn];
     }
@@ -156,22 +213,172 @@
     if (!ValidDict(_dataDic)) {
         return;
     }
-    if ([dataDic[@"type"] isEqualToString:@"00"]) {
-        //无触发条件
-        return;
-    }
-    self.index = [dataDic[@"type"] integerValue] - 1;
-    [self setupUI];
-}
-
-- (void)updateSwitchStatus:(BOOL)isOn {
-    [self.switchView setOn:isOn];
-    self.bottomView.alpha = (isOn ? 1 : 0);
+    [self.switchView setOn:[dataDic[@"trigger"] boolValue]];
+    [self updateIndexValue];
+    [self reloadSubViews];
 }
 
 #pragma mark - private method
 
+- (NSDictionary *)fetchTemperViewData {
+    return @{
+             @"code":@"1",
+             @"result":@{
+                     @"type":@"triggerConditions",
+                     @"trigger":@(YES),
+                     @"conditions":@{
+                             @"triggerType":@"01",
+                             @"above":@(self.temperView.above),
+                             @"temperature":[NSString stringWithFormat:@"%.f",self.temperView.temperSlider.value],
+                             @"start":@(self.temperView.start)
+                             },
+                     },
+             };
+}
+
+- (NSDictionary *)fetchHumidityViewData {
+    return @{
+             @"code":@"1",
+             @"result":@{
+                     @"type":@"triggerConditions",
+                     @"trigger":@(YES),
+                     @"conditions":@{
+                             @"triggerType":@"02",
+                             @"above":@(self.humidityView.above),
+                             @"humidity":[NSString stringWithFormat:@"%.f",self.humidityView.humiditySlider.value],
+                             @"start":@(self.humidityView.start)
+                             },
+                     },
+             };
+}
+
+- (NSDictionary *)fetchTriggerTapViewData:(MKTriggerTapView *)tapView {
+    NSString *triggerType = @"03";
+    if (tapView == self.tripleTapView) {
+        triggerType = @"04";
+    }else if (tapView == self.movesView) {
+        triggerType = @"05";
+    }
+    if (tapView.index == 0 || tapView.index == 2) {
+        return @{
+                 @"code":@"1",
+                 @"result":@{
+                         @"type":@"triggerConditions",
+                         @"trigger":@(YES),
+                         @"conditions":@{
+                                 @"triggerType":triggerType,
+                                 @"time":@"00",
+                                 @"start":@(tapView.index == 0)
+                                 },
+                         },
+                 };
+    }
+    if (tapView.index == 1) {
+        NSString *time = [tapView.startField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+        if (!ValidStr(time)) {
+            return [self errorDic:@"params error"];
+        }
+        return @{
+                 @"code":@"1",
+                 @"result":@{
+                         @"type":@"triggerConditions",
+                         @"trigger":@(YES),
+                         @"conditions":@{
+                                 @"triggerType":triggerType,
+                                 @"time":time,
+                                 @"start":@(YES)
+                                 },
+                         },
+                 };
+    }
+    if (tapView.index == 3) {
+        NSString *time = [tapView.stopField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+        if (!ValidStr(time)) {
+            return [self errorDic:@"params error"];
+        }
+        return @{
+                 @"code":@"1",
+                 @"result":@{
+                         @"type":@"triggerConditions",
+                         @"trigger":@(YES),
+                         @"conditions":@{
+                                 @"triggerType":triggerType,
+                                 @"time":time,
+                                 @"start":@(NO)
+                                 },
+                         },
+                 };
+    }
+    return [self errorDic:@"params error"];
+}
+
+- (NSDictionary *)errorDic:(NSString *)errorMsg{
+    return @{
+             @"code":@"2",
+             @"msg":SafeStr(errorMsg),
+             };
+}
+
+- (void)reloadSubViews {
+    BOOL isOn = self.switchView.isOn;
+    if (isOn) {
+        //开关打开
+        [self.triggerTypeLabel setHidden:NO];
+        [self.triggerLabel setHidden:NO];
+        [self setupUI];
+        return;
+    }
+    //开关关闭
+    [self.triggerTypeLabel setHidden:YES];
+    [self.triggerLabel setHidden:YES];
+    [self.doubleTapView setHidden:YES];
+    [self.temperView setHidden:YES];
+    [self.humidityView setHidden:YES];
+    [self.tripleTapView setHidden:YES];
+    [self.movesView setHidden:YES];
+}
+
+- (void)updateIndexValue {
+    if ([self.dataDic[@"type"] isEqualToString:@"00"]) {
+        return;
+    }
+    if ([self.dataDic[@"type"] isEqualToString:@"01"] && ValidDict(self.dataDic[@"conditions"])) {
+        //温度
+        NSDictionary *conditions = self.dataDic[@"conditions"];
+        if ([conditions[@"above"] boolValue]) {
+            //@[@"Button double tap",@"Button triple tap",@"Temperature above",@"Temperature below",@"Humidity above",@"Humidity below",@"Device moves"];
+            self.index = 2;
+        }else {
+            self.index = 3;
+        }
+    }
+    if ([self.dataDic[@"type"] isEqualToString:@"02"] && ValidDict(self.dataDic[@"conditions"])) {
+        //温度
+        NSDictionary *conditions = self.dataDic[@"conditions"];
+        if ([conditions[@"above"] boolValue]) {
+            //@[@"Button double tap",@"Button triple tap",@"Temperature above",@"Temperature below",@"Humidity above",@"Humidity below",@"Device moves"];
+            self.index = 4;
+        }else {
+            self.index = 5;
+        }
+    }
+    if ([self.dataDic[@"type"] isEqualToString:@"03"] && ValidDict(self.dataDic[@"conditions"])) {
+        //双击
+        self.index = 0;
+    }
+    if ([self.dataDic[@"type"] isEqualToString:@"04"] && ValidDict(self.dataDic[@"conditions"])) {
+        //三击
+        self.index = 1;
+    }
+    if ([self.dataDic[@"type"] isEqualToString:@"05"] && ValidDict(self.dataDic[@"conditions"])) {
+        //移动
+        self.index = 6;
+    }
+}
+
 - (void)setupUI {
+    NSArray *typeList = [self triggerTypeList];
+    self.triggerLabel.text = typeList[self.index];
     if (self.index == 0) {
         //Button double tap
         [self.doubleTapView setHidden:NO];
@@ -179,6 +386,24 @@
         [self.humidityView setHidden:YES];
         [self.tripleTapView setHidden:YES];
         [self.movesView setHidden:YES];
+        if (ValidDict(self.dataDic[@"conditions"])) {
+            BOOL start = [self.dataDic[@"conditions"][@"start"] boolValue];
+            NSInteger index = 1;
+            if ([self.dataDic[@"conditions"][@"time"] integerValue] == 0) {
+                if (start) {
+                    index = 0;
+                }else {
+                    index = 2;
+                }
+            }else {
+                if (start) {
+                    index = 1;
+                }else {
+                    index = 3;
+                }
+            }
+            [self.doubleTapView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
+        }
         return;
     }
     if (self.index == 1) {
@@ -188,6 +413,24 @@
         [self.humidityView setHidden:YES];
         [self.tripleTapView setHidden:NO];
         [self.movesView setHidden:YES];
+        if (ValidDict(self.dataDic[@"conditions"])) {
+            BOOL start = [self.dataDic[@"conditions"][@"start"] boolValue];
+            NSInteger index = 1;
+            if ([self.dataDic[@"conditions"][@"time"] integerValue] == 0) {
+                if (start) {
+                    index = 0;
+                }else {
+                    index = 2;
+                }
+            }else {
+                if (start) {
+                    index = 1;
+                }else {
+                    index = 3;
+                }
+            }
+            [self.tripleTapView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
+        }
         return;
     }
     if ([[MKDataManager shared].deviceType isEqualToString:@"00"]) {
@@ -203,6 +446,24 @@
             [self.humidityView setHidden:YES];
             [self.tripleTapView setHidden:YES];
             [self.movesView setHidden:NO];
+            if (ValidDict(self.dataDic[@"conditions"])) {
+                BOOL start = [self.dataDic[@"conditions"][@"start"] boolValue];
+                NSInteger index = 1;
+                if ([self.dataDic[@"conditions"][@"time"] integerValue] == 0) {
+                    if (start) {
+                        index = 0;
+                    }else {
+                        index = 2;
+                    }
+                }else {
+                    if (start) {
+                        index = 1;
+                    }else {
+                        index = 3;
+                    }
+                }
+                [self.movesView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
+            }
             return;
         }
         return;
@@ -219,6 +480,8 @@
             [self.tripleTapView setHidden:YES];
             [self.movesView setHidden:YES];
             [self.temperView updateAbove:(self.index == 2) start:YES];
+            [self.temperView.temperSlider setValue:[self.dataDic[@"conditions"][@"temperature"] floatValue]];
+            self.temperView.sliderValueLabel.text = [NSString stringWithFormat:@"%.f℃",self.temperView.temperSlider.value];
             return;
         }
         if (self.index == 4 || self.index == 5) {
@@ -230,6 +493,8 @@
             [self.tripleTapView setHidden:YES];
             [self.movesView setHidden:YES];
             [self.humidityView updateAbove:(self.index == 4) start:YES];
+            [self.humidityView.humiditySlider setValue:[self.dataDic[@"conditions"][@"humidity"] floatValue]];
+            self.humidityView.sliderValueLabel.text = [NSString stringWithFormat:@"%.f%@",self.humidityView.humiditySlider.value,@"%"];
             return;
         }
     }
@@ -243,6 +508,24 @@
             [self.humidityView setHidden:YES];
             [self.tripleTapView setHidden:YES];
             [self.movesView setHidden:NO];
+            if (ValidDict(self.dataDic[@"conditions"])) {
+                BOOL start = [self.dataDic[@"conditions"][@"start"] boolValue];
+                NSInteger index = 1;
+                if ([self.dataDic[@"conditions"][@"time"] integerValue] == 0) {
+                    if (start) {
+                        index = 0;
+                    }else {
+                        index = 2;
+                    }
+                }else {
+                    if (start) {
+                        index = 1;
+                    }else {
+                        index = 3;
+                    }
+                }
+                [self.movesView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
+            }
             return;
         }
         return;
@@ -303,13 +586,6 @@
               forControlEvents:UIControlEventValueChanged];
     }
     return _switchView;
-}
-
-- (UIView *)bottomView {
-    if (!_bottomView) {
-        _bottomView = [[UIView alloc] init];
-    }
-    return _bottomView;
 }
 
 - (UILabel *)triggerTypeLabel {

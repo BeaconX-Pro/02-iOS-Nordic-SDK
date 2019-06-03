@@ -407,6 +407,10 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         //读取触发条件
         operationID = MKBXPReadTriggerConditionsOperation;
         returnDic = [self parseTriggerConditions:[content substringWithRange:NSMakeRange(8, 2 * len)]];
+    }else if ([function isEqualToString:@"39"] && content.length == 8){
+        //读取触发条件
+        operationID = MKBXPSetTriggerConditionsOperation;
+        returnDic = @{};
     }
     return [self dataParserGetDataSuccess:returnDic operationID:operationID];
 }
@@ -457,20 +461,22 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
                       @"type":type,
                       };
     }else if ([type isEqualToString:@"01"] && content.length == 10) {
+        float temperature = [[MKEddystoneAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(4, 4)]] integerValue] * 0.1;
         resultDic = @{
                       @"type":type,
                       @"conditions":@{
                               @"above":@([[content substringWithRange:NSMakeRange(2, 2)] isEqualToString:@"01"]),
-                              @"temperature":[MKEddystoneAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(4, 4)]],
+                              @"temperature":[NSString stringWithFormat:@"%1f",temperature],
                               @"start":@([[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"])
                               }
                       };
     }else if ([type isEqualToString:@"02"] && content.length == 10) {
+        float humidity = [[MKEddystoneAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(4, 4)]] integerValue] * 0.1;
         resultDic = @{
                       @"type":type,
                       @"conditions":@{
                               @"above":@([[content substringWithRange:NSMakeRange(2, 2)] isEqualToString:@"01"]),
-                              @"humidity":[MKEddystoneAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(4, 4)]],
+                              @"humidity":[NSString stringWithFormat:@"%1f",humidity],
                               @"start":@([[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"])
                               }
                       };
