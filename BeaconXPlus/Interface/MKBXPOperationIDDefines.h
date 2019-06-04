@@ -43,4 +43,5 @@ typedef NS_ENUM(NSInteger, MKBXPOperationID) {
     MKBXPSetDeviceTimeOperation,                //设置设备当前时间
     MKBXPReadTriggerConditionsOperation,        //读取触发条件
     MKBXPSetTriggerConditionsOperation,         //设置触发条件
+    MKBXPDeleteRecordHTDataOperation,           //删除已存储的温湿度数据
 };

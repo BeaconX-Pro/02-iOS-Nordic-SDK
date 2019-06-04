@@ -20,28 +20,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeaconXPlus/Interface/MKBXPInterface+MKConfig.m"
-            timestampString = "581311983.465124"
+            timestampString = "581330936.8088419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "459"
             endingLineNumber = "459"
             landmarkName = "+setBXPTriggerConditionsWithHudimity:humidity:startAdvertising:sucBlock:failedBlock:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BeaconXPlus/Function/slotPage/controller/MKHTConfigController.m"
-            timestampString = "581311983.465854"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "-configParams"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

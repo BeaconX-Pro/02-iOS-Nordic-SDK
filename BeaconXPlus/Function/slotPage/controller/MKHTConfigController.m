@@ -14,6 +14,8 @@
 #import "MKHTDateTimeCell.h"
 #import "MKExportHTDataCell.h"
 
+#import "MKExportHTDataController.h"
+
 @interface MKHTDateModel : NSObject<MKBXPDeviceTimeProtocol>
 
 @property (nonatomic, assign)NSInteger year;
@@ -129,6 +131,15 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     MKSlotLineHeader *header = [MKSlotLineHeader initHeaderViewWithTableView:tableView];
     return header;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == self.dataList.count - 1) {
+        //最后一行是导出温湿度数据
+        MKExportHTDataController *vc = [[MKExportHTDataController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
+    }
 }
 
 #pragma mark -

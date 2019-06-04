@@ -109,8 +109,8 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
     if (indexPath.section == 1) {
         MKMainCellModel *model = self.centerDataList[indexPath.row];
         UIViewController *vc = (UIViewController *)[[model.destVC alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
-        self.hidesBottomBarWhenPushed = NO;
     }
 }
 

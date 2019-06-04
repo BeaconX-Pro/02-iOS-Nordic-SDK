@@ -313,6 +313,15 @@ NS_ASSUME_NONNULL_BEGIN
                                 sucBlock:(void (^)(id returnData))sucBlock
                              failedBlock:(void (^)(NSError *error))failedBlock;
 
+/**
+ 删除设备存储的温湿度数据
+
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)deleteBXPRecordHTDatasWithSucBlock:(void (^)(id returnData))sucBlock
+                               failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

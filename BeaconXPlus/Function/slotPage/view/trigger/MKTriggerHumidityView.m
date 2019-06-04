@@ -97,8 +97,8 @@
     [self.noteMsgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
         make.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(0);
-        make.height.mas_equalTo(30.f);
+        make.bottom.mas_equalTo(-10.f);
+        make.top.mas_equalTo(self.stopLabel.mas_bottom).mas_offset(5.f);
     }];
 }
 

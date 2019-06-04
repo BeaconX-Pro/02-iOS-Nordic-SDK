@@ -8,6 +8,7 @@
 
 #import "MKDataManager.h"
 #import "MKSlotDataTypeModel.h"
+#import "MKBLELogManager.h"
 
 NSString *const MKCentralManagerStateChangedNotification = @"MKCentralManagerStateChangedNotification";
 NSString *const MKPeripheralConnectStateChangedNotification = @"MKPeripheralConnectStateChangedNotification";
@@ -84,6 +85,9 @@ NSString *const MKPeripheralLockStateChangedNotification = @"MKPeripheralLockSta
 
 - (void)bxp_peripheralConnectStateChanged:(MKBXPConnectStatus)connectState {
     [[NSNotificationCenter defaultCenter] postNotificationName:MKPeripheralConnectStateChangedNotification object:nil];
+    if (connectState == MKBXPConnectStatusDisconnect) {
+        [MKBLELogManager deleteLog];
+    }
 }
 
 - (void)bxp_LockStateChanged:(MKBXPLockState)lockState {

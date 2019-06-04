@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const MKBXPReceiveThreeAxisAccelerometerDataNotification;
 extern NSString *const MKBXPReceiveHTDataNotification;
+extern NSString *const MKBXPReceiveRecordHTDataNotification;
 
 @class MKBXPTaskOperation;
 @interface MKBXPCentralManager : NSObject
@@ -142,6 +143,14 @@ extern NSString *const MKBXPReceiveHTDataNotification;
  @return result
  */
 - (BOOL)notifyTHData:(BOOL)notify;
+
+/**
+ 是否监听符合采样条件已储存的温湿度数据
+
+ @param notify BOOL
+ @return result
+ */
+- (BOOL)notifyRecordTHData:(BOOL)notify;
 
 @end
 

@@ -538,6 +538,15 @@
                          failureBlock:failedBlock];
 }
 
++ (void)deleteBXPRecordHTDatasWithSucBlock:(void (^)(id returnData))sucBlock
+                               failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:MKBXPDeleteRecordHTDataOperation
+                          commandData:@"ea240000"
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
 #pragma mark - private method
 + (NSString *)fetchSlotNumber:(bxpActiveSlotNo)slotNo{
     switch (slotNo) {

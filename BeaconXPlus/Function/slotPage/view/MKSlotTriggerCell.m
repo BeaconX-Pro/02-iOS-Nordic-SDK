@@ -110,7 +110,7 @@
         make.left.mas_equalTo(15.f);
         make.right.mas_equalTo(-15.f);
         make.top.mas_equalTo(self.triggerLabel.mas_bottom).mas_offset(5.f);
-        make.height.mas_equalTo(225.f);
+        make.height.mas_equalTo(230.f);
     }];
     [self.humidityView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.temperView);

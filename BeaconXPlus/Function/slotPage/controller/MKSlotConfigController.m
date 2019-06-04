@@ -644,7 +644,7 @@ static CGFloat const headerViewHeight = 130.f;
     if (!_triggerCell) {
         _triggerCell = [MKSlotTriggerCell initCellWithTableView:self.tableView];
         _triggerCell.delegate = self;
-        _triggerCell.cellHeight = 270.f;
+        _triggerCell.cellHeight = 280.f;
     }
     return _triggerCell;
 }

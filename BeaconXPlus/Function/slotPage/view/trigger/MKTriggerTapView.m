@@ -164,8 +164,8 @@
     [self.noteMsgLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
         make.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(0);
-        make.height.mas_equalTo(30.f);
+        make.top.mas_equalTo(self.stopField.mas_bottom).mas_offset(5.f);
+        make.bottom.mas_equalTo(-10.f);
     }];
 }
 

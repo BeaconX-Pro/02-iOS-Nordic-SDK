@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, managerMode) {
 
 NSString *const MKBXPReceiveThreeAxisAccelerometerDataNotification = @"MKBXPReceiveThreeAxisAccelerometerDataNotification";
 NSString *const MKBXPReceiveHTDataNotification = @"MKBXPReceiveHTDataNotification";
+NSString *const MKBXPReceiveRecordHTDataNotification = @"MKBXPReceiveRecordHTDataNotification";
 
 static MKBXPCentralManager *manager = nil;
 static dispatch_once_t onceToken;
@@ -240,6 +241,33 @@ static dispatch_once_t onceToken;
                 [[NSNotificationCenter defaultCenter] postNotificationName:MKBXPReceiveHTDataNotification
                                                                     object:nil
                                                                   userInfo:htData];
+            });
+        }
+        return;
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:recordTHUUID]]) {
+        //监听的符合采样条件已储存的温湿度数据
+        NSString *content = [MKEddystoneAdopter hexStringFromData:characteristic.value];
+        if (content.length == 20 || content.length == 40) {
+            NSMutableArray *dataList = [NSMutableArray array];
+            for (NSInteger i = 0; i < content.length / 20; i ++) {
+                NSString *subContent = [content substringWithRange:NSMakeRange(i * 20, 20)];
+                NSString *date = [MKEddystoneAdopter deviceTime:[subContent substringWithRange:NSMakeRange(0, 12)]];
+                NSInteger tempTemp = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(12, 4)];
+                NSInteger tempHui = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(16, 4)];
+                NSString *temperature = [NSString stringWithFormat:@"%.1f",(tempTemp * 0.1)];
+                NSString *humidity = [NSString stringWithFormat:@"%.1f",(tempHui * 0.1)];
+                NSDictionary *htData = @{
+                                         @"temperature":temperature,
+                                         @"humidity":humidity,
+                                         @"date":date,
+                                         };
+                [dataList addObject:htData];
+            }
+            moko_main_safe(^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:MKBXPReceiveRecordHTDataNotification
+                                                                    object:nil
+                                                                  userInfo:@{@"dataList":dataList}];
             });
         }
         return;
@@ -534,6 +562,14 @@ static dispatch_once_t onceToken;
         return NO;
     }
     [self.peripheral setNotifyValue:notify forCharacteristic:self.peripheral.temperatureHumidity];
+    return YES;
+}
+
+- (BOOL)notifyRecordTHData:(BOOL)notify {
+    if (self.connectState != MKBXPConnectStatusConnected || self.peripheral == nil || self.peripheral.recordTH == nil) {
+        return NO;
+    }
+    [self.peripheral setNotifyValue:notify forCharacteristic:self.peripheral.recordTH];
     return YES;
 }
 

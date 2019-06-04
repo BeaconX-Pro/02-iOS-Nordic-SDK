@@ -66,5 +66,6 @@ typedef NS_ENUM(NSInteger, MKCustomErrorCode){
  @return number
  */
 + (NSNumber *)signedHexTurnString:(NSString *)content;
++ (NSString *)deviceTime:(NSString *)content;
 
 @end
