@@ -328,7 +328,7 @@
     if (sen.length == 1) {
         sen = [@"0" stringByAppendingString:sen];
     }
-    NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ea210003",rate,ag,sen];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ea310003",rate,ag,sen];
     [centralManager addTaskWithTaskID:MKBXPSetThreeAxisParamsOperation
                           commandData:commandString
                        characteristic:centralManager.peripheral.iBeaconWrite
@@ -348,7 +348,7 @@
         [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
-    NSString *commandString = [@"ea250006" stringByAppendingString:hexTime];
+    NSString *commandString = [@"ea350006" stringByAppendingString:hexTime];
     [centralManager addTaskWithTaskID:MKBXPSetDeviceTimeOperation
                           commandData:commandString
                        characteristic:centralManager.peripheral.iBeaconWrite
@@ -369,6 +369,29 @@
         return;
     }
     [centralManager addTaskWithTaskID:MKBXPSetHTStorageConditionsOperation
+                          commandData:commandString
+                       characteristic:centralManager.peripheral.iBeaconWrite
+                         successBlock:sucBlock
+                         failureBlock:failedBlock];
+}
+
++ (void)setBXPHTSamplingRate:(NSInteger)rate
+                    sucBlock:(void (^)(id returnData))sucBlock
+                 failedBlock:(void (^)(NSError *error))failedBlock {
+    if (rate < 1 || rate > 65535) {
+        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *rateString = [NSString stringWithFormat:@"%1lx",(unsigned long)rate];
+    if (rateString.length == 1) {
+        rateString = [@"000" stringByAppendingString:rateString];
+    }else if (rateString.length == 2) {
+        rateString = [@"00" stringByAppendingString:rateString];
+    }else if (rateString.length == 3) {
+        rateString = [@"0" stringByAppendingString:rateString];
+    }
+    NSString *commandString = [@"ea330002" stringByAppendingString:rateString];
+    [centralManager addTaskWithTaskID:MKBXPSetHTSamplingRateOperation
                           commandData:commandString
                        characteristic:centralManager.peripheral.iBeaconWrite
                          successBlock:sucBlock
@@ -682,7 +705,7 @@
 
 + (NSString *)fetchHTStorageConditionsCommand:(id<MKBXPHTStorageConditionsProtocol>)protocol {
     if (protocol.condition == HTStorageConditionsT) {
-        NSString *temper = [NSString stringWithFormat:@"%1lx",(long)protocol.temperature];
+        NSString *temper = [NSString stringWithFormat:@"%1lx",(long)(protocol.temperature * 10)];
         if (temper.length == 1) {
             temper = [@"000" stringByAppendingString:temper];
         }else if (temper.length == 2) {
@@ -690,10 +713,10 @@
         }else if (temper.length == 3) {
             temper = [@"0" stringByAppendingString:temper];
         }
-        return [@"ea22000300" stringByAppendingString:temper];
+        return [@"ea32000300" stringByAppendingString:temper];
     }
     if (protocol.condition == HTStorageConditionsH) {
-        NSString *humi = [NSString stringWithFormat:@"%1lx",(long)protocol.humidity];
+        NSString *humi = [NSString stringWithFormat:@"%1lx",(long)(protocol.humidity * 10)];
         if (humi.length == 1) {
             humi = [@"000" stringByAppendingString:humi];
         }else if (humi.length == 2) {
@@ -701,10 +724,10 @@
         }else if (humi.length == 3) {
             humi = [@"0" stringByAppendingString:humi];
         }
-        return [@"ea22000301" stringByAppendingString:humi];
+        return [@"ea32000301" stringByAppendingString:humi];
     }
     if (protocol.condition == HTStorageConditionsTH) {
-        NSString *temper = [NSString stringWithFormat:@"%1lx",(long)protocol.temperature];
+        NSString *temper = [NSString stringWithFormat:@"%1lx",(long)(protocol.temperature * 10)];
         if (temper.length == 1) {
             temper = [@"000" stringByAppendingString:temper];
         }else if (temper.length == 2) {
@@ -712,7 +735,7 @@
         }else if (temper.length == 3) {
             temper = [@"0" stringByAppendingString:temper];
         }
-        NSString *humi = [NSString stringWithFormat:@"%1lx",(long)protocol.humidity];
+        NSString *humi = [NSString stringWithFormat:@"%1lx",(long)(protocol.humidity * 10)];
         if (humi.length == 1) {
             humi = [@"000" stringByAppendingString:humi];
         }else if (humi.length == 2) {
@@ -720,14 +743,14 @@
         }else if (humi.length == 3) {
             humi = [@"0" stringByAppendingString:humi];
         }
-        return [NSString stringWithFormat:@"%@%@%@",@"ea22000502",temper,humi];
+        return [NSString stringWithFormat:@"%@%@%@",@"ea32000502",temper,humi];
     }
     if (protocol.condition == HTStorageConditionsTime) {
         NSString *time = [NSString stringWithFormat:@"%1lx",(long)protocol.time];
         if (time.length == 1) {
             time = [@"0" stringByAppendingString:time];
-            return [@"ea22000203" stringByAppendingString:time];
         }
+        return [@"ea32000203" stringByAppendingString:time];
     }
     return @"";
 }

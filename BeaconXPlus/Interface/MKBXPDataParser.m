@@ -350,7 +350,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
                       @"gravityReference":[content substringWithRange:NSMakeRange(10, 2)],
                       @"sensitivity":[MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(12, 2)],
                       };
-    }else if ([function isEqualToString:@"21"] && content.length == 8){
+    }else if ([function isEqualToString:@"31"] && content.length == 8){
         //设置三轴传感器参数
         operationID = MKBXPSetThreeAxisParamsOperation;
         returnDic = @{};
@@ -362,14 +362,18 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         NSString *time = @"";
         if ([tempFunction isEqualToString:@"00"] && content.length == 14) {
             //温度
-            temperValue = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 4)];
+            NSInteger value = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(10, 4)];
+            temperValue = [NSString stringWithFormat:@"%.1f",value * 0.1];
         }else if ([tempFunction isEqualToString:@"01"] && content.length == 14) {
             //湿度
-            humidity = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 4)];
+            NSInteger value = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(10, 4)];
+            humidity = [NSString stringWithFormat:@"%.f",value * 0.1];
         }else if ([tempFunction isEqualToString:@"02"] && content.length == 18) {
             //温湿度
-            temperValue = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 4)];
-            humidity = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(14, 4)];
+            NSInteger value = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(10, 4)];
+            NSInteger value1 = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(14, 4)];
+            temperValue = [NSString stringWithFormat:@"%.1f",value * 0.1];
+            humidity = [NSString stringWithFormat:@"%.f",value1 * 0.1];
         }else if ([tempFunction isEqualToString:@"03"] && content.length == 12) {
             //时间
             time = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 2)];
@@ -394,7 +398,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         returnDic = @{
                       @"deviceTime":[self deviceTime:[content substringWithRange:NSMakeRange(8, 12)]],
                       };
-    }else if ([function isEqualToString:@"25"] && content.length == 8){
+    }else if ([function isEqualToString:@"35"] && content.length == 8){
         //设置设备当前时间
         operationID = MKBXPSetDeviceTimeOperation;
         
@@ -410,6 +414,14 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
     }else if ([function isEqualToString:@"39"] && content.length == 8){
         //读取触发条件
         operationID = MKBXPSetTriggerConditionsOperation;
+        returnDic = @{};
+    }else if ([function isEqualToString:@"32"] && content.length == 8){
+        //设置温湿度存储条件
+        operationID = MKBXPSetHTStorageConditionsOperation;
+        returnDic = @{};
+    }else if ([function isEqualToString:@"33"] && content.length == 8){
+        //设置温湿度采样率
+        operationID = MKBXPSetHTSamplingRateOperation;
         returnDic = @{};
     }
     return [self dataParserGetDataSuccess:returnDic operationID:operationID];
@@ -466,7 +478,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
                       @"type":type,
                       @"conditions":@{
                               @"above":@([[content substringWithRange:NSMakeRange(2, 2)] isEqualToString:@"01"]),
-                              @"temperature":[NSString stringWithFormat:@"%1f",temperature],
+                              @"temperature":[NSString stringWithFormat:@"%.1f",temperature],
                               @"start":@([[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"])
                               }
                       };
@@ -476,7 +488,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
                       @"type":type,
                       @"conditions":@{
                               @"above":@([[content substringWithRange:NSMakeRange(2, 2)] isEqualToString:@"01"]),
-                              @"humidity":[NSString stringWithFormat:@"%1f",humidity],
+                              @"humidity":[NSString stringWithFormat:@"%.1f",humidity],
                               @"start":@([[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"])
                               }
                       };

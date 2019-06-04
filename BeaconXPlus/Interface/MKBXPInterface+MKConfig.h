@@ -227,6 +227,17 @@ NS_ASSUME_NONNULL_BEGIN
                       failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
+ 设置温湿度采样率
+
+ @param rate 采样率，单位为S，即多少秒采样一次温湿度数据，1s~65535s
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)setBXPHTSamplingRate:(NSInteger)rate
+                    sucBlock:(void (^)(id returnData))sucBlock
+                 failedBlock:(void (^)(NSError *error))failedBlock;
+
+/**
  设置当前活跃通道无触发条件
 
  @param sucBlock success callback

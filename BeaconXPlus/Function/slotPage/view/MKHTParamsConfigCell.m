@@ -77,6 +77,25 @@ static CGFloat const pickViewRowHeight = 30.f;
     [self setupUI];
 }
 
+/**
+ 获取当前cell上面的信息。先查状态位@"code",当@"code":@"1"的时候说明数据都有，可以进行设置，
+ 当@"code":@"2"的时候，表明某些必填项没有设置，报错
+ 
+ @return dic
+ */
+- (NSDictionary *)getContentData{
+    return @{
+             @"code":@"1",
+             @"result":@{
+                     @"type":@"HTStorage",
+                     @"functionType":@(self.index),
+                     @"temperature":SafeStr(self.temperValueLabel.text),
+                     @"humidity":SafeStr(self.humiValueLabel.text),
+                     @"storageTime":SafeStr(self.timeTextField.text)
+                     },
+             };
+}
+
 #pragma mark - UIPickerViewDelegate
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
@@ -188,6 +207,19 @@ static CGFloat const pickViewRowHeight = 30.f;
 }
 
 #pragma mark - private method
+/**
+ 生成错误的dic
+ 
+ @param errorMsg 错误内容
+ @return dic
+ */
+- (NSDictionary *)errorDic:(NSString *)errorMsg{
+    return @{
+             @"code":@"2",
+             @"msg":SafeStr(errorMsg),
+             };
+}
+
 - (NSArray *)fetchTemperDataList {
     NSMutableArray *dataList = [NSMutableArray array];
     for (NSInteger i = 0; i <= 200; i ++) {

@@ -34,6 +34,32 @@
 
 @end
 
+@interface MKHTStorageConditionsModel : NSObject<MKBXPHTStorageConditionsProtocol>
+
+@property (nonatomic, assign)HTStorageConditions condition;
+
+/**
+ HTStorageConditions != HTStorageConditionsTime,当前值会被缩小10倍之后设置给设备,0~1000
+ */
+@property (nonatomic, assign)NSInteger temperature;
+
+/**
+ HTStorageConditions != HTStorageConditionsTime,0~100
+ */
+@property (nonatomic, assign)NSInteger humidity;
+
+/**
+ 
+ HTStorageConditions == HTStorageConditionsTime, 情况下，范围值为1~255,
+ */
+@property (nonatomic, assign)NSInteger time;
+
+@end
+
+@implementation MKHTStorageConditionsModel
+
+@end
+
 @interface MKHTConfigController ()<UITableViewDelegate, UITableViewDataSource, MKHTDateTimeCellDelegate>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
@@ -198,19 +224,46 @@
 }
 
 - (void)configParams {
+    MKHTDataCell *htCell = self.dataList[0];
+    if (![htCell isKindOfClass:NSClassFromString(@"MKHTDataCell")]) {
+        return;
+    }
+    NSString *samplingRate = [htCell.textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (!ValidStr(samplingRate)) {
+        [self.view showCentralToast:@"Sampling rate error"];
+        return;
+    }
     MKSlotBaseCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-    if (cell == nil || ![cell isKindOfClass:NSClassFromString(@"MKAxisParametersCell")]) {
+    if (cell == nil || ![cell isKindOfClass:NSClassFromString(@"MKHTParamsConfigCell")]) {
         return;
     }
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
     NSDictionary *dic = [cell getContentData];
-    [MKBXPInterface setBXPThreeAxisDataParams:[dic[@"result"][@"dataRate"] integerValue] acceleration:[dic[@"result"][@"scale"] integerValue] sensitivity:[dic[@"result"][@"sensitivity"] integerValue] sucBlock:^(id  _Nonnull returnData) {
-        [[MKHudManager share] hide];
-        [self.view showCentralToast:@"success"];
-    } failedBlock:^(NSError * _Nonnull error) {
-        [[MKHudManager share] hide];
-        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-    }];
+    MKHTStorageConditionsModel *conditionsModel = [[MKHTStorageConditionsModel alloc] init];
+    conditionsModel.condition = [dic[@"result"][@"functionType"] integerValue];
+    conditionsModel.temperature = [dic[@"result"][@"temperature"] integerValue];
+    conditionsModel.humidity = [dic[@"result"][@"humidity"] integerValue];
+    conditionsModel.time = [dic[@"result"][@"storageTime"] integerValue];
+    dispatch_async(self.configQueue, ^{
+        if (![self configBXPHTSamplingRate:[samplingRate integerValue]]) {
+            moko_dispatch_main_safe(^{
+                [[MKHudManager share] hide];
+                [self.view showCentralToast:@"Config sampling rate error"];
+            });
+            return ;
+        }
+        if (![self configHTStorageConditions:conditionsModel]) {
+            moko_dispatch_main_safe(^{
+                [[MKHudManager share] hide];
+                [self.view showCentralToast:@"Config error"];
+            });
+            return ;
+        }
+        moko_dispatch_main_safe(^{
+            [[MKHudManager share] hide];
+            [self.view showCentralToast:@"Config success"];
+        });
+    });
 }
 
 - (NSString *)readSamplingRate {
@@ -268,6 +321,30 @@
     dateModel.minutes = [dateList[4] integerValue];
     dateModel.seconds = [dateList[5] integerValue];
     [MKBXPInterface setBXPDeviceTime:dateModel sucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configHTStorageConditions:(MKHTStorageConditionsModel *)model {
+    __block BOOL success = NO;
+    [MKBXPInterface setBXPHTStorageConditions:model sucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configBXPHTSamplingRate:(NSInteger)rate {
+    __block BOOL success = NO;
+    [MKBXPInterface setBXPHTSamplingRate:rate sucBlock:^(id  _Nonnull returnData) {
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

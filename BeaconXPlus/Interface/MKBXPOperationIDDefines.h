@@ -36,6 +36,7 @@ typedef NS_ENUM(NSInteger, MKBXPOperationID) {
     MKBXPReadThreeAxisParamsOperation,          //读取三轴传感器参数
     MKBXPSetThreeAxisParamsOperation,           //设置三轴传感器参数
     MKBXPReadHTSamplingRateOperation,           //读取温湿度采样率
+    MKBXPSetHTSamplingRateOperation,           //设置温湿度采样率
     MKBXPReadHTStorageConditionsOperation,      //读取温湿度存储条件
     MKBXPSetHTStorageConditionsOperation,       //设置温湿度存储条件
     MKBXPReadDeviceTimeOperation,               //读取设备当前时间
