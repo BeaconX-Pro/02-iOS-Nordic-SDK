@@ -158,7 +158,6 @@
             //Device moves
             return [self fetchTriggerTapViewData:self.movesView];
         }
-        return [self errorDic:@"params error"];
     }
     if ([[MKDataManager shared].deviceType isEqualToString:@"02"] || [[MKDataManager shared].deviceType isEqualToString:@"03"]) {
         //带SHT3X温湿度传感器或者同时带有LIS3DH及SHT3X传感器
@@ -172,7 +171,6 @@
             //6.Humidity below
             return [self fetchHumidityViewData];
         }
-        return [self errorDic:@"params error"];
     }
     
     if ([[MKDataManager shared].deviceType isEqualToString:@"03"]) {
@@ -181,7 +179,6 @@
             //Device moves
             return [self fetchTriggerTapViewData:self.movesView];
         }
-        return [self errorDic:@"params error"];
     }
     return [self errorDic:@"params error"];
 }
