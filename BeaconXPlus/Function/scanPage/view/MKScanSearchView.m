@@ -214,8 +214,8 @@ static CGFloat const signalIconHeight = 15.f;
                                                              kScreenWidth - postion_X - 3 * offset_X - 5.f - 55.f,
                                                              signalIconHeight)];
         [_slider setMaximumValue:0];
-        [_slider setMinimumValue:-127];
-        [_slider setValue:-127];
+        [_slider setMinimumValue:-100];
+        [_slider setValue:-100];
         [_slider addTarget:self action:@selector(rssiValueChanged) forControlEvents:UIControlEventValueChanged];
     }
     return _slider;
@@ -230,7 +230,7 @@ static CGFloat const signalIconHeight = 15.f;
         _rssiValueLabel.textColor = DEFAULT_TEXT_COLOR;
         _rssiValueLabel.textAlignment = NSTextAlignmentLeft;
         _rssiValueLabel.font = MKFont(12.f);
-        _rssiValueLabel.text = @"-127dBm";
+        _rssiValueLabel.text = @"-100dBm";
     }
     return _rssiValueLabel;
 }

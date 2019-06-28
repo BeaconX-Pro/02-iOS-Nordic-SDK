@@ -38,11 +38,6 @@ NSString *const MKBXPDataStatusLev = @"MKBXPDataStatusLev";
 @property (nonatomic, assign)NSInteger respondNumber;
 
 /**
- 是否结束当前线程的标志
- */
-@property (nonatomic, assign)BOOL complete;
-
-/**
  线程结束时候的回调
  */
 @property (nonatomic, copy)void (^completeBlock)(NSError *error, MKBXPOperationID operationID, id returnData);
@@ -171,21 +166,17 @@ NSString *const MKBXPDataStatusLev = @"MKBXPDataStatusLev";
         });
         //如果需要从外设拿总条数，则在拿到总条数之后，开启接受超时定时器
         dispatch_resume(self.numTaskTimer);
-        do {
-            [[NSRunLoop currentRunLoop] runMode:NSRunLoopCommonModes beforeDate:[NSDate distantFuture]];
-        }while (NO == _complete);
         return;
     }
     //如果不需要重新获取条数，直接开启接受超时
-    [self startReceiveTimer:YES];
+    [self startReceiveTimer];
 }
 
 /**
  如果需要从外设拿总条数，则在拿到总条数之后，开启接受超时定时器，开启定时器的时候已经设置了当前线程的生命周期，所以不需要重新beforeDate了。如果是直接开启的接收超时定时器，这个时候需要控制当前线程的生命周期
  
- @param setRunloopLifeCircle YES:需要设置当前线程的生命周期,NO:不需要设置
  */
-- (void)startReceiveTimer:(BOOL)setRunloopLifeCircle{
+- (void)startReceiveTimer{
     __weak __typeof(&*self)weakSelf = self;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     self.receiveTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
@@ -205,12 +196,6 @@ NSString *const MKBXPDataStatusLev = @"MKBXPDataStatusLev";
     }
     //如果需要从外设拿总条数，则在拿到总条数之后，开启接受超时定时器
     dispatch_resume(self.receiveTimer);
-    if (!setRunloopLifeCircle) {
-        return;
-    }
-    do {
-        [[NSRunLoop currentRunLoop] runMode:NSRunLoopCommonModes beforeDate:[NSDate distantFuture]];
-    }while (NO == _complete);
 }
 
 - (void)finishOperation{
@@ -220,7 +205,6 @@ NSString *const MKBXPDataStatusLev = @"MKBXPDataStatusLev";
     [self willChangeValueForKey:@"isFinished"];
     _finished = YES;
     [self didChangeValueForKey:@"isFinished"];
-    self.complete = YES;
 }
 
 - (void)communicationTimeout{
@@ -320,7 +304,7 @@ NSString *const MKBXPDataStatusLev = @"MKBXPDataStatusLev";
             dispatch_cancel(self.numTaskTimer);
         }
         //开启接受超时定时器
-        [self startReceiveTimer:NO];
+        [self startReceiveTimer];
         return;
     }
     if (self.needResetNum && !self.hasReceive) {

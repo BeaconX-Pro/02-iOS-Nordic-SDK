@@ -348,7 +348,10 @@ static CGFloat const threeSensorCellHeight = 110.f;
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
         //如果是设备信息帧
         MKBXPDeviceInfoBeacon *tempBeacon = (MKBXPDeviceInfoBeacon *)beacon;
-        if ([tempBeacon.deviceName containsString:self.sortModel.searchName] || [tempBeacon.macAddress containsString:self.sortModel.searchName]) {
+        if ([tempBeacon.deviceName containsString:[self.sortModel.searchName uppercaseString]]
+            || [tempBeacon.deviceName containsString:[self.sortModel.searchName lowercaseString]]
+            || [tempBeacon.macAddress containsString:[self.sortModel.searchName uppercaseString]]
+            || [tempBeacon.macAddress containsString:[self.sortModel.searchName lowercaseString]]) {
             //如果mac地址和设备名称包含搜索条件，则加入
             [self processBeacon:beacon];
         }
@@ -398,6 +401,8 @@ static CGFloat const threeSensorCellHeight = 110.f;
     newModel.identifier = beacon.peripheral.identifier.UUIDString;
     newModel.rssi = beacon.rssi;
     newModel.deviceName = (ValidStr(beacon.deviceName) ? beacon.deviceName : @"");
+    newModel.displayTime = @"N/A";
+    newModel.lastScanDate = kSystemTimeStamp;
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
         //如果是设备信息帧
         newModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
@@ -427,6 +432,10 @@ static CGFloat const threeSensorCellHeight = 110.f;
 - (void)beaconExistDataSource:(MKScanBeaconModel *)exsitModel beacon:(MKBXPBaseBeacon *)beacon{
     if (ValidStr(beacon.deviceName)) {
         exsitModel.deviceName = beacon.deviceName;
+    }
+    if (ValidStr(exsitModel.lastScanDate)) {
+        exsitModel.displayTime = [NSString stringWithFormat:@"%@%ld%@",@"<->",(long)([kSystemTimeStamp integerValue] - [exsitModel.lastScanDate integerValue]) * 1000,@"ms"];
+        exsitModel.lastScanDate = kSystemTimeStamp;
     }
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
         //设备信息帧
@@ -746,7 +755,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
     [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(offset_X);
         make.right.mas_equalTo(-offset_X);
-        make.top.mas_equalTo(0);
+        make.top.mas_equalTo(defaultTopInset);
         make.height.mas_equalTo(searchButtonHeight + 2 * offset_X);
     }];
     [self.view addSubview:self.tableView];

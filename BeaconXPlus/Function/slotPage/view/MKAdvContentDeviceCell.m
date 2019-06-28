@@ -71,6 +71,15 @@
              };
 }
 
+#pragma mark - event method
+- (void)deviceNameChangedMethod {
+    NSString *deviceName = self.textField.text;
+    if (deviceName.length > 20) {
+        deviceName = [deviceName substringWithRange:NSMakeRange(0, 20)];
+    }
+    self.textField.text = deviceName;
+}
+
 #pragma mark -
 - (void)setDataDic:(NSDictionary *)dataDic {
     _dataDic = nil;
@@ -86,19 +95,6 @@
 }
 
 #pragma mark - private method
-- (UITextField *)createNewTextFieldWithRules:(mk_CustomTextFieldType)rules{
-    UITextField *textField = [[UITextField alloc] initWithTextFieldType:rules];
-    textField.textColor = DEFAULT_TEXT_COLOR;
-    textField.textAlignment = NSTextAlignmentLeft;
-    textField.font = MKFont(15.f);
-    
-    textField.layer.masksToBounds = YES;
-    textField.layer.borderWidth = 0.5f;
-    textField.layer.borderColor = CUTTING_LINE_COLOR.CGColor;
-    textField.layer.cornerRadius = 3.f;
-    
-    return textField;
-}
 
 /**
  生成错误的dic
@@ -127,7 +123,19 @@
 
 - (UITextField *)textField {
     if (!_textField) {
-        _textField = [self createNewTextFieldWithRules:normalInput];
+        _textField = [[UITextField alloc] init];
+        _textField.textColor = DEFAULT_TEXT_COLOR;
+        _textField.textAlignment = NSTextAlignmentLeft;
+        _textField.font = MKFont(15.f);
+        _textField.keyboardType = UIKeyboardTypeASCIICapable;
+        [_textField addTarget:self
+                       action:@selector(deviceNameChangedMethod)
+             forControlEvents:UIControlEventEditingChanged];
+        
+        _textField.layer.masksToBounds = YES;
+        _textField.layer.borderWidth = 0.5f;
+        _textField.layer.borderColor = CUTTING_LINE_COLOR.CGColor;
+        _textField.layer.cornerRadius = 3.f;
         _textField.placeholder = @"No more than 20 characters";
     }
     return _textField;

@@ -42,6 +42,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:MKBXPReceiveRecordHTDataNotification
                                                   object:nil];
+    [[MKBXPCentralManager shared] notifyRecordTHData:NO];
 }
 
 - (void)viewDidLoad {
@@ -91,7 +92,7 @@
 }
 
 - (void)deleteButtonPressed {
-    NSString *msg = @"Are you sure to empty the saved H&T datas？";
+    NSString *msg = @"Are you sure to empty the saved T&H datas？";
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning!"
                                                                              message:msg
                                                                       preferredStyle:UIAlertControllerStyleAlert];
@@ -182,7 +183,7 @@
 }
 
 - (void)loadSubViews {
-    self.defaultTitle = @"Export H&T Data";
+    self.defaultTitle = @"Export T&H Data";
     self.titleLabel.textColor = COLOR_WHITE_MACROS;
     self.custom_naviBarColor = UIColorFromRGB(0x2F84D0);
     [self.view setBackgroundColor:RGBCOLOR(242, 242, 242)];

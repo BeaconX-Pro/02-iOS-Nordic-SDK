@@ -10,14 +10,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol MKFrameTypeViewDelegate <NSObject>
+
+- (void)frameTypeChangedMethod:(slotFrameType)frameType;
+
+@end
+
 @interface MKFrameTypeView : UIView
 
-@property (nonatomic, copy)void (^frameTypeChangedBlock)(slotFrameType frameType);
+@property (nonatomic, weak)id <MKFrameTypeViewDelegate>delegate;
 
-/**
- 当前选中的行数
- */
-@property (nonatomic, assign)NSInteger index;
+- (void)updateFrameType:(slotFrameType)frameType;
 
 @end
 

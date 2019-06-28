@@ -45,7 +45,8 @@ static CGFloat const aboutIconHeight = 110.f;
 #pragma mark - ui
 - (void)loadSubViews {
     self.custom_naviBarColor = UIColorFromRGB(0x2F84D0);
-    self.defaultTitle = @"About";
+    self.titleLabel.textColor = COLOR_WHITE_MACROS;
+    self.defaultTitle = @"ABOUT";
     [self.rightButton setHidden:YES];
     [self.view addSubview:self.aboutIcon];
     [self.view addSubview:self.appNameLabel];
@@ -93,7 +94,7 @@ static CGFloat const aboutIconHeight = 110.f;
         _appNameLabel.textColor = RGBCOLOR(5, 47, 115);
         _appNameLabel.textAlignment = NSTextAlignmentCenter;
         _appNameLabel.font = MKFont(20.f);
-        _appNameLabel.text = [[NSBundle mainBundle].localizedInfoDictionary objectForKey:@"CFBundleDisplayName"];
+        _appNameLabel.text = @"BeaconX Plus";
     }
     return _appNameLabel;
 }

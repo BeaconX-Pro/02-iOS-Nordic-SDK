@@ -381,7 +381,7 @@
 }
 
 - (void)loadSubViews {
-    self.defaultTitle = @"H&T";
+    self.defaultTitle = @"T&H";
     self.titleLabel.textColor = COLOR_WHITE_MACROS;
     self.custom_naviBarColor = UIColorFromRGB(0x2F84D0);
     [self.view setBackgroundColor:RGBCOLOR(242, 242, 242)];

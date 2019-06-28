@@ -29,7 +29,7 @@
 static CGFloat const offset_X = 15.f;
 static CGFloat const headerViewHeight = 130.f;
 
-@interface MKSlotConfigController ()<UITableViewDelegate, UITableViewDataSource ,MKBaseParamsCellDelegate, MKSlotTriggerCellDelegate>
+@interface MKSlotConfigController ()<UITableViewDelegate, UITableViewDataSource ,MKBaseParamsCellDelegate, MKSlotTriggerCellDelegate, MKFrameTypeViewDelegate>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
 
@@ -173,6 +173,12 @@ static CGFloat const headerViewHeight = 130.f;
     [self.tableView reloadRow:0 inSection:(self.dataList.count - 1) withRowAnimation:UITableViewRowAnimationNone];
 }
 
+#pragma mark - MKFrameTypeViewDelegate
+- (void)frameTypeChangedMethod:(slotFrameType)frameType {
+    self.frameType = frameType;
+    [self reloadTableViewData];
+}
+
 #pragma mark - note method
 - (void)peripheralConnectStateChanged{
     if ([MKBXPCentralManager shared].connectState != MKBXPConnectStatusConnected
@@ -195,7 +201,7 @@ static CGFloat const headerViewHeight = 130.f;
         [[MKHudManager share] hide];
         weakSelf.originalDic = [NSMutableDictionary dictionaryWithDictionary:returnData];
         weakSelf.frameType = [weakSelf loadFrameType:returnData[@"advData"][@"frameType"]];
-        weakSelf.tableHeader.index = [weakSelf getHeaderViewSelectedRow];
+        [weakSelf.tableHeader updateFrameType:weakSelf.frameType];
         weakSelf.triggerIsOn = [returnData[@"triggerConditions"][@"trigger"] boolValue];
         [weakSelf reloadTableViewData];
     } failedBlock:^(NSError *error) {
@@ -453,41 +459,6 @@ static CGFloat const headerViewHeight = 130.f;
 }
 
 /**
- 根据通道数据类型返回列表header选中row
- 
- @return 选中row
- */
-- (NSInteger)getHeaderViewSelectedRow{
-    switch (self.frameType) {
-            
-        case slotFrameTypeTLM:
-            return 0;
-            
-        case slotFrameTypeUID:
-            return 1;
-            
-        case slotFrameTypeURL:
-            return 2;
-            
-        case slotFrameTypeiBeacon:
-            return 3;
-            
-        case slotFrameTypeInfo:
-            return 4;
-        case slotFrameTypeTHSensor:
-            return 5;
-        case slotFrameTypeThreeASensor:
-            return 6;
-        case slotFrameTypeNull:
-            return 7;
-            
-        default:
-            break;
-    }
-    return 9;
-}
-
-/**
  设置详情数据
  */
 - (void)saveDetailDatasToEddStone{
@@ -568,12 +539,7 @@ static CGFloat const headerViewHeight = 130.f;
                                                                          0,
                                                                          kScreenWidth - 2 * offset_X,
                                                                          headerViewHeight)];
-        WS(weakSelf);
-        _tableHeader.frameTypeChangedBlock = ^(slotFrameType frameType) {
-            weakSelf.frameType = frameType;
-            [weakSelf reloadTableViewData];
-        };
-        _tableHeader.index = [self getHeaderViewSelectedRow];
+        _tableHeader.delegate = self;
     }
     return _tableHeader;
 }

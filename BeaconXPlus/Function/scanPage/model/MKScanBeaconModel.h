@@ -39,6 +39,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy)NSString *deviceName;
 
+@property (nonatomic, copy)NSString *displayTime;
+
+/**
+ 上一次扫描到的时间
+ */
+@property (nonatomic, copy)NSString *lastScanDate;
+
 @end
 
 NS_ASSUME_NONNULL_END

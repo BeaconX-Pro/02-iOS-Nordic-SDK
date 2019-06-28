@@ -373,7 +373,7 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
 }
 
 - (void)directedConnectable:(BOOL)isOn{
-    NSString *msg = (isOn ? @"Are you sure to make the device Dirceted-Connectable?" : @"Are you sure to make the device Undirceted-Connectable?");
+    NSString *msg = (isOn ? @"Are you sure to remove the password?" : @"Are you sure to revert the password?");
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@""
                                                                              message:msg
                                                                       preferredStyle:UIAlertControllerStyleAlert];

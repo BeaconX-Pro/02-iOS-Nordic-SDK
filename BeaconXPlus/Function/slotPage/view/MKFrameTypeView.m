@@ -16,6 +16,17 @@ static CGFloat const leftIconHeight = 22.f;
 static CGFloat const typeLabelWidth = 100.f;
 static CGFloat const offset_X = 15.f;
 
+@interface MKFrameTypeViewModel : NSObject
+
+@property (nonatomic, copy)NSString *typeName;
+
+@property (nonatomic, assign)slotFrameType frameType;
+
+@end
+
+@implementation MKFrameTypeViewModel
+@end
+
 @interface MKFrameTypeView()<UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (nonatomic, strong)UIImageView *backView;
@@ -27,6 +38,8 @@ static CGFloat const offset_X = 15.f;
 @property (nonatomic, strong)UIPickerView *pickerView;
 
 @property (nonatomic, strong)NSMutableArray *dataList;
+
+@property (nonatomic, assign)slotFrameType frameType;
 
 @end
 
@@ -96,13 +109,13 @@ static CGFloat const offset_X = 15.f;
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.font = MKFont(12.f);
     }
-    
-    if(row == self.index){
+    MKFrameTypeViewModel *model = self.dataList[row];
+    if(model.frameType == self.frameType){
         /*选中后的row的字体颜色*/
         /*重写- (nullable NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component NS_AVAILABLE_IOS(6_0) __TVOS_PROHIBITED; 方法加载 attributedText*/
         
         titleLabel.attributedText
-        = [self pickerView:pickerView attributedTitleForRow:self.index forComponent:component];
+        = [self pickerView:pickerView attributedTitleForRow:row forComponent:component];
         
     }else{
         
@@ -112,65 +125,98 @@ static CGFloat const offset_X = 15.f;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return self.dataList[row];
+    MKFrameTypeViewModel *model = self.dataList[row];
+    return model.typeName;
 }
 
 - (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    NSString *title = self.dataList[row];
-    NSAttributedString *attString = [MKAttributedString getAttributedString:@[title]
+    MKFrameTypeViewModel *model = self.dataList[row];
+    NSAttributedString *attString = [MKAttributedString getAttributedString:@[model.typeName]
                                                                       fonts:@[MKFont(13.f)]
                                                                      colors:@[UIColorFromRGB(0x2F84D0)]];
     return attString;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    self.index = row;
+    MKFrameTypeViewModel *model = self.dataList[row];
+    self.frameType = model.frameType;
     [self.pickerView reloadAllComponents];
-    if (self.frameTypeChangedBlock) {
-        self.frameTypeChangedBlock([self getFrameType]);
+    if ([self.delegate respondsToSelector:@selector(frameTypeChangedMethod:)]) {
+        [self.delegate frameTypeChangedMethod:model.frameType];
     }
 }
 
 #pragma mark - Private method
 
-- (slotFrameType )getFrameType{
-    //@"TLM",@"UID",@"URL",@"iBeacon",@"Device Info",@"T&H",@"3-Axis",@"NO DATA"
-    switch (self.index) {
-        case 0:
-            return slotFrameTypeTLM;
-            
-        case 1:
-            return slotFrameTypeUID;
-            
-        case 2:
-            return slotFrameTypeURL;
-            
-        case 3:
-            return slotFrameTypeiBeacon;
-            
-        case 4:
-            return slotFrameTypeInfo;
-            
-        case 5:
-            return slotFrameTypeTHSensor;
-        case 6:
-            return slotFrameTypeThreeASensor;
-        case 7:
-            return slotFrameTypeNull;
-        default:
-            return 9;
+- (void)reloadDataList {
+    [self.dataList removeAllObjects];
+    [self.dataList addObjectsFromArray:[self fetchTypeList]];
+    [self.pickerView reloadAllComponents];
+}
+
+- (NSArray *)fetchTypeList {
+    MKFrameTypeViewModel *tlmModel = [[MKFrameTypeViewModel alloc] init];
+    tlmModel.typeName = @"TLM";
+    tlmModel.frameType = slotFrameTypeTLM;
+    
+    MKFrameTypeViewModel *uidModel = [[MKFrameTypeViewModel alloc] init];
+    uidModel.typeName = @"UID";
+    uidModel.frameType = slotFrameTypeUID;
+    
+    MKFrameTypeViewModel *urlModel = [[MKFrameTypeViewModel alloc] init];
+    urlModel.typeName = @"URL";
+    urlModel.frameType = slotFrameTypeURL;
+    
+    MKFrameTypeViewModel *iBeaconModel = [[MKFrameTypeViewModel alloc] init];
+    iBeaconModel.typeName = @"iBeacon";
+    iBeaconModel.frameType = slotFrameTypeiBeacon;
+    
+    MKFrameTypeViewModel *deviceInfoModel = [[MKFrameTypeViewModel alloc] init];
+    deviceInfoModel.typeName = @"Device Info";
+    deviceInfoModel.frameType = slotFrameTypeInfo;
+    
+    MKFrameTypeViewModel *noDataModel = [[MKFrameTypeViewModel alloc] init];
+    noDataModel.typeName = @"NO DATA";
+    noDataModel.frameType = slotFrameTypeNull;
+    
+    MKFrameTypeViewModel *axisModel = [[MKFrameTypeViewModel alloc] init];
+    axisModel.typeName = @"3-axis";
+    axisModel.frameType = slotFrameTypeThreeASensor;
+    
+    MKFrameTypeViewModel *thModel = [[MKFrameTypeViewModel alloc] init];
+    thModel.typeName = @"T&H";
+    thModel.frameType = slotFrameTypeTHSensor;
+    
+    if ([[MKDataManager shared].deviceType isEqualToString:@"01"]) {
+        //带LIS3DH3轴加速度计
+        return @[tlmModel,uidModel,urlModel,iBeaconModel,deviceInfoModel,axisModel,noDataModel];
     }
+    if ([[MKDataManager shared].deviceType isEqualToString:@"02"]) {
+        //带SHT3X温湿度传感器
+        return @[tlmModel,uidModel,urlModel,iBeaconModel,deviceInfoModel,thModel,noDataModel];
+    }
+    if ([[MKDataManager shared].deviceType isEqualToString:@"03"]) {
+        //同时带有LIS3DH及SHT3X传感器
+        return @[tlmModel,uidModel,urlModel,iBeaconModel,deviceInfoModel,thModel,axisModel,noDataModel];
+    }
+    //不带传感器
+    return @[tlmModel,uidModel,urlModel,iBeaconModel,deviceInfoModel,noDataModel];
 }
 
 #pragma mark - Public method
 
-- (void)setIndex:(NSInteger)index{
-    _index = index;
-    if (index > 7) {
-        //一共只有8行
-        return;
+- (void)updateFrameType:(slotFrameType)frameType {
+    [self reloadDataList];
+    self.frameType = frameType;
+    NSInteger selectedRow = 0;
+    for (NSInteger i = 0; i < self.dataList.count; i ++) {
+        MKFrameTypeViewModel *model = self.dataList[i];
+        if (model.frameType == frameType) {
+            selectedRow = i;
+            break;
+        }
     }
-    [self.pickerView selectRow:index inComponent:0 animated:YES];
+    [self.pickerView selectRow:selectedRow inComponent:0 animated:YES];
 }
 
 #pragma mark - setter & getter
@@ -221,7 +267,7 @@ static CGFloat const offset_X = 15.f;
 
 - (NSMutableArray *)dataList{
     if (!_dataList) {
-        _dataList = [NSMutableArray arrayWithObjects:@"TLM",@"UID",@"URL",@"iBeacon",@"Device Info",@"T&H",@"3-Axis",@"NO DATA", nil];
+        _dataList = [NSMutableArray array];
     }
     return _dataList;
 }

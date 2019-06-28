@@ -339,37 +339,50 @@
     if ([self.dataDic[@"type"] isEqualToString:@"00"]) {
         return;
     }
-    if ([self.dataDic[@"type"] isEqualToString:@"01"] && ValidDict(self.dataDic[@"conditions"])) {
-        //温度
-        NSDictionary *conditions = self.dataDic[@"conditions"];
-        if ([conditions[@"above"] boolValue]) {
-            //@[@"Button double tap",@"Button triple tap",@"Temperature above",@"Temperature below",@"Humidity above",@"Humidity below",@"Device moves"];
-            self.index = 2;
-        }else {
-            self.index = 3;
-        }
-    }
-    if ([self.dataDic[@"type"] isEqualToString:@"02"] && ValidDict(self.dataDic[@"conditions"])) {
-        //温度
-        NSDictionary *conditions = self.dataDic[@"conditions"];
-        if ([conditions[@"above"] boolValue]) {
-            //@[@"Button double tap",@"Button triple tap",@"Temperature above",@"Temperature below",@"Humidity above",@"Humidity below",@"Device moves"];
-            self.index = 4;
-        }else {
-            self.index = 5;
-        }
-    }
     if ([self.dataDic[@"type"] isEqualToString:@"03"] && ValidDict(self.dataDic[@"conditions"])) {
         //双击
         self.index = 0;
+        return;
     }
     if ([self.dataDic[@"type"] isEqualToString:@"04"] && ValidDict(self.dataDic[@"conditions"])) {
         //三击
         self.index = 1;
+        return;
     }
-    if ([self.dataDic[@"type"] isEqualToString:@"05"] && ValidDict(self.dataDic[@"conditions"])) {
-        //移动
-        self.index = 6;
+    if ([[MKDataManager shared].deviceType isEqualToString:@"01"]) {
+        //带LIS3DH3轴加速度计,@"Button double tap",@"Button triple tap",@"Device moves"
+        if ([self.dataDic[@"type"] isEqualToString:@"05"] && ValidDict(self.dataDic[@"conditions"])) {
+            //移动
+            self.index = 2;
+            return;
+        }
+        return;
+    }
+    if ([[MKDataManager shared].deviceType isEqualToString:@"02"] || [[MKDataManager shared].deviceType isEqualToString:@"03"]) {
+        //带SHT3X温湿度传感器,@"Button double tap",@"Button triple tap",@"Temperature above",@"Temperature below",@"Humidity above",@"Humidity below"
+        if ([self.dataDic[@"type"] isEqualToString:@"01"] && ValidDict(self.dataDic[@"conditions"])) {
+            //温度
+            NSDictionary *conditions = self.dataDic[@"conditions"];
+            if ([conditions[@"above"] boolValue]) {
+                self.index = 2;
+            }else {
+                self.index = 3;
+            }
+        }
+        if ([self.dataDic[@"type"] isEqualToString:@"02"] && ValidDict(self.dataDic[@"conditions"])) {
+            //温度
+            NSDictionary *conditions = self.dataDic[@"conditions"];
+            if ([conditions[@"above"] boolValue]) {
+                self.index = 4;
+            }else {
+                self.index = 5;
+            }
+        }
+        if ([self.dataDic[@"type"] isEqualToString:@"05"] && ValidDict(self.dataDic[@"conditions"]) && [[MKDataManager shared].deviceType isEqualToString:@"03"]) {
+            //移动
+            self.index = 6;
+        }
+        return;
     }
 }
 

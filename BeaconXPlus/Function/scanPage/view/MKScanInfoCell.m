@@ -164,9 +164,9 @@ static CGFloat const batteryIconHeight = 25.f;
     }];
     [self.txPowerValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.txPowerLabel.mas_right);
-        make.width.mas_equalTo(40.f);
+        make.width.mas_equalTo(45.f);
         make.centerY.mas_equalTo(self.txPowerLabel.mas_centerY);
-        make.height.mas_equalTo(MKFont(13.f).lineHeight);
+        make.height.mas_equalTo(MKFont(12.f).lineHeight);
     }];
     [self.lockLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.txPowerValueLabel.mas_right).mas_offset(20.f);
@@ -188,9 +188,9 @@ static CGFloat const batteryIconHeight = 25.f;
     }];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-15.f);
-        make.width.mas_equalTo(50.f);
+        make.width.mas_equalTo(70.f);
         make.top.mas_equalTo(self.connectEnableLabel.mas_bottom).mas_offset(2.f);
-        make.height.mas_equalTo(MKFont(13.f).lineHeight);
+        make.height.mas_equalTo(MKFont(10.f).lineHeight);
     }];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
@@ -228,6 +228,7 @@ static CGFloat const batteryIconHeight = 25.f;
     self.timeLabel.text = @"";
     self.lockLabel.text = @"";
     self.lockStateLabel.text = @"";
+    self.timeLabel.text = beacon.displayTime;
     if (!_beacon || !_beacon.infoBeacon) {
         //如果数据不存在，可能是尚未扫描到该项设备，全部都显示N/A
         [self.rssiLabel setText:[NSString stringWithFormat:@"%ld",(long)[_beacon.rssi integerValue]]];
@@ -270,8 +271,7 @@ static CGFloat const batteryIconHeight = 25.f;
     [self.connectEnableLabel setHidden:NO];
     self.connectEnableLabel.text = (_beacon.infoBeacon.connectEnable ? @"CON" : @"UNCON");
     self.txPowerLabel.text = @"Tx Power";
-    self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld",(long)[_beacon.infoBeacon.rssi0M integerValue]];
-    self.timeLabel.text = @"1000ms";
+    self.txPowerValueLabel.text = [NSString stringWithFormat:@"%lddBm",(long)[_beacon.infoBeacon.rssi0M integerValue]];
     self.lockLabel.text = @"Lock State";
     self.lockStateLabel.text = [NSString stringWithFormat:@"0x%@",_beacon.infoBeacon.lockState];
 }
@@ -355,7 +355,7 @@ static CGFloat const batteryIconHeight = 25.f;
 
 - (UILabel *)txPowerValueLabel {
     if (!_txPowerValueLabel) {
-        _txPowerValueLabel = [self createLabelWithFont:MKFont(13.f)];
+        _txPowerValueLabel = [self createLabelWithFont:MKFont(12.f)];
     }
     return _txPowerValueLabel;
 }
@@ -377,7 +377,8 @@ static CGFloat const batteryIconHeight = 25.f;
 
 - (UILabel *)timeLabel {
     if (!_timeLabel) {
-        _timeLabel = [self createLabelWithFont:MKFont(13.f)];
+        _timeLabel = [self createLabelWithFont:MKFont(10.f)];
+        _timeLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _timeLabel;
 }

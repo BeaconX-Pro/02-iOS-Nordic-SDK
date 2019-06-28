@@ -142,8 +142,8 @@ static CGFloat const rightIconHeight = 14.f;
             self.rightMsgLabel.text = @"3-axis Accelerometer";
             break;
         case slotFrameTypeTHSensor:
-            self.leftIcon.image = LOADIMAGE(@"slotDataTypeH&TIcon", @"png");
-            self.rightMsgLabel.text = @"H&T";
+            self.leftIcon.image = LOADIMAGE(@"slotDataTypeT&HIcon", @"png");
+            self.rightMsgLabel.text = @"T&H";
             break;
     }
     NSString *slotIndexString = [NSString stringWithFormat:@"%ld",(long)(self.dataModel.slotIndex + 1)];

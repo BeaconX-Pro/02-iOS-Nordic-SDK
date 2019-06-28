@@ -23,7 +23,7 @@ static CGFloat const leftIconHeight = 7.f;
 @property (nonatomic, strong)UIImageView *leftIcon;
 
 /**
- 类型,H&T
+ 类型,T&H
  */
 @property (nonatomic, strong)UILabel *typeLabel;
 

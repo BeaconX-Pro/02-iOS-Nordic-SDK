@@ -254,7 +254,7 @@ static CGFloat const pickViewRowHeight = 30.f;
             self.noteLabel.text = @"The device records T&H data when the temperature changes arbitrarily.";
             return;
         }
-        self.noteLabel.text = [NSString stringWithFormat:@"The device records H&T data when the temperature changes by more than %@ ℃.",self.temperValueLabel.text];
+        self.noteLabel.text = [NSString stringWithFormat:@"The device records T&H data when the temperature changes by more than %@ ℃.",self.temperValueLabel.text];
         return;
     }
     if (self.index == 1) {
