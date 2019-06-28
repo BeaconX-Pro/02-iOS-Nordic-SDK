@@ -59,14 +59,12 @@ static NSString *const localFileName = @"/T&HDatas.txt";
         NSLog(@"写入错误");
         return;
     }
-    //BOOL deleteResult = [self deleteFileInPath:filePath];
-    NSString *datestr = [self.formatter stringFromDate:[NSDate date]];
     @synchronized(self) {
         //写数据部分
         NSFileHandle *fileHandle = [NSFileHandle fileHandleForUpdatingAtPath:filePath];
         [fileHandle seekToEndOfFile];   //将节点跳到文件的末尾
         for (NSString *tempData in dataList) {
-            NSString *stringToWrite = [NSString stringWithFormat:@"\n%@  %@",datestr,tempData];
+            NSString *stringToWrite = [NSString stringWithFormat:@"\n%@",tempData];
             //        NSLog(@"写入的数据:%@",stringToWrite);
             NSData *stringData = [stringToWrite dataUsingEncoding:NSUTF8StringEncoding];
             [fileHandle writeData:stringData];

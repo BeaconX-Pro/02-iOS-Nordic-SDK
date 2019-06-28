@@ -428,27 +428,27 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
     if ([[MKDataManager shared].deviceType isEqualToString:@"01"]) {
         //带LIS3DH3轴加速度计
         MKMainCellModel *threeAxisModel = [[MKMainCellModel alloc] init];
-        threeAxisModel.leftIconName = @"setting_password";
+        threeAxisModel.leftIconName = @"slotDataTypeThreeAccelerometerIcon";
         threeAxisModel.leftMsg = @"3-Axis config";
         threeAxisModel.destVC = NSClassFromString(@"MKThreeAxisConfigController");
         [self.centerDataList addObject:threeAxisModel];
     }else if ([[MKDataManager shared].deviceType isEqualToString:@"02"]) {
         //带SHT3X温湿度传感器
         MKMainCellModel *THModel = [[MKMainCellModel alloc] init];
-        THModel.leftIconName = @"setting_password";
+        THModel.leftIconName = @"slotDataTypeT&HIcon";
         THModel.leftMsg = @"T&H config";
         THModel.destVC = NSClassFromString(@"MKHTConfigController");
         [self.centerDataList addObject:THModel];
     }else if ([[MKDataManager shared].deviceType isEqualToString:@"03"]) {
         //同时带有LIS3DH及SHT3X传感器
         MKMainCellModel *THModel = [[MKMainCellModel alloc] init];
-        THModel.leftIconName = @"setting_password";
+        THModel.leftIconName = @"slotDataTypeT&HIcon";
         THModel.leftMsg = @"T&H config";
         THModel.destVC = NSClassFromString(@"MKHTConfigController");
         [self.centerDataList addObject:THModel];
         
         MKMainCellModel *threeAxisModel = [[MKMainCellModel alloc] init];
-        threeAxisModel.leftIconName = @"setting_password";
+        threeAxisModel.leftIconName = @"slotDataTypeThreeAccelerometerIcon";
         threeAxisModel.leftMsg = @"3-Axis config";
         threeAxisModel.destVC = NSClassFromString(@"MKThreeAxisConfigController");
         [self.centerDataList addObject:threeAxisModel];

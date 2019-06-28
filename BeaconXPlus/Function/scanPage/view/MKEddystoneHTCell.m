@@ -150,7 +150,7 @@ static CGFloat const leftIconHeight = 7.f;
         return;
     }
     self.rssiValueLabel.text = [NSString stringWithFormat:@"%ld%@",(long)[beacon.rssi0M integerValue],@"dBm"];
-    self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld %@",(long)[beacon.rssi integerValue],@"dBm"];
+    self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld %@",(long)[beacon.txPower integerValue],@"dBm"];
     self.tempValueLabel.text = [beacon.temperature stringByAppendingString:@"℃"];
     self.humidityValueLabel.text = [beacon.humidity stringByAppendingString:@"%"];
 }

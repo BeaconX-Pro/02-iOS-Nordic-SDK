@@ -140,6 +140,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MKBXPTHSensorBeacon : MKBXPBaseBeacon
 
+@property (nonatomic, strong)NSNumber *txPower;
 //RSSI@0m
 @property (nonatomic, strong) NSNumber *rssi0M;
 //Broadcast interval,单位100ms

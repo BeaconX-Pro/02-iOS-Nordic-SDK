@@ -35,6 +35,10 @@
             if (MKValidData(feabData)) {
                 MKBXPDataFrameType frameType = [self fetchFEABFrameType:feabData];
                 MKBXPBaseBeacon *beacon = [self fetchBaseBeaconWithFrameType:frameType advData:feabData];
+                if ([beacon isKindOfClass:[MKBXPTHSensorBeacon class]]) {
+                    MKBXPTHSensorBeacon *tempBeacon = (MKBXPTHSensorBeacon *)beacon;
+                    tempBeacon.txPower = advData[CBAdvertisementDataTxPowerLevelKey];
+                }
                 if (beacon) {
                     [beaconList addObject:beacon];
                 }

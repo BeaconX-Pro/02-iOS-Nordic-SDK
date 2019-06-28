@@ -23,6 +23,8 @@
 		00093731229B93FE00501788 /* MKOptionsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093730229B93FE00501788 /* MKOptionsCell.m */; };
 		00093734229B950400501788 /* MKAdvContentURLCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00093733229B950400501788 /* MKAdvContentURLCell.m */; };
 		000A21C9229CC9B100F26206 /* MKSlotConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 000A21C8229CC9B100F26206 /* MKSlotConfigManager.m */; };
+		000A4A3022C5FB1E00606933 /* slotDataTypeT&HIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000A4A2E22C5FB1E00606933 /* slotDataTypeT&HIcon@3x.png */; };
+		000A4A3122C5FB1E00606933 /* slotDataTypeT&HIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000A4A2F22C5FB1E00606933 /* slotDataTypeT&HIcon@2x.png */; };
 		000C390B229F69E600A3813E /* slot_baseParams_advertising@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000C3909229F69E500A3813E /* slot_baseParams_advertising@3x.png */; };
 		000C390C229F69E600A3813E /* slot_baseParams_advertising@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000C390A229F69E500A3813E /* slot_baseParams_advertising@2x.png */; };
 		000C390F229F6D4900A3813E /* MKSlotConfigPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C390E229F6D4900A3813E /* MKSlotConfigPickView.m */; };
@@ -255,6 +257,8 @@
 		00093733229B950400501788 /* MKAdvContentURLCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAdvContentURLCell.m; sourceTree = "<group>"; };
 		000A21C7229CC9B100F26206 /* MKSlotConfigManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotConfigManager.h; sourceTree = "<group>"; };
 		000A21C8229CC9B100F26206 /* MKSlotConfigManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSlotConfigManager.m; sourceTree = "<group>"; };
+		000A4A2E22C5FB1E00606933 /* slotDataTypeT&HIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeT&HIcon@3x.png"; sourceTree = "<group>"; };
+		000A4A2F22C5FB1E00606933 /* slotDataTypeT&HIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeT&HIcon@2x.png"; sourceTree = "<group>"; };
 		000C3909229F69E500A3813E /* slot_baseParams_advertising@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_baseParams_advertising@3x.png"; sourceTree = "<group>"; };
 		000C390A229F69E500A3813E /* slot_baseParams_advertising@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_baseParams_advertising@2x.png"; sourceTree = "<group>"; };
 		000C390D229F6D4900A3813E /* MKSlotConfigPickView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotConfigPickView.h; sourceTree = "<group>"; };
@@ -881,6 +885,8 @@
 		002532EC2295339D0055D3E7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				000A4A2F22C5FB1E00606933 /* slotDataTypeT&HIcon@2x.png */,
+				000A4A2E22C5FB1E00606933 /* slotDataTypeT&HIcon@3x.png */,
 				00C9274522A6538900727D44 /* slot_export_deleteIcon@2x.png */,
 				00C9274422A6538800727D44 /* slot_export_deleteIcon@3x.png */,
 				00C9273F22A64AAA00727D44 /* slot_export_disableIcon@2x.png */,
@@ -1256,6 +1262,7 @@
 				002533BA2295339D0055D3E7 /* navigation_back_button@3x.png in Resources */,
 				0025337E2295339D0055D3E7 /* scanHeaderView_ arrowDownIcon@3x.png in Resources */,
 				002533892295339D0055D3E7 /* device_software@3x.png in Resources */,
+				000A4A3122C5FB1E00606933 /* slotDataTypeT&HIcon@2x.png in Resources */,
 				002533942295339D0055D3E7 /* clearButtonIcon@3x.png in Resources */,
 				002533A82295339D0055D3E7 /* batteryHighest@3x.png in Resources */,
 				002533B32295339D0055D3E7 /* rightIconSelectedCircle@3x.png in Resources */,
@@ -1270,6 +1277,7 @@
 				002533C52295339D0055D3E7 /* aboutIcon@3x.png in Resources */,
 				0084396A229FD7E40079E3BE /* slot_config_humidityIcon@2x.png in Resources */,
 				002533982295339D0055D3E7 /* littleBluePoint@3x.png in Resources */,
+				000A4A3022C5FB1E00606933 /* slotDataTypeT&HIcon@3x.png in Resources */,
 				000FDDB522A22BC8009A7312 /* slot_paramsConfig_selectedIcon@2x.png in Resources */,
 				002533842295339D0055D3E7 /* searchGrayIcon@2x.png in Resources */,
 				002533802295339D0055D3E7 /* slotDataTypeNoData@2x.png in Resources */,
