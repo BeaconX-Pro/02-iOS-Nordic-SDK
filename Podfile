@@ -10,10 +10,12 @@ end
 platform :ios,'9.0'
 
 inhibit_all_warnings!
+use_frameworks!
 
 target 'BeaconXPlus' do
 
 pod 'mokoLibrary', :git => 'git@120.27.8.241:mokoBaseLibrary/mokoLibrary.git'
 pod 'MLInputDodger'
+pod 'iOSDFULibrary'
 
 end

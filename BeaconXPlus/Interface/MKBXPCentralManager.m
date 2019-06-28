@@ -89,7 +89,7 @@ static dispatch_once_t onceToken;
     return manager;
 }
 
-+ (void)instanceDealloc{
++ (void)attempDealloc{
     onceToken = 0;
     manager = nil;
 }

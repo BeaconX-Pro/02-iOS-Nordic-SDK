@@ -1,5 +1,7 @@
 PODS:
   - CircleProgressBar (0.32)
+  - iOSDFULibrary (4.4.2):
+    - ZIPFoundation (= 0.9.9)
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
   - MJRefresh (3.2.0)
@@ -68,20 +70,24 @@ PODS:
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
+  - ZIPFoundation (0.9.9)
 
 DEPENDENCIES:
+  - iOSDFULibrary
   - MLInputDodger
   - "mokoLibrary (from `git@120.27.8.241:mokoBaseLibrary/mokoLibrary.git`)"
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - CircleProgressBar
+    - iOSDFULibrary
     - Masonry
     - MBProgressHUD
     - MJRefresh
     - MLInputDodger
     - Toast
     - YYKit
+    - ZIPFoundation
 
 EXTERNAL SOURCES:
   mokoLibrary:
@@ -94,6 +100,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   CircleProgressBar: 3920079be5224b62b3d9ed6eeb23ac01c835b681
+  iOSDFULibrary: 7f25ff33edd65f7d23bf6ebe4827723509ac091b
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
@@ -101,7 +108,8 @@ SPEC CHECKSUMS:
   mokoLibrary: f02751d7bb713ee8461f5d8d250745b54fe7ff34
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+  ZIPFoundation: 89df685c971926b0323087952320bdfee9f0b6ef
 
-PODFILE CHECKSUM: 3fc3c786099889a0fa11a17db31d0d6cc59f1968
+PODFILE CHECKSUM: d57646a60133dd1c5a0806cb73a47f99cadbb466
 
 COCOAPODS: 1.7.0.rc.1

@@ -1,0 +1,6 @@
+framework module mokoLibrary {
+  umbrella header "mokoLibrary-umbrella.h"
+
+  export *
+  module * { export * }
+}

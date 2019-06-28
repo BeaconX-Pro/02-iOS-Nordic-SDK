@@ -25,6 +25,12 @@
 		000A21C9229CC9B100F26206 /* MKSlotConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 000A21C8229CC9B100F26206 /* MKSlotConfigManager.m */; };
 		000A4A3022C5FB1E00606933 /* slotDataTypeT&HIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000A4A2E22C5FB1E00606933 /* slotDataTypeT&HIcon@3x.png */; };
 		000A4A3122C5FB1E00606933 /* slotDataTypeT&HIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000A4A2F22C5FB1E00606933 /* slotDataTypeT&HIcon@2x.png */; };
+		000A4A3F22C609B600606933 /* MKUpdateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000A4A3522C609B500606933 /* MKUpdateController.m */; };
+		000A4A4022C609B600606933 /* MKFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 000A4A3822C609B500606933 /* MKFileManager.m */; };
+		000A4A4122C609B600606933 /* MKDFUModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 000A4A3C22C609B500606933 /* MKDFUModel.m */; };
+		000A4A4222C609B600606933 /* MKDFUAdopter.m in Sources */ = {isa = PBXBuildFile; fileRef = 000A4A3D22C609B500606933 /* MKDFUAdopter.m */; };
+		000A4A4522C60C2300606933 /* setting_updateFirmwareIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000A4A4322C60C2300606933 /* setting_updateFirmwareIcon@2x.png */; };
+		000A4A4622C60C2300606933 /* setting_updateFirmwareIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000A4A4422C60C2300606933 /* setting_updateFirmwareIcon@3x.png */; };
 		000C390B229F69E600A3813E /* slot_baseParams_advertising@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000C3909229F69E500A3813E /* slot_baseParams_advertising@3x.png */; };
 		000C390C229F69E600A3813E /* slot_baseParams_advertising@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000C390A229F69E500A3813E /* slot_baseParams_advertising@2x.png */; };
 		000C390F229F6D4900A3813E /* MKSlotConfigPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C390E229F6D4900A3813E /* MKSlotConfigPickView.m */; };
@@ -219,7 +225,7 @@
 		00E0E848229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E0E844229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png */; };
 		00E0E849229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E0E845229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@3x.png */; };
 		00E0E84C229BD55D00D2E188 /* MKSlotConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E0E84B229BD55D00D2E188 /* MKSlotConfigController.m */; };
-		8E33DED9D30D9F9F4CC4BDEC /* libPods-BeaconXPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3DDB61A667539B356F3F757 /* libPods-BeaconXPlus.a */; };
+		39DBB84080E58002632EEA68 /* Pods_BeaconXPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CAFDF964019F595F8D735FC /* Pods_BeaconXPlus.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -259,6 +265,16 @@
 		000A21C8229CC9B100F26206 /* MKSlotConfigManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSlotConfigManager.m; sourceTree = "<group>"; };
 		000A4A2E22C5FB1E00606933 /* slotDataTypeT&HIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeT&HIcon@3x.png"; sourceTree = "<group>"; };
 		000A4A2F22C5FB1E00606933 /* slotDataTypeT&HIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slotDataTypeT&HIcon@2x.png"; sourceTree = "<group>"; };
+		000A4A3422C609B500606933 /* MKUpdateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKUpdateController.h; sourceTree = "<group>"; };
+		000A4A3522C609B500606933 /* MKUpdateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKUpdateController.m; sourceTree = "<group>"; };
+		000A4A3722C609B500606933 /* MKFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKFileManager.h; sourceTree = "<group>"; };
+		000A4A3822C609B500606933 /* MKFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKFileManager.m; sourceTree = "<group>"; };
+		000A4A3A22C609B500606933 /* MKDFUModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKDFUModel.h; sourceTree = "<group>"; };
+		000A4A3B22C609B500606933 /* MKDFUAdopter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKDFUAdopter.h; sourceTree = "<group>"; };
+		000A4A3C22C609B500606933 /* MKDFUModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKDFUModel.m; sourceTree = "<group>"; };
+		000A4A3D22C609B500606933 /* MKDFUAdopter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKDFUAdopter.m; sourceTree = "<group>"; };
+		000A4A4322C60C2300606933 /* setting_updateFirmwareIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_updateFirmwareIcon@2x.png"; sourceTree = "<group>"; };
+		000A4A4422C60C2300606933 /* setting_updateFirmwareIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_updateFirmwareIcon@3x.png"; sourceTree = "<group>"; };
 		000C3909229F69E500A3813E /* slot_baseParams_advertising@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_baseParams_advertising@3x.png"; sourceTree = "<group>"; };
 		000C390A229F69E500A3813E /* slot_baseParams_advertising@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_baseParams_advertising@2x.png"; sourceTree = "<group>"; };
 		000C390D229F6D4900A3813E /* MKSlotConfigPickView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotConfigPickView.h; sourceTree = "<group>"; };
@@ -513,7 +529,7 @@
 		00E0E84B229BD55D00D2E188 /* MKSlotConfigController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSlotConfigController.m; sourceTree = "<group>"; };
 		029190BB4C403625DF53C141 /* Pods-BeaconXPlus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconXPlus.release.xcconfig"; path = "Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus.release.xcconfig"; sourceTree = "<group>"; };
 		1DF98C636BB6D238FF05F2F0 /* Pods-BeaconXPlus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconXPlus.debug.xcconfig"; path = "Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus.debug.xcconfig"; sourceTree = "<group>"; };
-		A3DDB61A667539B356F3F757 /* libPods-BeaconXPlus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BeaconXPlus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CAFDF964019F595F8D735FC /* Pods_BeaconXPlus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeaconXPlus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -521,7 +537,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E33DED9D30D9F9F4CC4BDEC /* libPods-BeaconXPlus.a in Frameworks */,
+				39DBB84080E58002632EEA68 /* Pods_BeaconXPlus.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,6 +704,53 @@
 				000A21C8229CC9B100F26206 /* MKSlotConfigManager.m */,
 			);
 			path = manager;
+			sourceTree = "<group>";
+		};
+		000A4A3222C609B500606933 /* update */ = {
+			isa = PBXGroup;
+			children = (
+				000A4A3322C609B500606933 /* controller */,
+				000A4A3622C609B500606933 /* manager */,
+				000A4A3922C609B500606933 /* model */,
+				000A4A3E22C609B500606933 /* view */,
+			);
+			path = update;
+			sourceTree = "<group>";
+		};
+		000A4A3322C609B500606933 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				000A4A3422C609B500606933 /* MKUpdateController.h */,
+				000A4A3522C609B500606933 /* MKUpdateController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		000A4A3622C609B500606933 /* manager */ = {
+			isa = PBXGroup;
+			children = (
+				000A4A3722C609B500606933 /* MKFileManager.h */,
+				000A4A3822C609B500606933 /* MKFileManager.m */,
+			);
+			path = manager;
+			sourceTree = "<group>";
+		};
+		000A4A3922C609B500606933 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				000A4A3A22C609B500606933 /* MKDFUModel.h */,
+				000A4A3C22C609B500606933 /* MKDFUModel.m */,
+				000A4A3B22C609B500606933 /* MKDFUAdopter.h */,
+				000A4A3D22C609B500606933 /* MKDFUAdopter.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		000A4A3E22C609B500606933 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		000FDDAB22A21E2A009A7312 /* trigger */ = {
@@ -885,6 +948,8 @@
 		002532EC2295339D0055D3E7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				000A4A4322C60C2300606933 /* setting_updateFirmwareIcon@2x.png */,
+				000A4A4422C60C2300606933 /* setting_updateFirmwareIcon@3x.png */,
 				000A4A2F22C5FB1E00606933 /* slotDataTypeT&HIcon@2x.png */,
 				000A4A2E22C5FB1E00606933 /* slotDataTypeT&HIcon@3x.png */,
 				00C9274522A6538900727D44 /* slot_export_deleteIcon@2x.png */,
@@ -1080,6 +1145,7 @@
 		00DA1B4F226969340093DBAE /* Function */ = {
 			isa = PBXGroup;
 			children = (
+				000A4A3222C609B500606933 /* update */,
 				00C9274822A6589C00727D44 /* fileManager */,
 				00093701229B809800501788 /* slotPage */,
 				000936FA229B7FB500501788 /* tabBarPage */,
@@ -1164,7 +1230,7 @@
 		C8E8546F8BE8B88339C6E262 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A3DDB61A667539B356F3F757 /* libPods-BeaconXPlus.a */,
+				3CAFDF964019F595F8D735FC /* Pods_BeaconXPlus.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1180,7 +1246,7 @@
 				0015056E2264831E00F69569 /* Sources */,
 				0015056F2264831E00F69569 /* Frameworks */,
 				001505702264831E00F69569 /* Resources */,
-				7F27AFECD434B7CE050D83E9 /* [CP] Copy Pods Resources */,
+				18B583474F37235A3E7AC248 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1232,6 +1298,7 @@
 				0025335F2295339D0055D3E7 /* cellRight_selected_pic@3x.png in Resources */,
 				002533C42295339D0055D3E7 /* scanHeaderView_ arrowUpIcon@3x.png in Resources */,
 				002533902295339D0055D3E7 /* slotTabBarItemSelected@3x.png in Resources */,
+				000A4A4622C60C2300606933 /* setting_updateFirmwareIcon@3x.png in Resources */,
 				002533AA2295339D0055D3E7 /* refreshIcon@3x.png in Resources */,
 				002533B52295339D0055D3E7 /* slotTabBarItemUnselected@2x.png in Resources */,
 				0025339C2295339D0055D3E7 /* setting_connectable@3x.png in Resources */,
@@ -1281,6 +1348,7 @@
 				000FDDB522A22BC8009A7312 /* slot_paramsConfig_selectedIcon@2x.png in Resources */,
 				002533842295339D0055D3E7 /* searchGrayIcon@2x.png in Resources */,
 				002533802295339D0055D3E7 /* slotDataTypeNoData@2x.png in Resources */,
+				000A4A4522C60C2300606933 /* setting_updateFirmwareIcon@2x.png in Resources */,
 				002533692295339D0055D3E7 /* searchBlueIcon@2x.png in Resources */,
 				0025335E2295339D0055D3E7 /* wifisignalIcon@2x.png in Resources */,
 				002533CB2295339D0055D3E7 /* scanRightAboutIcon@2x.png in Resources */,
@@ -1382,21 +1450,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7F27AFECD434B7CE050D83E9 /* [CP] Copy Pods Resources */ = {
+		18B583474F37235A3E7AC248 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B029208AB988CD518705F86B /* [CP] Check Pods Manifest.lock */ = {
@@ -1463,17 +1531,21 @@
 				0009372B229B931300501788 /* MKAdvContentUIDCell.m in Sources */,
 				00093722229B8ECF00501788 /* MKFrameTypeView.m in Sources */,
 				0019A5BD2297E91B007D67F9 /* MKIconInfoCell.m in Sources */,
+				000A4A4122C609B600606933 /* MKDFUModel.m in Sources */,
 				002533CF229533C30055D3E7 /* MKEddStoneURLCell.m in Sources */,
 				000C390F229F6D4900A3813E /* MKSlotConfigPickView.m in Sources */,
 				002533D8229537C60055D3E7 /* MKScanSearchButton.m in Sources */,
 				000FDDAE22A21ED5009A7312 /* MKTriggerTemperatureView.m in Sources */,
 				00285F162296480F00A4CAD4 /* MKScanInfoCell.m in Sources */,
+				000A4A4022C609B600606933 /* MKFileManager.m in Sources */,
 				00385EF322A106C000A8D00E /* MKHTDateTimeCell.m in Sources */,
 				00093731229B93FE00501788 /* MKOptionsCell.m in Sources */,
 				0012478E2299198F00E97868 /* MKDataManager.m in Sources */,
+				000A4A4222C609B600606933 /* MKDFUAdopter.m in Sources */,
 				000C3912229FC46B00A3813E /* MKThreeAxisConfigController.m in Sources */,
 				000FDDAA22A215A0009A7312 /* MKSlotTriggerCell.m in Sources */,
 				0095880B229E2C0A009F910C /* MKAdvContentDeviceCell.m in Sources */,
+				000A4A3F22C609B600606933 /* MKUpdateController.m in Sources */,
 				00131DE422952F1000E613FF /* MKConnectDeviceProgressView.m in Sources */,
 				00093725229B901400501788 /* MKSlotBaseCell.m in Sources */,
 				002533DB229538100055D3E7 /* MKEddStoneiBeaconCell.m in Sources */,

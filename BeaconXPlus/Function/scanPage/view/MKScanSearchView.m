@@ -171,7 +171,7 @@ static CGFloat const signalIconHeight = 15.f;
                                        kScreenWidth - 4 * offset_X,
                                        45.f);
         [_doneButton setBackgroundColor:UIColorFromRGB(0x2F84D0)];
-        [_doneButton setTitle:@"done" forState:UIControlStateNormal];
+        [_doneButton setTitle:@"DONE" forState:UIControlStateNormal];
         [_doneButton.titleLabel setFont:MKFont(16.f)];
         [_doneButton.layer setMasksToBounds:YES];
         [_doneButton.layer setCornerRadius:4.f];

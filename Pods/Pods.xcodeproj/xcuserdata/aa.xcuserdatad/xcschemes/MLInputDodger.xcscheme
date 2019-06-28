@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B3C3E0CD2EEF525F0504539EBBCA7200"
-               BuildableName = "libMLInputDodger.a"
+               BuildableName = "MLInputDodger.framework"
                BlueprintName = "MLInputDodger"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B3C3E0CD2EEF525F0504539EBBCA7200"
-            BuildableName = "libMLInputDodger.a"
+            BuildableName = "MLInputDodger.framework"
             BlueprintName = "MLInputDodger"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>

@@ -53,6 +53,8 @@ extern NSString *const MKBXPReceiveRecordHTDataNotification;
 
 + (MKBXPCentralManager *)shared;
 
++ (void)attempDealloc;
+
 - (void)startScanPeripheral;
 - (void)stopScanPeripheral;
 /**

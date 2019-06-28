@@ -117,6 +117,10 @@ NSString *const passwordIdenty = @"passwordIdenty";
 
 - (void)statusMonitoring{
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(gotoRootViewController)
+                                                 name:@"MKCentralDeallocNotification"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(gotoRootViewController) name:@"MKPopToRootViewControllerNotification"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self

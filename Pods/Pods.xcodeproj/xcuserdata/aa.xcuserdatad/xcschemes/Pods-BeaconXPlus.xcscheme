@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "32C227B4E2EC955D13DCB652F8F7FAD1"
-               BuildableName = "libPods-BeaconXPlus.a"
+               BuildableName = "Pods_BeaconXPlus.framework"
                BlueprintName = "Pods-BeaconXPlus"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "32C227B4E2EC955D13DCB652F8F7FAD1"
-            BuildableName = "libPods-BeaconXPlus.a"
+            BuildableName = "Pods_BeaconXPlus.framework"
             BlueprintName = "Pods-BeaconXPlus"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>

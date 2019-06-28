@@ -13,6 +13,8 @@
 
 #import "MKMainCellModel.h"
 
+#import "MKUpdateController.h"
+
 static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCellIdenty";
 
 @interface MKSettingController ()<UITableViewDelegate, UITableViewDataSource, MKSwitchStatusCellDelegate>
@@ -93,15 +95,34 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0 && self.showPassword) {
-        if (indexPath.row == 0) {
-            //password
-            [self setPassword];
+    if (indexPath.section == 0) {
+        if (self.showPassword) {
+            if (indexPath.row == 0) {
+                //password
+                [self setPassword];
+                return;
+            }
+            if (indexPath.row == 1) {
+                //reset
+                [self factoryReset];
+                return;
+            }
+            if (indexPath.row == 2) {
+                //dfu
+                self.hidesBottomBarWhenPushed = YES;
+                MKUpdateController *vc = [[MKUpdateController alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+                return;
+            }
             return;
         }
-        if (indexPath.row == 1) {
-            //reset
-            [self factoryReset];
+        if (indexPath.row == 0) {
+            //dfu
+            self.hidesBottomBarWhenPushed = YES;
+            MKUpdateController *vc = [[MKUpdateController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
             return;
         }
         return;
@@ -424,6 +445,11 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
         resetModel.leftMsg = @"Reset Factory";
         [self.topDataList addObject:resetModel];
     }
+    
+    MKMainCellModel *updateModel = [[MKMainCellModel alloc] init];
+    updateModel.leftIconName = @"setting_updateFirmwareIcon";
+    updateModel.leftMsg = @"Update Firmware";
+    [self.topDataList addObject:updateModel];
     
     if ([[MKDataManager shared].deviceType isEqualToString:@"01"]) {
         //带LIS3DH3轴加速度计

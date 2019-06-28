@@ -687,7 +687,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
 }
 
 - (void)resetDevicesNum{
-    [self.titleLabel setText:[NSString stringWithFormat:@"Devices(%@)",[NSString stringWithFormat:@"%ld",(long)self.dataList.count]]];
+    [self.titleLabel setText:[NSString stringWithFormat:@"DEVICE(%@)",[NSString stringWithFormat:@"%ld",(long)self.dataList.count]]];
 }
 
 - (void)addAnimationForLeftButton{

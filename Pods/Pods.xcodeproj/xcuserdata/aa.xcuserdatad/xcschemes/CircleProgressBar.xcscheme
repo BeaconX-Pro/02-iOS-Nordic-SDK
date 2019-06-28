@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E9C1CF485EFB620F37EEE07E2B8CF679"
-               BuildableName = "libCircleProgressBar.a"
+               BuildableName = "CircleProgressBar.framework"
                BlueprintName = "CircleProgressBar"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E9C1CF485EFB620F37EEE07E2B8CF679"
-            BuildableName = "libCircleProgressBar.a"
+            BuildableName = "CircleProgressBar.framework"
             BlueprintName = "CircleProgressBar"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
