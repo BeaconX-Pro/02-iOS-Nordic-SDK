@@ -7,8 +7,8 @@
 //
 
 #import "MKBXPBaseBeacon.h"
-#import "MKEddystoneDefines.h"
-#import "MKEddystoneAdopter.h"
+#import "MKBXPDefines.h"
+#import "MKBXPAdopter.h"
 
 @implementation MKBXPBaseBeacon
 
@@ -248,11 +248,11 @@
         else {
             self.txPower = [NSNumber numberWithInt:txPowerChar];
         }
-        NSString *urlScheme = [MKEddystoneAdopter getUrlscheme:*(data+2)];
+        NSString *urlScheme = [MKBXPAdopter getUrlscheme:*(data+2)];
         
         NSString *url = urlScheme;
         for (int i = 0; i < advData.length - 3; i++) {
-            url = [url stringByAppendingString:[MKEddystoneAdopter getEncodedString:*(data + i + 3)]];
+            url = [url stringByAppendingString:[MKBXPAdopter getEncodedString:*(data + i + 3)]];
         }
         self.shortUrl = url;
         // Free advertise data for char*
@@ -328,15 +328,15 @@
         tempContent = [tempContent stringByReplacingOccurrencesOfString:@"<" withString:@""];
         tempContent = [tempContent stringByReplacingOccurrencesOfString:@">" withString:@""];
         
-        self.interval = [MKEddystoneAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(4, 2)];
-        self.battery = [MKEddystoneAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(6, 4)];
+        self.interval = [MKBXPAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(4, 2)];
+        self.battery = [MKBXPAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(6, 4)];
         self.lockState = [tempContent substringWithRange:NSMakeRange(10, 2)];
         if (![[tempContent substringWithRange:NSMakeRange(12, 2)] isEqualToString:@"00"]) {
             self.connectEnable = YES;
         }
         NSString *tempMac = [[tempContent substringWithRange:NSMakeRange(14, 12)] uppercaseString];
         self.macAddress = [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",[tempMac substringWithRange:NSMakeRange(0, 2)],[tempMac substringWithRange:NSMakeRange(2, 2)],[tempMac substringWithRange:NSMakeRange(4, 2)],[tempMac substringWithRange:NSMakeRange(6, 2)],[tempMac substringWithRange:NSMakeRange(8, 2)],[tempMac substringWithRange:NSMakeRange(10, 2)]];
-        self.softVersion = [NSString stringWithFormat:@"%@.%@",[MKEddystoneAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(26, 2)],[MKEddystoneAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(28, 2)]];
+        self.softVersion = [NSString stringWithFormat:@"%@.%@",[MKBXPAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(26, 2)],[MKBXPAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(28, 2)]];
         free(data);
     }
     return self;
@@ -373,7 +373,7 @@
         content = [content stringByReplacingOccurrencesOfString:@"<" withString:@""];
         content = [content stringByReplacingOccurrencesOfString:@">" withString:@""];
         NSString *temp = [content substringWithRange:NSMakeRange(4, content.length - 4)];
-        self.interval = [MKEddystoneAdopter getDecimalStringWithHex:temp range:NSMakeRange(0, 2)];
+        self.interval = [MKBXPAdopter getDecimalStringWithHex:temp range:NSMakeRange(0, 2)];
         NSMutableArray *array = [NSMutableArray arrayWithObjects:[temp substringWithRange:NSMakeRange(2, 8)],
                                  [temp substringWithRange:NSMakeRange(10, 4)],
                                  [temp substringWithRange:NSMakeRange(14, 4)],
@@ -423,10 +423,10 @@
         content = [content stringByReplacingOccurrencesOfString:@"<" withString:@""];
         content = [content stringByReplacingOccurrencesOfString:@">" withString:@""];
         NSString *temp = [content substringWithRange:NSMakeRange(4, content.length - 4)];
-        self.interval = [MKEddystoneAdopter getDecimalStringWithHex:temp range:NSMakeRange(0, 2)];
-        self.samplingRate = [MKEddystoneAdopter getDecimalStringWithHex:temp range:NSMakeRange(2, 2)];
-        self.accelerationOfGravity = [MKEddystoneAdopter getDecimalStringWithHex:temp range:NSMakeRange(4, 2)];
-        self.sensitivity = [MKEddystoneAdopter getDecimalStringWithHex:temp range:NSMakeRange(6, 2)];
+        self.interval = [MKBXPAdopter getDecimalStringWithHex:temp range:NSMakeRange(0, 2)];
+        self.samplingRate = [MKBXPAdopter getDecimalStringWithHex:temp range:NSMakeRange(2, 2)];
+        self.accelerationOfGravity = [MKBXPAdopter getDecimalStringWithHex:temp range:NSMakeRange(4, 2)];
+        self.sensitivity = [MKBXPAdopter getDecimalStringWithHex:temp range:NSMakeRange(6, 2)];
         self.xData = [temp substringWithRange:NSMakeRange(8, 4)];
         self.yData = [temp substringWithRange:NSMakeRange(12, 4)];
         self.zData = [temp substringWithRange:NSMakeRange(16, 4)];
@@ -464,9 +464,9 @@
         content = [content stringByReplacingOccurrencesOfString:@"<" withString:@""];
         content = [content stringByReplacingOccurrencesOfString:@">" withString:@""];
         NSString *temp = [content substringWithRange:NSMakeRange(4, content.length - 4)];
-        self.interval = [MKEddystoneAdopter getDecimalStringWithHex:temp range:NSMakeRange(0, 2)];
-        NSInteger tempTemp = [MKEddystoneAdopter getDecimalWithHex:temp range:NSMakeRange(2, 4)];
-        NSInteger tempHui = [MKEddystoneAdopter getDecimalWithHex:temp range:NSMakeRange(6, 4)];
+        self.interval = [MKBXPAdopter getDecimalStringWithHex:temp range:NSMakeRange(0, 2)];
+        NSInteger tempTemp = [MKBXPAdopter getDecimalWithHex:temp range:NSMakeRange(2, 4)];
+        NSInteger tempHui = [MKBXPAdopter getDecimalWithHex:temp range:NSMakeRange(6, 4)];
         self.temperature = [NSString stringWithFormat:@"%.1f",(tempTemp * 0.1)];
         self.humidity = [NSString stringWithFormat:@"%.1f",(tempHui * 0.1)];
         free(data);

@@ -12,8 +12,8 @@
 #import "MKBXPEnumeration.h"
 #import "MKBXPTaskOperation.h"
 #import "MKBXPOperationIDDefines.h"
-#import "MKEddystoneAdopter.h"
-#import "MKEddystoneDefines.h"
+#import "MKBXPAdopter.h"
+#import "MKBXPDefines.h"
 
 #define centralManager [MKBXPCentralManager shared]
 
@@ -23,8 +23,8 @@
          originalPassword:(NSString *)originalPassword
                  sucBlock:(void (^)(id returnData))sucBlock
               failedBlock:(void (^)(NSError *error))failedBlock {
-    if (![MKEddystoneAdopter isPassword:newPassword] || ![MKEddystoneAdopter isPassword:originalPassword]) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+    if (![MKBXPAdopter isPassword:newPassword] || ![MKBXPAdopter isPassword:originalPassword]) {
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     //写入0x00加上16字节新的密码（用户要对新的密码进行加密，然后发送，加密的密钥是旧的密码，也就是当前密码），发送之后，设备变为LOCKED状态。
@@ -33,13 +33,13 @@
         int asciiCode = [originalPassword characterAtIndex:i];
         oldTempString = [oldTempString stringByAppendingString:[NSString stringWithFormat:@"%1lx",(unsigned long)asciiCode]];
     }
-    NSData *oldPasswordData = [MKEddystoneAdopter stringToData:oldTempString];
+    NSData *oldPasswordData = [MKBXPAdopter stringToData:oldTempString];
     NSString *newTempString = @"";
     for (NSInteger i = 0; i < newPassword.length; i ++) {
         int asciiCode = [newPassword characterAtIndex:i];
         newTempString = [newTempString stringByAppendingString:[NSString stringWithFormat:@"%1lx",(unsigned long)asciiCode]];
     }
-    NSData *newPasswordData = [MKEddystoneAdopter stringToData:newTempString];
+    NSData *newPasswordData = [MKBXPAdopter stringToData:newTempString];
     Byte byte[16] = {0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff};
     NSData *oldSupplyData = [NSData dataWithBytes:byte length:(16 - oldPasswordData.length)];
     NSData *newSupplyData = [NSData dataWithBytes:byte length:(16 - newPasswordData.length)];
@@ -52,9 +52,9 @@
     [newData appendData:newPasswordData];
     [newData appendData:newSupplyData];
     
-    NSData *encryptData = [MKEddystoneAdopter AES128EncryptWithSourceData:newData keyData:oldData];
+    NSData *encryptData = [MKBXPAdopter AES128EncryptWithSourceData:newData keyData:oldData];
     if (!MKValidData(encryptData) || encryptData.length != 16) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSMutableData *commandData = [[NSMutableData alloc] init];
@@ -62,7 +62,7 @@
     [commandData appendData:[NSData dataWithBytes:headerB length:1]];
     [commandData appendData:encryptData];
     [centralManager addTaskWithTaskID:MKBXPSetLockStateOperation
-                          commandData:[MKEddystoneAdopter hexStringFromData:commandData]
+                          commandData:[MKBXPAdopter hexStringFromData:commandData]
                        characteristic:centralManager.peripheral.lockState
                          successBlock:sucBlock
                          failureBlock:failedBlock];
@@ -127,10 +127,10 @@
                 sucBlock:(void (^)(id returnData))sucBlock
              failedBlock:(void (^)(NSError *error))failedBlock {
     if (advTxPower < -100 || advTxPower > 20) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
-    NSString *advPower = [MKEddystoneAdopter hexStringFromSignedNumber:advTxPower];
+    NSString *advPower = [MKBXPAdopter hexStringFromSignedNumber:advTxPower];
     [centralManager addTaskWithTaskID:MKBXPSetAdvTxPowerOperation
                           commandData:advPower
                        characteristic:centralManager.peripheral.advertisedTxPower
@@ -153,7 +153,7 @@
                  sucBlock:(void (^)(id returnData))sucBlock
               failedBlock:(void (^)(NSError *error))failedBlock {
     if (interval < 1 || interval > 100) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *advInterval = [NSString stringWithFormat:@"%1lx",(unsigned long)(interval * 100)];
@@ -182,8 +182,8 @@
                            instanceID:(NSString *)instanceID
                              sucBlock:(void (^)(id returnData))sucBlock
                           failedBlock:(void (^)(NSError *error))failedBlock {
-    if (![MKEddystoneAdopter isNameSpace:nameSpace] || ![MKEddystoneAdopter isInstanceID:instanceID]) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+    if (![MKBXPAdopter isNameSpace:nameSpace] || ![MKBXPAdopter isInstanceID:instanceID]) {
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"00",nameSpace,instanceID];
@@ -198,8 +198,8 @@
               urlContent:(NSString *)urlContent
                 sucBlock:(void (^)(id returnData))sucBlock
              failedBlock:(void (^)(NSError *error))failedBlock {
-    if (![MKEddystoneAdopter checkUrlContent:urlContent]) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+    if (![MKBXPAdopter checkUrlContent:urlContent]) {
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *header = @"";
@@ -217,7 +217,7 @@
         header = @"03";
         tempHeader = @"https://";
     }
-    NSString *urlString = [MKEddystoneAdopter fetchUrlStringWithHeader:tempHeader urlContent:urlContent];
+    NSString *urlString = [MKBXPAdopter fetchUrlStringWithHeader:tempHeader urlContent:urlContent];
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"10",header,urlString];
     [centralManager addTaskWithTaskID:MKBXPSetAdvSlotDataOperation
                           commandData:commandString
@@ -231,8 +231,8 @@
                                  uuid:(NSString *)uuid
                              sucBlock:(void (^)(id returnData))sucBlock
                           failedBlock:(void (^)(NSError *error))failedBlock {
-    if (major < 0 || major > 65535 || minor < 0 || minor > 65535 || ![MKEddystoneAdopter isUUIDString:uuid]) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+    if (major < 0 || major > 65535 || minor < 0 || minor > 65535 || ![MKBXPAdopter isUUIDString:uuid]) {
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *majorHex = [NSString stringWithFormat:@"%1lx",(unsigned long)major];
@@ -273,7 +273,7 @@
                                      sucBlock:(void (^)(id returnData))sucBlock
                                   failedBlock:(void (^)(NSError *error))failedBlock {
     if (!ValidStr(deviceName) || deviceName.length > 20) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *tempString = @"";
@@ -319,7 +319,7 @@
                          sucBlock:(void (^)(id returnData))sucBlock
                       failedBlock:(void (^)(NSError *error))failedBlock {
     if (sensitivity < 7 || sensitivity > 255) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *rate = [self fetchThreeAxisDataRate:dataRate];
@@ -340,12 +340,12 @@
                 sucBlock:(void (^)(id returnData))sucBlock
              failedBlock:(void (^)(NSError *error))failedBlock {
     if (![self validTimeProtocol:protocol]) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *hexTime = [self getTimeString:protocol];
     if (!MKValidStr(hexTime)) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *commandString = [@"ea350006" stringByAppendingString:hexTime];
@@ -360,12 +360,12 @@
                          sucBlock:(void (^)(id returnData))sucBlock
                       failedBlock:(void (^)(NSError *error))failedBlock {
     if (![self validHTStorageConditionsProtocol:protocol]) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *commandString = [self fetchHTStorageConditionsCommand:protocol];
     if (!MKValidStr(commandString)) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     [centralManager addTaskWithTaskID:MKBXPSetHTStorageConditionsOperation
@@ -379,7 +379,7 @@
                     sucBlock:(void (^)(id returnData))sucBlock
                  failedBlock:(void (^)(NSError *error))failedBlock {
     if (rate < 1 || rate > 65535) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *rateString = [NSString stringWithFormat:@"%1lx",(unsigned long)rate];
@@ -414,7 +414,7 @@
                                       sucBlock:(void (^)(id returnData))sucBlock
                                    failedBlock:(void (^)(NSError *error))failedBlock {
     if (temperature < -20 || temperature > 90) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *tempString = [NSString stringWithFormat:@"%lX", (long)(temperature * 10)];
@@ -443,7 +443,7 @@
                                    sucBlock:(void (^)(id returnData))sucBlock
                                 failedBlock:(void (^)(NSError *error))failedBlock {
     if (humidity < 0 || humidity > 100) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *tempString = [NSString stringWithFormat:@"%lX", (long)(humidity * 10)];
@@ -471,7 +471,7 @@
                                     sucBlock:(void (^)(id returnData))sucBlock
                                  failedBlock:(void (^)(NSError *error))failedBlock{
     if (time < 0 || time > 65535) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *timeString = [NSString stringWithFormat:@"%1lx",(unsigned long)time];
@@ -495,7 +495,7 @@
                                     sucBlock:(void (^)(id returnData))sucBlock
                                  failedBlock:(void (^)(NSError *error))failedBlock {
     if (time < 0 || time > 65535) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *timeString = [NSString stringWithFormat:@"%1lx",(unsigned long)time];
@@ -519,7 +519,7 @@
                                 sucBlock:(void (^)(id returnData))sucBlock
                              failedBlock:(void (^)(NSError *error))failedBlock {
     if (time < 0 || time > 65535) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failedBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
     NSString *timeString = [NSString stringWithFormat:@"%1lx",(unsigned long)time];

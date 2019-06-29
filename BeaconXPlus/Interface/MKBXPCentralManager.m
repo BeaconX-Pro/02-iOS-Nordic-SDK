@@ -7,8 +7,8 @@
 //
 
 #import "MKBXPCentralManager.h"
-#import "MKEddystoneDefines.h"
-#import "MKEddystoneAdopter.h"
+#import "MKBXPDefines.h"
+#import "MKBXPAdopter.h"
 #import "CBPeripheral+MKAdd.h"
 #import "MKBXPService.h"
 #import "MKBXPTaskOperation.h"
@@ -187,7 +187,7 @@ static dispatch_once_t onceToken;
     }
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:iBeaconNotifyUUID]]) {
         //判断是否是lockState改变通知
-        NSString *content = [MKEddystoneAdopter hexStringFromData:characteristic.value];
+        NSString *content = [MKBXPAdopter hexStringFromData:characteristic.value];
         if (content.length > 6 && [[content substringWithRange:NSMakeRange(0, 4)] isEqualToString:@"eb63"]) {
             NSString *state = [content substringFromIndex:(content.length - 2)];
             MKBXPLockState lockState = MKBXPLockStateUnknow;
@@ -205,7 +205,7 @@ static dispatch_once_t onceToken;
     }
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:threeSensorUUID]]) {
         //监听的三轴加速度数据
-        NSString *content = [MKEddystoneAdopter hexStringFromData:characteristic.value];
+        NSString *content = [MKBXPAdopter hexStringFromData:characteristic.value];
         if (content.length >= 12) {
             NSMutableArray *dataList = [NSMutableArray array];
             for (NSInteger i = 0; i < content.length / 12; i ++) {
@@ -227,10 +227,10 @@ static dispatch_once_t onceToken;
     }
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:temperatureHumidityUUID]]) {
         //监听的温湿度数据
-        NSString *content = [MKEddystoneAdopter hexStringFromData:characteristic.value];
+        NSString *content = [MKBXPAdopter hexStringFromData:characteristic.value];
         if (content.length == 8) {
-            NSInteger tempTemp = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(0, 4)];
-            NSInteger tempHui = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(4, 4)];
+            NSInteger tempTemp = [MKBXPAdopter getDecimalWithHex:content range:NSMakeRange(0, 4)];
+            NSInteger tempHui = [MKBXPAdopter getDecimalWithHex:content range:NSMakeRange(4, 4)];
             NSString *temperature = [NSString stringWithFormat:@"%.1f",(tempTemp * 0.1)];
             NSString *humidity = [NSString stringWithFormat:@"%.1f",(tempHui * 0.1)];
             NSDictionary *htData = @{
@@ -247,14 +247,14 @@ static dispatch_once_t onceToken;
     }
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:recordTHUUID]]) {
         //监听的符合采样条件已储存的温湿度数据
-        NSString *content = [MKEddystoneAdopter hexStringFromData:characteristic.value];
+        NSString *content = [MKBXPAdopter hexStringFromData:characteristic.value];
         if (content.length == 20 || content.length == 40) {
             NSMutableArray *dataList = [NSMutableArray array];
             for (NSInteger i = 0; i < content.length / 20; i ++) {
                 NSString *subContent = [content substringWithRange:NSMakeRange(i * 20, 20)];
-                NSString *date = [MKEddystoneAdopter deviceTime:[subContent substringWithRange:NSMakeRange(0, 12)]];
-                NSInteger tempTemp = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(12, 4)];
-                NSInteger tempHui = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(16, 4)];
+                NSString *date = [MKBXPAdopter deviceTime:[subContent substringWithRange:NSMakeRange(0, 12)]];
+                NSInteger tempTemp = [MKBXPAdopter getDecimalWithHex:content range:NSMakeRange(12, 4)];
+                NSInteger tempHui = [MKBXPAdopter getDecimalWithHex:content range:NSMakeRange(16, 4)];
                 NSString *temperature = [NSString stringWithFormat:@"%.1f",(tempTemp * 0.1)];
                 NSString *humidity = [NSString stringWithFormat:@"%.1f",(tempHui * 0.1)];
                 NSDictionary *htData = @{
@@ -334,20 +334,20 @@ static dispatch_once_t onceToken;
                  sucBlock:(MKConnectSuccessBlock)sucBlock
               failedBlock:(MKConnectFailedBlock)failedBlock{
     if (!peripheral) {
-        [MKEddystoneAdopter operationConnectFailedBlock:failedBlock];
+        [MKBXPAdopter operationConnectFailedBlock:failedBlock];
         return;
     }
     if (!MKValidStr(password) || password.length > 16) {
-        [MKEddystoneAdopter operationPasswordErrorBlock:failedBlock];
+        [MKBXPAdopter operationPasswordErrorBlock:failedBlock];
         return;
     }
     if (self.managerState != MKBXPCentralManagerStateEnable) {
-        [MKEddystoneAdopter operationCentralBlePowerOffBlock:failedBlock];
+        [MKBXPAdopter operationCentralBlePowerOffBlock:failedBlock];
         return;
     }
     if (self.isConnecting) {
         //正在连接
-        [MKEddystoneAdopter operationCannotReconnectErrorBlock:failedBlock];
+        [MKBXPAdopter operationCannotReconnectErrorBlock:failedBlock];
         return;
     }
     self.isConnecting = YES;
@@ -410,7 +410,7 @@ static dispatch_once_t onceToken;
                            sucBlock:(void (^)(NSString *lockState))sucBlock
                         failedBlock:(void (^)(NSError *error))failedBlock{
     if (self.isConnecting) {
-        [MKEddystoneAdopter operationCannotReconnectErrorBlock:failedBlock];
+        [MKBXPAdopter operationCannotReconnectErrorBlock:failedBlock];
         self.readingLockState = NO;
         return;
     }
@@ -453,16 +453,16 @@ static dispatch_once_t onceToken;
                  sucBlock:(MKConnectSuccessBlock)sucBlock
               failedBlock:(MKConnectFailedBlock)failedBlock{
     if (!peripheral) {
-        [MKEddystoneAdopter operationConnectFailedBlock:failedBlock];
+        [MKBXPAdopter operationConnectFailedBlock:failedBlock];
         return;
     }
     if (self.managerState != MKBXPCentralManagerStateEnable) {
-        [MKEddystoneAdopter operationCentralBlePowerOffBlock:failedBlock];
+        [MKBXPAdopter operationCentralBlePowerOffBlock:failedBlock];
         return;
     }
     if (self.isConnecting) {
         //正在连接
-        [MKEddystoneAdopter operationCannotReconnectErrorBlock:failedBlock];
+        [MKBXPAdopter operationCannotReconnectErrorBlock:failedBlock];
         return;
     }
     self.isConnecting = YES;
@@ -626,10 +626,10 @@ static dispatch_once_t onceToken;
     self.peripheral = nil;
     [self updateConnectState:MKBXPConnectStatusConnectedFailed];
     if (isPasswordError) {
-        [MKEddystoneAdopter operationPasswordErrorBlock:self.failedBlock];
+        [MKBXPAdopter operationPasswordErrorBlock:self.failedBlock];
         return;
     }
-    [MKEddystoneAdopter operationConnectFailedBlock:self.failedBlock];
+    [MKBXPAdopter operationConnectFailedBlock:self.failedBlock];
 }
 
 - (void)connectPeripheralSuccess{
@@ -704,20 +704,20 @@ static dispatch_once_t onceToken;
                                               successBlock:(void (^)(id returnData))successBlock
                                               failureBlock:(void (^)(NSError *error))failureBlock{
     if (!self.peripheral && self.connectState != MKBXPConnectStatusConnected) {
-        [MKEddystoneAdopter operationDisconnectedErrorBlock:failureBlock];
+        [MKBXPAdopter operationDisconnectedErrorBlock:failureBlock];
         return nil;
     }
     if (self.lockState != MKBXPLockStateOpen && self.lockState != MKBXPLockStateUnlockAutoMaticRelockDisabled) {
         //锁定状态
-        [MKEddystoneAdopter operationLockedErrorBlock:failureBlock];
+        [MKBXPAdopter operationLockedErrorBlock:failureBlock];
         return nil;
     }
     if (!MKValidStr(commandData)) {
-        [MKEddystoneAdopter operationParamsErrorBlock:failureBlock];
+        [MKBXPAdopter operationParamsErrorBlock:failureBlock];
         return nil;
     }
     if (!characteristic) {
-        [MKEddystoneAdopter operationCharacteristicErrorBlock:failureBlock];
+        [MKBXPAdopter operationCharacteristicErrorBlock:failureBlock];
         return nil;
     }
     __weak typeof(self) weakSelf = self;
@@ -736,16 +736,16 @@ static dispatch_once_t onceToken;
                                          successBlock:(void (^)(id returnData))successBlock
                                          failureBlock:(void (^)(NSError *error))failureBlock{
     if (!self.peripheral && self.connectState != MKBXPConnectStatusConnected) {
-        [MKEddystoneAdopter operationDisconnectedErrorBlock:failureBlock];
+        [MKBXPAdopter operationDisconnectedErrorBlock:failureBlock];
         return nil;
     }
     if (self.lockState != MKBXPLockStateOpen && self.lockState != MKBXPLockStateUnlockAutoMaticRelockDisabled) {
         //锁定状态
-        [MKEddystoneAdopter operationLockedErrorBlock:failureBlock];
+        [MKBXPAdopter operationLockedErrorBlock:failureBlock];
         return nil;
     }
     if (!characteristic) {
-        [MKEddystoneAdopter operationCharacteristicErrorBlock:failureBlock];
+        [MKBXPAdopter operationCharacteristicErrorBlock:failureBlock];
         return nil;
     }
     __weak typeof(self) weakSelf = self;
@@ -772,7 +772,7 @@ static dispatch_once_t onceToken;
         return ;
     }
     if (!returnData) {
-        [MKEddystoneAdopter operationRequestDataErrorBlock:failureBlock];
+        [MKBXPAdopter operationRequestDataErrorBlock:failureBlock];
         return ;
     }
     NSString *lev = returnData[MKBXPDataStatusLev];
@@ -780,7 +780,7 @@ static dispatch_once_t onceToken;
         //通用无附加信息的
         NSArray *dataList = (NSArray *)returnData[MKBXPDataInformation];
         if (!MKValidArray(dataList)) {
-            [MKEddystoneAdopter operationRequestDataErrorBlock:failureBlock];
+            [MKBXPAdopter operationRequestDataErrorBlock:failureBlock];
             return;
         }
         NSDictionary *resultDic = @{@"msg":@"success",
@@ -814,7 +814,7 @@ static dispatch_once_t onceToken;
     if (!self.peripheral || !MKValidStr(commandData) || !characteristic) {
         return;
     }
-    NSData *data = [MKEddystoneAdopter stringToData:commandData];
+    NSData *data = [MKBXPAdopter stringToData:commandData];
     if (!MKValidData(data)) {
         return;
     }
@@ -870,7 +870,7 @@ static dispatch_once_t onceToken;
                 [self connectPeripheralFailed:NO];
                 return;
             }
-            NSData *keyToUnlock = [MKEddystoneAdopter fetchKeyToUnlockWithPassword:self.password randKey:randKey];
+            NSData *keyToUnlock = [MKBXPAdopter fetchKeyToUnlockWithPassword:self.password randKey:randKey];
             if (!MKValidData(keyToUnlock)) {
                 [self connectPeripheralFailed:NO];
                 return;

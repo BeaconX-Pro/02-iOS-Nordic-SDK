@@ -7,9 +7,9 @@
 //
 
 #import "MKBXPTaskOperation.h"
-#import "MKEddystoneDefines.h"
+#import "MKBXPDefines.h"
 #import "MKBXPDataParser.h"
-#import "MKEddystoneAdopter.h"
+#import "MKBXPAdopter.h"
 
 NSString *const MKBXPAdditionalInformation = @"MKBXPAdditionalInformation";
 NSString *const MKBXPDataInformation = @"MKBXPDataInformation";
@@ -230,7 +230,7 @@ NSString *const MKBXPDataStatusLev = @"MKBXPDataStatusLev";
             }
             return;
         }
-        NSError *error = [MKEddystoneAdopter getErrorWithCode:MKCommunicationTimeout message:@"Communication timeout"];
+        NSError *error = [MKBXPAdopter getErrorWithCode:MKCommunicationTimeout message:@"Communication timeout"];
         self.completeBlock(error, self.operationID, nil);
     }
 }

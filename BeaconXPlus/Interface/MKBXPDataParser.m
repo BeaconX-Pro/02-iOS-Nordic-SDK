@@ -7,8 +7,8 @@
 //
 
 #import "MKBXPDataParser.h"
-#import "MKEddystoneDefines.h"
-#import "MKEddystoneAdopter.h"
+#import "MKBXPDefines.h"
+#import "MKBXPAdopter.h"
 #import "MKBXPService.h"
 #import "MKBXPOperationIDDefines.h"
 #import "MKBXPEnumeration.h"
@@ -157,16 +157,16 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
 }
 
 + (NSDictionary *)batteryData:(NSData *)data{
-    NSString *content = [MKEddystoneAdopter hexStringFromData:data];
+    NSString *content = [MKBXPAdopter hexStringFromData:data];
     if (!MKValidStr(content) || content.length != 4) {
         return nil;
     }
-    NSString *battery = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(0, 4)];
+    NSString *battery = [MKBXPAdopter getDecimalStringWithHex:content range:NSMakeRange(0, 4)];
     return [self dataParserGetDataSuccess:@{@"battery":battery} operationID:MKBXPReadBatteryOperation];
 }
 
 + (NSDictionary *)lockState:(NSData *)data{
-    NSString *content = [MKEddystoneAdopter hexStringFromData:data];
+    NSString *content = [MKBXPAdopter hexStringFromData:data];
     if (!MKValidStr(content) || content.length != 2) {
         return nil;
     }
@@ -182,7 +182,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
 }
 
 + (NSDictionary *)activeSlot:(NSData *)data{
-    NSString *content = [MKEddystoneAdopter hexStringFromData:data];
+    NSString *content = [MKBXPAdopter hexStringFromData:data];
     if (!MKValidStr(content) || content.length != 2) {
         return nil;
     }
@@ -190,18 +190,18 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
 }
 
 + (NSDictionary *)slotAdvertisingInterval:(NSData *)data{
-    NSString *content = [MKEddystoneAdopter hexStringFromData:data];
+    NSString *content = [MKBXPAdopter hexStringFromData:data];
     if (!MKValidStr(content) || content.length != 4) {
         return nil;
     }
-    NSString *advInterval = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(0, 4)];
+    NSString *advInterval = [MKBXPAdopter getDecimalStringWithHex:content range:NSMakeRange(0, 4)];
     return [self dataParserGetDataSuccess:@{@"advertisingInterval":advInterval}
                               operationID:MKBXPReadAdvertisingIntervalOperation];
 }
 
 + (NSDictionary *)radioTxPower:(NSData *)data{
-    NSString *content = [MKEddystoneAdopter hexStringFromData:data];
-    NSString *power = [MKEddystoneAdopter fetchTxPowerWithContent:content];
+    NSString *content = [MKBXPAdopter hexStringFromData:data];
+    NSString *power = [MKBXPAdopter fetchTxPowerWithContent:content];
     return [self dataParserGetDataSuccess:@{@"radioTxPower":power} operationID:MKBXPReadRadioTxPowerOperation];
 }
 
@@ -273,7 +273,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         return [self dataParserGetDataSuccess:returnData operationID:MKBXPReadAdvSlotDataOperation];
     }
     if (frameType == MKBXPBeaconFrameType) {
-        NSString *content = [MKEddystoneAdopter hexStringFromData:[data subdataWithRange:NSMakeRange(1, data.length - 1)]];
+        NSString *content = [MKBXPAdopter hexStringFromData:[data subdataWithRange:NSMakeRange(1, data.length - 1)]];
         NSMutableArray *array = [NSMutableArray arrayWithObjects:[content substringWithRange:NSMakeRange(0, 8)],
                                  [content substringWithRange:NSMakeRange(8, 4)],
                                  [content substringWithRange:NSMakeRange(12, 4)],
@@ -298,18 +298,18 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
                                      };
         return [self dataParserGetDataSuccess:returnData operationID:MKBXPReadAdvSlotDataOperation];
     }
-    NSString *type = [MKEddystoneAdopter hexStringFromData:[data subdataWithRange:NSMakeRange(0, 1)]];
+    NSString *type = [MKBXPAdopter hexStringFromData:[data subdataWithRange:NSMakeRange(0, 1)]];
     return [self dataParserGetDataSuccess:@{@"frameType":type} operationID:MKBXPReadAdvSlotDataOperation];
 }
 
 + (NSDictionary *)parseDeviceType:(NSData *)data {
-    NSString *content = [MKEddystoneAdopter hexStringFromData:data];
+    NSString *content = [MKBXPAdopter hexStringFromData:data];
     return [self dataParserGetDataSuccess:@{@"deviceType":content} operationID:MKBXPReadDeviceTypeOperation];
 }
 
 + (NSDictionary *)parseSlotType:(NSData *)data {
     //读取eddyStone设备通道数据类型
-    NSString *content = [MKEddystoneAdopter hexStringFromData:data];
+    NSString *content = [MKBXPAdopter hexStringFromData:data];
     NSArray *typeList = @[[content substringWithRange:NSMakeRange(0, 2)],
                           [content substringWithRange:NSMakeRange(2, 2)],
                           [content substringWithRange:NSMakeRange(4, 2)],
@@ -320,7 +320,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
 }
 
 + (NSDictionary *)customData:(NSData *)data{
-    NSString *content = [MKEddystoneAdopter hexStringFromData:data];
+    NSString *content = [MKBXPAdopter hexStringFromData:data];
     if (!MKValidStr(content) || content.length < 8) {
         return nil;
     }
@@ -348,7 +348,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         returnDic = @{
                       @"samplingRate":[content substringWithRange:NSMakeRange(8, 2)],
                       @"gravityReference":[content substringWithRange:NSMakeRange(10, 2)],
-                      @"sensitivity":[MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(12, 2)],
+                      @"sensitivity":[MKBXPAdopter getDecimalStringWithHex:content range:NSMakeRange(12, 2)],
                       };
     }else if ([function isEqualToString:@"31"] && content.length == 8){
         //设置三轴传感器参数
@@ -362,21 +362,21 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         NSString *time = @"";
         if ([tempFunction isEqualToString:@"00"] && content.length == 14) {
             //温度
-            NSInteger value = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(10, 4)];
+            NSInteger value = [MKBXPAdopter getDecimalWithHex:content range:NSMakeRange(10, 4)];
             temperValue = [NSString stringWithFormat:@"%.1f",value * 0.1];
         }else if ([tempFunction isEqualToString:@"01"] && content.length == 14) {
             //湿度
-            NSInteger value = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(10, 4)];
+            NSInteger value = [MKBXPAdopter getDecimalWithHex:content range:NSMakeRange(10, 4)];
             humidity = [NSString stringWithFormat:@"%.f",value * 0.1];
         }else if ([tempFunction isEqualToString:@"02"] && content.length == 18) {
             //温湿度
-            NSInteger value = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(10, 4)];
-            NSInteger value1 = [MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(14, 4)];
+            NSInteger value = [MKBXPAdopter getDecimalWithHex:content range:NSMakeRange(10, 4)];
+            NSInteger value1 = [MKBXPAdopter getDecimalWithHex:content range:NSMakeRange(14, 4)];
             temperValue = [NSString stringWithFormat:@"%.1f",value * 0.1];
             humidity = [NSString stringWithFormat:@"%.f",value1 * 0.1];
         }else if ([tempFunction isEqualToString:@"03"] && content.length == 12) {
             //时间
-            time = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 2)];
+            time = [MKBXPAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 2)];
         }
         returnDic = @{
                       @"functionType":tempFunction,
@@ -389,14 +389,14 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         //读取温湿度采样率
         operationID = MKBXPReadHTSamplingRateOperation;
         returnDic = @{
-                      @"samplingRate":[MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 4)],
+                      @"samplingRate":[MKBXPAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 4)],
                       };
     }else if ([function isEqualToString:@"25"] && content.length == 20){
         //读取设备当前时间
         operationID = MKBXPReadDeviceTimeOperation;
         
         returnDic = @{
-                      @"deviceTime":[MKEddystoneAdopter deviceTime:[content substringWithRange:NSMakeRange(8, 12)]],
+                      @"deviceTime":[MKBXPAdopter deviceTime:[content substringWithRange:NSMakeRange(8, 12)]],
                       };
     }else if ([function isEqualToString:@"35"] && content.length == 8){
         //设置设备当前时间
@@ -432,7 +432,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
 }
 
 + (NSDictionary *)parseConnectStatus:(NSData *)data {
-    NSString *content = [MKEddystoneAdopter hexStringFromData:data];
+    NSString *content = [MKBXPAdopter hexStringFromData:data];
     return [self dataParserGetDataSuccess:@{@"connectEnable":@(![content isEqualToString:@"00"])} operationID:MKBXPReadConnectEnableOperation];
 }
 
@@ -452,7 +452,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
                       @"type":type,
                       };
     }else if ([type isEqualToString:@"01"] && content.length == 10) {
-        float temperature = [[MKEddystoneAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(4, 4)]] integerValue] * 0.1;
+        float temperature = [[MKBXPAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(4, 4)]] integerValue] * 0.1;
         resultDic = @{
                       @"type":type,
                       @"conditions":@{
@@ -462,7 +462,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
                               }
                       };
     }else if ([type isEqualToString:@"02"] && content.length == 10) {
-        float humidity = [[MKEddystoneAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(4, 4)]] integerValue] * 0.1;
+        float humidity = [[MKBXPAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(4, 4)]] integerValue] * 0.1;
         resultDic = @{
                       @"type":type,
                       @"conditions":@{
@@ -475,7 +475,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         resultDic = @{
                       @"type":type,
                       @"conditions":@{
-                              @"time":[MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)],
+                              @"time":[MKBXPAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)],
                               @"start":@([[content substringWithRange:NSMakeRange(6, 2)] isEqualToString:@"01"])
                               }
                       };
@@ -483,7 +483,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         resultDic = @{
                       @"type":type,
                       @"conditions":@{
-                              @"time":[MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)],
+                              @"time":[MKBXPAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)],
                               @"start":@([[content substringWithRange:NSMakeRange(6, 2)] isEqualToString:@"01"])
                               }
                       };
@@ -491,7 +491,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         resultDic = @{
                       @"type":type,
                       @"conditions":@{
-                              @"time":[MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)],
+                              @"time":[MKBXPAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)],
                               @"start":@([[content substringWithRange:NSMakeRange(6, 2)] isEqualToString:@"01"])
                               }
                       };

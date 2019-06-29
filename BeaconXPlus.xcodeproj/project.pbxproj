@@ -65,9 +65,9 @@
 		0019A5CE2297F587007D67F9 /* MKSwitchStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0019A5CD2297F587007D67F9 /* MKSwitchStatusCell.m */; };
 		001CC075226824F600331198 /* MKBXPCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC074226824F600331198 /* MKBXPCentralManager.m */; };
 		001CC0882268667D00331198 /* MKBXPBaseBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC0872268667D00331198 /* MKBXPBaseBeacon.m */; };
-		001CC08B226871E800331198 /* MKEddystoneAdopter.m in Sources */ = {isa = PBXBuildFile; fileRef = 001CC089226871E800331198 /* MKEddystoneAdopter.m */; };
 		001DB75822A10E5C008D2FA4 /* slot_htDataSaveIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 001DB75622A10E5B008D2FA4 /* slot_htDataSaveIcon@2x.png */; };
 		001DB75922A10E5C008D2FA4 /* slot_htDataSaveIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 001DB75722A10E5B008D2FA4 /* slot_htDataSaveIcon@3x.png */; };
+		001F8E9222C715AC004B14F7 /* MKBXPAdopter.m in Sources */ = {isa = PBXBuildFile; fileRef = 001F8E8F22C715AB004B14F7 /* MKBXPAdopter.m */; };
 		002532E622952FBC0055D3E7 /* MKScanBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002532E522952FBC0055D3E7 /* MKScanBaseCell.m */; };
 		002532E9229531470055D3E7 /* MKEddStoneUIDCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002532E8229531470055D3E7 /* MKEddStoneUIDCell.m */; };
 		0025335D2295339D0055D3E7 /* batteryLower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 002532ED2295339D0055D3E7 /* batteryLower@3x.png */; };
@@ -334,14 +334,14 @@
 		0019A5CD2297F587007D67F9 /* MKSwitchStatusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSwitchStatusCell.m; sourceTree = "<group>"; };
 		001CC073226824F600331198 /* MKBXPCentralManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPCentralManager.h; sourceTree = "<group>"; };
 		001CC074226824F600331198 /* MKBXPCentralManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBXPCentralManager.m; sourceTree = "<group>"; };
-		001CC082226855B100331198 /* MKEddystoneDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEddystoneDefines.h; sourceTree = "<group>"; };
 		001CC0862268667D00331198 /* MKBXPBaseBeacon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPBaseBeacon.h; sourceTree = "<group>"; };
 		001CC0872268667D00331198 /* MKBXPBaseBeacon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKBXPBaseBeacon.m; sourceTree = "<group>"; };
-		001CC089226871E800331198 /* MKEddystoneAdopter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKEddystoneAdopter.m; sourceTree = "<group>"; };
-		001CC08A226871E800331198 /* MKEddystoneAdopter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKEddystoneAdopter.h; sourceTree = "<group>"; };
 		001CC08C2268748200331198 /* MKBXPEnumeration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKBXPEnumeration.h; sourceTree = "<group>"; };
 		001DB75622A10E5B008D2FA4 /* slot_htDataSaveIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_htDataSaveIcon@2x.png"; sourceTree = "<group>"; };
 		001DB75722A10E5B008D2FA4 /* slot_htDataSaveIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_htDataSaveIcon@3x.png"; sourceTree = "<group>"; };
+		001F8E8F22C715AB004B14F7 /* MKBXPAdopter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKBXPAdopter.m; sourceTree = "<group>"; };
+		001F8E9022C715AC004B14F7 /* MKBXPDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKBXPDefines.h; sourceTree = "<group>"; };
+		001F8E9122C715AC004B14F7 /* MKBXPAdopter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKBXPAdopter.h; sourceTree = "<group>"; };
 		002532E422952FBC0055D3E7 /* MKScanBaseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKScanBaseCell.h; sourceTree = "<group>"; };
 		002532E522952FBC0055D3E7 /* MKScanBaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKScanBaseCell.m; sourceTree = "<group>"; };
 		002532E7229531470055D3E7 /* MKEddStoneUIDCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKEddStoneUIDCell.h; sourceTree = "<group>"; };
@@ -798,7 +798,6 @@
 			children = (
 				0009370B229B8A0100501788 /* Expand */,
 				00DA1B4F226969340093DBAE /* Function */,
-				001CC07E2268553400331198 /* MKEddystoneBase */,
 				00150591226486C500F69569 /* Interface */,
 				001505752264831E00F69569 /* AppDelegate.h */,
 				001505762264831E00F69569 /* AppDelegate.m */,
@@ -819,6 +818,10 @@
 				001CC074226824F600331198 /* MKBXPCentralManager.m */,
 				001CC0862268667D00331198 /* MKBXPBaseBeacon.h */,
 				001CC0872268667D00331198 /* MKBXPBaseBeacon.m */,
+				0019A5B22297DEEF007D67F9 /* MKBXPInterface.h */,
+				0019A5B32297DEEF007D67F9 /* MKBXPInterface.m */,
+				0012478F22991B4600E97868 /* MKBXPInterface+MKConfig.h */,
+				0012479022991B4600E97868 /* MKBXPInterface+MKConfig.m */,
 				001CC08C2268748200331198 /* MKBXPEnumeration.h */,
 				0016CD8D22695C670069787A /* MKBXPNormalDefines.h */,
 				0016CD8E22695CA10069787A /* MKBXPProtocols.h */,
@@ -830,10 +833,9 @@
 				009B58D72296A4FE00133192 /* MKBXPOperationIDDefines.h */,
 				009B58D82296A61600133192 /* MKBXPDataParser.h */,
 				009B58D92296A61600133192 /* MKBXPDataParser.m */,
-				0019A5B22297DEEF007D67F9 /* MKBXPInterface.h */,
-				0019A5B32297DEEF007D67F9 /* MKBXPInterface.m */,
-				0012478F22991B4600E97868 /* MKBXPInterface+MKConfig.h */,
-				0012479022991B4600E97868 /* MKBXPInterface+MKConfig.m */,
+				001F8E9122C715AC004B14F7 /* MKBXPAdopter.h */,
+				001F8E8F22C715AB004B14F7 /* MKBXPAdopter.m */,
+				001F8E9022C715AC004B14F7 /* MKBXPDefines.h */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -933,16 +935,6 @@
 				0019A5CD2297F587007D67F9 /* MKSwitchStatusCell.m */,
 			);
 			path = view;
-			sourceTree = "<group>";
-		};
-		001CC07E2268553400331198 /* MKEddystoneBase */ = {
-			isa = PBXGroup;
-			children = (
-				001CC08A226871E800331198 /* MKEddystoneAdopter.h */,
-				001CC089226871E800331198 /* MKEddystoneAdopter.m */,
-				001CC082226855B100331198 /* MKEddystoneDefines.h */,
-			);
-			path = MKEddystoneBase;
 			sourceTree = "<group>";
 		};
 		002532EC2295339D0055D3E7 /* Resource */ = {
@@ -1515,6 +1507,7 @@
 				00385EEC22A0B98500A8D00E /* MKHTParamsConfigCell.m in Sources */,
 				009B58D22296A20800133192 /* CBPeripheral+MKAdd.m in Sources */,
 				0012478622990E0700E97868 /* MKSettingController.m in Sources */,
+				001F8E9222C715AC004B14F7 /* MKBXPAdopter.m in Sources */,
 				00093714229B8B1E00501788 /* MKSlotConfigCellModel.m in Sources */,
 				0009370A229B896400501788 /* MKSlotVCModel.m in Sources */,
 				00093717229B8D5500501788 /* MKSlotLineHeader.m in Sources */,
@@ -1554,7 +1547,6 @@
 				00131DE422952F1000E613FF /* MKConnectDeviceProgressView.m in Sources */,
 				00093725229B901400501788 /* MKSlotBaseCell.m in Sources */,
 				002533DB229538100055D3E7 /* MKEddStoneiBeaconCell.m in Sources */,
-				001CC08B226871E800331198 /* MKEddystoneAdopter.m in Sources */,
 				000C3918229FD5B700A3813E /* MKHTDataCell.m in Sources */,
 				00093707229B80BB00501788 /* MKSlotController.m in Sources */,
 				002532E9229531470055D3E7 /* MKEddStoneUIDCell.m in Sources */,

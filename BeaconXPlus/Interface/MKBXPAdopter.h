@@ -1,5 +1,5 @@
 //
-//  MKEddystoneAdopter.h
+//  MKBXPAdopter.h
 //  EddystoneSDK
 //
 //  Created by aa on 2018/8/9.
@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, MKCustomErrorCode){
     MKEddystoneCannotReconnect = -10010,                         //如果正在处于连接流程，不允许新的连接
 };
 
-@interface MKEddystoneAdopter : NSObject
+@interface MKBXPAdopter : NSObject
 #pragma mark - block
 + (NSError *)getErrorWithCode:(MKCustomErrorCode)code message:(NSString *)message;
 + (void)operationCentralBlePowerOffBlock:(void (^)(NSError *error))block;

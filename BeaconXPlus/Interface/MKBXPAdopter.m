@@ -1,18 +1,18 @@
 //
-//  MKEddystoneAdopter.m
+//  MKBXPAdopter.m
 //  EddystoneSDK
 //
 //  Created by aa on 2018/8/9.
 //  Copyright © 2018年 MK. All rights reserved.
 //
 
-#import "MKEddystoneAdopter.h"
+#import "MKBXPAdopter.h"
 #import <CommonCrypto/CommonCryptor.h>
-#import "MKEddystoneDefines.h"
+#import "MKBXPDefines.h"
 
 static NSString * const MKCustomErrorDomain = @"com.moko.eddystoneSDKDomain";
 
-@implementation MKEddystoneAdopter
+@implementation MKBXPAdopter
 
 #pragma mark - blocks
 + (NSError *)getErrorWithCode:(MKCustomErrorCode)code message:(NSString *)message{
@@ -380,24 +380,24 @@ static NSString * const MKCustomErrorDomain = @"com.moko.eddystoneSDKDomain";
 }
 
 + (NSString *)deviceTime:(NSString *)content {
-    NSString *year = [NSString stringWithFormat:@"%ld",(long)([MKEddystoneAdopter getDecimalWithHex:content range:NSMakeRange(0, 2)] + 2000)];
-    NSString *month = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 2)];
+    NSString *year = [NSString stringWithFormat:@"%ld",(long)([MKBXPAdopter getDecimalWithHex:content range:NSMakeRange(0, 2)] + 2000)];
+    NSString *month = [MKBXPAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 2)];
     if (month.length == 1) {
         month = [@"0" stringByAppendingString:month];
     }
-    NSString *day = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(4, 2)];
+    NSString *day = [MKBXPAdopter getDecimalStringWithHex:content range:NSMakeRange(4, 2)];
     if (day.length == 1) {
         day = [@"0" stringByAppendingString:day];
     }
-    NSString *hour = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(6, 2)];
+    NSString *hour = [MKBXPAdopter getDecimalStringWithHex:content range:NSMakeRange(6, 2)];
     if (hour.length == 1) {
         hour = [@"0" stringByAppendingString:hour];
     }
-    NSString *minutes = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 2)];
+    NSString *minutes = [MKBXPAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 2)];
     if (minutes.length == 1) {
         minutes = [@"0" stringByAppendingString:minutes];
     }
-    NSString *sec = [MKEddystoneAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 2)];
+    NSString *sec = [MKBXPAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 2)];
     if (sec.length == 1) {
         sec = [@"0" stringByAppendingString:sec];
     }
