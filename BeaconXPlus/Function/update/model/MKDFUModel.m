@@ -76,7 +76,6 @@ static NSString *const dfuUpdateDomain = @"com.moko.dfuUpdateDomain";
 }
 
 - (void)dfuStateDidChangeTo:(enum DFUState)state{
-    NSLog(@"DFUState state%ld",state);
     //升级完成
     if (state==DFUStateCompleted) {
         moko_dispatch_main_safe(^{
