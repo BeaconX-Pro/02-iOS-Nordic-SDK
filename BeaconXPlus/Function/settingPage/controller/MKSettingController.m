@@ -102,12 +102,49 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
                 [self setPassword];
                 return;
             }
-            if (indexPath.row == 1) {
+            MKMainCellModel *model = [self.bottomDataList lastObject];
+            if (model.isOn) {
+                if (indexPath.row == 1) {
+                    //dfu
+                    self.hidesBottomBarWhenPushed = YES;
+                    MKUpdateController *vc = [[MKUpdateController alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                    self.hidesBottomBarWhenPushed = NO;
+                }
+            }else {
+                if (indexPath.row == 1) {
+                    //reset
+                    [self factoryReset];
+                    return;
+                }
+                if (indexPath.row == 2) {
+                    //dfu
+                    self.hidesBottomBarWhenPushed = YES;
+                    MKUpdateController *vc = [[MKUpdateController alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                    self.hidesBottomBarWhenPushed = NO;
+                    return;
+                }
+            }
+            return;
+        }
+        //无密码状态进入
+        MKMainCellModel *model = [self.bottomDataList lastObject];
+        if (model.isOn) {
+            if (indexPath.row == 0) {
+                //dfu
+                self.hidesBottomBarWhenPushed = YES;
+                MKUpdateController *vc = [[MKUpdateController alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }
+        }else {
+            if (indexPath.row == 0) {
                 //reset
                 [self factoryReset];
                 return;
             }
-            if (indexPath.row == 2) {
+            if (indexPath.row == 1) {
                 //dfu
                 self.hidesBottomBarWhenPushed = YES;
                 MKUpdateController *vc = [[MKUpdateController alloc] init];
@@ -115,15 +152,6 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
                 self.hidesBottomBarWhenPushed = NO;
                 return;
             }
-            return;
-        }
-        if (indexPath.row == 0) {
-            //dfu
-            self.hidesBottomBarWhenPushed = YES;
-            MKUpdateController *vc = [[MKUpdateController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
-            return;
         }
         return;
     }
@@ -402,6 +430,7 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         MKMainCellModel *model = weakSelf.bottomDataList[2];
         model.isOn = !isOn;
+        [weakSelf reloadTopList];
         [weakSelf.tableView reloadData];
     }];
     [alertController addAction:cancelAction];
@@ -421,36 +450,43 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
                                            [[MKHudManager share] hide];
                                            MKMainCellModel *model = self.bottomDataList[2];
                                            model.isOn = isOn;
+                                           [weakSelf reloadTopList];
+                                           [weakSelf.tableView reloadData];
                                        }
                                     failedBlock:^(NSError *error) {
                                         [[MKHudManager share] hide];
                                         [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
                                         MKMainCellModel *model = self.bottomDataList[2];
                                         model.isOn = !isOn;
+                                        [weakSelf reloadTopList];
                                         [weakSelf.tableView reloadData];
                                     }];
 }
 
 #pragma mark -
 
-- (void)loadDatas{
+- (void)reloadTopList {
+    [self.topDataList removeAllObjects];
     if (self.showPassword) {
         MKMainCellModel *passwordModel = [[MKMainCellModel alloc] init];
         passwordModel.leftIconName = @"setting_password";
         passwordModel.leftMsg = @"Change Password";
         [self.topDataList addObject:passwordModel];
-        
+    }
+    MKMainCellModel *directedModel = [self.bottomDataList lastObject];
+    if (!directedModel.isOn) {
         MKMainCellModel *resetModel = [[MKMainCellModel alloc] init];
         resetModel.leftIconName = @"setting_reset";
         resetModel.leftMsg = @"Factory Reset";
         [self.topDataList addObject:resetModel];
     }
-    
     MKMainCellModel *updateModel = [[MKMainCellModel alloc] init];
     updateModel.leftIconName = @"setting_updateFirmwareIcon";
     updateModel.leftMsg = @"Update Firmware";
     [self.topDataList addObject:updateModel];
-    
+}
+
+- (void)loadDatas{
     if ([[MKDataManager shared].deviceType isEqualToString:@"01"]) {
         //带LIS3DH3轴加速度计
         MKMainCellModel *threeAxisModel = [[MKMainCellModel alloc] init];
@@ -498,6 +534,8 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
     directedModel.isOn = !self.showPassword;
     [self.bottomDataList addObject:directedModel];
     
+    [self reloadTopList];
+    
     [self.tableView reloadData];
 }
 
@@ -522,6 +560,11 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
         
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        if (@available(iOS 11.0, *)) {
+            
+        }else {
+            _tableView.estimatedRowHeight = 44.f;
+        }
     }
     return _tableView;
 }

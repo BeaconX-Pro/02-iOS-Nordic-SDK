@@ -529,6 +529,12 @@ static CGFloat const headerViewHeight = 130.f;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableHeaderView = [self tableHeader];
+        
+        if (@available(iOS 11.0, *)) {
+            
+        }else {
+            _tableView.estimatedRowHeight = 44.f;
+        }
     }
     return _tableView;
 }

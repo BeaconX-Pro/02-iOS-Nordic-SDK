@@ -412,6 +412,7 @@
             }
             [self.doubleTapView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
         }
+        [self.doubleTapView updateIndex:0 timeValue:@"30"];
         return;
     }
     if (self.index == 1) {
@@ -437,6 +438,7 @@
             }
             [self.tripleTapView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
         }
+        [self.tripleTapView updateIndex:0 timeValue:@"30"];
         return;
     }
     if ([[MKDataManager shared].deviceType isEqualToString:@"00"]) {
@@ -468,6 +470,7 @@
                 }
                 [self.movesView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
             }
+            [self.movesView updateIndex:0 timeValue:@"30"];
             return;
         }
         return;
@@ -528,6 +531,7 @@
                 }
                 [self.movesView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
             }
+            [self.movesView updateIndex:0 timeValue:@"30"];
             return;
         }
         return;
