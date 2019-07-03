@@ -14,15 +14,11 @@
 
 @property (nonatomic, strong)UIImageView *icon2;
 
-@property (nonatomic, strong)UIImageView *icon3;
-
 @property (nonatomic, strong)UIImageView *icon4;
 
 @property (nonatomic, strong)UILabel *msgLabel1;
 
 @property (nonatomic, strong)UILabel *msgLabel2;
-
-@property (nonatomic, strong)UILabel *msgLabel3;
 
 @property (nonatomic, strong)UILabel *msgLabel4;
 
@@ -58,11 +54,9 @@
     if (self = [super initWithFrame:frame]) {
         [self addSubview:self.icon1];
         [self addSubview:self.icon2];
-        [self addSubview:self.icon3];
         [self addSubview:self.icon4];
         [self addSubview:self.msgLabel1];
         [self addSubview:self.msgLabel2];
-        [self addSubview:self.msgLabel3];
         [self addSubview:self.msgLabel4];
         [self addSubview:self.unitLabel1];
         [self addSubview:self.unitLabel2];
@@ -121,25 +115,11 @@
         make.height.mas_equalTo(25.f);
     }];
     
-    CGSize msgSize3 = [NSString sizeWithText:self.msgLabel3.text andFont:self.msgLabel3.font andMaxSize:CGSizeMake(msgLabelWidth, MAXFLOAT)];
-    [self.msgLabel3 mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.icon3.mas_right).mas_offset(2.f);
-        make.width.mas_equalTo(msgLabelWidth);
-        make.top.mas_equalTo(self.msgLabel2.mas_bottom).mas_offset(10.f);
-        make.height.mas_equalTo(MAX(msgLabelDefaultHeight, msgSize3.height));
-    }];
-    [self.icon3 mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(0);
-        make.width.mas_equalTo(10.f);
-        make.centerY.mas_equalTo(self.msgLabel3.mas_centerY);
-        make.height.mas_equalTo(10.f);
-    }];
-    
     CGSize msgSize4 = [NSString sizeWithText:self.msgLabel4.text andFont:self.msgLabel4.font andMaxSize:CGSizeMake(msgLabelWidth, MAXFLOAT)];
     [self.msgLabel4 mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.icon4.mas_right).mas_offset(2.f);
         make.width.mas_equalTo(msgLabelWidth);
-        make.top.mas_equalTo(self.msgLabel3.mas_bottom).mas_offset(10.f);
+        make.top.mas_equalTo(self.msgLabel2.mas_bottom).mas_offset(10.f);
         make.height.mas_equalTo(MAX(msgLabelDefaultHeight, msgSize4.height));
     }];
     [self.icon4 mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -188,20 +168,11 @@
     [self updateNoteMsg];
 }
 
-- (void)msgLabel3Pressed {
+- (void)msgLabel4Pressed {
     if (self.index == 2) {
         return;
     }
     self.index = 2;
-    [self updateSelectedIcon];
-    [self updateNoteMsg];
-}
-
-- (void)msgLabel4Pressed {
-    if (self.index == 3) {
-        return;
-    }
-    self.index = 3;
     [self updateSelectedIcon];
     [self updateNoteMsg];
 }
@@ -214,7 +185,7 @@
 }
 
 - (void)stopTextFieldValueChanged {
-    if (self.index != 3) {
+    if (self.index != 2) {
         return;
     }
     [self updateNoteMsg];
@@ -226,7 +197,7 @@
     if (self.index == 1) {
         self.startField.text = time;
     }
-    if (self.index == 3) {
+    if (self.index == 2) {
         self.stopField.text = time;
     }
     [self updateSelectedIcon];
@@ -244,10 +215,6 @@
             self.noteMsgLabel.text = [NSString stringWithFormat:@"The device will stop advertising after a static period of %@s and it starts advertising again if the device moves.",self.startField.text];
         }
         if (self.index == 2) {
-            self.noteMsgLabel.text = @"The device will always stop advertising if the device moves.";
-            return;
-        }
-        if (self.index == 3) {
             self.noteMsgLabel.text = [NSString stringWithFormat:@"The device will start advertising after a static period of %@s and it starts advertising again if the device moves.",self.stopField.text];
         }
         return;
@@ -262,10 +229,6 @@
         return;
     }
     if (self.index == 2) {
-        self.noteMsgLabel.text = [NSString stringWithFormat:@"The device will always stop advertising if the button %@ tapped.",typeString];
-        return;
-    }
-    if (self.index == 3) {
         self.noteMsgLabel.text = [NSString stringWithFormat:@"The device will stop advertising for %@s if the button %@ tapped.",self.stopField.text,typeString];
         return;
     }
@@ -274,8 +237,7 @@
 - (void)updateSelectedIcon {
     self.icon1.image = (self.index == 0) ? LOADIMAGE(@"slot_paramsConfig_selectedIcon", @"png") : LOADIMAGE(@"slot_paramsConfig_unselectedIcon", @"png");
     self.icon2.image = (self.index == 1) ? LOADIMAGE(@"slot_paramsConfig_selectedIcon", @"png") : LOADIMAGE(@"slot_paramsConfig_unselectedIcon", @"png");
-    self.icon3.image = (self.index == 2) ? LOADIMAGE(@"slot_paramsConfig_selectedIcon", @"png") : LOADIMAGE(@"slot_paramsConfig_unselectedIcon", @"png");
-    self.icon4.image = (self.index == 3) ? LOADIMAGE(@"slot_paramsConfig_selectedIcon", @"png") : LOADIMAGE(@"slot_paramsConfig_unselectedIcon", @"png");
+    self.icon4.image = (self.index == 2) ? LOADIMAGE(@"slot_paramsConfig_selectedIcon", @"png") : LOADIMAGE(@"slot_paramsConfig_unselectedIcon", @"png");
 }
 
 #pragma mark - setter & getter
@@ -294,14 +256,6 @@
         _icon2.image = LOADIMAGE(@"slot_paramsConfig_unselectedIcon", @"png");
     }
     return _icon2;
-}
-
-- (UIImageView *)icon3 {
-    if (!_icon3) {
-        _icon3 = [[UIImageView alloc] init];
-        _icon3.image = LOADIMAGE(@"slot_paramsConfig_unselectedIcon", @"png");
-    }
-    return _icon3;
 }
 
 - (UIImageView *)icon4 {
@@ -327,15 +281,6 @@
         [_msgLabel2 addTapAction:self selector:@selector(msgLabel2Pressed)];
     }
     return _msgLabel2;
-}
-
-- (UILabel *)msgLabel3 {
-    if (!_msgLabel3) {
-        _msgLabel3 = [self createMsgLabel:MKFont(11.f)];
-        _msgLabel3.text = @"Always stop advertising";
-        [_msgLabel3 addTapAction:self selector:@selector(msgLabel3Pressed)];
-    }
-    return _msgLabel3;
 }
 
 - (UILabel *)msgLabel4 {

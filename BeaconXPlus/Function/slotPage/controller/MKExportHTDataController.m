@@ -105,7 +105,7 @@
     }];
     [alertController addAction:moreAction];
     
-    [kAppRootController presentViewController:alertController animated:YES completion:nil];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)exportButtonPressed {

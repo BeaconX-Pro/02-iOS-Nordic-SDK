@@ -167,9 +167,9 @@ static CGFloat const leftIconHeight = 7.f;
         return;
     }
     self.rssiValueLabel.text = [NSString stringWithFormat:@"%ld%@",(long)[beacon.rssi0M integerValue],@"dBm"];
-    self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld %@",(long)[beacon.rssi integerValue],@"dBm"];
-    self.dateRateValueLabel.text = [beacon.samplingRate stringByAppendingString:@" Hz"];
-    self.scaleValueLabel.text = [NSString stringWithFormat:@"%@%@g",@"±",beacon.accelerationOfGravity];
+    self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld %@",(long)[beacon.txPower integerValue],@"dBm"];
+    self.dateRateValueLabel.text = [self fetchDataRate:beacon.samplingRate];
+    self.scaleValueLabel.text = [self fetchScaleData:beacon.accelerationOfGravity];
     NSString *rawString = [NSString stringWithFormat:@"X:0x%@ Y:0x%@ Z:0x%@",[beacon.xData uppercaseString],[beacon.yData uppercaseString],[beacon.zData uppercaseString]];
     self.rawValueLabel.text = rawString;
 }
@@ -180,6 +180,57 @@ static CGFloat const leftIconHeight = 7.f;
     label.textAlignment = NSTextAlignmentLeft;
     label.font = font;
     return label;
+}
+//@"00":1Hz,@"01":10Hz,@"02":25Hz,@"03":50Hz,@"04":100Hz,
+//@"05":200Hz,@"06":400Hz,@"07":1344Hz,@"08":1620Hz,@"09":5376Hz
+- (NSString *)fetchDataRate:(NSString *)rate {
+    if ([rate isEqualToString:@"00"]) {
+        return @"1 Hz";
+    }
+    if ([rate isEqualToString:@"01"]) {
+        return @"10 Hz";
+    }
+    if ([rate isEqualToString:@"02"]) {
+        return @"25 Hz";
+    }
+    if ([rate isEqualToString:@"03"]) {
+        return @"50 Hz";
+    }
+    if ([rate isEqualToString:@"04"]) {
+        return @"100 Hz";
+    }
+    if ([rate isEqualToString:@"05"]) {
+        return @"200 Hz";
+    }
+    if ([rate isEqualToString:@"06"]) {
+        return @"400 Hz";
+    }
+    if ([rate isEqualToString:@"07"]) {
+        return @"1344 Hz";
+    }
+    if ([rate isEqualToString:@"08"]) {
+        return @"1620 Hz";
+    }
+    if ([rate isEqualToString:@"09"]) {
+        return @"5376 Hz";
+    }
+    return @"";
+}
+//@"00":±2g,@"01"":±4g,@"02":±8g,@"03":±16g
+- (NSString *)fetchScaleData:(NSString *)scale {
+    if ([scale isEqualToString:@"00"]) {
+        return @"±2g";
+    }
+    if ([scale isEqualToString:@"01"]) {
+        return @"±4g";
+    }
+    if ([scale isEqualToString:@"02"]) {
+        return @"±8g";
+    }
+    if ([scale isEqualToString:@"03"]) {
+        return @"±16g";
+    }
+    return @"";
 }
 
 #pragma mark - setter & getter

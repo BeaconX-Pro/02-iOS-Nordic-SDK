@@ -17,7 +17,6 @@
         return nil;
     }
     NSDictionary *advDic = advData[CBAdvertisementDataServiceDataKey];
-    NSLog(@"%@",advDic);
     NSMutableArray *beaconList = [NSMutableArray array];
     NSArray *keys = [advDic allKeys];
     for (id key in keys) {
@@ -37,6 +36,12 @@
                 MKBXPBaseBeacon *beacon = [self fetchBaseBeaconWithFrameType:frameType advData:feabData];
                 if ([beacon isKindOfClass:[MKBXPTHSensorBeacon class]]) {
                     MKBXPTHSensorBeacon *tempBeacon = (MKBXPTHSensorBeacon *)beacon;
+                    tempBeacon.txPower = advData[CBAdvertisementDataTxPowerLevelKey];
+                }else if ([beacon isKindOfClass:[MKBXPiBeacon class]]) {
+                    MKBXPiBeacon *tempBeacon = (MKBXPiBeacon *)beacon;
+                    tempBeacon.txPower = advData[CBAdvertisementDataTxPowerLevelKey];
+                }else if ([beacon isKindOfClass:[MKBXPThreeASensorBeacon class]]) {
+                    MKBXPThreeASensorBeacon *tempBeacon = (MKBXPThreeASensorBeacon *)beacon;
                     tempBeacon.txPower = advData[CBAdvertisementDataTxPowerLevelKey];
                 }
                 if (beacon) {
@@ -388,8 +393,8 @@
             uuid = [uuid stringByAppendingString:string];
         }
         self.uuid = [uuid uppercaseString];
-        self.major = [NSString stringWithFormat:@"%ld",(long)strtoul([[temp substringWithRange:NSMakeRange(24, 4)] UTF8String],0,16)];
-        self.minor = [NSString stringWithFormat:@"%ld",(long)strtoul([[temp substringWithRange:NSMakeRange(28, 4)] UTF8String],0,16)];
+        self.major = [NSString stringWithFormat:@"%ld",(long)strtoul([[temp substringWithRange:NSMakeRange(34, 4)] UTF8String],0,16)];
+        self.minor = [NSString stringWithFormat:@"%ld",(long)strtoul([[temp substringWithRange:NSMakeRange(38, 4)] UTF8String],0,16)];
         free(data);
     }
     return self;
@@ -424,8 +429,8 @@
         content = [content stringByReplacingOccurrencesOfString:@">" withString:@""];
         NSString *temp = [content substringWithRange:NSMakeRange(4, content.length - 4)];
         self.interval = [MKBXPAdopter getDecimalStringWithHex:temp range:NSMakeRange(0, 2)];
-        self.samplingRate = [MKBXPAdopter getDecimalStringWithHex:temp range:NSMakeRange(2, 2)];
-        self.accelerationOfGravity = [MKBXPAdopter getDecimalStringWithHex:temp range:NSMakeRange(4, 2)];
+        self.samplingRate = [temp substringWithRange:NSMakeRange(2, 2)];
+        self.accelerationOfGravity = [temp substringWithRange:NSMakeRange(4, 2)];
         self.sensitivity = [MKBXPAdopter getDecimalStringWithHex:temp range:NSMakeRange(6, 2)];
         self.xData = [temp substringWithRange:NSMakeRange(8, 4)];
         self.yData = [temp substringWithRange:NSMakeRange(12, 4)];

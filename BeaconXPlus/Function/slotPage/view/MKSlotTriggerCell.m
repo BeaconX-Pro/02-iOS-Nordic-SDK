@@ -256,7 +256,7 @@
     }else if (tapView == self.movesView) {
         triggerType = @"05";
     }
-    if (tapView.index == 0 || tapView.index == 2) {
+    if (tapView.index == 0) {
         return @{
                  @"code":@"1",
                  @"result":@{
@@ -265,7 +265,7 @@
                          @"conditions":@{
                                  @"triggerType":triggerType,
                                  @"time":@"00",
-                                 @"start":@(tapView.index == 0)
+                                 @"start":@(YES)
                                  },
                          },
                  };
@@ -288,7 +288,7 @@
                          },
                  };
     }
-    if (tapView.index == 3) {
+    if (tapView.index == 2) {
         NSString *time = [tapView.stopField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
         if (!ValidStr(time)) {
             return [self errorDic:@"params error"];
@@ -402,14 +402,12 @@
             if ([self.dataDic[@"conditions"][@"time"] integerValue] == 0) {
                 if (start) {
                     index = 0;
-                }else {
-                    index = 2;
                 }
             }else {
                 if (start) {
                     index = 1;
                 }else {
-                    index = 3;
+                    index = 2;
                 }
             }
             [self.doubleTapView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
@@ -429,14 +427,12 @@
             if ([self.dataDic[@"conditions"][@"time"] integerValue] == 0) {
                 if (start) {
                     index = 0;
-                }else {
-                    index = 2;
                 }
             }else {
                 if (start) {
                     index = 1;
                 }else {
-                    index = 3;
+                    index = 2;
                 }
             }
             [self.tripleTapView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
@@ -462,14 +458,12 @@
                 if ([self.dataDic[@"conditions"][@"time"] integerValue] == 0) {
                     if (start) {
                         index = 0;
-                    }else {
-                        index = 2;
                     }
                 }else {
                     if (start) {
                         index = 1;
                     }else {
-                        index = 3;
+                        index = 2;
                     }
                 }
                 [self.movesView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
@@ -524,14 +518,12 @@
                 if ([self.dataDic[@"conditions"][@"time"] integerValue] == 0) {
                     if (start) {
                         index = 0;
-                    }else {
-                        index = 2;
                     }
                 }else {
                     if (start) {
                         index = 1;
                     }else {
-                        index = 3;
+                        index = 2;
                     }
                 }
                 [self.movesView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];

@@ -227,8 +227,8 @@ static CGFloat const leftIconHeight = 7.f;
     if (ValidNum(_beacon.rssi1M)) {
         [self.rssiValueLabel setText:[NSString stringWithFormat:@"%ld%@",(long)[_beacon.rssi1M integerValue],@"dBm"]];
     }
-    if (ValidNum(_beacon.rssi)) {
-        self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld%@",(long)[_beacon.rssi integerValue],@"dBm"];
+    if (ValidNum(_beacon.txPower)) {
+        self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld%@",(long)[_beacon.txPower integerValue],@"dBm"];
     }
     NSString *distanceValue = [self calcDistByRSSI:[beacon.rssi intValue] measurePower:[beacon.rssi1M integerValue]];
     if ([distanceValue floatValue] <= 1.f) {

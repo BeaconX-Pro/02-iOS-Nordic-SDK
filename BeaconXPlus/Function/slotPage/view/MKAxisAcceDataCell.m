@@ -196,7 +196,7 @@
         _xDataLabel.textColor = DEFAULT_TEXT_COLOR;
         _xDataLabel.textAlignment = NSTextAlignmentCenter;
         _xDataLabel.font = MKFont(12.f);
-        _xDataLabel.text = @"X-Data:0x0000";
+        _xDataLabel.text = @"X-Data:N/A";
     }
     return _xDataLabel;
 }
@@ -207,7 +207,7 @@
         _yDataLabel.textColor = DEFAULT_TEXT_COLOR;
         _yDataLabel.textAlignment = NSTextAlignmentCenter;
         _yDataLabel.font = MKFont(12.f);
-        _yDataLabel.text = @"Y-Data:0x0000";
+        _yDataLabel.text = @"Y-Data:N/A";
     }
     return _yDataLabel;
 }
@@ -218,7 +218,7 @@
         _zDataLabel.textColor = DEFAULT_TEXT_COLOR;
         _zDataLabel.textAlignment = NSTextAlignmentCenter;
         _zDataLabel.font = MKFont(12.f);
-        _zDataLabel.text = @"Z-Data:0x0000";
+        _zDataLabel.text = @"Z-Data:N/A";
     }
     return _zDataLabel;
 }

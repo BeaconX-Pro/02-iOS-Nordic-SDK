@@ -245,7 +245,6 @@ static CGFloat const threeSensorCellHeight = 110.f;
 #pragma mark - MKBXPScanDelegate
 - (void)bxp_didReceiveBeacon:(NSArray <MKBXPBaseBeacon *>*)beaconList {
     for (MKBXPBaseBeacon *beacon in beaconList) {
-        NSLog(@"+++++++++++++>%@",beacon.peripheral.identifier.UUIDString);
         [self updateDataWithBeacon:beacon];
     }
 }
@@ -659,7 +658,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
         if (ValidStr(weakSelf.localPassword)) {
             textField.text = weakSelf.localPassword;
         }
-        weakSelf.passwordField.placeholder = @"16 characters";
+        weakSelf.passwordField.placeholder = @"1~16 characters";
         [textField addTarget:self action:@selector(passwordInput) forControlEvents:UIControlEventEditingChanged];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -678,7 +677,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
  监听输入的密码
  */
 - (void)passwordInput{
-    NSString *tempInputString = [self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *tempInputString = self.passwordField.text;
     if (!ValidStr(tempInputString)) {
         self.passwordField.text = @"";
         return;

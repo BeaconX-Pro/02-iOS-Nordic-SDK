@@ -102,6 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //RSSI@1m
 @property (nonatomic, copy)NSNumber *rssi1M;
+@property (nonatomic, copy)NSNumber *txPower;
 //广播间隔
 @property (nonatomic, copy) NSString *interval;
 
@@ -119,11 +120,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 //RSSI@0m
 @property (nonatomic, strong) NSNumber *rssi0M;
+@property (nonatomic, strong)NSNumber *txPower;
 //Broadcast interval,单位100ms
 @property (nonatomic, copy) NSString *interval;
-//采样率
+/**
+ 采样率,@"00":1Hz,@"01":10Hz,@"02":25Hz,@"03":50Hz,@"04":100Hz,
+ @"05":200Hz,@"06":400Hz,@"07":1344Hz,@"08":1620Hz,@"09":5376Hz
+ */
 @property (nonatomic, copy) NSString *samplingRate;
-//重力加速度参考值
+/**
+ 重力加速度参考值,@"00":±2g,@"01"":±4g,@"02":±8g,@"03":±16g
+ */
 @property (nonatomic, copy) NSString *accelerationOfGravity;
 //灵敏度
 @property (nonatomic, copy) NSString *sensitivity;

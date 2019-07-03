@@ -341,6 +341,10 @@ static dispatch_once_t onceToken;
         [MKBXPAdopter operationPasswordErrorBlock:failedBlock];
         return;
     }
+    if (password.length != [password dataUsingEncoding:NSUTF8StringEncoding].length) {
+        [MKBXPAdopter operationPasswordErrorBlock:failedBlock];
+        return;
+    }
     if (self.managerState != MKBXPCentralManagerStateEnable) {
         [MKBXPAdopter operationCentralBlePowerOffBlock:failedBlock];
         return;

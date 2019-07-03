@@ -130,7 +130,7 @@ static CGFloat const rightIconHeight = 14.f;
             
         case slotFrameTypeInfo:
             self.leftIcon.image = LOADIMAGE(@"slotInfoTypeIcon", @"png");
-            self.rightMsgLabel.text = @"INFO";
+            self.rightMsgLabel.text = @"Device info";
             break;
             
         case slotFrameTypeiBeacon:

@@ -94,7 +94,7 @@ static CGFloat const aboutIconHeight = 110.f;
         _appNameLabel.textColor = RGBCOLOR(5, 47, 115);
         _appNameLabel.textAlignment = NSTextAlignmentCenter;
         _appNameLabel.font = MKFont(20.f);
-        _appNameLabel.text = @"BeaconX Plus";
+        _appNameLabel.text = kAppName;
     }
     return _appNameLabel;
 }

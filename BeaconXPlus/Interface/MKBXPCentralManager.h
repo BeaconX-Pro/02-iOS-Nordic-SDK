@@ -61,7 +61,7 @@ extern NSString *const MKBXPReceiveRecordHTDataNotification;
  Interface of connection
  
  @param peripheral peripheral
- @param password password
+ @param password password,ascii
  @param progressBlock progress callback
  @param sucBlock Connection succeed callback
  @param failedBlock Connection failed callback

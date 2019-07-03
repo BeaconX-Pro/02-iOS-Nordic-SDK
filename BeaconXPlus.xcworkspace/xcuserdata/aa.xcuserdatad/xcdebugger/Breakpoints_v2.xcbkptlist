@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BeaconXPlus/Interface/MKBXPInterface+MKConfig.m"
-            timestampString = "583482976.284971"
+            filePath = "BeaconXPlus/Function/slotPage/manager/MKSlotConfigManager.m"
+            timestampString = "583829791.830093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "459"
-            endingLineNumber = "459"
-            landmarkName = "+setBXPTriggerConditionsWithHudimity:humidity:startAdvertising:sucBlock:failedBlock:"
+            startingLineNumber = "400"
+            endingLineNumber = "400"
+            landmarkName = "-configTriggerConditions:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -36,12 +36,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeaconXPlus/Interface/MKBXPInterface+MKConfig.m"
-            timestampString = "583482976.2850519"
+            timestampString = "583829826.5039411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "433"
-            endingLineNumber = "433"
-            landmarkName = "+setBXPTriggerConditionsWithTemperature:temperature:startAdvertising:sucBlock:failedBlock:"
+            startingLineNumber = "473"
+            endingLineNumber = "473"
+            landmarkName = "+setBXPTriggerConditionsWithDoubleTap:start:sucBlock:failedBlock:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -70,7 +70,7 @@ static CGFloat const labelHeight = 30.f;
  */
 - (NSDictionary *)getContentData{
     NSString *headerText = [self.typeLabel.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSString *urlContent = [self.textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *urlContent = self.textField.text;
     if (!ValidStr(headerText) || !ValidStr(urlContent)) {
         return [self errorDic:@"To set up the url can't be empty"];
     }
@@ -295,11 +295,15 @@ static CGFloat const labelHeight = 30.f;
     [self.typeLabel setText:self.dataList[row]];
 }
 
-- (UITextField *)createNewTextFieldWithRules:(mk_CustomTextFieldType)rules{
-    UITextField *textField = [[UITextField alloc] initWithTextFieldType:rules];
+- (UITextField *)createNewTextField{
+    UITextField *textField = [[UITextField alloc] init];
     textField.textColor = DEFAULT_TEXT_COLOR;
     textField.textAlignment = NSTextAlignmentLeft;
     textField.font = MKFont(15.f);
+    textField.keyboardType = UIKeyboardTypeASCIICapable;
+//    [textField addTarget:self
+//                  action:@selector(deviceNameChangedMethod)
+//        forControlEvents:UIControlEventEditingChanged];
     
     textField.layer.masksToBounds = YES;
     textField.layer.borderWidth = 0.5f;
@@ -318,19 +322,6 @@ static CGFloat const labelHeight = 30.f;
     }
     NSData *advData = dataDic[@"advData"];
     [self loadUrlInfo:advData];
-    
-    //    NSString *url = dataDic[@"shortUrl"];
-    //    if (!ValidStr(url)) {
-    //        return;
-    //    }
-    //    NSArray *urlList = [url componentsSeparatedByString:@":"];
-    //    if (!ValidArray(urlList)) {
-    //        return;
-    //    }
-    //    [self.typeLabel setText:[NSString stringWithFormat:@"%@.",urlList[0]]];
-    //    url = [url stringByReplacingOccurrencesOfString:urlList[0] withString:@""];
-    //    url = [url substringFromIndex:1];
-    //    [self.textField setText:url];
 }
 
 #pragma mark - setter & getter
@@ -365,7 +356,7 @@ static CGFloat const labelHeight = 30.f;
 
 - (UITextField *)textField{
     if (!_textField) {
-        _textField = [self createNewTextFieldWithRules:normalInput];
+        _textField = [self createNewTextField];
         _textField.placeholder = @"infotronic-tech.com/";
     }
     return _textField;

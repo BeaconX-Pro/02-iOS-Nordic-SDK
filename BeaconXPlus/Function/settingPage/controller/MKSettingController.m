@@ -251,7 +251,7 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
 }
 
 - (void)passwordTextFieldValueChanged:(UITextField *)textField{
-    NSString *tempInputString = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *tempInputString = textField.text;
     if (!ValidStr(tempInputString)) {
         textField.text = @"";
         return;
@@ -260,8 +260,8 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
 }
 
 - (void)setPasswordToDevice{
-    NSString *password = [self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSString *confirmpassword = [self.confirmTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *password = self.passwordTextField.text;
+    NSString *confirmpassword = self.confirmTextField.text;
     if (!ValidStr(password) || !ValidStr(confirmpassword) || password.length > 16 || confirmpassword.length > 16) {
         [self.view showCentralToast:@"Length error."];
         return;
@@ -437,12 +437,12 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
     if (self.showPassword) {
         MKMainCellModel *passwordModel = [[MKMainCellModel alloc] init];
         passwordModel.leftIconName = @"setting_password";
-        passwordModel.leftMsg = @"Modify Password";
+        passwordModel.leftMsg = @"Change Password";
         [self.topDataList addObject:passwordModel];
         
         MKMainCellModel *resetModel = [[MKMainCellModel alloc] init];
         resetModel.leftIconName = @"setting_reset";
-        resetModel.leftMsg = @"Reset Factory";
+        resetModel.leftMsg = @"Factory Reset";
         [self.topDataList addObject:resetModel];
     }
     
@@ -455,29 +455,29 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
         //带LIS3DH3轴加速度计
         MKMainCellModel *threeAxisModel = [[MKMainCellModel alloc] init];
         threeAxisModel.leftIconName = @"slotDataTypeThreeAccelerometerIcon";
-        threeAxisModel.leftMsg = @"3-Axis config";
+        threeAxisModel.leftMsg = @"3-axis Sensor";
         threeAxisModel.destVC = NSClassFromString(@"MKThreeAxisConfigController");
         [self.centerDataList addObject:threeAxisModel];
     }else if ([[MKDataManager shared].deviceType isEqualToString:@"02"]) {
         //带SHT3X温湿度传感器
         MKMainCellModel *THModel = [[MKMainCellModel alloc] init];
         THModel.leftIconName = @"slotDataTypeT&HIcon";
-        THModel.leftMsg = @"T&H config";
+        THModel.leftMsg = @"T&H";
         THModel.destVC = NSClassFromString(@"MKHTConfigController");
         [self.centerDataList addObject:THModel];
     }else if ([[MKDataManager shared].deviceType isEqualToString:@"03"]) {
         //同时带有LIS3DH及SHT3X传感器
-        MKMainCellModel *THModel = [[MKMainCellModel alloc] init];
-        THModel.leftIconName = @"slotDataTypeT&HIcon";
-        THModel.leftMsg = @"T&H config";
-        THModel.destVC = NSClassFromString(@"MKHTConfigController");
-        [self.centerDataList addObject:THModel];
-        
         MKMainCellModel *threeAxisModel = [[MKMainCellModel alloc] init];
         threeAxisModel.leftIconName = @"slotDataTypeThreeAccelerometerIcon";
-        threeAxisModel.leftMsg = @"3-Axis config";
+        threeAxisModel.leftMsg = @"3-axis Sensor";
         threeAxisModel.destVC = NSClassFromString(@"MKThreeAxisConfigController");
         [self.centerDataList addObject:threeAxisModel];
+        
+        MKMainCellModel *THModel = [[MKMainCellModel alloc] init];
+        THModel.leftIconName = @"slotDataTypeT&HIcon";
+        THModel.leftMsg = @"T&H";
+        THModel.destVC = NSClassFromString(@"MKHTConfigController");
+        [self.centerDataList addObject:THModel];
     }
     
     MKMainCellModel *connectModel = [[MKMainCellModel alloc] init];
