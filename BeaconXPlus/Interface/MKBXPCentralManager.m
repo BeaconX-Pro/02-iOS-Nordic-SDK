@@ -229,7 +229,7 @@ static dispatch_once_t onceToken;
         //监听的温湿度数据
         NSString *content = [MKBXPAdopter hexStringFromData:characteristic.value];
         if (content.length == 8) {
-            NSInteger tempTemp = [MKBXPAdopter getDecimalWithHex:content range:NSMakeRange(0, 4)];
+            NSInteger tempTemp = [[MKBXPAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(0, 4)]] integerValue];
             NSInteger tempHui = [MKBXPAdopter getDecimalWithHex:content range:NSMakeRange(4, 4)];
             NSString *temperature = [NSString stringWithFormat:@"%.1f",(tempTemp * 0.1)];
             NSString *humidity = [NSString stringWithFormat:@"%.1f",(tempHui * 0.1)];
@@ -253,7 +253,7 @@ static dispatch_once_t onceToken;
             for (NSInteger i = 0; i < content.length / 20; i ++) {
                 NSString *subContent = [content substringWithRange:NSMakeRange(i * 20, 20)];
                 NSString *date = [MKBXPAdopter deviceTime:[subContent substringWithRange:NSMakeRange(0, 12)]];
-                NSInteger tempTemp = [MKBXPAdopter getDecimalWithHex:content range:NSMakeRange(12, 4)];
+                NSInteger tempTemp = [[MKBXPAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(12, 4)]] integerValue];
                 NSInteger tempHui = [MKBXPAdopter getDecimalWithHex:content range:NSMakeRange(16, 4)];
                 NSString *temperature = [NSString stringWithFormat:@"%.1f",(tempTemp * 0.1)];
                 NSString *humidity = [NSString stringWithFormat:@"%.1f",(tempHui * 0.1)];

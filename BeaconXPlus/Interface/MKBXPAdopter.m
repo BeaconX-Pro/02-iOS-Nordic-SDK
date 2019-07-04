@@ -376,7 +376,9 @@ static NSString * const MKCustomErrorDomain = @"com.moko.eddystoneSDKDomain";
     if ([[self numberHexString:content] longLongValue] - [[self numberHexString:centerHexString] longLongValue] < 0) {
         return [self numberHexString:content];
     }
-    return [NSNumber numberWithLongLong:[[self numberHexString:content] longLongValue] - [[self numberHexString:maxHexString] longLongValue]];
+    unsigned long long maxValue = [[self numberHexString:content] longLongValue];
+    unsigned long long minValue = [[self numberHexString:maxHexString] longLongValue];
+    return [NSNumber numberWithLongLong:(maxValue - minValue - 1)];
 }
 
 + (NSString *)deviceTime:(NSString *)content {

@@ -470,7 +470,7 @@
         content = [content stringByReplacingOccurrencesOfString:@">" withString:@""];
         NSString *temp = [content substringWithRange:NSMakeRange(4, content.length - 4)];
         self.interval = [MKBXPAdopter getDecimalStringWithHex:temp range:NSMakeRange(0, 2)];
-        NSInteger tempTemp = [MKBXPAdopter getDecimalWithHex:temp range:NSMakeRange(2, 4)];
+        NSInteger tempTemp = [[MKBXPAdopter signedHexTurnString:[temp substringWithRange:NSMakeRange(2, 4)]] intValue];
         NSInteger tempHui = [MKBXPAdopter getDecimalWithHex:temp range:NSMakeRange(6, 4)];
         self.temperature = [NSString stringWithFormat:@"%.1f",(tempTemp * 0.1)];
         self.humidity = [NSString stringWithFormat:@"%.1f",(tempHui * 0.1)];
