@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCalendarsUsageDescription</key>
-	<string>Beacon Pro need to use your calendar to display the data date</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Beacon Pro need to use your mobile phone bluetooth to communicate with devices</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -21,11 +17,15 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>1.0.0.1</string>
 	<key>CFBundleVersion</key>
 	<string>2019041501</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Beacon Pro need to use your mobile phone bluetooth to communicate with devices</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Beacon Pro need to use your calendar to display the data date</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
