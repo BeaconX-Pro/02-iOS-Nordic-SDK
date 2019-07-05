@@ -81,6 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //RSSI@0m
 @property (nonatomic, strong) NSNumber *rssi0M;
+@property (nonatomic, strong) NSNumber *txPower;
 //Broadcast interval,单位100ms
 @property (nonatomic, copy) NSString *interval;
 //电池电量

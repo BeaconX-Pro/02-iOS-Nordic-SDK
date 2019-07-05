@@ -43,6 +43,9 @@
                 }else if ([beacon isKindOfClass:[MKBXPThreeASensorBeacon class]]) {
                     MKBXPThreeASensorBeacon *tempBeacon = (MKBXPThreeASensorBeacon *)beacon;
                     tempBeacon.txPower = advData[CBAdvertisementDataTxPowerLevelKey];
+                }else if ([beacon isKindOfClass:[MKBXPDeviceInfoBeacon class]]) {
+                    MKBXPDeviceInfoBeacon *tempBeacon = (MKBXPDeviceInfoBeacon *)beacon;
+                    tempBeacon.txPower = advData[CBAdvertisementDataTxPowerLevelKey];
                 }
                 if (beacon) {
                     [beaconList addObject:beacon];
