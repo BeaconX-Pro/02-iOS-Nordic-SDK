@@ -27,7 +27,7 @@
         if (![self configActiveSlot:slotModel.slotIndex]) {
             if (failedBlock) {
                 moko_dispatch_main_safe(^{
-                    failedBlock([self configError]);
+                    failedBlock([self configError:@"config data error"]);
                 });
             }
             return ;
@@ -86,7 +86,7 @@
         if (![self configActiveSlot:slotNo]) {
             if (failedBlock) {
                 moko_dispatch_main_safe(^{
-                    failedBlock([self configError]);
+                    failedBlock([self configError:@"config data error"]);
                 });
             }
             return ;
@@ -112,16 +112,44 @@
         if (!advDataSuccess) {
             if (failedBlock) {
                 moko_dispatch_main_safe(^{
-                    failedBlock([self configError]);
+                    failedBlock([self configError:@"config data error"]);
                 });
             }
             return;
         }
-        [self configAdvTxPower:[detailData[@"baseParam"][@"advTxPower"] integerValue]];
-        [self configRadioTxPower:[self getRadioTxPower:detailData[@"baseParam"][@"txPower"]]];
-        [self configAdvInterval:[detailData[@"baseParam"][@"advInterval"] integerValue]];
+        if (![self configAdvTxPower:[detailData[@"baseParam"][@"advTxPower"] integerValue]]) {
+            if (failedBlock) {
+                moko_dispatch_main_safe(^{
+                    failedBlock([self configError:@"config advTxPower error"]);
+                });
+            }
+            return;
+        }
+        if (![self configRadioTxPower:[self getRadioTxPower:detailData[@"baseParam"][@"txPower"]]]) {
+            if (failedBlock) {
+                moko_dispatch_main_safe(^{
+                    failedBlock([self configError:@"config txPower error"]);
+                });
+            }
+            return;
+        }
+        if (![self configAdvInterval:[detailData[@"baseParam"][@"advInterval"] integerValue]]) {
+            if (failedBlock) {
+                moko_dispatch_main_safe(^{
+                    failedBlock([self configError:@"config interval error"]);
+                });
+            }
+            return;
+        }
         NSDictionary *paramsDic = detailData[@"triggerConditions"];
-        [self configTriggerConditions:paramsDic];
+        if (![self configTriggerConditions:paramsDic]) {
+            if (failedBlock) {
+                moko_dispatch_main_safe(^{
+                    failedBlock([self configError:@"config triggerConditions error"]);
+                });
+            }
+            return;
+        }
         if (successBlock) {
             moko_dispatch_main_safe(^{
                 successBlock();
@@ -501,10 +529,10 @@
     return success;
 }
 
-- (NSError *)configError {
+- (NSError *)configError:(NSString *)msg {
     NSError *error = [[NSError alloc] initWithDomain:@"com.moko.bxpSDKDomain"
                                                 code:-999
-                                            userInfo:@{@"errorInfo":@"config data error"}];
+                                            userInfo:@{@"errorInfo":msg}];
     return error;
 }
 
