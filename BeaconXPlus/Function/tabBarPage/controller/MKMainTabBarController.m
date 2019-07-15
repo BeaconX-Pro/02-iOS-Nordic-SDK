@@ -16,12 +16,6 @@ NSString *const passwordIdenty = @"passwordIdenty";
 
 @interface MKMainTabBarController ()
 
-@property (nonatomic, strong)UINavigationController *optionsVC;
-
-@property (nonatomic, strong)UINavigationController *settingVC;
-
-@property (nonatomic, strong)UINavigationController *deviceInfoVC;
-
 @property (nonatomic, assign)BOOL modifyPassword;
 
 @property (nonatomic, assign)BOOL isShow;
@@ -60,6 +54,7 @@ NSString *const passwordIdenty = @"passwordIdenty";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isShow = YES;
+    [self loadControllers];
     [self statusMonitoring];
     // Do any additional setup after loading the view.
 }
@@ -143,7 +138,6 @@ NSString *const passwordIdenty = @"passwordIdenty";
                                              selector:@selector(devicePowerOff)
                                                  name:@"MKEddystonePowerOffNotification"
                                                object:nil];
-    [self loadChildVCS];
 }
 
 - (void)showLockStateAlert{
@@ -198,43 +192,26 @@ NSString *const passwordIdenty = @"passwordIdenty";
     }];
 }
 
-- (void)loadChildVCS{
-    self.viewControllers = @[self.optionsVC,self.settingVC,self.deviceInfoVC];
-}
-
-#pragma mark - setter & getter
-- (UINavigationController *)optionsVC{
-    if (!_optionsVC) {
-        MKSlotController *vc = [[MKSlotController alloc] init];
-        vc.tabBarItem.title = @"SLOT";
-        vc.tabBarItem.image = LOADIMAGE(@"slotTabBarItemUnselected", @"png");
-        vc.tabBarItem.selectedImage = LOADIMAGE(@"slotTabBarItemSelected", @"png");
-        _optionsVC = [[UINavigationController alloc] initWithRootViewController:vc];
-        
-    }
-    return _optionsVC;
-}
-
-- (UINavigationController *)settingVC{
-    if (!_settingVC) {
-        MKSettingController *vc = [[MKSettingController alloc] init];
-        vc.tabBarItem.title = @"SETTING";
-        vc.tabBarItem.image = LOADIMAGE(@"settingTabBarItemUnselected", @"png");
-        vc.tabBarItem.selectedImage = LOADIMAGE(@"settingTabBarItemSelected", @"png");
-        _settingVC = [[UINavigationController alloc] initWithRootViewController:vc];
-    }
-    return _settingVC;
-}
-
-- (UINavigationController *)deviceInfoVC{
-    if (!_deviceInfoVC) {
-        MKDeviceInfoController *vc = [[MKDeviceInfoController alloc] init];
-        vc.tabBarItem.title = @"DEVICE";
-        vc.tabBarItem.image = LOADIMAGE(@"deviceTabBarItemUnselected", @"png");
-        vc.tabBarItem.selectedImage = LOADIMAGE(@"deviceTabBarItemSelected", @"png");
-        _deviceInfoVC = [[UINavigationController alloc] initWithRootViewController:vc];
-    }
-    return _deviceInfoVC;
+- (void)loadControllers{
+    MKSlotController *options = [[MKSlotController alloc] init];
+    options.tabBarItem.title = @"SLOT";
+    options.tabBarItem.image = LOADIMAGE(@"slotTabBarItemUnselected", @"png");
+    options.tabBarItem.selectedImage = LOADIMAGE(@"slotTabBarItemSelected", @"png");
+    UINavigationController *optionsPage = [[UINavigationController alloc] initWithRootViewController:options];
+    
+    MKSettingController *setting = [[MKSettingController alloc] init];
+    setting.tabBarItem.title = @"SETTING";
+    setting.tabBarItem.image = LOADIMAGE(@"settingTabBarItemUnselected", @"png");
+    setting.tabBarItem.selectedImage = LOADIMAGE(@"settingTabBarItemSelected", @"png");
+    UINavigationController *settingPage = [[UINavigationController alloc] initWithRootViewController:setting];
+    
+    MKDeviceInfoController *deviceInfo = [[MKDeviceInfoController alloc] init];
+    deviceInfo.tabBarItem.title = @"DEVICE";
+    deviceInfo.tabBarItem.image = LOADIMAGE(@"deviceTabBarItemUnselected", @"png");
+    deviceInfo.tabBarItem.selectedImage = LOADIMAGE(@"deviceTabBarItemSelected", @"png");
+    UINavigationController *deviceInfoPage = [[UINavigationController alloc] initWithRootViewController:deviceInfo];
+    
+    self.viewControllers = @[optionsPage,settingPage,deviceInfoPage];
 }
 
 @end

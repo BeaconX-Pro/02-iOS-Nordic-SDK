@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^connectPeripheralBlock)(NSInteger section);
+@protocol MKScanInfoCellDelegate <NSObject>
+
+- (void)connectPeripheralWithIndex:(NSInteger)index;
+
+@end
 
 @class MKScanBeaconModel;
 @interface MKScanInfoCell : UITableViewCell
@@ -19,7 +23,7 @@ typedef void(^connectPeripheralBlock)(NSInteger section);
 
 @property (nonatomic, strong)MKScanBeaconModel *beacon;
 
-@property (nonatomic, copy)connectPeripheralBlock connectPeripheralBlock;
+@property (nonatomic, weak)id <MKScanInfoCellDelegate>delegate;
 
 @end
 

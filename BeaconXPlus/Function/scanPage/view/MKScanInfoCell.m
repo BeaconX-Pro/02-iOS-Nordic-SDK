@@ -236,8 +236,8 @@ static CGFloat const batteryIconHeight = 25.f;
 #pragma mark - Private method
 
 - (void)connectButtonPressed{
-    if (self.connectPeripheralBlock) {
-        self.connectPeripheralBlock(self.beacon.index);
+    if ([self.delegate respondsToSelector:@selector(connectPeripheralWithIndex:)]) {
+        [self.delegate connectPeripheralWithIndex:self.beacon.index];
     }
 }
 

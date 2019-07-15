@@ -62,7 +62,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
 
 @end
 
-@interface MKScanViewController ()<UITableViewDelegate, UITableViewDataSource, MKBXPScanDelegate>
+@interface MKScanViewController ()<UITableViewDelegate, UITableViewDataSource, MKBXPScanDelegate, MKScanInfoCellDelegate>
 
 @property (nonatomic, strong)MKScanSearchButton *searchButton;
 
@@ -157,18 +157,14 @@ static CGFloat const threeSensorCellHeight = 110.f;
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    @synchronized(self.dataList) {
-        return self.dataList.count;
-    }
+    return self.dataList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    @synchronized(self.dataList){
-        if (section < self.dataList.count) {
-            MKScanBeaconModel *model = self.dataList[section];
-            @synchronized(model.dataArray){
-                return (model.dataArray.count + 1);
-            }
+    if (section < self.dataList.count) {
+        MKScanBeaconModel *model = self.dataList[section];
+        @synchronized(model.dataArray){
+            return (model.dataArray.count + 1);
         }
     }
     return 0;
@@ -177,15 +173,10 @@ static CGFloat const threeSensorCellHeight = 110.f;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         //第一个row固定为设备信息帧
-        @synchronized(self.dataList){
-            MKScanInfoCell *cell = [MKScanInfoCell initCellWithTableView:tableView];
-            cell.beacon = self.dataList[indexPath.section];
-            WS(weakSelf);
-            cell.connectPeripheralBlock = ^(NSInteger section) {
-                [weakSelf connectPeripheral:section];
-            };
-            return cell;
-        };
+        MKScanInfoCell *cell = [MKScanInfoCell initCellWithTableView:tableView];
+        cell.beacon = self.dataList[indexPath.section];
+        cell.delegate = self;
+        return cell;
     }
     MKScanBaseCell *cell = [self loadCellDataWithIndexPath:indexPath];
     return cell;
@@ -197,31 +188,24 @@ static CGFloat const threeSensorCellHeight = 110.f;
     if (indexPath.row == 0) {
         return headerViewHeight;
     }
-    if (indexPath.section < self.dataList.count) {
-        @synchronized(self.dataList){
-            MKScanBeaconModel *model = self.dataList[indexPath.section];
-            @synchronized(model.dataArray){
-                MKBXPBaseBeacon *beacon = model.dataArray[indexPath.row - 1];
-                switch (beacon.frameType) {
-                    case MKBXPUIDFrameType:
-                        return uidCellHeight;
-                    case MKBXPURLFrameType:
-                        return urlCellHeight;
-                    case MKBXPTLMFrameType:
-                        return tlmCellHeight;
-                    case MKBXPBeaconFrameType:
-                        return [self getiBeaconCellHeightWithBeacon:beacon];
-                    case MKBXPTHSensorFrameType:
-                        return htCellHeight;
-                    case MKBXPThreeASensorFrameType:
-                        return threeSensorCellHeight;
-                    default:
-                        break;
-                }
-            }
-        }
+    MKScanBeaconModel *model = self.dataList[indexPath.section];
+    MKBXPBaseBeacon *beacon = model.dataArray[indexPath.row - 1];
+    switch (beacon.frameType) {
+        case MKBXPUIDFrameType:
+            return uidCellHeight;
+        case MKBXPURLFrameType:
+            return urlCellHeight;
+        case MKBXPTLMFrameType:
+            return tlmCellHeight;
+        case MKBXPBeaconFrameType:
+            return [self getiBeaconCellHeightWithBeacon:beacon];
+        case MKBXPTHSensorFrameType:
+            return htCellHeight;
+        case MKBXPThreeASensorFrameType:
+            return threeSensorCellHeight;
+        default:
+            return 0.f;
     }
-    return 0.f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -258,6 +242,11 @@ static CGFloat const threeSensorCellHeight = 110.f;
         [self.circleIcon.layer removeAnimationForKey:MKLeftButtonAnimationKey];
         [self.leftButton setSelected:NO];
     }
+}
+
+#pragma mark - MKScanInfoCellDelegate
+- (void)connectPeripheralWithIndex:(NSInteger)index {
+    [self connectPeripheral:index];
 }
 
 #pragma mark - notice method
@@ -762,7 +751,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
         make.left.mas_equalTo(10.f);
         make.right.mas_equalTo(-10.f);
         make.top.mas_equalTo(headerView.mas_bottom).mas_offset(0);
-        make.bottom.mas_equalTo(-5);
+        make.bottom.mas_equalTo(-VirtualHomeHeight);
     }];
 }
 
