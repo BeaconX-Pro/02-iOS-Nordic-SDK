@@ -25,9 +25,6 @@
 #import "MKAboutController.h"
 #import "MKScanSearchView.h"
 
-#import "MKMainTabBarController.h"
-
-
 static NSString *const MKLeftButtonAnimationKey = @"MKLeftButtonAnimationKey";
 
 static CGFloat const offset_X = 15.f;
@@ -609,13 +606,11 @@ static CGFloat const threeSensorCellHeight = 110.f;
     [MKBXPInterface readBXPDeviceTypeWithSucBlock:^(id  _Nonnull returnData) {
         [[MKHudManager share] hide];
         [MKDataManager shared].deviceType = returnData[@"result"][@"deviceType"];
-        MKMainTabBarController *vc = [[MKMainTabBarController alloc] init];
         NSDictionary *dic = @{
-                              peripheralIdenty:peripheral,
-                              passwordIdenty : SafeStr(self.localPassword)
+                              @"peripheralIdenty":peripheral,
+                              @"passwordIdenty" : SafeStr(self.localPassword)
                               };
-        vc.params = dic;
-        [self.navigationController pushViewController:vc animated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"MKNeedResetRootControllerToTabBar" object:nil userInfo:dic];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
         self.leftButton.selected = NO;

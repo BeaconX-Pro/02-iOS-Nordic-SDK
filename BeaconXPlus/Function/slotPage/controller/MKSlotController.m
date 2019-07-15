@@ -89,7 +89,7 @@ static NSString *const MKSlotControllerCellIdenty = @"MKSlotControllerCellIdenty
 /**
  *  header开始刷新执行的方法（写刷新逻辑）
  */
-- (void)refreshTableView:(MKHaveRefreshTableView *)tableView headBeginRefreshing:(UIView *)headView{
+- (void)refreshView:(UIScrollView *)refreshView headBeginRefreshing:(UIView *)headView{
     [self getSlotDataType];
 }
 

@@ -46,11 +46,6 @@ NSString *const passwordIdenty = @"passwordIdenty";
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isShow = YES;
@@ -93,12 +88,12 @@ NSString *const passwordIdenty = @"passwordIdenty";
 }
 
 - (void)gotoRootViewController{
-    [self.navigationController popViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MKNeedResetRootControllerToScanPage" object:nil userInfo:nil];
 }
 
 - (void)devicePowerOff{
     self.isShow = NO;
-    [self.navigationController popViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MKNeedResetRootControllerToScanPage" object:nil userInfo:nil];
 }
 
 /**
