@@ -147,7 +147,7 @@ NSString *const passwordIdenty = @"passwordIdenty";
 }
 
 - (void)showLockStateAlert{
-    NSString *msg = (self.modifyPassword ? @"Password modified successfully! Reconnecting the device" : @"The device is locked!");
+    NSString *msg = (self.modifyPassword ? @"Password changed successfully!Please reconnect the Device." : @"The device is locked!");
     [self showAlertWithMsg:msg];
 }
 

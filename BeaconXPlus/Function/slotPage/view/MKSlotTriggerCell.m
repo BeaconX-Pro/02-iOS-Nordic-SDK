@@ -411,6 +411,7 @@
                 }
             }
             [self.doubleTapView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
+            return;
         }
         [self.doubleTapView updateIndex:0 timeValue:@"30"];
         return;
@@ -437,6 +438,7 @@
                 }
             }
             [self.tripleTapView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
+            return;
         }
         [self.tripleTapView updateIndex:0 timeValue:@"30"];
         return;
@@ -469,6 +471,7 @@
                     }
                 }
                 [self.movesView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
+                return;
             }
             [self.movesView updateIndex:0 timeValue:@"30"];
             return;
@@ -530,6 +533,7 @@
                     }
                 }
                 [self.movesView updateIndex:index timeValue:self.dataDic[@"conditions"][@"time"]];
+                return;
             }
             [self.movesView updateIndex:0 timeValue:@"30"];
             return;

@@ -249,13 +249,13 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
 - (void)setPassword{
     WS(weakSelf);
     NSString *msg = @"Note:The password should not exceed 16 characters in length.";
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Modify Password"
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Change Password"
                                                                              message:msg
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         weakSelf.passwordTextField = nil;
         weakSelf.passwordTextField = textField;
-        [weakSelf.passwordTextField setPlaceholder:@"New password"];
+        [weakSelf.passwordTextField setPlaceholder:@"Enter new password"];
         [weakSelf.passwordTextField addTarget:self
                                        action:@selector(passwordTextFieldValueChanged:)
                              forControlEvents:UIControlEventEditingChanged];
@@ -263,7 +263,7 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         weakSelf.confirmTextField = nil;
         weakSelf.confirmTextField = textField;
-        [weakSelf.confirmTextField setPlaceholder:@"Confirm new password"];
+        [weakSelf.confirmTextField setPlaceholder:@"Enter new password again"];
         [weakSelf.confirmTextField addTarget:self
                                       action:@selector(passwordTextFieldValueChanged:)
                             forControlEvents:UIControlEventEditingChanged];
