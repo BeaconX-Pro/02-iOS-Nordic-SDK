@@ -188,7 +188,7 @@ static NSString *const MKSlotControllerCellIdenty = @"MKSlotControllerCellIdenty
 }
 
 - (void)loadSubViews{
-    self.defaultTitle = @"Options";
+    self.defaultTitle = @"SLOT";
     self.titleLabel.textColor = COLOR_WHITE_MACROS;
     self.custom_naviBarColor = UIColorFromRGB(0x2F84D0);
     [self.view addSubview:self.tableView];

@@ -55,7 +55,7 @@
     NSData *recordData = [MKBLELogManager readCommandDataFromLocalFile];
     NSString *record = [[NSString alloc] initWithData:recordData encoding:NSUTF8StringEncoding];
     self.textView.text = record;
-    [self syncButtonPressed];
+//    [self syncButtonPressed];
     // Do any additional setup after loading the view.
 }
 

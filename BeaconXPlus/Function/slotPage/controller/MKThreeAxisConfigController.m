@@ -122,6 +122,7 @@
     [MKBXPInterface setBXPThreeAxisDataParams:[dic[@"result"][@"dataRate"] integerValue] acceleration:[dic[@"result"][@"scale"] integerValue] sensitivity:[dic[@"result"][@"sensitivity"] integerValue] sucBlock:^(id  _Nonnull returnData) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:@"success"];
+        [self performSelector:@selector(leftButtonMethod) withObject:nil afterDelay:0.5f];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];

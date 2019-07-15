@@ -273,6 +273,7 @@
         moko_dispatch_main_safe(^{
             [[MKHudManager share] hide];
             [self.view showCentralToast:@"Config success"];
+            [self performSelector:@selector(leftButtonMethod) withObject:nil afterDelay:0.5f];
         });
     });
 }
