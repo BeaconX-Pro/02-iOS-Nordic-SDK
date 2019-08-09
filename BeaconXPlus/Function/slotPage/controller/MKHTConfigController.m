@@ -41,7 +41,7 @@
 @property (nonatomic, assign)HTStorageConditions condition;
 
 /**
- HTStorageConditions != HTStorageConditionsTime,当前值会被缩小10倍之后设置给设备,0~1000
+ HTStorageConditions != HTStorageConditionsTime,
  */
 @property (nonatomic, assign)NSInteger temperature;
 
@@ -252,8 +252,8 @@
     NSDictionary *dic = [cell getContentData];
     MKHTStorageConditionsModel *conditionsModel = [[MKHTStorageConditionsModel alloc] init];
     conditionsModel.condition = [dic[@"result"][@"functionType"] integerValue];
-    conditionsModel.temperature = [dic[@"result"][@"temperature"] integerValue];
-    conditionsModel.humidity = [dic[@"result"][@"humidity"] integerValue];
+    conditionsModel.temperature = [dic[@"result"][@"temperature"] floatValue] * 10;
+    conditionsModel.humidity = [dic[@"result"][@"humidity"] integerValue] * 10;
     conditionsModel.time = [dic[@"result"][@"storageTime"] integerValue];
     dispatch_async(self.configQueue, ^{
         if (![self configBXPHTSamplingRate:[samplingRate integerValue]]) {

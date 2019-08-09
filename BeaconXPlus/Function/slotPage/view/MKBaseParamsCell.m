@@ -204,7 +204,11 @@ static CGFloat const unitLabelWidth = 60.f;
 #pragma mark - event method
 - (void)sliderValueChanged:(UISlider *)slider{
     if (slider == self.rssiSlider){
-        self.rssiUnitLabel.text = [NSString stringWithFormat:@"%.fdBm",slider.value];
+        NSString *unitValue = [NSString stringWithFormat:@"%.fdBm",slider.value];
+        if ([unitValue isEqualToString:@"-0dBm"]) {
+            unitValue = @"0dBm";
+        }
+        self.rssiUnitLabel.text = unitValue;
     }else if (slider == self.txPowerSlider){
         self.txPowerUnitLabel.text = [self getTxPowerUnitWithValue:slider.value];
     }

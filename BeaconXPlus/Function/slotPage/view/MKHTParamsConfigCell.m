@@ -431,8 +431,8 @@ static CGFloat const pickViewRowHeight = 30.f;
             make.bottom.mas_equalTo(0);
         }];
         [self.temperValueLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.temperLabel.mas_right).mas_offset(5.f);
-            make.width.mas_equalTo(30.f);
+            make.left.mas_equalTo(self.temperLabel.mas_right).mas_offset(2.f);
+            make.width.mas_equalTo(35.f);
             make.top.mas_equalTo(0);
             make.bottom.mas_equalTo(0);
         }];
@@ -482,8 +482,8 @@ static CGFloat const pickViewRowHeight = 30.f;
             make.bottom.mas_equalTo(0);
         }];
         [self.humiValueLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.humiLabel.mas_right).mas_offset(5.f);
-            make.width.mas_equalTo(30.f);
+            make.left.mas_equalTo(self.humiLabel.mas_right).mas_offset(2.f);
+            make.width.mas_equalTo(35.f);
             make.top.mas_equalTo(0);
             make.bottom.mas_equalTo(0);
         }];

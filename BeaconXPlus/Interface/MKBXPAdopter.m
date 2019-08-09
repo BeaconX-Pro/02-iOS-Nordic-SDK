@@ -360,6 +360,9 @@ static NSString * const MKCustomErrorDomain = @"com.moko.eddystoneSDKDomain";
 
 + (NSString *)hexStringFromSignedNumber:(NSInteger)number {
     NSString *tempNumber = [NSString stringWithFormat:@"%lX", (long)number];
+    if (tempNumber.length == 1) {
+        tempNumber = [@"0" stringByAppendingString:tempNumber];
+    }
     NSData *data = [self stringToData:tempNumber];
     NSData *resultData = [data subdataWithRange:NSMakeRange(data.length - 1, 1)];
     return [self hexStringFromData:resultData];

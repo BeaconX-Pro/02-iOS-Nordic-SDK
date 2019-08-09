@@ -84,11 +84,6 @@ static CGFloat const threeSensorCellHeight = 110.f;
 
 @property (nonatomic, strong)dispatch_source_t scanTimer;
 
-/**
- 缓存用户输入的密码。只有连接成功设备之后才会缓存
- */
-@property (nonatomic, copy)NSString *localPassword;
-
 @end
 
 @implementation MKScanViewController
@@ -333,10 +328,8 @@ static CGFloat const threeSensorCellHeight = 110.f;
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
         //如果是设备信息帧
         MKBXPDeviceInfoBeacon *tempBeacon = (MKBXPDeviceInfoBeacon *)beacon;
-        if ([tempBeacon.deviceName containsString:[self.sortModel.searchName uppercaseString]]
-            || [tempBeacon.deviceName containsString:[self.sortModel.searchName lowercaseString]]
-            || [tempBeacon.macAddress containsString:[self.sortModel.searchName uppercaseString]]
-            || [tempBeacon.macAddress containsString:[self.sortModel.searchName lowercaseString]]) {
+        if ([[tempBeacon.deviceName uppercaseString] containsString:[self.sortModel.searchName uppercaseString]]
+            || [[tempBeacon.macAddress uppercaseString] containsString:[self.sortModel.searchName uppercaseString]]) {
             //如果mac地址和设备名称包含搜索条件，则加入
             [self processBeacon:beacon];
         }

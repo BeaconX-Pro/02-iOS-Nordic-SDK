@@ -12,6 +12,8 @@
 
 @interface AppDelegate ()
 
+@property (nonatomic, copy)NSString *connectPassword;
+
 @end
 
 @implementation AppDelegate
@@ -72,6 +74,7 @@
     animation.type = kCATransitionPush;
     animation.removedOnCompletion = YES;
     animation.subtype = kCATransitionFromRight;
+    self.connectPassword = [MKDataManager shared].password;
     [kAppDelegate.window.layer addAnimation:animation forKey:nil];
     _window.rootViewController = [[MKMainTabBarController alloc] init];
 }
@@ -92,6 +95,7 @@
         [kAppDelegate.window.layer addAnimation:animation forKey:nil];
     }
     MKScanViewController *vc = [[MKScanViewController alloc] init];
+    vc.localPassword = self.connectPassword;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     _window.rootViewController = nav;
 }

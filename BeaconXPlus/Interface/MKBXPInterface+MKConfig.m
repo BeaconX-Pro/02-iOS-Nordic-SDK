@@ -692,7 +692,7 @@
         }
     }
     if (protocol.condition == HTStorageConditionsH) {
-        if (protocol.humidity < 0 || protocol.humidity > 100) {
+        if (protocol.humidity < 0 || protocol.humidity > 1000) {
             return NO;
         }
     }
@@ -700,7 +700,7 @@
         if (protocol.temperature < 0 || protocol.temperature > 1000) {
             return NO;
         }
-        if (protocol.humidity < 0 || protocol.humidity > 100) {
+        if (protocol.humidity < 0 || protocol.humidity > 1000) {
             return NO;
         }
     }
@@ -714,7 +714,7 @@
 
 + (NSString *)fetchHTStorageConditionsCommand:(id<MKBXPHTStorageConditionsProtocol>)protocol {
     if (protocol.condition == HTStorageConditionsT) {
-        NSString *temper = [NSString stringWithFormat:@"%1lx",(long)(protocol.temperature * 10)];
+        NSString *temper = [NSString stringWithFormat:@"%1lx",(long)(protocol.temperature)];
         if (temper.length == 1) {
             temper = [@"000" stringByAppendingString:temper];
         }else if (temper.length == 2) {
@@ -725,7 +725,7 @@
         return [@"ea32000300" stringByAppendingString:temper];
     }
     if (protocol.condition == HTStorageConditionsH) {
-        NSString *humi = [NSString stringWithFormat:@"%1lx",(long)(protocol.humidity * 10)];
+        NSString *humi = [NSString stringWithFormat:@"%1lx",(long)(protocol.humidity)];
         if (humi.length == 1) {
             humi = [@"000" stringByAppendingString:humi];
         }else if (humi.length == 2) {
@@ -736,7 +736,7 @@
         return [@"ea32000301" stringByAppendingString:humi];
     }
     if (protocol.condition == HTStorageConditionsTH) {
-        NSString *temper = [NSString stringWithFormat:@"%1lx",(long)(protocol.temperature * 10)];
+        NSString *temper = [NSString stringWithFormat:@"%1lx",(long)(protocol.temperature)];
         if (temper.length == 1) {
             temper = [@"000" stringByAppendingString:temper];
         }else if (temper.length == 2) {
@@ -744,7 +744,7 @@
         }else if (temper.length == 3) {
             temper = [@"0" stringByAppendingString:temper];
         }
-        NSString *humi = [NSString stringWithFormat:@"%1lx",(long)(protocol.humidity * 10)];
+        NSString *humi = [NSString stringWithFormat:@"%1lx",(long)(protocol.humidity)];
         if (humi.length == 1) {
             humi = [@"000" stringByAppendingString:humi];
         }else if (humi.length == 2) {

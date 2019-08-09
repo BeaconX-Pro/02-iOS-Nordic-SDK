@@ -44,12 +44,12 @@
 @property (nonatomic, assign)HTStorageConditions condition;
 
 /**
- HTStorageConditions != HTStorageConditionsTime,当前值会被缩小10倍之后设置给设备,0~1000
+ HTStorageConditions != HTStorageConditionsTime,0~1000，代表0℃~100℃
  */
 @property (nonatomic, assign)NSInteger temperature;
 
 /**
- HTStorageConditions != HTStorageConditionsTime,0~100
+ HTStorageConditions != HTStorageConditionsTime,0~1000,代表0%~100%
  */
 @property (nonatomic, assign)NSInteger humidity;
 
