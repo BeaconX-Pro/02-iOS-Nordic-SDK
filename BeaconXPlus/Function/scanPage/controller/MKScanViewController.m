@@ -418,9 +418,8 @@ static CGFloat const threeSensorCellHeight = 110.f;
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
         //设备信息帧
         exsitModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
-        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:exsitModel.index];
         [UIView performWithoutAnimation:^{
-            [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView reloadSection:exsitModel.index withRowAnimation:UITableViewRowAnimationNone];
         }];
         return;
     }
@@ -435,9 +434,8 @@ static CGFloat const threeSensorCellHeight = 110.f;
             //TLM信息帧需要替换
             beacon.index = model.index;
             [exsitModel.dataArray replaceObjectAtIndex:model.index withObject:beacon];
-            NSIndexPath *path = [NSIndexPath indexPathForRow:beacon.index  inSection:exsitModel.index];
             [UIView performWithoutAnimation:^{
-                [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+                [self.tableView reloadSection:exsitModel.index withRowAnimation:UITableViewRowAnimationNone];
             }];
             return;
         }
