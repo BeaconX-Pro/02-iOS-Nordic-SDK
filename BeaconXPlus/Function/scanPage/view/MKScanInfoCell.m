@@ -144,7 +144,7 @@ static CGFloat const batteryIconHeight = 25.f;
                                      andFont:self.nameLabel.font
                                   andMaxSize:CGSizeMake(nameWidth, MAXFLOAT)];
     [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.rssiIcon.mas_right).mas_offset(10.f);
+        make.left.mas_equalTo(self.rssiIcon.mas_right).mas_offset(20.f);
         make.centerY.mas_equalTo(self.rssiIcon.mas_centerY);
         make.right.mas_equalTo(self.connectButton.mas_left).mas_offset(-8.f);
         make.height.mas_equalTo(nameSize.height);
@@ -187,8 +187,8 @@ static CGFloat const batteryIconHeight = 25.f;
         make.bottom.mas_equalTo(0);
     }];
     [self.batteryLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(offset_X);
-        make.width.mas_equalTo(27.f);
+        make.centerX.mas_equalTo(self.batteryIcon.mas_centerX);
+        make.width.mas_equalTo(45.f);
         make.top.mas_equalTo(3.f);
         make.height.mas_equalTo(MKFont(15.f).lineHeight);
     }];
@@ -275,30 +275,31 @@ static CGFloat const batteryIconHeight = 25.f;
     NSString *macAddress = (ValidStr(_beacon.infoBeacon.macAddress) ? _beacon.infoBeacon.macAddress : nullInfoString);
     [self.macLabel setText:[NSString stringWithFormat:@"MAC:%@",macAddress]];
     NSInteger battery = [_beacon.infoBeacon.battery integerValue];
-    if (battery < 2000) {
-        battery = 2000;
-    }
-    if (battery > 3000) {
-        battery = 3000;
-    }
-    battery = (battery - 2000) * 0.1;
-    self.batteryLabel.text = [NSString stringWithFormat:@"%ld%@",(long)battery,@"%"];
-    if (battery >= 0 && battery < 20) {
-        //最低
-        [self.batteryIcon setImage:LOADIMAGE(@"batteryLowest", @"png")];
-    }else if (battery >= 20 && battery < 40){
-        //次低
-        [self.batteryIcon setImage:LOADIMAGE(@"batteryLower", @"png")];
-    }else if (battery >= 40 && battery < 60){
-        //中等
-        [self.batteryIcon setImage:LOADIMAGE(@"batteryLow", @"png")];
-    }else if (battery >= 60 && battery < 80){
-        //次高
-        [self.batteryIcon setImage:LOADIMAGE(@"batteryHigher", @"png")];
-    }else if (battery >= 80 && battery <= 100){
-        //最高
-        [self.batteryIcon setImage:LOADIMAGE(@"batteryHighest", @"png")];
-    }
+//    if (battery < 2000) {
+//        battery = 2000;
+//    }
+//    if (battery > 3000) {
+//        battery = 3000;
+//    }
+//    battery = (battery - 2000) * 0.1;
+    self.batteryLabel.text = [NSString stringWithFormat:@"%ld%@",(long)battery,@"mV"];
+    [self.batteryIcon setImage:LOADIMAGE(@"batteryHighest", @"png")];
+//    if (battery >= 0 && battery < 20) {
+//        //最低
+//        [self.batteryIcon setImage:LOADIMAGE(@"batteryLowest", @"png")];
+//    }else if (battery >= 20 && battery < 40){
+//        //次低
+//        [self.batteryIcon setImage:LOADIMAGE(@"batteryLower", @"png")];
+//    }else if (battery >= 40 && battery < 60){
+//        //中等
+//        [self.batteryIcon setImage:LOADIMAGE(@"batteryLow", @"png")];
+//    }else if (battery >= 60 && battery < 80){
+//        //次高
+//        [self.batteryIcon setImage:LOADIMAGE(@"batteryHigher", @"png")];
+//    }else if (battery >= 80 && battery <= 100){
+//        //最高
+//        [self.batteryIcon setImage:LOADIMAGE(@"batteryHighest", @"png")];
+//    }
     [self.connectEnableLabel setHidden:NO];
     self.connectEnableLabel.text = (_beacon.infoBeacon.connectEnable ? @"Connectable" : @"Unconnectable");
     self.txPowerLabel.text = @"Tx Power";
