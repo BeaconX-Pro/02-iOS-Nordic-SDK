@@ -272,7 +272,7 @@
     }
     if (tapView.index == 1) {
         NSString *time = [tapView.startField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-        if (!ValidStr(time)) {
+        if (!ValidStr(time) || [time integerValue] < 1 || [time integerValue] > 65535) {
             return [self errorDic:@"params error"];
         }
         return @{
@@ -290,7 +290,7 @@
     }
     if (tapView.index == 2) {
         NSString *time = [tapView.stopField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-        if (!ValidStr(time)) {
+        if (!ValidStr(time) || [time integerValue] < 1 || [time integerValue] > 65535) {
             return [self errorDic:@"params error"];
         }
         return @{
@@ -489,7 +489,7 @@
             [self.humidityView setHidden:YES];
             [self.tripleTapView setHidden:YES];
             [self.movesView setHidden:YES];
-            [self.temperView updateAbove:(self.index == 2) start:YES];
+            [self.temperView updateAbove:(self.index == 2) start:[self.dataDic[@"conditions"][@"start"] boolValue]];
             [self.temperView.temperSlider setValue:[self.dataDic[@"conditions"][@"temperature"] floatValue]];
             self.temperView.sliderValueLabel.text = [NSString stringWithFormat:@"%.f℃",self.temperView.temperSlider.value];
             return;
@@ -502,7 +502,7 @@
             [self.humidityView setHidden:NO];
             [self.tripleTapView setHidden:YES];
             [self.movesView setHidden:YES];
-            [self.humidityView updateAbove:(self.index == 4) start:YES];
+            [self.humidityView updateAbove:(self.index == 4) start:[self.dataDic[@"conditions"][@"start"] boolValue]];
             [self.humidityView.humiditySlider setValue:[self.dataDic[@"conditions"][@"humidity"] floatValue]];
             self.humidityView.sliderValueLabel.text = [NSString stringWithFormat:@"%.f%@",self.humidityView.humiditySlider.value,@"%"];
             return;

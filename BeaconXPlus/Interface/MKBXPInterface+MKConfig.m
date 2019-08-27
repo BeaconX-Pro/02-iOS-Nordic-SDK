@@ -253,11 +253,12 @@
     }
     uuid = [uuid stringByReplacingOccurrencesOfString:@"-" withString:@""];
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"50",uuid,majorHex,minorHex];
-    [centralManager addTaskWithTaskID:MKBXPSetAdvSlotDataOperation
-                          commandData:commandString
-                       characteristic:centralManager.peripheral.advSlotData
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+    [centralManager addTaskWithTaskID:MKBXPSetAdvSlotDataOperation commandData:commandString characteristic:centralManager.peripheral.advSlotData successBlock:^(id  _Nonnull returnData) {
+        [NSThread sleepForTimeInterval:0.05f];
+        if (sucBlock) {
+            sucBlock(returnData);
+        }
+    } failureBlock:failedBlock];
 }
 
 + (void)setBXPNODATAAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
@@ -285,8 +286,12 @@
     [centralManager addTaskWithTaskID:MKBXPSetAdvSlotDataOperation
                           commandData:commandString
                        characteristic:centralManager.peripheral.advSlotData
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                         successBlock:^(id  _Nonnull returnData) {
+                             [NSThread sleepForTimeInterval:0.05f];
+                             if (sucBlock) {
+                                 sucBlock(returnData);
+                             }
+                         } failureBlock:failedBlock];
 }
 
 + (void)setBXPThreeAxisAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
@@ -762,6 +767,12 @@
         return [@"ea32000203" stringByAppendingString:time];
     }
     return @"";
+}
+
++ (void)delaySuccessMethod:(void (^)(id returnData))sucBlock returnData:(id)returnData{
+    if (sucBlock) {
+        sucBlock(returnData);
+    }
 }
 
 @end

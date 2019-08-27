@@ -117,6 +117,15 @@
             }
             return;
         }
+        if (slotFrameType == slotFrameTypeNull) {
+            //
+            if (successBlock) {
+                moko_dispatch_main_safe(^{
+                    successBlock();
+                });
+            }
+            return;
+        }
         if (![self configAdvTxPower:[detailData[@"baseParam"][@"advTxPower"] integerValue]]) {
             if (failedBlock) {
                 moko_dispatch_main_safe(^{
