@@ -254,7 +254,7 @@
     uuid = [uuid stringByReplacingOccurrencesOfString:@"-" withString:@""];
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"50",uuid,majorHex,minorHex];
     [centralManager addTaskWithTaskID:MKBXPSetAdvSlotDataOperation commandData:commandString characteristic:centralManager.peripheral.advSlotData successBlock:^(id  _Nonnull returnData) {
-        [NSThread sleepForTimeInterval:0.05f];
+        [NSThread sleepForTimeInterval:0.1f];
         if (sucBlock) {
             sucBlock(returnData);
         }
@@ -287,7 +287,7 @@
                           commandData:commandString
                        characteristic:centralManager.peripheral.advSlotData
                          successBlock:^(id  _Nonnull returnData) {
-                             [NSThread sleepForTimeInterval:0.05f];
+                             [NSThread sleepForTimeInterval:0.1f];
                              if (sucBlock) {
                                  sucBlock(returnData);
                              }
@@ -682,7 +682,7 @@
     }
     NSString *secString = [NSString stringWithFormat:@"%1lx",(long)protocol.seconds];
     if (secString.length == 1) {
-        secString = [@"0" stringByAppendingString:minString];
+        secString = [@"0" stringByAppendingString:secString];
     }
     return [NSString stringWithFormat:@"%@%@%@%@%@%@",yearString,monthString,dayString,hourString,minString,secString];
 }

@@ -163,7 +163,7 @@
         if (!success) {
             moko_dispatch_main_safe(^{
                 [[MKHudManager share] hide];
-                [self.view showCentralToast:@"Set the current time failure equipment"];
+                [self.view showCentralToast:@"Set time failed."];
             });
             return ;
         }
@@ -171,7 +171,7 @@
         if (!ValidStr(deviceTime)) {
             moko_dispatch_main_safe(^{
                 [[MKHudManager share] hide];
-                [self.view showCentralToast:@"Reading equipment current time failed"];
+                [self.view showCentralToast:@"Read time failed."];
             });
             return;
         }

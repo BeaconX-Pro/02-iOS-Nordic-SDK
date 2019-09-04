@@ -489,9 +489,9 @@
             [self.humidityView setHidden:YES];
             [self.tripleTapView setHidden:YES];
             [self.movesView setHidden:YES];
-            [self.temperView updateAbove:(self.index == 2) start:[self.dataDic[@"conditions"][@"start"] boolValue]];
             [self.temperView.temperSlider setValue:[self.dataDic[@"conditions"][@"temperature"] floatValue]];
             self.temperView.sliderValueLabel.text = [NSString stringWithFormat:@"%.f℃",self.temperView.temperSlider.value];
+            [self.temperView updateAbove:(self.index == 2) start:[self.dataDic[@"conditions"][@"start"] boolValue]];
             return;
         }
         if (self.index == 4 || self.index == 5) {
@@ -502,9 +502,9 @@
             [self.humidityView setHidden:NO];
             [self.tripleTapView setHidden:YES];
             [self.movesView setHidden:YES];
-            [self.humidityView updateAbove:(self.index == 4) start:[self.dataDic[@"conditions"][@"start"] boolValue]];
             [self.humidityView.humiditySlider setValue:[self.dataDic[@"conditions"][@"humidity"] floatValue]];
             self.humidityView.sliderValueLabel.text = [NSString stringWithFormat:@"%.f%@",self.humidityView.humiditySlider.value,@"%"];
+            [self.humidityView updateAbove:(self.index == 4) start:[self.dataDic[@"conditions"][@"start"] boolValue]];
             return;
         }
     }
