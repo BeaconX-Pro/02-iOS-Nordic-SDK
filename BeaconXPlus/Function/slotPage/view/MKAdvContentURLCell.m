@@ -357,7 +357,7 @@ static CGFloat const labelHeight = 30.f;
 - (UITextField *)textField{
     if (!_textField) {
         _textField = [self createNewTextField];
-        _textField.placeholder = @"infotronic-tech.com/";
+        _textField.placeholder = @"mokosmart.com/";
     }
     return _textField;
 }
