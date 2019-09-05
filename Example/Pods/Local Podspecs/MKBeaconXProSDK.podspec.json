@@ -1,0 +1,22 @@
+{
+  "name": "MKBeaconXProSDK",
+  "version": "0.1.0",
+  "summary": "A short description of MKBeaconXProSDK.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/aadyx2007@163.com/MKBeaconXProSDK",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "aadyx2007@163.com": "chengang@mokotechnology.com"
+  },
+  "source": {
+    "git": "https://github.com/aadyx2007@163.com/MKBeaconXProSDK.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "MKBeaconXProSDK/Classes/**/*"
+}

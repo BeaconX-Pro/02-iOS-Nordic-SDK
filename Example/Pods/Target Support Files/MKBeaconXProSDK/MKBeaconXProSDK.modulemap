@@ -1,0 +1,6 @@
+framework module MKBeaconXProSDK {
+  umbrella header "MKBeaconXProSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,16 @@
+PODS:
+  - MKBeaconXProSDK (0.1.0)
+
+DEPENDENCIES:
+  - MKBeaconXProSDK (from `../`)
+
+EXTERNAL SOURCES:
+  MKBeaconXProSDK:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  MKBeaconXProSDK: fe2b44de77889cb5669b08320f76f15da44a1a90
+
+PODFILE CHECKSUM: e86c14d412c33d7e5dd131d00ffe1a12127e49f7
+
+COCOAPODS: 1.7.5

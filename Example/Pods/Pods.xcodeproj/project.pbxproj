@@ -1,0 +1,857 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		11197178500F4C14F06EE2D79BFCC8FE /* CBPeripheral+MKAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F3AC14D7818E0DE6E253E4BC47A4EE /* CBPeripheral+MKAdd.m */; };
+		13DAAE70AB13FF109F337CD7E3B4B635 /* MKBXPTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 486E241015CAC43E491D74C0268248BD /* MKBXPTaskOperation.m */; };
+		1F905AD1C0701AFB0E7816174E14550B /* MKBXPTaskOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = E299F0B2BB325CAEE1D81A8F7AB74029 /* MKBXPTaskOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		207066BF24F5F5E099DBA4EDE4E4BFAB /* MKBXPAdopter.h in Headers */ = {isa = PBXBuildFile; fileRef = E052A89FB4C1E30A1656D03210F14784 /* MKBXPAdopter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		27B24003B33800C43F51EB5FFB6F92AB /* MKBXPDataParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 32646622FB055D5455674C10F6C9063F /* MKBXPDataParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		29BB8D3A4CAEF6F3F695FD4349E515E5 /* MKBXPEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = 5FDF3C2945FDAD718A61AAF56E06B193 /* MKBXPEnumeration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B57D9EB3C62D5254BDC93078ECA3CBB /* MKBXPSDKHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = EF633311055586DCCF9AB52B50B6C081 /* MKBXPSDKHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		333A611DE6A403B7D83C424F41F5BF38 /* MKBXPBaseBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C86E6570277892DFB0AF58D8E440071 /* MKBXPBaseBeacon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3CF7C9F2180B1EF4D55D4CD0F2754924 /* MKBXPInterface+MKConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 5146AFE6D0AD7E680843DA59DA3F4060 /* MKBXPInterface+MKConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45158788D133CF8A968735C01502B3BF /* Pods-MKBeaconXProSDK_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5048C27FF934482E7B9538ED22540D7F /* Pods-MKBeaconXProSDK_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F55112044749D6B7CBFC27FB0E45F69 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		5C8B63CDD7B478272B2DF0801530BF8B /* MKBXPCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FEA9228DC8C3A540BA7CF00294A149 /* MKBXPCentralManager.m */; };
+		746E8CC40D3E44077ABE001B4FA84623 /* MKBXPProtocols.h in Headers */ = {isa = PBXBuildFile; fileRef = B65C7A170E5E7BF917C65EBB237D715C /* MKBXPProtocols.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		775E258C7F890D5AD93B2901905B9C07 /* MKBXPInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B57E2A7CBAF58A31B5C220BC84A457C /* MKBXPInterface.m */; };
+		7897392A54F24AE971B1956E81F1100F /* MKBXPDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = AEA3805A2690C810EC97CA9BA5BB117B /* MKBXPDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7DDD78EE37D1502EEA9CF443206ADE7E /* MKBXPAdopter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3654EB56F5A1ADFA8A3F05CB48B85EDA /* MKBXPAdopter.m */; };
+		8697B619819E375B72010BD4328C87BF /* MKBeaconXProSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A51799DEE51287F35CBFC47E039D98 /* MKBeaconXProSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FA42EDEB63893A05AE524D5AEBBB793 /* Pods-MKBeaconXProSDK_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4AE3FE425591B2756225D1E74187918F /* Pods-MKBeaconXProSDK_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		94B9F6C20069C5F25068E6E3D7844427 /* Pods-MKBeaconXProSDK_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F47F2D03BA22C54F3E4859601200AFE /* Pods-MKBeaconXProSDK_Example-dummy.m */; };
+		986335F28C10C2F7F137587F27B9B0A8 /* CBPeripheral+MKAdd.h in Headers */ = {isa = PBXBuildFile; fileRef = E4DD6B91064D79C9BD168A0BFA4EB5C5 /* CBPeripheral+MKAdd.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A34BCF67C48A5AA2E079944F3D16AFAE /* Pods-MKBeaconXProSDK_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1795CD7809A6F90F7A82EC180E55DC31 /* Pods-MKBeaconXProSDK_Tests-dummy.m */; };
+		AFD8E78279AD5C139C9A8FDA0831D7D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		B6E96B02E5CE0D37259372E11596C69C /* MKBXPInterface+MKConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3FBD98AA9A62C303344585FCF866C8 /* MKBXPInterface+MKConfig.m */; };
+		B785D518621AF86BFB6F49DCED182E67 /* MKBeaconXProSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED9569C41A2E3E6246917988E28127 /* MKBeaconXProSDK-dummy.m */; };
+		BCBB7EA41F6880EFB8B3BB0EAAEC3063 /* MKBXPInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = FEB7E67C82D0BF065101E55ADF9AE4B5 /* MKBXPInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BE867436C3439DEFD76871E27EB459AA /* MKBXPNormalDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 78FAB21E1620BA7582DAAB0536FC0B90 /* MKBXPNormalDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C6D2E6BC11C9F3493E8E8238F5235BFE /* MKBXPOperationIDDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = FD6819E98ACF23B3AE36B9A8BE916547 /* MKBXPOperationIDDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D267D8CFC19A65ED6841ACF59A1A6B3B /* MKBXPBaseBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F24B935C69928DE36BFF7CDF19300 /* MKBXPBaseBeacon.m */; };
+		D966F735AD2D3AAD563BCF7A32C77CDF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		DE777675C04A1789D35B4B5E90225DD7 /* MKBXPCentralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A220634F68D1338C0770DF168792A631 /* MKBXPCentralManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F467FDFD289BB98537A0BEAE37087A3A /* MKBXPService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CA32F16109EB2E1227543C062D48E81 /* MKBXPService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FE96572F8D56DD0C4DDAAC69F5559619 /* MKBXPDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A624C220CF6D2C08318E55969A0863EF /* MKBXPDataParser.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		36A1B4E34F327B2F9350E18E2BBA3F36 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E54027C945B79E8E3712AB6FD7BF2EF8;
+			remoteInfo = "Pods-MKBeaconXProSDK_Example";
+		};
+		D97F98BC58C71802C49D9C43DC982EDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A9E5C5865BA3AB6A73C668ADCCB9C7FC;
+			remoteInfo = MKBeaconXProSDK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		04ED9569C41A2E3E6246917988E28127 /* MKBeaconXProSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MKBeaconXProSDK-dummy.m"; sourceTree = "<group>"; };
+		06FEFA5C34EC9C2C7E7911A55E3476B7 /* Pods-MKBeaconXProSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MKBeaconXProSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		077CE1B0C2C529F06AE0928E005DCD37 /* MKBeaconXProSDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MKBeaconXProSDK.modulemap; sourceTree = "<group>"; };
+		1795CD7809A6F90F7A82EC180E55DC31 /* Pods-MKBeaconXProSDK_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MKBeaconXProSDK_Tests-dummy.m"; sourceTree = "<group>"; };
+		180B6F22C50CB83D4256A78B482E4794 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		18AA940E5855068BC43777773ECB5F76 /* Pods-MKBeaconXProSDK_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MKBeaconXProSDK_Example-Info.plist"; sourceTree = "<group>"; };
+		293A54ABE4E0BA48CBCAA5719FB2364A /* Pods-MKBeaconXProSDK_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MKBeaconXProSDK_Tests-Info.plist"; sourceTree = "<group>"; };
+		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		32646622FB055D5455674C10F6C9063F /* MKBXPDataParser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKBXPDataParser.h; path = MKBeaconXProSDK/Classes/MKBXPDataParser.h; sourceTree = "<group>"; };
+		356ADF4D9CFE6B27999E391109638810 /* MKBeaconXProSDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MKBeaconXProSDK-prefix.pch"; sourceTree = "<group>"; };
+		3654EB56F5A1ADFA8A3F05CB48B85EDA /* MKBXPAdopter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MKBXPAdopter.m; path = MKBeaconXProSDK/Classes/MKBXPAdopter.m; sourceTree = "<group>"; };
+		3B57E2A7CBAF58A31B5C220BC84A457C /* MKBXPInterface.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MKBXPInterface.m; path = MKBeaconXProSDK/Classes/MKBXPInterface.m; sourceTree = "<group>"; };
+		3D6F24B935C69928DE36BFF7CDF19300 /* MKBXPBaseBeacon.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MKBXPBaseBeacon.m; path = MKBeaconXProSDK/Classes/MKBXPBaseBeacon.m; sourceTree = "<group>"; };
+		44FEA9228DC8C3A540BA7CF00294A149 /* MKBXPCentralManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MKBXPCentralManager.m; path = MKBeaconXProSDK/Classes/MKBXPCentralManager.m; sourceTree = "<group>"; };
+		486E241015CAC43E491D74C0268248BD /* MKBXPTaskOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MKBXPTaskOperation.m; path = MKBeaconXProSDK/Classes/MKBXPTaskOperation.m; sourceTree = "<group>"; };
+		4AE3FE425591B2756225D1E74187918F /* Pods-MKBeaconXProSDK_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MKBeaconXProSDK_Tests-umbrella.h"; sourceTree = "<group>"; };
+		5048C27FF934482E7B9538ED22540D7F /* Pods-MKBeaconXProSDK_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MKBeaconXProSDK_Example-umbrella.h"; sourceTree = "<group>"; };
+		5146AFE6D0AD7E680843DA59DA3F4060 /* MKBXPInterface+MKConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MKBXPInterface+MKConfig.h"; path = "MKBeaconXProSDK/Classes/MKBXPInterface+MKConfig.h"; sourceTree = "<group>"; };
+		5C86E6570277892DFB0AF58D8E440071 /* MKBXPBaseBeacon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKBXPBaseBeacon.h; path = MKBeaconXProSDK/Classes/MKBXPBaseBeacon.h; sourceTree = "<group>"; };
+		5FDF3C2945FDAD718A61AAF56E06B193 /* MKBXPEnumeration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKBXPEnumeration.h; path = MKBeaconXProSDK/Classes/MKBXPEnumeration.h; sourceTree = "<group>"; };
+		64D743614A4A6C0485CC6385C89DDFE6 /* Pods-MKBeaconXProSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MKBeaconXProSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		6D3FBD98AA9A62C303344585FCF866C8 /* MKBXPInterface+MKConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MKBXPInterface+MKConfig.m"; path = "MKBeaconXProSDK/Classes/MKBXPInterface+MKConfig.m"; sourceTree = "<group>"; };
+		71E8B7F3D6A8AFCC47AB2629C911155D /* Pods-MKBeaconXProSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MKBeaconXProSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		78FAB21E1620BA7582DAAB0536FC0B90 /* MKBXPNormalDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKBXPNormalDefines.h; path = MKBeaconXProSDK/Classes/MKBXPNormalDefines.h; sourceTree = "<group>"; };
+		7F47F2D03BA22C54F3E4859601200AFE /* Pods-MKBeaconXProSDK_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MKBeaconXProSDK_Example-dummy.m"; sourceTree = "<group>"; };
+		867A2E64FA1BD2408F3B4701621040AD /* Pods-MKBeaconXProSDK_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MKBeaconXProSDK_Tests.modulemap"; sourceTree = "<group>"; };
+		8F0D87DB93542972DD8D8F5806E16D04 /* Pods-MKBeaconXProSDK_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MKBeaconXProSDK_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		95AE158E1CE927E4D82715B040AB4C7C /* Pods_MKBeaconXProSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_MKBeaconXProSDK_Tests.framework; path = "Pods-MKBeaconXProSDK_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		991BAFEA4691DFC87A75799D5EFA1BBB /* Pods-MKBeaconXProSDK_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MKBeaconXProSDK_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		9CA32F16109EB2E1227543C062D48E81 /* MKBXPService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKBXPService.h; path = MKBeaconXProSDK/Classes/MKBXPService.h; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A220634F68D1338C0770DF168792A631 /* MKBXPCentralManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKBXPCentralManager.h; path = MKBeaconXProSDK/Classes/MKBXPCentralManager.h; sourceTree = "<group>"; };
+		A624C220CF6D2C08318E55969A0863EF /* MKBXPDataParser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MKBXPDataParser.m; path = MKBeaconXProSDK/Classes/MKBXPDataParser.m; sourceTree = "<group>"; };
+		A6D43D4C487928C3DB7F6AE5E85322D2 /* MKBeaconXProSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MKBeaconXProSDK.framework; path = MKBeaconXProSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEA3805A2690C810EC97CA9BA5BB117B /* MKBXPDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKBXPDefines.h; path = MKBeaconXProSDK/Classes/MKBXPDefines.h; sourceTree = "<group>"; };
+		AF4E1EA41120AE8656B92EAB1122C973 /* Pods-MKBeaconXProSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MKBeaconXProSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
+		B65C7A170E5E7BF917C65EBB237D715C /* MKBXPProtocols.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKBXPProtocols.h; path = MKBeaconXProSDK/Classes/MKBXPProtocols.h; sourceTree = "<group>"; };
+		B6AEA4D97FC051EF2115E4948131AF1D /* MKBeaconXProSDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MKBeaconXProSDK.xcconfig; sourceTree = "<group>"; };
+		C0A51799DEE51287F35CBFC47E039D98 /* MKBeaconXProSDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MKBeaconXProSDK-umbrella.h"; sourceTree = "<group>"; };
+		C45BFD145DA77C9D0B5D9063EFAD3A93 /* MKBeaconXProSDK-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MKBeaconXProSDK-Info.plist"; sourceTree = "<group>"; };
+		D40A95377536D3CA679C73F63D1EC781 /* Pods_MKBeaconXProSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_MKBeaconXProSDK_Example.framework; path = "Pods-MKBeaconXProSDK_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D66BF04727C9F010D3398C97376F73B1 /* Pods-MKBeaconXProSDK_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MKBeaconXProSDK_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		E052A89FB4C1E30A1656D03210F14784 /* MKBXPAdopter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKBXPAdopter.h; path = MKBeaconXProSDK/Classes/MKBXPAdopter.h; sourceTree = "<group>"; };
+		E299F0B2BB325CAEE1D81A8F7AB74029 /* MKBXPTaskOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKBXPTaskOperation.h; path = MKBeaconXProSDK/Classes/MKBXPTaskOperation.h; sourceTree = "<group>"; };
+		E4DD6B91064D79C9BD168A0BFA4EB5C5 /* CBPeripheral+MKAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CBPeripheral+MKAdd.h"; path = "MKBeaconXProSDK/Classes/CBPeripheral+MKAdd.h"; sourceTree = "<group>"; };
+		E61C0382F983BB64742D63032FDE3DA2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		EF633311055586DCCF9AB52B50B6C081 /* MKBXPSDKHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKBXPSDKHeader.h; path = MKBeaconXProSDK/Classes/MKBXPSDKHeader.h; sourceTree = "<group>"; };
+		F09B638AC10F4FB6C499046DE3E4E5F7 /* Pods-MKBeaconXProSDK_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MKBeaconXProSDK_Example.modulemap"; sourceTree = "<group>"; };
+		F0D516DE8E8F43E7B78296B7CDDF40D0 /* MKBeaconXProSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = MKBeaconXProSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		F467D7C4038A782F616C014BAB753EBD /* Pods-MKBeaconXProSDK_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MKBeaconXProSDK_Example-frameworks.sh"; sourceTree = "<group>"; };
+		F6F3AC14D7818E0DE6E253E4BC47A4EE /* CBPeripheral+MKAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CBPeripheral+MKAdd.m"; path = "MKBeaconXProSDK/Classes/CBPeripheral+MKAdd.m"; sourceTree = "<group>"; };
+		F82409E2B2B1C6E4F40314A61AD65737 /* Pods-MKBeaconXProSDK_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MKBeaconXProSDK_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		FD6819E98ACF23B3AE36B9A8BE916547 /* MKBXPOperationIDDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKBXPOperationIDDefines.h; path = MKBeaconXProSDK/Classes/MKBXPOperationIDDefines.h; sourceTree = "<group>"; };
+		FEB7E67C82D0BF065101E55ADF9AE4B5 /* MKBXPInterface.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKBXPInterface.h; path = MKBeaconXProSDK/Classes/MKBXPInterface.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6B66A1BF39FE72F90BC6680F74D6D66E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F55112044749D6B7CBFC27FB0E45F69 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B785F179E5467F394BACA765C2812AFE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D966F735AD2D3AAD563BCF7A32C77CDF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBBA61ADAE40B68FD0FE9F296A0A0D5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFD8E78279AD5C139C9A8FDA0831D7D5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		02FCE3FA5BB503C64DFB0BF5CBD520F5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A6D43D4C487928C3DB7F6AE5E85322D2 /* MKBeaconXProSDK.framework */,
+				D40A95377536D3CA679C73F63D1EC781 /* Pods_MKBeaconXProSDK_Example.framework */,
+				95AE158E1CE927E4D82715B040AB4C7C /* Pods_MKBeaconXProSDK_Tests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		10F4DDE0C8F7CB74D9FDAA8091F5A51C /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				2F31446FA6694A202A15BA96CC83A9A8 /* Pods-MKBeaconXProSDK_Example */,
+				3386A45542438F79CAB4AA65725F50D9 /* Pods-MKBeaconXProSDK_Tests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		2F31446FA6694A202A15BA96CC83A9A8 /* Pods-MKBeaconXProSDK_Example */ = {
+			isa = PBXGroup;
+			children = (
+				F09B638AC10F4FB6C499046DE3E4E5F7 /* Pods-MKBeaconXProSDK_Example.modulemap */,
+				991BAFEA4691DFC87A75799D5EFA1BBB /* Pods-MKBeaconXProSDK_Example-acknowledgements.markdown */,
+				F82409E2B2B1C6E4F40314A61AD65737 /* Pods-MKBeaconXProSDK_Example-acknowledgements.plist */,
+				7F47F2D03BA22C54F3E4859601200AFE /* Pods-MKBeaconXProSDK_Example-dummy.m */,
+				F467D7C4038A782F616C014BAB753EBD /* Pods-MKBeaconXProSDK_Example-frameworks.sh */,
+				18AA940E5855068BC43777773ECB5F76 /* Pods-MKBeaconXProSDK_Example-Info.plist */,
+				5048C27FF934482E7B9538ED22540D7F /* Pods-MKBeaconXProSDK_Example-umbrella.h */,
+				71E8B7F3D6A8AFCC47AB2629C911155D /* Pods-MKBeaconXProSDK_Example.debug.xcconfig */,
+				AF4E1EA41120AE8656B92EAB1122C973 /* Pods-MKBeaconXProSDK_Example.release.xcconfig */,
+			);
+			name = "Pods-MKBeaconXProSDK_Example";
+			path = "Target Support Files/Pods-MKBeaconXProSDK_Example";
+			sourceTree = "<group>";
+		};
+		3386A45542438F79CAB4AA65725F50D9 /* Pods-MKBeaconXProSDK_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				867A2E64FA1BD2408F3B4701621040AD /* Pods-MKBeaconXProSDK_Tests.modulemap */,
+				D66BF04727C9F010D3398C97376F73B1 /* Pods-MKBeaconXProSDK_Tests-acknowledgements.markdown */,
+				8F0D87DB93542972DD8D8F5806E16D04 /* Pods-MKBeaconXProSDK_Tests-acknowledgements.plist */,
+				1795CD7809A6F90F7A82EC180E55DC31 /* Pods-MKBeaconXProSDK_Tests-dummy.m */,
+				293A54ABE4E0BA48CBCAA5719FB2364A /* Pods-MKBeaconXProSDK_Tests-Info.plist */,
+				4AE3FE425591B2756225D1E74187918F /* Pods-MKBeaconXProSDK_Tests-umbrella.h */,
+				06FEFA5C34EC9C2C7E7911A55E3476B7 /* Pods-MKBeaconXProSDK_Tests.debug.xcconfig */,
+				64D743614A4A6C0485CC6385C89DDFE6 /* Pods-MKBeaconXProSDK_Tests.release.xcconfig */,
+			);
+			name = "Pods-MKBeaconXProSDK_Tests";
+			path = "Target Support Files/Pods-MKBeaconXProSDK_Tests";
+			sourceTree = "<group>";
+		};
+		3A49421AE0BB0CF244D76B730997B10A /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				077CE1B0C2C529F06AE0928E005DCD37 /* MKBeaconXProSDK.modulemap */,
+				B6AEA4D97FC051EF2115E4948131AF1D /* MKBeaconXProSDK.xcconfig */,
+				04ED9569C41A2E3E6246917988E28127 /* MKBeaconXProSDK-dummy.m */,
+				C45BFD145DA77C9D0B5D9063EFAD3A93 /* MKBeaconXProSDK-Info.plist */,
+				356ADF4D9CFE6B27999E391109638810 /* MKBeaconXProSDK-prefix.pch */,
+				C0A51799DEE51287F35CBFC47E039D98 /* MKBeaconXProSDK-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/MKBeaconXProSDK";
+			sourceTree = "<group>";
+		};
+		426F94521026E2DB0A1733C370B07706 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A71262A2E23D6E5EBCCC8251249E6530 /* MKBeaconXProSDK */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		87699942642262E088D9A9DD7FC16207 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				180B6F22C50CB83D4256A78B482E4794 /* LICENSE */,
+				F0D516DE8E8F43E7B78296B7CDDF40D0 /* MKBeaconXProSDK.podspec */,
+				E61C0382F983BB64742D63032FDE3DA2 /* README.md */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		A71262A2E23D6E5EBCCC8251249E6530 /* MKBeaconXProSDK */ = {
+			isa = PBXGroup;
+			children = (
+				E4DD6B91064D79C9BD168A0BFA4EB5C5 /* CBPeripheral+MKAdd.h */,
+				F6F3AC14D7818E0DE6E253E4BC47A4EE /* CBPeripheral+MKAdd.m */,
+				E052A89FB4C1E30A1656D03210F14784 /* MKBXPAdopter.h */,
+				3654EB56F5A1ADFA8A3F05CB48B85EDA /* MKBXPAdopter.m */,
+				5C86E6570277892DFB0AF58D8E440071 /* MKBXPBaseBeacon.h */,
+				3D6F24B935C69928DE36BFF7CDF19300 /* MKBXPBaseBeacon.m */,
+				A220634F68D1338C0770DF168792A631 /* MKBXPCentralManager.h */,
+				44FEA9228DC8C3A540BA7CF00294A149 /* MKBXPCentralManager.m */,
+				32646622FB055D5455674C10F6C9063F /* MKBXPDataParser.h */,
+				A624C220CF6D2C08318E55969A0863EF /* MKBXPDataParser.m */,
+				AEA3805A2690C810EC97CA9BA5BB117B /* MKBXPDefines.h */,
+				5FDF3C2945FDAD718A61AAF56E06B193 /* MKBXPEnumeration.h */,
+				FEB7E67C82D0BF065101E55ADF9AE4B5 /* MKBXPInterface.h */,
+				3B57E2A7CBAF58A31B5C220BC84A457C /* MKBXPInterface.m */,
+				5146AFE6D0AD7E680843DA59DA3F4060 /* MKBXPInterface+MKConfig.h */,
+				6D3FBD98AA9A62C303344585FCF866C8 /* MKBXPInterface+MKConfig.m */,
+				78FAB21E1620BA7582DAAB0536FC0B90 /* MKBXPNormalDefines.h */,
+				FD6819E98ACF23B3AE36B9A8BE916547 /* MKBXPOperationIDDefines.h */,
+				B65C7A170E5E7BF917C65EBB237D715C /* MKBXPProtocols.h */,
+				EF633311055586DCCF9AB52B50B6C081 /* MKBXPSDKHeader.h */,
+				9CA32F16109EB2E1227543C062D48E81 /* MKBXPService.h */,
+				E299F0B2BB325CAEE1D81A8F7AB74029 /* MKBXPTaskOperation.h */,
+				486E241015CAC43E491D74C0268248BD /* MKBXPTaskOperation.m */,
+				87699942642262E088D9A9DD7FC16207 /* Pod */,
+				3A49421AE0BB0CF244D76B730997B10A /* Support Files */,
+			);
+			name = MKBeaconXProSDK;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				426F94521026E2DB0A1733C370B07706 /* Development Pods */,
+				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				02FCE3FA5BB503C64DFB0BF5CBD520F5 /* Products */,
+				10F4DDE0C8F7CB74D9FDAA8091F5A51C /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0834CEBB1379A84116EF29F93051C60 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2DA2CEA1766C6B2D69152AF21BB95C01 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45158788D133CF8A968735C01502B3BF /* Pods-MKBeaconXProSDK_Example-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		566CAF18F8B42A85C916DCCA77E225EE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FA42EDEB63893A05AE524D5AEBBB793 /* Pods-MKBeaconXProSDK_Tests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2462148AC774E7012C7BA896A56D9F8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				986335F28C10C2F7F137587F27B9B0A8 /* CBPeripheral+MKAdd.h in Headers */,
+				8697B619819E375B72010BD4328C87BF /* MKBeaconXProSDK-umbrella.h in Headers */,
+				207066BF24F5F5E099DBA4EDE4E4BFAB /* MKBXPAdopter.h in Headers */,
+				333A611DE6A403B7D83C424F41F5BF38 /* MKBXPBaseBeacon.h in Headers */,
+				DE777675C04A1789D35B4B5E90225DD7 /* MKBXPCentralManager.h in Headers */,
+				27B24003B33800C43F51EB5FFB6F92AB /* MKBXPDataParser.h in Headers */,
+				7897392A54F24AE971B1956E81F1100F /* MKBXPDefines.h in Headers */,
+				29BB8D3A4CAEF6F3F695FD4349E515E5 /* MKBXPEnumeration.h in Headers */,
+				3CF7C9F2180B1EF4D55D4CD0F2754924 /* MKBXPInterface+MKConfig.h in Headers */,
+				BCBB7EA41F6880EFB8B3BB0EAAEC3063 /* MKBXPInterface.h in Headers */,
+				BE867436C3439DEFD76871E27EB459AA /* MKBXPNormalDefines.h in Headers */,
+				C6D2E6BC11C9F3493E8E8238F5235BFE /* MKBXPOperationIDDefines.h in Headers */,
+				746E8CC40D3E44077ABE001B4FA84623 /* MKBXPProtocols.h in Headers */,
+				2B57D9EB3C62D5254BDC93078ECA3CBB /* MKBXPSDKHeader.h in Headers */,
+				F467FDFD289BB98537A0BEAE37087A3A /* MKBXPService.h in Headers */,
+				1F905AD1C0701AFB0E7816174E14550B /* MKBXPTaskOperation.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4F17F70A84F8BCFA8FD19AC41A99EE7A /* Pods-MKBeaconXProSDK_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7EF30280AE5B3BE41B44D9A7C6AE34AE /* Build configuration list for PBXNativeTarget "Pods-MKBeaconXProSDK_Tests" */;
+			buildPhases = (
+				566CAF18F8B42A85C916DCCA77E225EE /* Headers */,
+				34AF799CA4309FA99948ECC28493CC08 /* Sources */,
+				B785F179E5467F394BACA765C2812AFE /* Frameworks */,
+				CA036A526046F4FAC6B54FE67B422082 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B740B08852EF93DC47652C4BEFF46E8E /* PBXTargetDependency */,
+			);
+			name = "Pods-MKBeaconXProSDK_Tests";
+			productName = "Pods-MKBeaconXProSDK_Tests";
+			productReference = 95AE158E1CE927E4D82715B040AB4C7C /* Pods_MKBeaconXProSDK_Tests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A9E5C5865BA3AB6A73C668ADCCB9C7FC /* MKBeaconXProSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FD02542AE593EE3B2E91813FE654FEA7 /* Build configuration list for PBXNativeTarget "MKBeaconXProSDK" */;
+			buildPhases = (
+				D2462148AC774E7012C7BA896A56D9F8 /* Headers */,
+				B21AA598395B67F52D1EAA1D0CBFC5A6 /* Sources */,
+				DBBA61ADAE40B68FD0FE9F296A0A0D5F /* Frameworks */,
+				B8C2E5CDF93D97285C9CD271D432992F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MKBeaconXProSDK;
+			productName = MKBeaconXProSDK;
+			productReference = A6D43D4C487928C3DB7F6AE5E85322D2 /* MKBeaconXProSDK.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E54027C945B79E8E3712AB6FD7BF2EF8 /* Pods-MKBeaconXProSDK_Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F0C3F00A2E5ECA6FA50DD57BA8B9A3B /* Build configuration list for PBXNativeTarget "Pods-MKBeaconXProSDK_Example" */;
+			buildPhases = (
+				2DA2CEA1766C6B2D69152AF21BB95C01 /* Headers */,
+				9B3CD1ADA5EC121910852B5B7DA10613 /* Sources */,
+				6B66A1BF39FE72F90BC6680F74D6D66E /* Frameworks */,
+				F3C7ED240F49045E327A627DDD34A38C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C9F42C387470B9A7C38E29620358CE61 /* PBXTargetDependency */,
+			);
+			name = "Pods-MKBeaconXProSDK_Example";
+			productName = "Pods-MKBeaconXProSDK_Example";
+			productReference = D40A95377536D3CA679C73F63D1EC781 /* Pods_MKBeaconXProSDK_Example.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 02FCE3FA5BB503C64DFB0BF5CBD520F5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A9E5C5865BA3AB6A73C668ADCCB9C7FC /* MKBeaconXProSDK */,
+				E54027C945B79E8E3712AB6FD7BF2EF8 /* Pods-MKBeaconXProSDK_Example */,
+				4F17F70A84F8BCFA8FD19AC41A99EE7A /* Pods-MKBeaconXProSDK_Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B8C2E5CDF93D97285C9CD271D432992F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA036A526046F4FAC6B54FE67B422082 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3C7ED240F49045E327A627DDD34A38C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		34AF799CA4309FA99948ECC28493CC08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A34BCF67C48A5AA2E079944F3D16AFAE /* Pods-MKBeaconXProSDK_Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B3CD1ADA5EC121910852B5B7DA10613 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94B9F6C20069C5F25068E6E3D7844427 /* Pods-MKBeaconXProSDK_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B21AA598395B67F52D1EAA1D0CBFC5A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11197178500F4C14F06EE2D79BFCC8FE /* CBPeripheral+MKAdd.m in Sources */,
+				B785D518621AF86BFB6F49DCED182E67 /* MKBeaconXProSDK-dummy.m in Sources */,
+				7DDD78EE37D1502EEA9CF443206ADE7E /* MKBXPAdopter.m in Sources */,
+				D267D8CFC19A65ED6841ACF59A1A6B3B /* MKBXPBaseBeacon.m in Sources */,
+				5C8B63CDD7B478272B2DF0801530BF8B /* MKBXPCentralManager.m in Sources */,
+				FE96572F8D56DD0C4DDAAC69F5559619 /* MKBXPDataParser.m in Sources */,
+				B6E96B02E5CE0D37259372E11596C69C /* MKBXPInterface+MKConfig.m in Sources */,
+				775E258C7F890D5AD93B2901905B9C07 /* MKBXPInterface.m in Sources */,
+				13DAAE70AB13FF109F337CD7E3B4B635 /* MKBXPTaskOperation.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B740B08852EF93DC47652C4BEFF46E8E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-MKBeaconXProSDK_Example";
+			target = E54027C945B79E8E3712AB6FD7BF2EF8 /* Pods-MKBeaconXProSDK_Example */;
+			targetProxy = 36A1B4E34F327B2F9350E18E2BBA3F36 /* PBXContainerItemProxy */;
+		};
+		C9F42C387470B9A7C38E29620358CE61 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MKBeaconXProSDK;
+			target = A9E5C5865BA3AB6A73C668ADCCB9C7FC /* MKBeaconXProSDK */;
+			targetProxy = D97F98BC58C71802C49D9C43DC982EDE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2BFB682B6A8139ECBE6B88E1BB4301CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71E8B7F3D6A8AFCC47AB2629C911155D /* Pods-MKBeaconXProSDK_Example.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MKBeaconXProSDK_Example/Pods-MKBeaconXProSDK_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MKBeaconXProSDK_Example/Pods-MKBeaconXProSDK_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		49231BB4128FA9D7543A8019BD3B659C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6AEA4D97FC051EF2115E4948131AF1D /* MKBeaconXProSDK.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/MKBeaconXProSDK/MKBeaconXProSDK-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MKBeaconXProSDK/MKBeaconXProSDK-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/MKBeaconXProSDK/MKBeaconXProSDK.modulemap";
+				PRODUCT_MODULE_NAME = MKBeaconXProSDK;
+				PRODUCT_NAME = MKBeaconXProSDK;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4BE66A09A74FD25164AAB3C2645B9B93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		7EF7227D9B20A1D549000096ACCB23D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		822DDA95F83372B7737B3B4662452345 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06FEFA5C34EC9C2C7E7911A55E3476B7 /* Pods-MKBeaconXProSDK_Tests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MKBeaconXProSDK_Tests/Pods-MKBeaconXProSDK_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MKBeaconXProSDK_Tests/Pods-MKBeaconXProSDK_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		99983817E59921A577CA5718FF281F36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 64D743614A4A6C0485CC6385C89DDFE6 /* Pods-MKBeaconXProSDK_Tests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MKBeaconXProSDK_Tests/Pods-MKBeaconXProSDK_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MKBeaconXProSDK_Tests/Pods-MKBeaconXProSDK_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		B430BEDC8F7BDFC69422E6B96EBCB5A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF4E1EA41120AE8656B92EAB1122C973 /* Pods-MKBeaconXProSDK_Example.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MKBeaconXProSDK_Example/Pods-MKBeaconXProSDK_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MKBeaconXProSDK_Example/Pods-MKBeaconXProSDK_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F4C65140831EEABFF58FB093FF1B0137 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6AEA4D97FC051EF2115E4948131AF1D /* MKBeaconXProSDK.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/MKBeaconXProSDK/MKBeaconXProSDK-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MKBeaconXProSDK/MKBeaconXProSDK-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/MKBeaconXProSDK/MKBeaconXProSDK.modulemap";
+				PRODUCT_MODULE_NAME = MKBeaconXProSDK;
+				PRODUCT_NAME = MKBeaconXProSDK;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7EF7227D9B20A1D549000096ACCB23D7 /* Debug */,
+				4BE66A09A74FD25164AAB3C2645B9B93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F0C3F00A2E5ECA6FA50DD57BA8B9A3B /* Build configuration list for PBXNativeTarget "Pods-MKBeaconXProSDK_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BFB682B6A8139ECBE6B88E1BB4301CA /* Debug */,
+				B430BEDC8F7BDFC69422E6B96EBCB5A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7EF30280AE5B3BE41B44D9A7C6AE34AE /* Build configuration list for PBXNativeTarget "Pods-MKBeaconXProSDK_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				822DDA95F83372B7737B3B4662452345 /* Debug */,
+				99983817E59921A577CA5718FF281F36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FD02542AE593EE3B2E91813FE654FEA7 /* Build configuration list for PBXNativeTarget "MKBeaconXProSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4C65140831EEABFF58FB093FF1B0137 /* Debug */,
+				49231BB4128FA9D7543A8019BD3B659C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}
