@@ -40,32 +40,32 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 系统信息下面的特征
 /**
- 厂商信息,R
+ Manufacturer,R
  */
 @property (nonatomic, strong, readonly)CBCharacteristic *vendor;
 
 /**
- 产品型号信息,R
+ Product Model,R
  */
 @property (nonatomic, strong, readonly)CBCharacteristic *modeID;
 
 /**
- 生产日期
+ Manufacture Date,R
  */
 @property (nonatomic, strong, readonly)CBCharacteristic *productionDate;
 
 /**
- 硬件信息,R
+ Hardware Version,R
  */
 @property (nonatomic, strong, readonly)CBCharacteristic *hardware;
 
 /**
- 固件信息,R
+ Firmware Version,R
  */
 @property (nonatomic, strong, readonly)CBCharacteristic *firmware;
 
 /**
- 软件版本信息,R
+ Software Version,R
  */
 @property (nonatomic, strong, readonly)CBCharacteristic *software;
 

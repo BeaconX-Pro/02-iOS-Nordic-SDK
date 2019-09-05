@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)BXPFactoryDataResetWithSucBlock:(void (^)(id returnData))sucBlock
                             failedBlock:(void (^)(NSError *error))failedBlock;
 /**
- 设置lockState
+ Setting lockState
 
  @param lockState MKBXPLockState
  @param sucBlock success callback
@@ -96,9 +96,9 @@ NS_ASSUME_NONNULL_BEGIN
                   sucBlock:(void (^)(id returnData))sucBlock
                failedBlock:(void (^)(NSError *error))failedBlock;
 /**
- 设置当前通道的广播间隔
+ Setting the advertising interval of the current SLOT
 
- @param interval 广播间隔，单位100ms，范围:1~100
+ @param interval Advertising interval, unit: 100ms, range: 1~100
  @param sucBlock success callback
  @param failedBlock failed callback
  */
@@ -172,7 +172,7 @@ NS_ASSUME_NONNULL_BEGIN
                                   failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 设置当前通道为三轴传感器
+ Setting the current SLOT to 3-axis sensor
 
  @param sucBlock success callback
  @param failedBlock failed callback
@@ -181,7 +181,7 @@ NS_ASSUME_NONNULL_BEGIN
                                failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 设置当前通道为温湿度数据通道
+ Setting the current SLOT to the temperature and humidity data SLOT
 
  @param sucBlock success callback
  @param failedBlock failed callback
@@ -190,11 +190,11 @@ NS_ASSUME_NONNULL_BEGIN
                         failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 设置3轴传感器采样率、重力加速度参考值、灵敏度
+ Setting the sampling rate, scale and sensitivity of the 3-axis accelerometer sensor
 
- @param dataRate 采样率
- @param acceleration 重力加速度参考值
- @param sensitivity 设备发生移动的灵敏度，数值越大，越迟钝。7~255
+ @param dataRate sampling rate
+ @param acceleration scale
+ @param sensitivity The sensitivity of the device to move, the greater the value, the slower it is. 7~255
  @param sucBlock success callback
  @param failedBlock failed callback
  */
@@ -205,7 +205,7 @@ NS_ASSUME_NONNULL_BEGIN
                       failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 设置设备的当前时间
+ Setting the current time of the device
 
  @param protocol time
  @param sucBlock success callback
@@ -216,7 +216,7 @@ NS_ASSUME_NONNULL_BEGIN
              failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 设置传感器温湿度储存数据条件
+ Setting the storage data conditions of the sensor temperature and humidity
 
  @param protocol protocol
  @param sucBlock success callback
@@ -227,9 +227,9 @@ NS_ASSUME_NONNULL_BEGIN
                       failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 设置温湿度采样率
+ Setting the temperature and humidity sampling rate
 
- @param rate 采样率，单位为S，即多少秒采样一次温湿度数据，1s~65535s
+ @param rate Sampling rate, the unit is S, that is, how many seconds to sample the temperature and humidity data, 1s~65535s
  @param sucBlock success callback
  @param failedBlock failed callback
  */
@@ -238,7 +238,7 @@ NS_ASSUME_NONNULL_BEGIN
                  failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 设置当前活跃通道无触发条件
+ Setting the current active SLOT without trigger condition
 
  @param sucBlock success callback
  @param failedBlock failed callback
@@ -247,11 +247,11 @@ NS_ASSUME_NONNULL_BEGIN
                                         failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 设置当前活跃通道温度触发条件
+ Setting the current active SLOT temperature trigger condition
 
- @param above YES:当温度高于temperature时触发,NO:当温度低于temperature时触发
- @param temperature 触发的温度条件,-20~90
- @param start YES:开始广播,NO:停止广播
+ @param above YES:Trigger when temperature is above temperature, NO: Trigger when temperature is lower than temperature
+ @param temperature Triggered temperature condition, -20~90
+ @param start YES: Start advertising, NO: stop advertising
  @param sucBlock success callback
  @param failedBlock failed callback
  */
@@ -262,11 +262,11 @@ NS_ASSUME_NONNULL_BEGIN
                                    failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 设置当前活跃通道湿度触发条件
+ Setting the current active SLOT humidity trigger condition
 
- @param above YES:当温度高于humidity时触发,NO:当温度低于humidity时触发
- @param humidity 触发的湿度条件,0~100
- @param start YES:开始广播,NO:停止广播
+ @param above YES: Triggered when the temperature is above the humidity, NO: Triggered when the temperature is lower than the humidity
+ @param humidity Triggered humidity condition, 0~100
+ @param start YES: Start advertising, NO: stop advertising
  @param sucBlock success callback
  @param failedBlock failed callback
  */
@@ -277,10 +277,10 @@ NS_ASSUME_NONNULL_BEGIN
                                 failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 设置当前活跃通道双击触发条件
+ Setting the current active SLOT double tap trigger condition
 
- @param time 持续时间，单位s,0~65535
- @param start YES:开始广播,NO:停止广播
+ @param time duration, unit s, 0~65535
+ @param start YES: Start advertising, NO: stop advertising
  @param sucBlock success callback
  @param failedBlock failed callback
  */
@@ -289,10 +289,10 @@ NS_ASSUME_NONNULL_BEGIN
                                     sucBlock:(void (^)(id returnData))sucBlock
                                  failedBlock:(void (^)(NSError *error))failedBlock;
 /**
- 设置当前活跃通道三击触发条件
+ Setting the current active SLOT TripleTap trigger condition
  
- @param time 持续时间，单位s,0~65535
- @param start YES:开始广播,NO:停止广播
+ @param time duration, unit s, 0~65535
+ @param start YES: Start advertising, NO: stop advertising
  @param sucBlock success callback
  @param failedBlock failed callback
  */
@@ -301,10 +301,10 @@ NS_ASSUME_NONNULL_BEGIN
                                     sucBlock:(void (^)(id returnData))sucBlock
                                  failedBlock:(void (^)(NSError *error))failedBlock;
 /**
- 设置当前活跃通道移动触发条件
+ Setting the current active SLOT move trigger condition
  
- @param time 持续时间，单位s,0~65535
- @param start YES:开始广播,NO:停止广播
+ @param time duration, unit s,0~65535
+ @param start YES: Start advertising, NO: stop advertising
  @param sucBlock success callback
  @param failedBlock failed callback
  */
@@ -314,7 +314,7 @@ NS_ASSUME_NONNULL_BEGIN
                              failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 删除设备存储的温湿度数据
+ Delete the temperature and humidity data stored in the device
 
  @param sucBlock success callback
  @param failedBlock failed callback

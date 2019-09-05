@@ -13,10 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MKBXPInterface : NSObject
 
 /**
- 读取设备类型,00:无传感器,01:带LIS3DH3轴加速度计,02:带SHT3X温湿度传感器,03:同时带有LIS3DH及SHT3X传感器
+ Read the device type,00: without sensor,01: with 3-axis accelerometer sensor,02: with temperature and humidity sensor, 03: with 3-axis accelerometer / temperature and humidity sensor
 
- @param sucBlock 成功回调
- @param failedBlock 失败回调
+ @param sucBlock success callback
+ @param failedBlock failed callback
  */
 + (void)readBXPDeviceTypeWithSucBlock:(void (^)(id returnData))sucBlock
                           failedBlock:(void (^)(NSError *error))failedBlock;
@@ -127,7 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)readBXPAdvTxPowerWithSuccessBlock:(void (^)(id returnData))sucBlock
                               failedBlock:(void (^)(NSError *error))failedBlock;
 /**
- 读取当前通道的广播间隔
+ Read the advertising interval of the current SLOT
 
  @param sucBlock success callback
  @param failedBlock failed callback
@@ -136,12 +136,12 @@ NS_ASSUME_NONNULL_BEGIN
                                failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 读取通道里面三轴传感器采样率、重力加速度参考值和灵敏度
+ Read the sampling rate, scale and sensitivity of the 3-axis accelerometer sensor
  
  @{
- @"samplingRate":采样率一共5个档，分别为00--1hz，01--10hz，02--25hz，03--50hz，04--100hz
- @"gravityReference":重力加速度参考值一共4个档，分别为00--±2g；01--±4g；02--±8g；03--±16g
- @"sensitivity":代表设备判断设备发生移动的灵敏度，数值越大，越迟钝。
+ @"samplingRate":The 3-axis accelerometer sampling rate is 5 levels in total, 00--1hz，01--10hz，02--25hz，03--50hz，04--100hz
+ @"gravityReference": The 3-axis accelerometer scale is 4 levels, which are 00--±2g；01--±4g；02--±8g；03--±16g
+ @"sensitivity": Represents the device to determine the sensitivity of the device's movement. The larger the value, the slower it is.
  }
 
  @param sucBlock success callback
@@ -151,7 +151,7 @@ NS_ASSUME_NONNULL_BEGIN
                                        failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 读取温湿度采样率
+ Read temperature and humidity sampling rate
 
  @param sucBlock success callback
  @param failedBlock failed callback
@@ -160,8 +160,8 @@ NS_ASSUME_NONNULL_BEGIN
                                   failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 读取温湿度存储条件
-
+ Read temperature and humidity storage conditions
+ 
  @{
  @"functionType":tempFunction,
  @"temperature":temperValue,
@@ -169,10 +169,11 @@ NS_ASSUME_NONNULL_BEGIN
  @"storageTime":time,
  };
  @"functionType":
- 1、只预设温度值，即当温度变化超过预设值，记录一次温湿度数据（00）；
- 2、只预设湿度值，即当湿度变化超过预设值，记录一次温湿度数据（01）；
- 3、同时预设温湿度值，温度或湿度任意一个变化超过预设值，便记录一次温湿度数据（02）；
- 4、按照预设时间存储，即达到预设时长，存储一次温湿度数据（03）
+ 
+ 1. Only preset the temperature value, that is, when the temperature changes exceed the preset value, record the temperature and humidity data (00);
+ 2. Only preset the humidity value, that is, when the humidity changes exceed the preset value, record the temperature and humidity data (01);
+ 3. Simultaneously preset temperature and humidity values, if any change in temperature or humidity exceeds the preset value, record the temperature and humidity data (02);
+ 4. Store according to the preset time, that is, reach the preset duration and store the temperature and humidity data once (03)
  
  @param sucBlock success callback
  @param failedBlock failed callback
@@ -181,7 +182,7 @@ NS_ASSUME_NONNULL_BEGIN
                                        failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 读取设备当前时间
+ Read device current time
 
  @param sucBlock success callback
  @param failedBlock failed callback
@@ -190,7 +191,7 @@ NS_ASSUME_NONNULL_BEGIN
                               failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- 读取设备当前触发条件
+ Read device current trigger condition
 
  @param sucBlock success callback
  @param failedBlock failed callback
