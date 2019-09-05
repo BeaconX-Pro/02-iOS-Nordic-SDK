@@ -273,7 +273,7 @@
 + (void)setBXPDeviceInfoAdvDataWithDeviceName:(NSString *)deviceName
                                      sucBlock:(void (^)(id returnData))sucBlock
                                   failedBlock:(void (^)(NSError *error))failedBlock {
-    if (!ValidStr(deviceName) || deviceName.length > 20) {
+    if (!deviceName || deviceName.length > 20) {
         [MKBXPAdopter operationParamsErrorBlock:failedBlock];
         return;
     }

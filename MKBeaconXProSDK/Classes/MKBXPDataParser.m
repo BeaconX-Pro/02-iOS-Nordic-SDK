@@ -250,8 +250,8 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         NSDictionary *returnData = @{
                                      @"frameType":@"00",
                                      @"txPower":[NSString stringWithFormat:@"%ld",(long)[beacon.txPower integerValue]],
-                                     @"namespaceId":SafeStr(beacon.namespaceId),
-                                     @"instanceId":SafeStr(beacon.instanceId),
+                                     @"namespaceId":beacon.namespaceId,
+                                     @"instanceId":beacon.instanceId,
                                      };
         return [self dataParserGetDataSuccess:returnData operationID:MKBXPReadAdvSlotDataOperation];
     }
@@ -268,7 +268,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         NSString *nameString = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(1, data.length - 1)] encoding:NSUTF8StringEncoding];
         NSDictionary *returnData = @{
                                      @"frameType":@"40",
-                                     @"peripheralName":SafeStr(nameString)
+                                     @"peripheralName":nameString
                                      };
         return [self dataParserGetDataSuccess:returnData operationID:MKBXPReadAdvSlotDataOperation];
     }

@@ -1,16 +1,15 @@
 //
 //  main.m
-//  MKBeaconXProSDK
+//  BeaconXPlus
 //
-//  Created by aadyx2007@163.com on 09/04/2019.
-//  Copyright (c) 2019 aadyx2007@163.com. All rights reserved.
+//  Created by aa on 2019/4/15.
+//  Copyright © 2019 MK. All rights reserved.
 //
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 #import "MKAppDelegate.h"
 
-int main(int argc, char * argv[])
-{
+int main(int argc, char * argv[]) {
     @autoreleasepool {
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([MKAppDelegate class]));
     }

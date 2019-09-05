@@ -1,0 +1,6 @@
+framework module IMYWebView {
+  umbrella header "IMYWebView-umbrella.h"
+
+  export *
+  module * { export * }
+}
