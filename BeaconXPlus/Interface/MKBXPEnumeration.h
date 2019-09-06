@@ -1,16 +1,16 @@
 
 /**
- 广播帧类型
+ Advertising data frame type
  
  - MKBXPUIDFrameType: UID
  - MKBXPURLFrameType: URL
  - MKBXPTLMFrameType: TLM
- - MKBXPDeviceInfoFrameType: 设备信息帧
- - MKBXPBeaconFrameType: iBeacon信息帧
- - MKBXPThreeASensorFrameType: 3轴加速度传感器信息帧
- - MKBXPTHSensorFrameType: 温湿度传感器信息帧
+ - MKBXPDeviceInfoFrameType: Device information
+ - MKBXPBeaconFrameType: iBeacon
+ - MKBXPThreeASensorFrameType: 3-axis accelerometer data
+ - MKBXPTHSensorFrameType: Temperature and humidity sensor data
  - MKBXPNODATAFrameType: NO DATA
- - MKBXPUnkonwFrameType:未知信息帧
+ - MKBXPUnkonwFrameType: Unknown
  */
 typedef NS_ENUM(NSInteger, MKBXPDataFrameType) {
     MKBXPUIDFrameType,
@@ -90,8 +90,8 @@ typedef NS_ENUM(NSInteger, threeAxisDataAG) {
 };
 
 typedef NS_ENUM(NSInteger, HTStorageConditions) {
-    HTStorageConditionsT,               //温度改变存储数据
-    HTStorageConditionsH,               //湿度改变存储数据
-    HTStorageConditionsTH,              //温度或者湿度改变存储数据
-    HTStorageConditionsTime,            //时间改变存储数据
+    HTStorageConditionsT,               // Store data when temperature changes
+    HTStorageConditionsH,               // Store data when humidity changes
+    HTStorageConditionsTH,              // Store data when temperature or humidity changes
+    HTStorageConditionsTime,            // Store data when time changes
 };

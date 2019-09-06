@@ -72,7 +72,7 @@ extern NSString *const MKBXPReceiveRecordHTDataNotification;
                  sucBlock:(MKConnectSuccessBlock)sucBlock
               failedBlock:(MKConnectFailedBlock)failedBlock;
 /**
- 获取当前设备的lockState状态，00(locked)、02(UnlockAutoMaticRelockDisabled)
+ Gets the current lockstate of the device，00(locked)、02(UnlockAutoMaticRelockDisabled)
  
  @param peripheral peripheral
  @param sucBlock read success callback
@@ -82,7 +82,7 @@ extern NSString *const MKBXPReceiveRecordHTDataNotification;
                            sucBlock:(void (^)(NSString *lockState))sucBlock
                         failedBlock:(void (^)(NSError *error))failedBlock;
 /**
- Interface of connection,lockState为02的状态下才可以免密码连接，否则会报错
+ Interface of connection, if lockstate is 02, no password connection is required, otherwise an error will be reported.
  
  @param peripheral peripheral
  @param progressBlock progress callback
@@ -131,7 +131,7 @@ extern NSString *const MKBXPReceiveRecordHTDataNotification;
 - (void)addOperation:(MKBXPTaskOperation *)operation;
 
 /**
- 是否监听三轴加速度数据
+ Whether to monitor 3-axis accelerometer sensor data
 
  @param notify BOOL
  @return result
@@ -139,7 +139,7 @@ extern NSString *const MKBXPReceiveRecordHTDataNotification;
 - (BOOL)notifyThreeAxisAcceleration:(BOOL)notify;
 
 /**
- 是否监听温湿度数据
+ Whether to monitor temperature and humidity sensor data
 
  @param notify BOOL
  @return result
@@ -147,7 +147,7 @@ extern NSString *const MKBXPReceiveRecordHTDataNotification;
 - (BOOL)notifyTHData:(BOOL)notify;
 
 /**
- 是否监听符合采样条件已储存的温湿度数据
+ Whether to monitor the stored temperature and humidity
 
  @param notify BOOL
  @return result

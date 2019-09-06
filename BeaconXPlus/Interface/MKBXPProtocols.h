@@ -44,18 +44,18 @@
 @property (nonatomic, assign)HTStorageConditions condition;
 
 /**
- HTStorageConditions != HTStorageConditionsTime,0~1000，代表0℃~100℃
+ HTStorageConditions != HTStorageConditionsTime,0~1000，Represent 0 ° C ~ 100 ° C
  */
 @property (nonatomic, assign)NSInteger temperature;
 
 /**
- HTStorageConditions != HTStorageConditionsTime,0~1000,代表0%~100%
+ HTStorageConditions != HTStorageConditionsTime,0~1000, Represent 0%~100%
  */
 @property (nonatomic, assign)NSInteger humidity;
 
 /**
 
- HTStorageConditions == HTStorageConditionsTime, 情况下，范围值为1~255,
+ HTStorageConditions == HTStorageConditionsTime, In case, the range value is 1~255
  */
 @property (nonatomic, assign)NSInteger time;
 

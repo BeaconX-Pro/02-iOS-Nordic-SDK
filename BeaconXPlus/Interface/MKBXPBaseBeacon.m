@@ -143,7 +143,7 @@
 }
 
 + (MKBXPDataFrameType)fetchFEABFrameType:(NSData *)customData {
-    if (!ValidData(customData) || customData.length == 0) {
+    if (!MKValidData(customData) || customData.length == 0) {
         return MKBXPUnknownFrameType;
     }
     const unsigned char *cData = [customData bytes];
@@ -181,7 +181,7 @@
         }
     }
     NSData *customData = advDic[[CBUUID UUIDWithString:@"FEAB"]];
-    if (!ValidData(customData) || customData.length == 0) {
+    if (!MKValidData(customData) || customData.length == 0) {
         return MKBXPUnknownFrameType;
     }
     const unsigned char *cData = [customData bytes];

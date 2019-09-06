@@ -19,12 +19,12 @@ extern NSString *const MKBXPDataStatusLev;
 @interface MKBXPTaskOperation : NSOperation<CBPeripheralDelegate>
 
 /**
- 初始化通信线程
+ Initialize the communication thread
  
- @param operationID 当前线程的任务ID
- @param resetNum 是否需要根据外设返回的数据总条数来修改任务需要接受的数据总条数，YES需要，NO不需要
- @param commandBlock 发送命令回调
- @param completeBlock 数据通信完成回调
+ @param operationID The task ID of the current thread
+  @param resetNum Whether to modify the total number of data that the task needs to accept according to the total number of data returned by the peripheral, YES needs, NO does not need
+  @param commandBlock Send command callback
+  @param completeBlock data communication completion callback
  @return operation
  */
 - (instancetype)initOperationWithID:(MKBXPOperationID)operationID
