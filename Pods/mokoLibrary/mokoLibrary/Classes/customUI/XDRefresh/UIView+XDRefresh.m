@@ -482,7 +482,12 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
     }
     _refreshIcon.hidden = YES;
     _refreshIcon.backgroundColor = [UIColor clearColor];
-    _refreshIcon.image = [[UIImage imageWithContentsOfFile:[[NSBundle bundleWithPath:[[NSBundle bundleForClass:[RefreshView class]] pathForResource:@"XDRefreshResource" ofType:@"bundle"]] pathForResource:@"refresh" ofType:@"png"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(@"RefreshView")];
+    NSString *bundlePath = [bundle pathForResource:@"mokoLibrary" ofType:@"bundle"];
+    UIImage *refreshIcon = [UIImage imageWithContentsOfFile:[bundlePath stringByAppendingPathComponent:@"refresh.png"]];
+    
+    _refreshIcon.image = [refreshIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     _refreshIcon.contentMode = UIViewContentModeScaleAspectFit;
     _refreshIcon.clipsToBounds = YES;
     _refreshIcon.layer.cornerRadius = self.frame.size.width/2.0;

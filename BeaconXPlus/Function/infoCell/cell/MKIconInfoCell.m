@@ -36,6 +36,7 @@ static CGFloat const rightIconHeight = 14.f;
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.contentView.backgroundColor = COLOR_WHITE_MACROS;
         [self.contentView addSubview:self.lineView];
         [self.contentView addSubview:self.leftIcon];
         [self.contentView addSubview:self.leftMsgLabel];

@@ -557,7 +557,7 @@ static NSString *const MKSettingControllerCellIdenty = @"MKSettingControllerCell
 - (MKBaseTableView *)tableView{
     if (!_tableView) {
         _tableView = [[MKBaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-        
+        _tableView.backgroundColor = COLOR_WHITE_MACROS;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         if (@available(iOS 11.0, *)) {

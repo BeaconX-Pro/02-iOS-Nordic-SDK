@@ -91,6 +91,7 @@ static CGFloat const batteryIconHeight = 25.f;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.contentView.backgroundColor = COLOR_WHITE_MACROS;
         [self.contentView addSubview:self.topBackView];
         [self.contentView addSubview:self.centerBackView];
         [self.contentView addSubview:self.bottomBackView];

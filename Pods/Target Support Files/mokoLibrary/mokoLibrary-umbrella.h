@@ -11,6 +11,7 @@
 #endif
 
 #import "MKBaseModule.h"
+#import "MKBaseNavigationController.h"
 #import "MKBaseViewController.h"
 #import "WRCustomNavigationBar.h"
 #import "WRNavigationBar.h"

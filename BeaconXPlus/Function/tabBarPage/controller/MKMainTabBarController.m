@@ -49,6 +49,7 @@ NSString *const passwordIdenty = @"passwordIdenty";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isShow = YES;
+    self.tabBar.barTintColor = COLOR_WHITE_MACROS;
     [self loadControllers];
     [self statusMonitoring];
     // Do any additional setup after loading the view.

@@ -10,6 +10,7 @@
 #import "WRNavigationBar.h"
 #import <objc/runtime.h>
 #import "sys/utsname.h"
+#import "MKMacroDefines.h"
 
 @implementation WRNavigationBar
 
@@ -315,6 +316,16 @@ static char kWRBackgroundImageKey;
     return self.transform.ty;
 }
 
+- (void)insertSubview:(UIView *)view atIndex:(NSInteger)index {
+    [super insertSubview:view atIndex:index];
+    if ([view isKindOfClass:NSClassFromString(@"_UIBarBackground")]) {
+        if (![view.subviews containsObject:self.backgroundView]) {
+            [view insertSubview:self.backgroundView atIndex:0];
+            self.backgroundView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height + Height_StatusBar);
+        }
+    }
+}
+
 #pragma mark - call swizzling methods active 主动调用交换方法
 + (void)load {
     static dispatch_once_t onceToken;
@@ -322,7 +333,7 @@ static char kWRBackgroundImageKey;
         SEL needSwizzleSelectors[1] = {
             @selector(setTitleTextAttributes:)
         };
-      
+        
         for (int i = 0; i < 1;  i++) {
             SEL selector = needSwizzleSelectors[i];
             NSString *newSelectorStr = [NSString stringWithFormat:@"wr_%@", NSStringFromSelector(selector)];
@@ -437,7 +448,7 @@ static int wrPushDisplayCount = 0;
     if ([WRNavigationBar needUpdateNavigationBar:fromVC]) {
         [self setNeedsNavigationBarUpdateForTintColor:newTintColor];
     }
-
+    
     // change navBarTitleColor（在wr_popToViewController:animated:方法中直接改变标题颜色）
     UIColor *fromTitleColor = [fromVC wr_navBarTitleColor];
     UIColor *toTitleColor = [toVC wr_navBarTitleColor];
@@ -461,7 +472,7 @@ static int wrPushDisplayCount = 0;
             @selector(popToRootViewControllerAnimated:),
             @selector(pushViewController:animated:)
         };
-      
+        
         for (int i = 0; i < 4;  i++) {
             SEL selector = needSwizzleSelectors[i];
             NSString *newSelectorStr = [[NSString stringWithFormat:@"wr_%@", NSStringFromSelector(selector)] stringByReplacingOccurrencesOfString:@"__" withString:@"_"];
@@ -653,8 +664,8 @@ static char kWRSystemNavBarTitleColorKey;
 }
 - (void)wr_setNavBarBackgroundImage:(UIImage *)image {
     if ([[self wr_customNavBar] isKindOfClass:[UINavigationBar class]]) {
-    //  UINavigationBar *navBar = (UINavigationBar *)[self wr_customNavBar];
-    //  [navBar wr_setBackgroundImage:image];
+        //  UINavigationBar *navBar = (UINavigationBar *)[self wr_customNavBar];
+        //  [navBar wr_setBackgroundImage:image];
     } else {
         objc_setAssociatedObject(self, &kWRNavBarBackgroundImageKey, image, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
@@ -682,8 +693,8 @@ static char kWRSystemNavBarTitleColorKey;
 - (void)wr_setNavBarBarTintColor:(UIColor *)color {
     objc_setAssociatedObject(self, &kWRNavBarBarTintColorKey, color, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if ([[self wr_customNavBar] isKindOfClass:[UINavigationBar class]]) {
-    //  UINavigationBar *navBar = (UINavigationBar *)[self wr_customNavBar];
-    //  [navBar wr_setBackgroundColor:color];
+        //  UINavigationBar *navBar = (UINavigationBar *)[self wr_customNavBar];
+        //  [navBar wr_setBackgroundColor:color];
     } else {
         BOOL isRootViewController = (self.navigationController.viewControllers.firstObject == self);
         if (([self pushToCurrentVCFinished] == YES || isRootViewController == YES) && [self pushToNextVCFinished] == NO) {
@@ -700,8 +711,8 @@ static char kWRSystemNavBarTitleColorKey;
 - (void)wr_setNavBarBackgroundAlpha:(CGFloat)alpha {
     objc_setAssociatedObject(self, &kWRNavBarBackgroundAlphaKey, @(alpha), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if ([[self wr_customNavBar] isKindOfClass:[UINavigationBar class]]) {
-    //  UINavigationBar *navBar = (UINavigationBar *)[self wr_customNavBar];
-    //  [navBar wr_setBackgroundAlpha:alpha];
+        //  UINavigationBar *navBar = (UINavigationBar *)[self wr_customNavBar];
+        //  [navBar wr_setBackgroundAlpha:alpha];
     } else {
         BOOL isRootViewController = (self.navigationController.viewControllers.firstObject == self);
         if (([self pushToCurrentVCFinished] == YES || isRootViewController == YES) && [self pushToNextVCFinished] == NO) {
@@ -733,8 +744,8 @@ static char kWRSystemNavBarTitleColorKey;
 - (void)wr_setNavBarTintColor:(UIColor *)color {
     objc_setAssociatedObject(self, &kWRNavBarTintColorKey, color, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if ([[self wr_customNavBar] isKindOfClass:[UINavigationBar class]]) {
-    //  UINavigationBar *navBar = (UINavigationBar *)[self wr_customNavBar];
-    //  navBar.tintColor = color;
+        //  UINavigationBar *navBar = (UINavigationBar *)[self wr_customNavBar];
+        //  navBar.tintColor = color;
     } else {
         if ([self pushToNextVCFinished] == NO) {
             [self.navigationController setNeedsNavigationBarUpdateForTintColor:color];
@@ -765,8 +776,8 @@ static char kWRSystemNavBarTitleColorKey;
 - (void)wr_setNavBarTitleColor:(UIColor *)color {
     objc_setAssociatedObject(self, &kWRNavBarTitleColorKey, color, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if ([[self wr_customNavBar] isKindOfClass:[UINavigationBar class]]) {
-    //  UINavigationBar *navBar = (UINavigationBar *)[self wr_customNavBar];
-    //  navBar.titleTextAttributes = @{NSForegroundColorAttributeName:color};
+        //  UINavigationBar *navBar = (UINavigationBar *)[self wr_customNavBar];
+        //  navBar.titleTextAttributes = @{NSForegroundColorAttributeName:color};
     } else {
         if ([self pushToNextVCFinished] == NO) {
             [self.navigationController setNeedsNavigationBarUpdateForTitleColor:color];
@@ -806,20 +817,20 @@ static char kWRSystemNavBarTitleColorKey;
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-       SEL needSwizzleSelectors[4] = {
-           @selector(viewWillAppear:),
-           @selector(viewWillDisappear:),
-           @selector(viewDidAppear:),
-           @selector(viewDidDisappear:)
-       };
+        SEL needSwizzleSelectors[4] = {
+            @selector(viewWillAppear:),
+            @selector(viewWillDisappear:),
+            @selector(viewDidAppear:),
+            @selector(viewDidDisappear:)
+        };
         
-       for (int i = 0; i < 4;  i++) {
-           SEL selector = needSwizzleSelectors[i];
-           NSString *newSelectorStr = [NSString stringWithFormat:@"wr_%@", NSStringFromSelector(selector)];
-           Method originMethod = class_getInstanceMethod(self, selector);
-           Method swizzledMethod = class_getInstanceMethod(self, NSSelectorFromString(newSelectorStr));
-           method_exchangeImplementations(originMethod, swizzledMethod);
-       }
+        for (int i = 0; i < 4;  i++) {
+            SEL selector = needSwizzleSelectors[i];
+            NSString *newSelectorStr = [NSString stringWithFormat:@"wr_%@", NSStringFromSelector(selector)];
+            Method originMethod = class_getInstanceMethod(self, selector);
+            Method swizzledMethod = class_getInstanceMethod(self, NSSelectorFromString(newSelectorStr));
+            method_exchangeImplementations(originMethod, swizzledMethod);
+        }
     });
 }
 

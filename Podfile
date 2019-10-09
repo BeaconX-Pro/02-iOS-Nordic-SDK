@@ -10,11 +10,13 @@ end
 platform :ios,'9.0'
 
 inhibit_all_warnings!
+source 'git@120.27.8.241:mokoBaseLibrary/mokoBaseIndexLibrary.git'
+source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 target 'BeaconXPlus' do
 
-pod 'mokoLibrary', :git => 'git@120.27.8.241:mokoBaseLibrary/mokoLibrary.git'
+pod 'mokoLibrary'
 pod 'MLInputDodger'
 pod 'iOSDFULibrary'
 

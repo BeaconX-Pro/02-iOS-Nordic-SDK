@@ -231,7 +231,7 @@
 		00E0E848229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E0E844229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@2x.png */; };
 		00E0E849229BC7D400D2E188 /* slotDataTypeThreeAccelerometerIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00E0E845229BC7D300D2E188 /* slotDataTypeThreeAccelerometerIcon@3x.png */; };
 		00E0E84C229BD55D00D2E188 /* MKSlotConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E0E84B229BD55D00D2E188 /* MKSlotConfigController.m */; };
-		39DBB84080E58002632EEA68 /* Pods_BeaconXPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CAFDF964019F595F8D735FC /* Pods_BeaconXPlus.framework */; };
+		39DBB84080E58002632EEA68 /* Pods_BeaconXPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CAFDF964019F595F8D735FC /* Pods_BeaconXPlus.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1663,6 +1663,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moko.BeaconXPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1797,6 +1798,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moko.BeaconXPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1819,6 +1821,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moko.BeaconXPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;

@@ -204,7 +204,7 @@ static NSString *const MKDeviceInfoControllerCellIdenty = @"MKDeviceInfoControll
 - (MKBaseTableView *)tableView{
     if (!_tableView) {
         _tableView = [[MKBaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        
+        _tableView.backgroundColor = COLOR_WHITE_MACROS;
         _tableView.delegate = self;
         _tableView.dataSource = self;
     }

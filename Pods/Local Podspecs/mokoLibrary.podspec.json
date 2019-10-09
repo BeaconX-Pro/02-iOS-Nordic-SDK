@@ -1,6 +1,6 @@
 {
   "name": "mokoLibrary",
-  "version": "0.2.2",
+  "version": "0.2.5",
   "summary": "基础库",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/Chengang/mokoLibrary",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "git@120.27.8.241:mokoBaseLibrary/mokoLibrary.git",
-    "tag": "0.2.2"
+    "tag": "0.2.5"
   },
   "platforms": {
     "ios": "9.0"
@@ -147,6 +147,11 @@
       "subspecs": [
         {
           "name": "view",
+          "dependencies": {
+            "mokoLibrary/macroDefines": [
+
+            ]
+          },
           "subspecs": [
             {
               "name": "collectionView",
@@ -179,6 +184,10 @@
 
             ]
           }
+        },
+        {
+          "name": "NavigationController",
+          "source_files": "mokoLibrary/Classes/base/NavigationController/**"
         }
       ]
     }

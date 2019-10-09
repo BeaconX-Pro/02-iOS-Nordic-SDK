@@ -206,6 +206,7 @@ static NSString *const MKSlotControllerCellIdenty = @"MKSlotControllerCellIdenty
     if (!_tableView) {
         _tableView = [[MKHaveRefreshTableView alloc] initWithFrame:CGRectZero sourceType:PLHaveRefreshSourceTypeHeader];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor = COLOR_WHITE_MACROS;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.refreshDelegate = self;
