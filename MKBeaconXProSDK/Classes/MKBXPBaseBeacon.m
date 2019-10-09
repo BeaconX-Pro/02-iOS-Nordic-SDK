@@ -331,7 +331,7 @@
         else {
             self.rssi0M = [NSNumber numberWithInt:txPowerChar];
         }
-        NSString *tempContent = advData.description;
+        NSString *tempContent = [MKBXPAdopter hexStringFromData:advData];
         tempContent = [tempContent stringByReplacingOccurrencesOfString:@" " withString:@""];
         tempContent = [tempContent stringByReplacingOccurrencesOfString:@"<" withString:@""];
         tempContent = [tempContent stringByReplacingOccurrencesOfString:@">" withString:@""];
@@ -376,7 +376,7 @@
         else {
             self.rssi1M = [NSNumber numberWithInt:txPowerChar];
         }
-        NSString *content = advData.description;
+        NSString *content = [MKBXPAdopter hexStringFromData:advData];
         content = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
         content = [content stringByReplacingOccurrencesOfString:@"<" withString:@""];
         content = [content stringByReplacingOccurrencesOfString:@">" withString:@""];
@@ -426,7 +426,7 @@
         else {
             self.rssi0M = [NSNumber numberWithInt:txPowerChar];
         }
-        NSString *content = advData.description;
+        NSString *content = [MKBXPAdopter hexStringFromData:advData];
         content = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
         content = [content stringByReplacingOccurrencesOfString:@"<" withString:@""];
         content = [content stringByReplacingOccurrencesOfString:@">" withString:@""];
@@ -467,7 +467,7 @@
         else {
             self.rssi0M = [NSNumber numberWithInt:txPowerChar];
         }
-        NSString *content = advData.description;
+        NSString *content = [MKBXPAdopter hexStringFromData:advData];
         content = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
         content = [content stringByReplacingOccurrencesOfString:@"<" withString:@""];
         content = [content stringByReplacingOccurrencesOfString:@">" withString:@""];
