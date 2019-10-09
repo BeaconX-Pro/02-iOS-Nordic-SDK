@@ -37,6 +37,12 @@
 		000C3912229FC46B00A3813E /* MKThreeAxisConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C3911229FC46B00A3813E /* MKThreeAxisConfigController.m */; };
 		000C3915229FC47700A3813E /* MKHTConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C3914229FC47700A3813E /* MKHTConfigController.m */; };
 		000C3918229FD5B700A3813E /* MKHTDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C3917229FD5B700A3813E /* MKHTDataCell.m */; };
+		000DDD6023346913006DD45E /* sliderMaximumTrackImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000DDD5A23346913006DD45E /* sliderMaximumTrackImage@3x.png */; };
+		000DDD6123346913006DD45E /* sliderMinimumTrackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000DDD5B23346913006DD45E /* sliderMinimumTrackIcon@2x.png */; };
+		000DDD6223346913006DD45E /* sliderThumbIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000DDD5C23346913006DD45E /* sliderThumbIcon@3x.png */; };
+		000DDD6323346913006DD45E /* sliderThumbIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000DDD5D23346913006DD45E /* sliderThumbIcon@2x.png */; };
+		000DDD6423346913006DD45E /* sliderMinimumTrackIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000DDD5E23346913006DD45E /* sliderMinimumTrackIcon@3x.png */; };
+		000DDD6523346913006DD45E /* sliderMaximumTrackImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000DDD5F23346913006DD45E /* sliderMaximumTrackImage@2x.png */; };
 		000FB57522A621F3004DD5F1 /* MKExportHTDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000FB57422A621F3004DD5F1 /* MKExportHTDataController.m */; };
 		000FDDAA22A215A0009A7312 /* MKSlotTriggerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 000FDDA922A215A0009A7312 /* MKSlotTriggerCell.m */; };
 		000FDDAE22A21ED5009A7312 /* MKTriggerTemperatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 000FDDAD22A21ED5009A7312 /* MKTriggerTemperatureView.m */; };
@@ -285,6 +291,12 @@
 		000C3914229FC47700A3813E /* MKHTConfigController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKHTConfigController.m; sourceTree = "<group>"; };
 		000C3916229FD5B700A3813E /* MKHTDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKHTDataCell.h; sourceTree = "<group>"; };
 		000C3917229FD5B700A3813E /* MKHTDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKHTDataCell.m; sourceTree = "<group>"; };
+		000DDD5A23346913006DD45E /* sliderMaximumTrackImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sliderMaximumTrackImage@3x.png"; sourceTree = "<group>"; };
+		000DDD5B23346913006DD45E /* sliderMinimumTrackIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sliderMinimumTrackIcon@2x.png"; sourceTree = "<group>"; };
+		000DDD5C23346913006DD45E /* sliderThumbIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sliderThumbIcon@3x.png"; sourceTree = "<group>"; };
+		000DDD5D23346913006DD45E /* sliderThumbIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sliderThumbIcon@2x.png"; sourceTree = "<group>"; };
+		000DDD5E23346913006DD45E /* sliderMinimumTrackIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sliderMinimumTrackIcon@3x.png"; sourceTree = "<group>"; };
+		000DDD5F23346913006DD45E /* sliderMaximumTrackImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sliderMaximumTrackImage@2x.png"; sourceTree = "<group>"; };
 		000FB57322A621F3004DD5F1 /* MKExportHTDataController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKExportHTDataController.h; sourceTree = "<group>"; };
 		000FB57422A621F3004DD5F1 /* MKExportHTDataController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKExportHTDataController.m; sourceTree = "<group>"; };
 		000FDDA822A215A0009A7312 /* MKSlotTriggerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSlotTriggerCell.h; sourceTree = "<group>"; };
@@ -692,6 +704,12 @@
 		0009371C229B8E8D00501788 /* MKSlider */ = {
 			isa = PBXGroup;
 			children = (
+				000DDD5F23346913006DD45E /* sliderMaximumTrackImage@2x.png */,
+				000DDD5A23346913006DD45E /* sliderMaximumTrackImage@3x.png */,
+				000DDD5B23346913006DD45E /* sliderMinimumTrackIcon@2x.png */,
+				000DDD5E23346913006DD45E /* sliderMinimumTrackIcon@3x.png */,
+				000DDD5D23346913006DD45E /* sliderThumbIcon@2x.png */,
+				000DDD5C23346913006DD45E /* sliderThumbIcon@3x.png */,
 				0009371D229B8EA100501788 /* MKSlider.h */,
 				0009371E229B8EA100501788 /* MKSlider.m */,
 			);
@@ -1258,7 +1276,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = MK;
-				LastUpgradeCheck = 1030;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = MK;
 				TargetAttributes = {
 					001505712264831E00F69569 = {
@@ -1299,10 +1317,12 @@
 				002533902295339D0055D3E7 /* slotTabBarItemSelected@3x.png in Resources */,
 				000A4A4622C60C2300606933 /* setting_updateFirmwareIcon@3x.png in Resources */,
 				002533AA2295339D0055D3E7 /* refreshIcon@3x.png in Resources */,
+				000DDD6023346913006DD45E /* sliderMaximumTrackImage@3x.png in Resources */,
 				002533B52295339D0055D3E7 /* slotTabBarItemUnselected@2x.png in Resources */,
 				0025339C2295339D0055D3E7 /* setting_connectable@3x.png in Resources */,
 				002533712295339D0055D3E7 /* wifisignalIcon@3x.png in Resources */,
 				002533B82295339D0055D3E7 /* goNext_lightWhiteButton@3x.png in Resources */,
+				000DDD6123346913006DD45E /* sliderMinimumTrackIcon@2x.png in Resources */,
 				00843967229FD7E40079E3BE /* slot_config_temperatureIcon@2x.png in Resources */,
 				002533992295339D0055D3E7 /* batteryHighest@2x.png in Resources */,
 				002533A92295339D0055D3E7 /* littleBluePoint@2x.png in Resources */,
@@ -1324,6 +1344,7 @@
 				002533822295339D0055D3E7 /* goto_next_button@3x.png in Resources */,
 				002533912295339D0055D3E7 /* slot_frameType@3x.png in Resources */,
 				000C390C229F69E600A3813E /* slot_baseParams_advertising@2x.png in Resources */,
+				000DDD6423346913006DD45E /* sliderMinimumTrackIcon@3x.png in Resources */,
 				0025336E2295339D0055D3E7 /* signalIcon@2x.png in Resources */,
 				002533BA2295339D0055D3E7 /* navigation_back_button@3x.png in Resources */,
 				0025337E2295339D0055D3E7 /* scanHeaderView_ arrowDownIcon@3x.png in Resources */,
@@ -1403,6 +1424,7 @@
 				002533862295339D0055D3E7 /* slotDataTypeNoData@3x.png in Resources */,
 				0025337B2295339D0055D3E7 /* slot_baseParams@2x.png in Resources */,
 				002533602295339D0055D3E7 /* signalIcon@3x.png in Resources */,
+				000DDD6323346913006DD45E /* sliderThumbIcon@2x.png in Resources */,
 				002533B62295339D0055D3E7 /* aboutIcon@2x.png in Resources */,
 				002533AD2295339D0055D3E7 /* goNext_whiteButton@3x.png in Resources */,
 				002533782295339D0055D3E7 /* slotDataTypeiBeacon@3x.png in Resources */,
@@ -1425,6 +1447,7 @@
 				002533642295339D0055D3E7 /* setting_password@2x.png in Resources */,
 				002533BC2295339D0055D3E7 /* setting_powerOff@3x.png in Resources */,
 				002533682295339D0055D3E7 /* setting_devicename@2x.png in Resources */,
+				000DDD6523346913006DD45E /* sliderMaximumTrackImage@2x.png in Resources */,
 				00385EF722A107EE00A8D00E /* slot_htUpdateTimeIcon@3x.png in Resources */,
 				000FDDB622A22BC8009A7312 /* slot_paramsConfig_unselectedIcon@2x.png in Resources */,
 				002533652295339D0055D3E7 /* rightAddDisableIcon@3x.png in Resources */,
@@ -1436,6 +1459,7 @@
 				0025336F2295339D0055D3E7 /* device_manufacture@3x.png in Resources */,
 				00C9274022A64AAA00727D44 /* slot_export_disableIcon@3x.png in Resources */,
 				002533622295339D0055D3E7 /* settingTabBarItemUnselected@2x.png in Resources */,
+				000DDD6223346913006DD45E /* sliderThumbIcon@3x.png in Resources */,
 				002533AE2295339D0055D3E7 /* device_runningtime@3x.png in Resources */,
 				002533A72295339D0055D3E7 /* device_hardware@2x.png in Resources */,
 				0025339B2295339D0055D3E7 /* scanHeaderViewBackIcon@3x.png in Resources */,

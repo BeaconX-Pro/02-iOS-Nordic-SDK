@@ -331,10 +331,7 @@
         else {
             self.rssi0M = [NSNumber numberWithInt:txPowerChar];
         }
-        NSString *tempContent = advData.description;
-        tempContent = [tempContent stringByReplacingOccurrencesOfString:@" " withString:@""];
-        tempContent = [tempContent stringByReplacingOccurrencesOfString:@"<" withString:@""];
-        tempContent = [tempContent stringByReplacingOccurrencesOfString:@">" withString:@""];
+        NSString *tempContent = [MKBXPAdopter hexStringFromData:advData];
         
         self.interval = [MKBXPAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(4, 2)];
         self.battery = [MKBXPAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(6, 4)];
@@ -376,10 +373,7 @@
         else {
             self.rssi1M = [NSNumber numberWithInt:txPowerChar];
         }
-        NSString *content = advData.description;
-        content = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
-        content = [content stringByReplacingOccurrencesOfString:@"<" withString:@""];
-        content = [content stringByReplacingOccurrencesOfString:@">" withString:@""];
+        NSString *content = [MKBXPAdopter hexStringFromData:advData];
         NSString *temp = [content substringWithRange:NSMakeRange(4, content.length - 4)];
         self.interval = [MKBXPAdopter getDecimalStringWithHex:temp range:NSMakeRange(0, 2)];
         NSMutableArray *array = [NSMutableArray arrayWithObjects:[temp substringWithRange:NSMakeRange(2, 8)],
@@ -426,10 +420,7 @@
         else {
             self.rssi0M = [NSNumber numberWithInt:txPowerChar];
         }
-        NSString *content = advData.description;
-        content = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
-        content = [content stringByReplacingOccurrencesOfString:@"<" withString:@""];
-        content = [content stringByReplacingOccurrencesOfString:@">" withString:@""];
+        NSString *content = [MKBXPAdopter hexStringFromData:advData];
         NSString *temp = [content substringWithRange:NSMakeRange(4, content.length - 4)];
         self.interval = [MKBXPAdopter getDecimalStringWithHex:temp range:NSMakeRange(0, 2)];
         self.samplingRate = [temp substringWithRange:NSMakeRange(2, 2)];
@@ -467,10 +458,7 @@
         else {
             self.rssi0M = [NSNumber numberWithInt:txPowerChar];
         }
-        NSString *content = advData.description;
-        content = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
-        content = [content stringByReplacingOccurrencesOfString:@"<" withString:@""];
-        content = [content stringByReplacingOccurrencesOfString:@">" withString:@""];
+        NSString *content = [MKBXPAdopter hexStringFromData:advData];
         NSString *temp = [content substringWithRange:NSMakeRange(4, content.length - 4)];
         self.interval = [MKBXPAdopter getDecimalStringWithHex:temp range:NSMakeRange(0, 2)];
         NSInteger tempTemp = [[MKBXPAdopter signedHexTurnString:[temp substringWithRange:NSMakeRange(2, 4)]] intValue];
