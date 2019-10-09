@@ -207,7 +207,7 @@ static CGFloat const batteryIconHeight = 25.f;
         make.height.mas_equalTo(MKFont(12.f).lineHeight);
     }];
     [self.lockLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.txPowerValueLabel.mas_right).mas_offset(20.f);
+        make.left.mas_equalTo(self.txPowerValueLabel.mas_right).mas_offset(10.f);
         make.width.mas_equalTo(70.f);
         make.centerY.mas_equalTo(self.txPowerLabel.mas_centerY);
         make.height.mas_equalTo(MKFont(13.f).lineHeight);

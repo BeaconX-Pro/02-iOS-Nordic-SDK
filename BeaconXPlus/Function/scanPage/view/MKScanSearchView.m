@@ -86,8 +86,7 @@ static CGFloat const signalIconHeight = 15.f;
         self.backView.transform = CGAffineTransformMakeTranslation(0, -backViewHeight);
     } completion:^(BOOL finished) {
         if (self.scanSearchViewDismisBlock) {
-            NSString *inputString = [self.textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            self.scanSearchViewDismisBlock(update,inputString, self.slider.value);
+            self.scanSearchViewDismisBlock(update,self.textField.text, self.slider.value);
         }
         if (self.superview) {
             [self removeFromSuperview];
@@ -144,7 +143,7 @@ static CGFloat const signalIconHeight = 15.f;
 
 - (UITextField *)textField{
     if (!_textField) {
-        _textField = [[UITextField alloc] initWithTextFieldType:normalInput];
+        _textField = [[UITextField alloc] init];
         _textField.frame = CGRectMake(offset_X,
                                       offset_X,
                                       kScreenWidth - 4 * offset_X,
