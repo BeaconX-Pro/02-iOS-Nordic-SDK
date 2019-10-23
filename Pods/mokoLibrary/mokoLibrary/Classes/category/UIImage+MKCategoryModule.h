@@ -66,10 +66,6 @@
 
 + (UIImage *)thumbnailWithImage:(UIImage *)image;
 
-#pragma mark - 创建纯色的image
-
-+ (UIImage *)imageWithColor:(UIColor *)color;
-
 /**
  获取启动页图片
  

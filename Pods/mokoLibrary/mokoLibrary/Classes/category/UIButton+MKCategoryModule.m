@@ -8,6 +8,9 @@
 
 #import "UIButton+MKCategoryModule.h"
 #import <objc/runtime.h>
+
+#import "UIImage+YYAdd.h"
+
 #import "MKMacroDefines.h"
 #import "UIImage+MKCategoryModule.h"
 

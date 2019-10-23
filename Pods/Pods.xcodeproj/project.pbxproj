@@ -3099,38 +3099,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		079087E354AAABBE4D4EBA95F1F43054 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4FDAF24351CAF7563FEE19FE9E77C1FA /* mokoLibrary.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/mokoLibrary";
-				INFOPLIST_FILE = "Target Support Files/mokoLibrary/ResourceBundle-mokoLibrary-mokoLibrary-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				PRODUCT_NAME = mokoLibrary;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		0C011930F0E7F6F074DA5151997575FD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4FDAF24351CAF7563FEE19FE9E77C1FA /* mokoLibrary.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/mokoLibrary";
-				INFOPLIST_FILE = "Target Support Files/mokoLibrary/ResourceBundle-mokoLibrary-mokoLibrary-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				PRODUCT_NAME = mokoLibrary;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
 		0C56E3F89CEFC45A7C3C760F3142F9EF /* adhoc */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0A2831FA0CAEB73A7D55435B7082B8D6 /* YYKit.xcconfig */;
@@ -3235,6 +3203,23 @@
 			};
 			name = Debug;
 		};
+		288C6C4E13227A4D046AC2B677B756DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FDAF24351CAF7563FEE19FE9E77C1FA /* mokoLibrary.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/mokoLibrary";
+				IBSC_MODULE = mokoLibrary;
+				INFOPLIST_FILE = "Target Support Files/mokoLibrary/ResourceBundle-mokoLibrary-mokoLibrary-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				PRODUCT_NAME = mokoLibrary;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
 		3327E7547E10B4BED12E4B87A46D6586 /* adhoc */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5AF114DCE06F277BBD2F81B5F250852E /* Toast.xcconfig */;
@@ -3269,6 +3254,23 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = adhoc;
+		};
+		359E562A44424675BDA01C451177BD04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FDAF24351CAF7563FEE19FE9E77C1FA /* mokoLibrary.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/mokoLibrary";
+				IBSC_MODULE = mokoLibrary;
+				INFOPLIST_FILE = "Target Support Files/mokoLibrary/ResourceBundle-mokoLibrary-mokoLibrary-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				PRODUCT_NAME = mokoLibrary;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
 		};
 		35CB6D1A83C11BEC099850ABF2F4839A /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -4016,6 +4018,24 @@
 			};
 			name = Release;
 		};
+		A23A0918F866A5A7DEA040443DAF0928 /* adhoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FDAF24351CAF7563FEE19FE9E77C1FA /* mokoLibrary.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/mokoLibrary";
+				IBSC_MODULE = mokoLibrary;
+				INFOPLIST_FILE = "Target Support Files/mokoLibrary/ResourceBundle-mokoLibrary-mokoLibrary-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				PRODUCT_NAME = mokoLibrary;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = adhoc;
+		};
 		A4C2E0A49A4C89BA681152C6FF55E67A /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5AF114DCE06F277BBD2F81B5F250852E /* Toast.xcconfig */;
@@ -4050,23 +4070,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		A7EE393DE82F188762C80AB712188A7E /* adhoc */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4FDAF24351CAF7563FEE19FE9E77C1FA /* mokoLibrary.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/mokoLibrary";
-				INFOPLIST_FILE = "Target Support Files/mokoLibrary/ResourceBundle-mokoLibrary-mokoLibrary-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				PRODUCT_NAME = mokoLibrary;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = adhoc;
 		};
 		A8EA27515580CF659424732B61F561D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -4607,9 +4610,9 @@
 		A3C09256649463C3474A65388BE7EA92 /* Build configuration list for PBXNativeTarget "mokoLibrary-mokoLibrary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A7EE393DE82F188762C80AB712188A7E /* adhoc */,
-				079087E354AAABBE4D4EBA95F1F43054 /* Debug */,
-				0C011930F0E7F6F074DA5151997575FD /* Release */,
+				A23A0918F866A5A7DEA040443DAF0928 /* adhoc */,
+				288C6C4E13227A4D046AC2B677B756DA /* Debug */,
+				359E562A44424675BDA01C451177BD04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
