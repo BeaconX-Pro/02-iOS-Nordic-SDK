@@ -14,6 +14,8 @@
 
 @property (nonatomic, copy)NSString *connectPassword;
 
+@property (nonatomic, strong)UIView *launchView;
+
 @end
 
 @implementation AppDelegate
@@ -37,6 +39,7 @@
                                                object:nil];
     [self setScanPage:NO];
     [_window makeKeyAndVisible];
+    [self addLaunchScreen];
     return YES;
 }
 
@@ -98,6 +101,28 @@
     vc.localPassword = self.connectPassword;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     _window.rootViewController = nav;
+}
+
+- (void)addLaunchScreen {
+    UIViewController *viewController = [[UIStoryboard storyboardWithName:@"Launch Screen" bundle:nil] instantiateViewControllerWithIdentifier:@"LaunchImageBoard"];
+    self.launchView = viewController.view;
+    [self.window addSubview:self.launchView];
+    [self.window bringSubviewToFront:self.launchView];
+    
+    [self performSelector:@selector(launchViewRemoved) withObject:nil afterDelay:3.f];
+}
+
+- (void)launchViewRemoved {
+    if (!self.launchView || !self.launchView.superview) {
+        return;
+    }
+    [UIView animateWithDuration:.5f animations:^{
+        self.launchView.alpha = 0.0;
+        self.launchView.transform = CGAffineTransformMakeScale(1.2, 1.2);
+     }completion:^(BOOL finished) {
+        [self.launchView removeFromSuperview];
+         self.launchView = nil;
+    }];
 }
 
 @end

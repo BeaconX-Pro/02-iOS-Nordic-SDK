@@ -30,6 +30,8 @@
 	<string>Beacon Pro need to use your calendar to display the data date</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

@@ -204,6 +204,7 @@
 		00385EF622A107EE00A8D00E /* slot_htUpdateTimeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00385EF422A107ED00A8D00E /* slot_htUpdateTimeIcon@2x.png */; };
 		00385EF722A107EE00A8D00E /* slot_htUpdateTimeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00385EF522A107EE00A8D00E /* slot_htUpdateTimeIcon@3x.png */; };
 		00385EFA22A10C4000A8D00E /* MKExportHTDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00385EF922A10C4000A8D00E /* MKExportHTDataCell.m */; };
+		0055AC88236031F700C74281 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0055AC86236031F700C74281 /* Launch Screen.storyboard */; };
 		005F1B2B229E61B500386B2B /* MKAxisAcceDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 005F1B2A229E61B500386B2B /* MKAxisAcceDataCell.m */; };
 		005F1B2E229E61CD00386B2B /* MKAxisParametersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 005F1B2D229E61CC00386B2B /* MKAxisParametersCell.m */; };
 		005F1B31229E694400386B2B /* threeAxisAcceLoadingIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 005F1B2F229E694300386B2B /* threeAxisAcceLoadingIcon@3x.png */; };
@@ -498,6 +499,7 @@
 		00385EF522A107EE00A8D00E /* slot_htUpdateTimeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_htUpdateTimeIcon@3x.png"; sourceTree = "<group>"; };
 		00385EF822A10C4000A8D00E /* MKExportHTDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKExportHTDataCell.h; sourceTree = "<group>"; };
 		00385EF922A10C4000A8D00E /* MKExportHTDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKExportHTDataCell.m; sourceTree = "<group>"; };
+		0055AC86236031F700C74281 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		005F1B29229E61B500386B2B /* MKAxisAcceDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAxisAcceDataCell.h; sourceTree = "<group>"; };
 		005F1B2A229E61B500386B2B /* MKAxisAcceDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAxisAcceDataCell.m; sourceTree = "<group>"; };
 		005F1B2C229E61CC00386B2B /* MKAxisParametersCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAxisParametersCell.h; sourceTree = "<group>"; };
@@ -822,6 +824,7 @@
 				001505762264831E00F69569 /* AppDelegate.m */,
 				002532EC2295339D0055D3E7 /* Resource */,
 				0015057E2264831F00F69569 /* Assets.xcassets */,
+				0055AC84236031F700C74281 /* LaunchScreen */,
 				001505832264831F00F69569 /* Info.plist */,
 				001505842264831F00F69569 /* main.m */,
 				0015058B226483B000F69569 /* PrefixHeader.pch */,
@@ -1144,6 +1147,14 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		0055AC84236031F700C74281 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0055AC86236031F700C74281 /* Launch Screen.storyboard */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
 		00C9274822A6589C00727D44 /* fileManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1445,6 +1456,7 @@
 				00C9274622A6538900727D44 /* slot_export_deleteIcon@3x.png in Resources */,
 				002533832295339D0055D3E7 /* goto_next_button@2x.png in Resources */,
 				002533642295339D0055D3E7 /* setting_password@2x.png in Resources */,
+				0055AC88236031F700C74281 /* Launch Screen.storyboard in Resources */,
 				002533BC2295339D0055D3E7 /* setting_powerOff@3x.png in Resources */,
 				002533682295339D0055D3E7 /* setting_devicename@2x.png in Resources */,
 				000DDD6523346913006DD45E /* sliderMaximumTrackImage@2x.png in Resources */,
@@ -1653,7 +1665,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R558LEUW2T;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BeaconXPlus/PrefixHeader.pch";
@@ -1788,7 +1800,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R558LEUW2T;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BeaconXPlus/PrefixHeader.pch";
@@ -1811,7 +1823,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R558LEUW2T;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BeaconXPlus/PrefixHeader.pch";
