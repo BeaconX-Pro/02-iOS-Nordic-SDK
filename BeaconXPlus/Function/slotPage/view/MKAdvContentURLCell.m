@@ -357,7 +357,7 @@ static CGFloat const labelHeight = 30.f;
 - (UITextField *)textField{
     if (!_textField) {
         _textField = [self createNewTextField];
-        _textField.placeholder = @"mokosmart.com/";
+        _textField.attributedPlaceholder = [MKAttributedString getAttributedString:@[@"mokosmart.com/"] fonts:@[MKFont(15.f)] colors:@[RGBCOLOR(222, 222, 222)]];
     }
     return _textField;
 }

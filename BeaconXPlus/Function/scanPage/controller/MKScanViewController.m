@@ -111,7 +111,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
                                                  name:@"MKCentralDeallocNotification"
                                                object:nil];
     [self setCentralScanDelegate];
-    [self performSelector:@selector(showCentralStatus) withObject:nil afterDelay:0.5];
+    [self performSelector:@selector(showCentralStatus) withObject:nil afterDelay:1.f];
     // Do any additional setup after loading the view.
 }
 
@@ -206,6 +206,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 5.f)];
+    view.backgroundColor = RGBCOLOR(237, 243, 250);
     return view;
 }
 
@@ -775,7 +776,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
 
 - (MKBaseTableView *)tableView{
     if (!_tableView) {
-        _tableView = [[MKBaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        _tableView = [[MKBaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.backgroundColor = COLOR_WHITE_MACROS;
         _tableView.delegate = self;
         _tableView.dataSource = self;

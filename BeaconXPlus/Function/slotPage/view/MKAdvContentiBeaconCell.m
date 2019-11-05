@@ -195,7 +195,7 @@ static CGFloat labelHeight = 30.f;
 - (UITextField *)majorTextField{
     if (!_majorTextField) {
         _majorTextField = [self createNewTextFieldWithRules:realNumberOnly];
-        _majorTextField.placeholder = @"0~65535";
+        _majorTextField.attributedPlaceholder = [MKAttributedString getAttributedString:@[@"0~65535"] fonts:@[MKFont(15.f)] colors:@[RGBCOLOR(222, 222, 222)]];
         _majorTextField.maxLength = 5;
     }
     return _majorTextField;
@@ -204,7 +204,7 @@ static CGFloat labelHeight = 30.f;
 - (UITextField *)minorTextField{
     if (!_minorTextField) {
         _minorTextField = [self createNewTextFieldWithRules:realNumberOnly];
-        _minorTextField.placeholder = @"0~65535";
+        _minorTextField.attributedPlaceholder = [MKAttributedString getAttributedString:@[@"0~65535"] fonts:@[MKFont(15.f)] colors:@[RGBCOLOR(222, 222, 222)]];
         _minorTextField.maxLength = 5;
     }
     return _minorTextField;
@@ -213,7 +213,7 @@ static CGFloat labelHeight = 30.f;
 - (UITextField *)uuidTextField{
     if (!_uuidTextField) {
         _uuidTextField = [self createNewTextFieldWithRules:uuidMode];
-        _uuidTextField.placeholder = @"11111111-1111-1111-1111-111111111111";
+        _uuidTextField.attributedPlaceholder = [MKAttributedString getAttributedString:@[@"11111111-1111-1111-1111-111111111111"] fonts:@[MKFont(15.f)] colors:@[RGBCOLOR(222, 222, 222)]];
     }
     return _uuidTextField;
 }

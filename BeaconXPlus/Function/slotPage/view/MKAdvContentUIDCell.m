@@ -173,7 +173,7 @@ static CGFloat labelHeight = 30.f;
 - (UITextField *)nameSpaceTextField{
     if (!_nameSpaceTextField) {
         _nameSpaceTextField = [self createNewTextFieldWithRules:hexCharOnly];
-        _nameSpaceTextField.placeholder = @"10 Bytes";
+        _nameSpaceTextField.attributedPlaceholder = [MKAttributedString getAttributedString:@[@"10 Bytes"] fonts:@[MKFont(15.f)] colors:@[RGBCOLOR(222, 222, 222)]];
         _nameSpaceTextField.maxLength = 20;
     }
     return _nameSpaceTextField;
@@ -182,7 +182,7 @@ static CGFloat labelHeight = 30.f;
 - (UITextField *)instanceIDTextField{
     if (!_instanceIDTextField) {
         _instanceIDTextField = [self createNewTextFieldWithRules:hexCharOnly];
-        _instanceIDTextField.placeholder = @"6 Bytes";
+        _instanceIDTextField.attributedPlaceholder = [MKAttributedString getAttributedString:@[@"6 Bytes"] fonts:@[MKFont(15.f)] colors:@[RGBCOLOR(222, 222, 222)]];
         _instanceIDTextField.maxLength = 12;
     }
     return _instanceIDTextField;

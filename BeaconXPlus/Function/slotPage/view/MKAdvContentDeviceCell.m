@@ -136,7 +136,7 @@
         _textField.layer.borderWidth = 0.5f;
         _textField.layer.borderColor = CUTTING_LINE_COLOR.CGColor;
         _textField.layer.cornerRadius = 3.f;
-        _textField.placeholder = @"No more than 20 characters";
+        _textField.attributedPlaceholder = [MKAttributedString getAttributedString:@[@"No more than 20 characters"] fonts:@[MKFont(15.f)] colors:@[RGBCOLOR(222, 222, 222)]];
     }
     return _textField;
 }
