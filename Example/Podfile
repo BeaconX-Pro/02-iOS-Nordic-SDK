@@ -19,7 +19,13 @@ target 'MKBeaconXProSDK_Example' do
 
   pod 'MLInputDodger'
   pod 'iOSDFULibrary'
-  pod 'MKBaseModule'
+  pod 'FMDB'
+  pod 'CircleProgressBar'
+  pod 'Masonry'
+  pod 'MBProgressHUD'
+  pod 'MJRefresh'
+  pod 'Toast'
+  pod 'YYKit'
   
   target 'MKBeaconXProSDK_Tests' do
     inherit! :search_paths
