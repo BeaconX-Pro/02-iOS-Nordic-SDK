@@ -309,7 +309,7 @@ static const char *dfu = "dfu";
 }
 
 - (BOOL)iBeaconServiceSuccess{
-    if (!self.iBeaconNotify || !self.iBeaconWrite || !self.deviceType || !self.slotType || !self.disconnectListen || !self.battery || !self.threeSensor || !self.temperatureHumidity || !self.recordTH) {
+    if (!self.iBeaconNotify || !self.iBeaconWrite || !self.deviceType || !self.slotType || !self.disconnectListen || !self.battery || !self.threeSensor) {
         return NO;
     }
     return YES;
