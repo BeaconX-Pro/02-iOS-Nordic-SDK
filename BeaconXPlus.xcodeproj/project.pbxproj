@@ -204,7 +204,7 @@
 		00385EF622A107EE00A8D00E /* slot_htUpdateTimeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00385EF422A107ED00A8D00E /* slot_htUpdateTimeIcon@2x.png */; };
 		00385EF722A107EE00A8D00E /* slot_htUpdateTimeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00385EF522A107EE00A8D00E /* slot_htUpdateTimeIcon@3x.png */; };
 		00385EFA22A10C4000A8D00E /* MKExportHTDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00385EF922A10C4000A8D00E /* MKExportHTDataCell.m */; };
-		0055AC88236031F700C74281 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0055AC86236031F700C74281 /* Launch Screen.storyboard */; };
+		005103BE23717699004DEBAC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 005103BD23717699004DEBAC /* Launch Screen.storyboard */; };
 		005F1B2B229E61B500386B2B /* MKAxisAcceDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 005F1B2A229E61B500386B2B /* MKAxisAcceDataCell.m */; };
 		005F1B2E229E61CD00386B2B /* MKAxisParametersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 005F1B2D229E61CC00386B2B /* MKAxisParametersCell.m */; };
 		005F1B31229E694400386B2B /* threeAxisAcceLoadingIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 005F1B2F229E694300386B2B /* threeAxisAcceLoadingIcon@3x.png */; };
@@ -499,7 +499,7 @@
 		00385EF522A107EE00A8D00E /* slot_htUpdateTimeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slot_htUpdateTimeIcon@3x.png"; sourceTree = "<group>"; };
 		00385EF822A10C4000A8D00E /* MKExportHTDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKExportHTDataCell.h; sourceTree = "<group>"; };
 		00385EF922A10C4000A8D00E /* MKExportHTDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKExportHTDataCell.m; sourceTree = "<group>"; };
-		0055AC86236031F700C74281 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		005103BD23717699004DEBAC /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		005F1B29229E61B500386B2B /* MKAxisAcceDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAxisAcceDataCell.h; sourceTree = "<group>"; };
 		005F1B2A229E61B500386B2B /* MKAxisAcceDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAxisAcceDataCell.m; sourceTree = "<group>"; };
 		005F1B2C229E61CC00386B2B /* MKAxisParametersCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAxisParametersCell.h; sourceTree = "<group>"; };
@@ -1150,7 +1150,7 @@
 		0055AC84236031F700C74281 /* LaunchScreen */ = {
 			isa = PBXGroup;
 			children = (
-				0055AC86236031F700C74281 /* Launch Screen.storyboard */,
+				005103BD23717699004DEBAC /* Launch Screen.storyboard */,
 			);
 			path = LaunchScreen;
 			sourceTree = "<group>";
@@ -1353,6 +1353,7 @@
 				002533872295339D0055D3E7 /* slotInfoTypeIcon@3x.png in Resources */,
 				0025339A2295339D0055D3E7 /* device_hardware@3x.png in Resources */,
 				002533822295339D0055D3E7 /* goto_next_button@3x.png in Resources */,
+				005103BE23717699004DEBAC /* Launch Screen.storyboard in Resources */,
 				002533912295339D0055D3E7 /* slot_frameType@3x.png in Resources */,
 				000C390C229F69E600A3813E /* slot_baseParams_advertising@2x.png in Resources */,
 				000DDD6423346913006DD45E /* sliderMinimumTrackIcon@3x.png in Resources */,
@@ -1456,7 +1457,6 @@
 				00C9274622A6538900727D44 /* slot_export_deleteIcon@3x.png in Resources */,
 				002533832295339D0055D3E7 /* goto_next_button@2x.png in Resources */,
 				002533642295339D0055D3E7 /* setting_password@2x.png in Resources */,
-				0055AC88236031F700C74281 /* Launch Screen.storyboard in Resources */,
 				002533BC2295339D0055D3E7 /* setting_powerOff@3x.png in Resources */,
 				002533682295339D0055D3E7 /* setting_devicename@2x.png in Resources */,
 				000DDD6523346913006DD45E /* sliderMaximumTrackImage@2x.png in Resources */,

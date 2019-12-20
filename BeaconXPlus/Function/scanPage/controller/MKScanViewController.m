@@ -84,6 +84,10 @@ static CGFloat const threeSensorCellHeight = 110.f;
 
 @property (nonatomic, strong)dispatch_source_t scanTimer;
 
+@property (nonatomic, strong)dispatch_queue_t scanQueue;
+
+@property (nonatomic, strong)dispatch_semaphore_t semaphore;
+
 @end
 
 @implementation MKScanViewController
@@ -111,7 +115,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
                                                  name:@"MKCentralDeallocNotification"
                                                object:nil];
     [self setCentralScanDelegate];
-    [self performSelector:@selector(showCentralStatus) withObject:nil afterDelay:1.f];
+    [self performSelector:@selector(showCentralStatus) withObject:nil afterDelay:3.5f];
     // Do any additional setup after loading the view.
 }
 
@@ -155,9 +159,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section < self.dataList.count) {
         MKScanBeaconModel *model = self.dataList[section];
-        @synchronized(model.dataArray){
-            return (model.dataArray.count + 1);
-        }
+        return (model.dataArray.count + 1);
     }
     return 0;
 }
@@ -221,9 +223,20 @@ static CGFloat const threeSensorCellHeight = 110.f;
 
 #pragma mark - MKBXPScanDelegate
 - (void)bxp_didReceiveBeacon:(NSArray <MKBXPBaseBeacon *>*)beaconList {
-    for (MKBXPBaseBeacon *beacon in beaconList) {
-        [self updateDataWithBeacon:beacon];
-    }
+    dispatch_async(self.scanQueue, ^{
+        dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+        if (!self.leftButton.selected) {
+            //停止扫描了
+            [self unlock];
+            return ;
+        }
+        for (MKBXPBaseBeacon *beacon in beaconList) {
+            [self updateDataWithBeacon:beacon];
+            moko_dispatch_main_safe(^{
+                [self performSelector:@selector(unlock) afterDelay:.1f];
+            });
+        }
+    });
 }
 
 - (void)bxp_centralManagerStartScan {
@@ -248,6 +261,10 @@ static CGFloat const threeSensorCellHeight = 110.f;
 }
 
 #pragma mark - Private method
+
+- (void)unlock {
+    dispatch_semaphore_signal(self.semaphore);
+}
 
 - (void)showCentralStatus{
     if (kSystemVersion >= 11.0 && [MKBXPCentralManager shared].managerState != MKBXPCentralManagerStateEnable) {
@@ -338,34 +355,30 @@ static CGFloat const threeSensorCellHeight = 110.f;
     }
     //如果不是设备信息帧，则判断对应的有没有设备信息帧在当前数据源，如果没有直接舍弃，如果存在，则加入
     NSString *identy = beacon.peripheral.identifier.UUIDString;
-    @synchronized(self.dataList){
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %@", identy];
-        NSArray *array = [self.dataList filteredArrayUsingPredicate:predicate];
-        BOOL contain = ValidArray(array);
-        if (!contain) {
-            return;
-        }
-        MKScanBeaconModel *exsitModel = array[0];
-        [self beaconExistDataSource:exsitModel beacon:beacon];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %@", identy];
+    NSArray *array = [self.dataList filteredArrayUsingPredicate:predicate];
+    BOOL contain = ValidArray(array);
+    if (!contain) {
+        return;
     }
+    MKScanBeaconModel *exsitModel = array[0];
+    [self beaconExistDataSource:exsitModel beacon:beacon];
 }
 
 - (void)processBeacon:(MKBXPBaseBeacon *)beacon{
     //查看数据源中是否已经存在相关设备
     NSString *identy = beacon.peripheral.identifier.UUIDString;
-    @synchronized(self.dataList){
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %@", identy];
-        NSArray *array = [self.dataList filteredArrayUsingPredicate:predicate];
-        BOOL contain = ValidArray(array);
-        if (contain) {
-            //如果是已经存在了，如果是设备信息帧和TLM帧，直接替换，如果是URL、iBeacon、UID中的一种，则判断数据内容是否和已经存在的信息一致，如果一致，不处理，如果不一致，则直接加入到MKScanBeaconModel的dataArray里面去
-            MKScanBeaconModel *exsitModel = array[0];
-            [self beaconExistDataSource:exsitModel beacon:beacon];
-            return;
-        }
-        //不存在，则加入
-        [self beaconNoExistDataSource:beacon];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %@", identy];
+    NSArray *array = [self.dataList filteredArrayUsingPredicate:predicate];
+    BOOL contain = ValidArray(array);
+    if (contain) {
+        //如果是已经存在了，如果是设备信息帧和TLM帧，直接替换，如果是URL、iBeacon、UID中的一种，则判断数据内容是否和已经存在的信息一致，如果一致，不处理，如果不一致，则直接加入到MKScanBeaconModel的dataArray里面去
+        MKScanBeaconModel *exsitModel = array[0];
+        [self beaconExistDataSource:exsitModel beacon:beacon];
+        return;
     }
+    //不存在，则加入
+    [self beaconNoExistDataSource:beacon];
 }
 
 /**
@@ -374,32 +387,34 @@ static CGFloat const threeSensorCellHeight = 110.f;
  @param beacon 扫描到的设备
  */
 - (void)beaconNoExistDataSource:(MKBXPBaseBeacon *)beacon{
-    MKScanBeaconModel *newModel = [[MKScanBeaconModel alloc] init];
-    [self.dataList addObject:newModel];
-    newModel.index = self.dataList.count - 1;
-    newModel.identifier = beacon.peripheral.identifier.UUIDString;
-    newModel.rssi = beacon.rssi;
-    newModel.deviceName = (ValidStr(beacon.deviceName) ? beacon.deviceName : @"");
-    newModel.displayTime = @"N/A";
-    newModel.lastScanDate = kSystemTimeStamp;
-    if (beacon.frameType == MKBXPDeviceInfoFrameType) {
-        //如果是设备信息帧
-        newModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
-        NSIndexSet *set = [NSIndexSet indexSetWithIndex:(self.dataList.count - 1)];
-        [UIView performWithoutAnimation:^{
-            [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationNone];
-        }];
-    }else{
-        //如果是URL、TLM、UID、iBeacon中的一种，直接加入到newModel中的数据帧数组里面
-        [newModel.dataArray addObject:beacon];
-        beacon.index = 0;
-        NSIndexSet *set = [NSIndexSet indexSetWithIndex:(self.dataList.count - 1)];
-        [UIView performWithoutAnimation:^{
-            [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationNone];
-        }];
-    }
-    //刷新顶部设备数量
-    [self resetDevicesNum];
+    moko_dispatch_main_safe(^{
+        MKScanBeaconModel *newModel = [[MKScanBeaconModel alloc] init];
+        [self.dataList addObject:newModel];
+        newModel.index = self.dataList.count - 1;
+        newModel.identifier = beacon.peripheral.identifier.UUIDString;
+        newModel.rssi = beacon.rssi;
+        newModel.deviceName = (ValidStr(beacon.deviceName) ? beacon.deviceName : @"");
+        newModel.displayTime = @"N/A";
+        newModel.lastScanDate = kSystemTimeStamp;
+        if (beacon.frameType == MKBXPDeviceInfoFrameType) {
+            //如果是设备信息帧
+            newModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
+            NSIndexSet *set = [NSIndexSet indexSetWithIndex:(self.dataList.count - 1)];
+            [UIView performWithoutAnimation:^{
+                [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationNone];
+            }];
+        }else{
+            //如果是URL、TLM、UID、iBeacon中的一种，直接加入到newModel中的数据帧数组里面
+            [newModel.dataArray addObject:beacon];
+            beacon.index = 0;
+            NSIndexSet *set = [NSIndexSet indexSetWithIndex:(self.dataList.count - 1)];
+            [UIView performWithoutAnimation:^{
+                [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationNone];
+            }];
+        }
+        //刷新顶部设备数量
+        [self resetDevicesNum];
+    });
 }
 
 /**
@@ -418,10 +433,12 @@ static CGFloat const threeSensorCellHeight = 110.f;
     }
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
         //设备信息帧
-        exsitModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
-        [UIView performWithoutAnimation:^{
-            [self.tableView reloadSection:exsitModel.index withRowAnimation:UITableViewRowAnimationNone];
-        }];
+        moko_dispatch_main_safe(^{
+            exsitModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
+            [UIView performWithoutAnimation:^{
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:exsitModel.index] withRowAnimation:UITableViewRowAnimationNone];
+            }];
+        });
         return;
     }
     //如果是URL、TLM、UID、iBeacon中的一种，
@@ -435,9 +452,11 @@ static CGFloat const threeSensorCellHeight = 110.f;
             //TLM信息帧需要替换
             beacon.index = model.index;
             [exsitModel.dataArray replaceObjectAtIndex:model.index withObject:beacon];
-            [UIView performWithoutAnimation:^{
-                [self.tableView reloadSection:exsitModel.index withRowAnimation:UITableViewRowAnimationNone];
-            }];
+            moko_dispatch_main_safe(^{
+                [UIView performWithoutAnimation:^{
+                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:exsitModel.index] withRowAnimation:UITableViewRowAnimationNone];
+                }];
+            });
             return;
         }
     }
@@ -459,42 +478,37 @@ static CGFloat const threeSensorCellHeight = 110.f;
         [exsitModel.dataArray addObject:tempModel];
     }
     NSIndexSet *set = [NSIndexSet indexSetWithIndex:exsitModel.index];
-    [UIView performWithoutAnimation:^{
-        [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
-    }];
+    moko_dispatch_main_safe(^{
+        [UIView performWithoutAnimation:^{
+            [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
+        }];
+    });
 }
 
 - (MKScanBaseCell *)loadCellDataWithIndexPath:(NSIndexPath *)indexPath{
-    @synchronized(self.dataList){
-        if (!indexPath || indexPath.section >= self.dataList.count) {
-            return nil;
-        }
-        MKScanBeaconModel *model = self.dataList[indexPath.section];
-        @synchronized(model.dataArray){
-            MKBXPBaseBeacon *beacon = model.dataArray[indexPath.row - 1];
-            MKScanBaseCell *cell;
-            if (beacon.frameType == MKBXPUIDFrameType) {
-                //UID
-                cell = [MKEddStoneUIDCell initCellWithTableView:self.tableView];
-            }else if (beacon.frameType == MKBXPURLFrameType){
-                //URL
-                cell = [MKEddStoneURLCell initCellWithTableView:self.tableView];
-            }else if (beacon.frameType == MKBXPTLMFrameType){
-                //TLM
-                cell = [MKEddStoneTLMCell initCellWithTableView:self.tableView];
-            }else if (beacon.frameType == MKBXPBeaconFrameType){
-                cell = [MKEddStoneiBeaconCell initCellWithTableView:self.tableView];
-            }else if (beacon.frameType == MKBXPTHSensorFrameType) {
-                cell = [MKEddystoneHTCell initCellWithTable:self.tableView];
-            }else if (beacon.frameType == MKBXPThreeASensorFrameType) {
-                cell = [MKEddystoneThreeASensorCell initCellWithTable:self.tableView];
-            }
-            if ([cell respondsToSelector:@selector(setBeacon:)]) {
-                [cell performSelector:@selector(setBeacon:) withObject:beacon];
-            }
-            return cell;
-        }
+    MKScanBeaconModel *model = self.dataList[indexPath.section];
+    MKBXPBaseBeacon *beacon = model.dataArray[indexPath.row - 1];
+    MKScanBaseCell *cell;
+    if (beacon.frameType == MKBXPUIDFrameType) {
+        //UID
+        cell = [MKEddStoneUIDCell initCellWithTableView:self.tableView];
+    }else if (beacon.frameType == MKBXPURLFrameType){
+        //URL
+        cell = [MKEddStoneURLCell initCellWithTableView:self.tableView];
+    }else if (beacon.frameType == MKBXPTLMFrameType){
+        //TLM
+        cell = [MKEddStoneTLMCell initCellWithTableView:self.tableView];
+    }else if (beacon.frameType == MKBXPBeaconFrameType){
+        cell = [MKEddStoneiBeaconCell initCellWithTableView:self.tableView];
+    }else if (beacon.frameType == MKBXPTHSensorFrameType) {
+        cell = [MKEddystoneHTCell initCellWithTable:self.tableView];
+    }else if (beacon.frameType == MKBXPThreeASensorFrameType) {
+        cell = [MKEddystoneThreeASensorCell initCellWithTable:self.tableView];
     }
+    if ([cell respondsToSelector:@selector(setBeacon:)]) {
+        [cell performSelector:@selector(setBeacon:) withObject:beacon];
+    }
+    return cell;
 }
 
 - (CGFloat )getiBeaconCellHeightWithBeacon:(MKBXPBaseBeacon *)beacon{
@@ -796,6 +810,20 @@ static CGFloat const threeSensorCellHeight = 110.f;
         _sortModel = [[MKSortModel alloc] init];
     }
     return _sortModel;
+}
+
+- (dispatch_queue_t)scanQueue {
+    if (!_scanQueue) {
+        _scanQueue = dispatch_queue_create("com.moko.readScanConfigQueue", DISPATCH_QUEUE_SERIAL);
+    }
+    return _scanQueue;
+}
+
+- (dispatch_semaphore_t)semaphore {
+    if (!_semaphore) {
+        _semaphore = dispatch_semaphore_create(1);
+    }
+    return _semaphore;
 }
 
 @end
