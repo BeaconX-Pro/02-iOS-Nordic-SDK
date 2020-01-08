@@ -230,15 +230,13 @@ static CGFloat const leftIconHeight = 7.f;
     if (ValidNum(_beacon.txPower)) {
         self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld%@",(long)[_beacon.txPower integerValue],@"dBm"];
     }
-    NSString *distanceValue = [self calcDistByRSSI:[beacon.rssi intValue] measurePower:[beacon.rssi1M integerValue]];
-    if ([distanceValue floatValue] <= 1.f) {
+    NSString *distanceValue = [self calcDistByRSSI:[beacon.rssi intValue] measurePower:labs([beacon.rssi1M integerValue])];
+    if ([distanceValue floatValue] <= 0.1) {
         self.distanceValueLabel.text = @"Immediate";
-    }else if ([distanceValue floatValue] > 1.f && [distanceValue floatValue] <= 3.f) {
+    }else if ([distanceValue floatValue] > 0.1 && [distanceValue floatValue] <= 1.f) {
         self.distanceValueLabel.text = @"Near";
-    }else if ([distanceValue floatValue] > 3.f) {
+    }else if ([distanceValue floatValue] > 1.f) {
         self.distanceValueLabel.text = @"Far";
-    }else {
-        self.distanceValueLabel.text = @"Unknown";
     }
     [self setNeedsLayout];
 }

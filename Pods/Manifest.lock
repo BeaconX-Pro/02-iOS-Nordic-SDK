@@ -1,77 +1,77 @@
 PODS:
   - CircleProgressBar (0.32)
-  - iOSDFULibrary (4.5.1):
+  - iOSDFULibrary (4.6.1):
     - ZIPFoundation (= 0.9.9)
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
-  - MJRefresh (3.2.0)
+  - MJRefresh (3.3.1)
   - MLInputDodger (1.5.2)
-  - mokoLibrary (1.1.0):
-    - mokoLibrary/base (= 1.1.0)
-    - mokoLibrary/category (= 1.1.0)
-    - mokoLibrary/customUI (= 1.1.0)
-    - mokoLibrary/macroDefines (= 1.1.0)
-    - mokoLibrary/tools (= 1.1.0)
-  - mokoLibrary/base (1.1.0):
-    - mokoLibrary/base/controller (= 1.1.0)
-    - mokoLibrary/base/NavigationController (= 1.1.0)
-    - mokoLibrary/base/view (= 1.1.0)
-  - mokoLibrary/base/controller (1.1.0):
+  - mokoLibrary (1.2.0):
+    - mokoLibrary/base (= 1.2.0)
+    - mokoLibrary/category (= 1.2.0)
+    - mokoLibrary/customUI (= 1.2.0)
+    - mokoLibrary/macroDefines (= 1.2.0)
+    - mokoLibrary/tools (= 1.2.0)
+  - mokoLibrary/base (1.2.0):
+    - mokoLibrary/base/controller (= 1.2.0)
+    - mokoLibrary/base/NavigationController (= 1.2.0)
+    - mokoLibrary/base/view (= 1.2.0)
+  - mokoLibrary/base/controller (1.2.0):
     - mokoLibrary/base/view/WRNavigationBar
     - mokoLibrary/category
     - mokoLibrary/macroDefines
     - YYKit
-  - mokoLibrary/base/NavigationController (1.1.0)
-  - mokoLibrary/base/view (1.1.0):
-    - mokoLibrary/base/view/collectionView (= 1.1.0)
-    - mokoLibrary/base/view/tableView (= 1.1.0)
-    - mokoLibrary/base/view/WRNavigationBar (= 1.1.0)
+  - mokoLibrary/base/NavigationController (1.2.0)
+  - mokoLibrary/base/view (1.2.0):
+    - mokoLibrary/base/view/collectionView (= 1.2.0)
+    - mokoLibrary/base/view/tableView (= 1.2.0)
+    - mokoLibrary/base/view/WRNavigationBar (= 1.2.0)
     - mokoLibrary/macroDefines
-  - mokoLibrary/base/view/collectionView (1.1.0):
+  - mokoLibrary/base/view/collectionView (1.2.0):
     - mokoLibrary/macroDefines
-  - mokoLibrary/base/view/tableView (1.1.0):
+  - mokoLibrary/base/view/tableView (1.2.0):
     - mokoLibrary/macroDefines
-  - mokoLibrary/base/view/WRNavigationBar (1.1.0):
+  - mokoLibrary/base/view/WRNavigationBar (1.2.0):
     - mokoLibrary/macroDefines
-  - mokoLibrary/category (1.1.0):
+  - mokoLibrary/category (1.2.0):
     - mokoLibrary/macroDefines
     - Toast
     - YYKit
-  - mokoLibrary/customUI (1.1.0):
-    - mokoLibrary/customUI/HaveRefreshView (= 1.1.0)
-    - mokoLibrary/customUI/MKHexKeyBoard (= 1.1.0)
-    - mokoLibrary/customUI/MKHudManager (= 1.1.0)
-    - mokoLibrary/customUI/MKPageControl (= 1.1.0)
-    - mokoLibrary/customUI/MKProgressView (= 1.1.0)
-    - mokoLibrary/customUI/MKTimePicker (= 1.1.0)
-    - mokoLibrary/customUI/XDRefresh (= 1.1.0)
-  - mokoLibrary/customUI/HaveRefreshView (1.1.0):
+  - mokoLibrary/customUI (1.2.0):
+    - mokoLibrary/customUI/HaveRefreshView (= 1.2.0)
+    - mokoLibrary/customUI/MKHexKeyBoard (= 1.2.0)
+    - mokoLibrary/customUI/MKHudManager (= 1.2.0)
+    - mokoLibrary/customUI/MKPageControl (= 1.2.0)
+    - mokoLibrary/customUI/MKProgressView (= 1.2.0)
+    - mokoLibrary/customUI/MKTimePicker (= 1.2.0)
+    - mokoLibrary/customUI/XDRefresh (= 1.2.0)
+  - mokoLibrary/customUI/HaveRefreshView (1.2.0):
     - MJRefresh
-  - mokoLibrary/customUI/MKHexKeyBoard (1.1.0):
+  - mokoLibrary/customUI/MKHexKeyBoard (1.2.0):
     - mokoLibrary/category
     - mokoLibrary/macroDefines
     - YYKit
-  - mokoLibrary/customUI/MKHudManager (1.1.0):
+  - mokoLibrary/customUI/MKHudManager (1.2.0):
     - MBProgressHUD
     - mokoLibrary/macroDefines
-  - mokoLibrary/customUI/MKPageControl (1.1.0)
-  - mokoLibrary/customUI/MKProgressView (1.1.0):
+  - mokoLibrary/customUI/MKPageControl (1.2.0)
+  - mokoLibrary/customUI/MKProgressView (1.2.0):
     - CircleProgressBar
     - Masonry
     - mokoLibrary/category
     - mokoLibrary/macroDefines
     - YYKit
-  - mokoLibrary/customUI/MKTimePicker (1.1.0):
+  - mokoLibrary/customUI/MKTimePicker (1.2.0):
     - mokoLibrary/category
     - mokoLibrary/macroDefines
     - YYKit
-  - mokoLibrary/customUI/XDRefresh (1.1.0)
-  - mokoLibrary/macroDefines (1.1.0)
-  - mokoLibrary/tools (1.1.0):
-    - mokoLibrary/tools/MKAttributedString (= 1.1.0)
-    - mokoLibrary/tools/MKDateFormatter (= 1.1.0)
-  - mokoLibrary/tools/MKAttributedString (1.1.0)
-  - mokoLibrary/tools/MKDateFormatter (1.1.0)
+  - mokoLibrary/customUI/XDRefresh (1.2.0)
+  - mokoLibrary/macroDefines (1.2.0)
+  - mokoLibrary/tools (1.2.0):
+    - mokoLibrary/tools/MKAttributedString (= 1.2.0)
+    - mokoLibrary/tools/MKDateFormatter (= 1.2.0)
+  - mokoLibrary/tools/MKAttributedString (1.2.0)
+  - mokoLibrary/tools/MKDateFormatter (1.2.0)
   - Toast (4.0.0)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
@@ -84,6 +84,8 @@ DEPENDENCIES:
   - mokoLibrary
 
 SPEC REPOS:
+  "git@120.27.8.241:mokoBaseLibrary/mokoBaseIndexLibrary.git":
+    - mokoLibrary
   https://github.com/CocoaPods/Specs.git:
     - CircleProgressBar
     - iOSDFULibrary
@@ -91,23 +93,22 @@ SPEC REPOS:
     - MBProgressHUD
     - MJRefresh
     - MLInputDodger
-    - mokoLibrary
     - Toast
     - YYKit
     - ZIPFoundation
 
 SPEC CHECKSUMS:
   CircleProgressBar: 3920079be5224b62b3d9ed6eeb23ac01c835b681
-  iOSDFULibrary: 87c6a088cf7172e3694dfaa8305e7ded5eda2547
+  iOSDFULibrary: 3053cf01eaabec37dc7372fb77ae4a218b577c55
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
-  MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
+  MJRefresh: eeda70fbf0ad277f3178cef1cd0c3532591d6237
   MLInputDodger: 79a0e420a80d0d3bba122bf2639603cc76609ba8
-  mokoLibrary: f2bbdd52a5f3d9a6cc02b150ef0e8b29ff871ffd
+  mokoLibrary: 93a32f3e483537e9992b6ba564317070af9d5130
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZIPFoundation: 89df685c971926b0323087952320bdfee9f0b6ef
 
 PODFILE CHECKSUM: 8d30a77a0464761ac3a65b4288e2bd8535840a03
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4

@@ -86,7 +86,7 @@ NSString *const MKBXPDataStatusLev = @"MKBXPDataStatusLev";
 #pragma mark - life circle
 
 - (void)dealloc{
-    NSLog(@"任务销毁");
+//    NSLog(@"任务销毁");
 }
 
 - (instancetype)initOperationWithID:(MKBXPOperationID)operationID

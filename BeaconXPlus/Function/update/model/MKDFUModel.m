@@ -60,7 +60,17 @@ static NSString *const dfuUpdateDomain = @"com.moko.dfuUpdateDomain";
     self.updateSucBlock = sucBlock;
     self.updateFailedBlock = nil;
     self.updateFailedBlock = failedBlock;
-    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithUrlToZipFile:[NSURL URLWithString:url]];// or
+    NSURL *fileURL = [[NSURL alloc] initWithString:[url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]]];
+    if (!fileURL) {
+        [self updateFailed];
+        return;
+    }
+    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithUrlToZipFile:fileURL];// or
+    //Use the DFUServiceInitializer to initialize the DFU process.
+    if (!selectedFirmware) {
+        [self updateFailed];
+        return;
+    }
     //Use the DFUServiceInitializer to initialize the DFU process.
     DFUServiceInitiator *initiator = [[DFUServiceInitiator alloc] initWithQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) progressQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) loggerQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
     initiator = [initiator withFirmware:selectedFirmware];
@@ -72,7 +82,7 @@ static NSString *const dfuUpdateDomain = @"com.moko.dfuUpdateDomain";
     initiator.progressDelegate = self; // - to show progress bar
     // initiator.peripheralSelector = ... // the default selector is used
     //    self.dfuController = [[initiator withFirmware:selectedFirmware] startWithTarget:[MKBeaconCentralManager sharedInstance].peripheral];
-    [initiator startWithTarget:[MKBXPCentralManager shared].peripheral];
+    self.dfuController = [initiator startWithTarget:[MKBXPCentralManager shared].peripheral];
 }
 
 - (void)dfuStateDidChangeTo:(enum DFUState)state{

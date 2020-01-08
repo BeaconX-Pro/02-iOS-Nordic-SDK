@@ -126,6 +126,7 @@
             }
             return;
         }
+        sleep(1.f);
         if (![self configAdvTxPower:[detailData[@"baseParam"][@"advTxPower"] integerValue]]) {
             if (failedBlock) {
                 moko_dispatch_main_safe(^{
@@ -134,6 +135,7 @@
             }
             return;
         }
+//        sleep(0.5);
         if (![self configRadioTxPower:[self getRadioTxPower:detailData[@"baseParam"][@"txPower"]]]) {
             if (failedBlock) {
                 moko_dispatch_main_safe(^{
