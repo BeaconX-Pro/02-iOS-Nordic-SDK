@@ -93,7 +93,7 @@ static CGFloat const leftIconHeight = 7.f;
     }];
     [self.typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.leftIcon.mas_right).mas_offset(5.f);
-        make.width.mas_equalTo(120.f);
+        make.width.mas_equalTo(100.f);
         make.centerY.mas_equalTo(self.leftIcon.mas_centerY);
         make.height.mas_equalTo(MKFont(15).lineHeight);
     }];
@@ -317,7 +317,7 @@ static CGFloat const leftIconHeight = 7.f;
     if (!_rawLabel) {
         _rawLabel = [self createLabelWithFont:msgFont];
         _rawLabel.textColor = RGBCOLOR(153, 153, 153);
-        _rawLabel.text = @"Raw Sampled Data";
+        _rawLabel.text = @"Raw Data";
     }
     return _rawLabel;
 }

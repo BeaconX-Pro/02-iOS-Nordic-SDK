@@ -11,6 +11,8 @@
 #import <MessageUI/MessageUI.h>
 #import <sys/utsname.h>
 
+static NSString *synIconAnimationKey = @"synIconAnimationKey";
+
 @interface MKExportHTDataController ()<MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong)UIButton *syncButton;
@@ -80,11 +82,11 @@
 #pragma mark - event method
 - (void)syncButtonPressed {
     self.syncButton.selected = !self.syncButton.selected;
-    [self.synIcon.layer removeAnimationForKey:@"synIconAnimationKey"];
+    [self.synIcon.layer removeAnimationForKey:synIconAnimationKey];
     [[MKBXPCentralManager shared] notifyRecordTHData:self.syncButton.selected];
     if (self.syncButton.selected) {
         //开始旋转
-        [self.synIcon.layer addAnimation:[self animation] forKey:@"synIconAnimationKey"];
+        [self.synIcon.layer addAnimation:[self animation] forKey:synIconAnimationKey];
         self.syncLabel.text = @"Stop";
         return;
     }
@@ -157,7 +159,7 @@
     [MKBLELogManager deleteLog];
     [self.textView setText:@""];
     self.syncButton.selected = NO;
-    [self.synIcon.layer removeAnimationForKey:@"synIconAnimationKey"];
+    [self.synIcon.layer removeAnimationForKey:synIconAnimationKey];
     [[MKBXPCentralManager shared] notifyRecordTHData:self.syncButton.selected];
     self.syncLabel.text = @"Sync";
     [[MKHudManager share] showHUDWithTitle:@"Setting..." inView:self.view isPenetration:NO];
