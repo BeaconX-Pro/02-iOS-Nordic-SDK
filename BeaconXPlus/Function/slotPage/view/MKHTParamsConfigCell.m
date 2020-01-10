@@ -457,7 +457,7 @@ static CGFloat const pickViewRowHeight = 30.f;
 - (UILabel *)temperValueLabel {
     if (!_temperValueLabel) {
         _temperValueLabel = [[UILabel alloc] init];
-        _temperValueLabel.textAlignment = NSTextAlignmentLeft;
+        _temperValueLabel.textAlignment = NSTextAlignmentCenter;
         _temperValueLabel.textColor = UIColorFromRGB(0x2F84D0);
         _temperValueLabel.font = MKFont(13.f);
         _temperValueLabel.text = @"0.0";
@@ -508,7 +508,7 @@ static CGFloat const pickViewRowHeight = 30.f;
 - (UILabel *)humiValueLabel {
     if (!_humiValueLabel) {
         _humiValueLabel = [[UILabel alloc] init];
-        _humiValueLabel.textAlignment = NSTextAlignmentLeft;
+        _humiValueLabel.textAlignment = NSTextAlignmentCenter;
         _humiValueLabel.textColor = UIColorFromRGB(0x2F84D0);
         _humiValueLabel.font = MKFont(13.f);
         _humiValueLabel.text = @"0";
