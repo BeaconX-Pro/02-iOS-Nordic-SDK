@@ -143,7 +143,7 @@ static NSString *const MKDeviceInfoControllerCellIdenty = @"MKDeviceInfoControll
     
     MKMainCellModel *produceModel = [[MKMainCellModel alloc] init];
     produceModel.leftIconName = @"device_productmodel";
-    produceModel.leftMsg = @"Produce Model";
+    produceModel.leftMsg = @"Product Model";
     produceModel.rightMsg = @"HHHH";
     produceModel.hiddenRightIcon = YES;
     [self.dataList addObject:produceModel];

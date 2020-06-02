@@ -88,6 +88,9 @@ static CGFloat const threeSensorCellHeight = 110.f;
 
 @property (nonatomic, strong)dispatch_semaphore_t semaphore;
 
+/// 当左侧按钮停止扫描的时候,currentScanStatus = NO,开始扫描的时候currentScanStatus=YES
+@property (nonatomic, assign)BOOL currentScanStatus;
+
 @end
 
 @implementation MKScanViewController
@@ -103,6 +106,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
     if (self.needScan && [MKBXPCentralManager shared].managerState == MKBXPCentralManagerStateEnable) {
         self.needScan = NO;
         self.leftButton.selected = NO;
+        self.currentScanStatus = NO;
         [self leftButtonMethod];
     }
 }
@@ -127,6 +131,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
         return;
     }
     self.leftButton.selected = !self.leftButton.selected;
+    self.currentScanStatus = self.leftButton.selected;
     if (!self.leftButton.isSelected) {
         //停止扫描
         [self.circleIcon.layer removeAnimationForKey:MKLeftButtonAnimationKey];
@@ -225,7 +230,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
 - (void)bxp_didReceiveBeacon:(NSArray <MKBXPBaseBeacon *>*)beaconList {
     dispatch_async(self.scanQueue, ^{
         dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-        if (!self.leftButton.selected) {
+        if (!self.currentScanStatus) {
             //停止扫描了
             [self unlock];
             return ;
@@ -300,6 +305,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
                                                   [@[weakSelf.sortModel.searchName,[NSString stringWithFormat:@"%@dBm",[NSString stringWithFormat:@"%ld",(long)weakSelf.sortModel.sortRssi]]] mutableCopy] :
                                                   [@[[NSString stringWithFormat:@"%@dBm",[NSString stringWithFormat:@"%ld",(long)weakSelf.sortModel.sortRssi]]] mutableCopy]);
         weakSelf.leftButton.selected = NO;
+        weakSelf.currentScanStatus = NO;
         [weakSelf leftButtonMethod];
     };
     [searchView showWithText:(self.sortModel.isOpen ? self.sortModel.searchName : @"")
@@ -558,6 +564,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
         [[MKHudManager share] hide];
         [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
         weakSelf.leftButton.selected = NO;
+        weakSelf.currentScanStatus = NO;
         [weakSelf leftButtonMethod];
     }];
 }
@@ -577,6 +584,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
         [progressView dismiss];
         [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
         weakSelf.leftButton.selected = NO;
+        weakSelf.currentScanStatus = NO;
         [weakSelf leftButtonMethod];
     }];
 }
@@ -603,6 +611,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
         [progressView dismiss];
         [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
         weakSelf.leftButton.selected = NO;
+        weakSelf.currentScanStatus = NO;
         [weakSelf leftButtonMethod];
     }];
 }
@@ -620,6 +629,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
         self.leftButton.selected = NO;
+        self.currentScanStatus = NO;
         [self leftButtonMethod];
         [self showDeviceTypeErrorAlert];
     }];
@@ -653,6 +663,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         weakSelf.leftButton.selected = NO;
+        weakSelf.currentScanStatus = NO;
         [weakSelf leftButtonMethod];
     }];
     [alertController addAction:cancelAction];
@@ -771,6 +782,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
             weakSelf.sortModel.searchName = @"";
             weakSelf.sortModel.sortRssi = -127;
             weakSelf.leftButton.selected = NO;
+            weakSelf.currentScanStatus = NO;
             [weakSelf leftButtonMethod];
         };
         _searchButton.searchButtonPressedBlock = ^{
