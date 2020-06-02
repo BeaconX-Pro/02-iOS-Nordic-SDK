@@ -228,20 +228,25 @@ static CGFloat const threeSensorCellHeight = 110.f;
 
 #pragma mark - MKBXPScanDelegate
 - (void)bxp_didReceiveBeacon:(NSArray <MKBXPBaseBeacon *>*)beaconList {
-    dispatch_async(self.scanQueue, ^{
-        dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-        if (!self.currentScanStatus) {
-            //停止扫描了
-            [self unlock];
-            return ;
-        }
-        for (MKBXPBaseBeacon *beacon in beaconList) {
-            [self updateDataWithBeacon:beacon];
-            moko_dispatch_main_safe(^{
-                [self performSelector:@selector(unlock) afterDelay:.1f];
-            });
-        }
-    });
+//    @synchronized (self.dataList) {
+//        dispatch_async(self.scanQueue, ^{
+//            dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+//            if (!self.currentScanStatus) {
+//                //停止扫描了
+//                [self unlock];
+//                return ;
+//            }
+//            for (MKBXPBaseBeacon *beacon in beaconList) {
+//                [self updateDataWithBeacon:beacon];
+//                moko_dispatch_main_safe(^{
+//                    [self performSelector:@selector(unlock) afterDelay:.3f];
+//                });
+//            }
+//        });
+//    }
+    for (MKBXPBaseBeacon *beacon in beaconList) {
+        [self updateDataWithBeacon:beacon];
+    }
 }
 
 - (void)bxp_centralManagerStartScan {
@@ -393,34 +398,32 @@ static CGFloat const threeSensorCellHeight = 110.f;
  @param beacon 扫描到的设备
  */
 - (void)beaconNoExistDataSource:(MKBXPBaseBeacon *)beacon{
-    moko_dispatch_main_safe(^{
-        MKScanBeaconModel *newModel = [[MKScanBeaconModel alloc] init];
-        [self.dataList addObject:newModel];
-        newModel.index = self.dataList.count - 1;
-        newModel.identifier = beacon.peripheral.identifier.UUIDString;
-        newModel.rssi = beacon.rssi;
-        newModel.deviceName = (ValidStr(beacon.deviceName) ? beacon.deviceName : @"");
-        newModel.displayTime = @"N/A";
-        newModel.lastScanDate = kSystemTimeStamp;
-        if (beacon.frameType == MKBXPDeviceInfoFrameType) {
-            //如果是设备信息帧
-            newModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
-            NSIndexSet *set = [NSIndexSet indexSetWithIndex:(self.dataList.count - 1)];
-            [UIView performWithoutAnimation:^{
-                [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationNone];
-            }];
-        }else{
-            //如果是URL、TLM、UID、iBeacon中的一种，直接加入到newModel中的数据帧数组里面
-            [newModel.dataArray addObject:beacon];
-            beacon.index = 0;
-            NSIndexSet *set = [NSIndexSet indexSetWithIndex:(self.dataList.count - 1)];
-            [UIView performWithoutAnimation:^{
-                [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationNone];
-            }];
-        }
-        //刷新顶部设备数量
-        [self resetDevicesNum];
-    });
+    MKScanBeaconModel *newModel = [[MKScanBeaconModel alloc] init];
+    [self.dataList addObject:newModel];
+    newModel.index = self.dataList.count - 1;
+    newModel.identifier = beacon.peripheral.identifier.UUIDString;
+    newModel.rssi = beacon.rssi;
+    newModel.deviceName = (ValidStr(beacon.deviceName) ? beacon.deviceName : @"");
+    newModel.displayTime = @"N/A";
+    newModel.lastScanDate = kSystemTimeStamp;
+    if (beacon.frameType == MKBXPDeviceInfoFrameType) {
+        //如果是设备信息帧
+        newModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
+        NSIndexSet *set = [NSIndexSet indexSetWithIndex:(self.dataList.count - 1)];
+        [UIView performWithoutAnimation:^{
+            [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationNone];
+        }];
+    }else{
+        //如果是URL、TLM、UID、iBeacon中的一种，直接加入到newModel中的数据帧数组里面
+        [newModel.dataArray addObject:beacon];
+        beacon.index = 0;
+        NSIndexSet *set = [NSIndexSet indexSetWithIndex:(self.dataList.count - 1)];
+        [UIView performWithoutAnimation:^{
+            [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationNone];
+        }];
+    }
+    //刷新顶部设备数量
+    [self resetDevicesNum];
 }
 
 /**
@@ -439,12 +442,10 @@ static CGFloat const threeSensorCellHeight = 110.f;
     }
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
         //设备信息帧
-        moko_dispatch_main_safe(^{
-            exsitModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
-            [UIView performWithoutAnimation:^{
-                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:exsitModel.index] withRowAnimation:UITableViewRowAnimationNone];
-            }];
-        });
+        exsitModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
+        [UIView performWithoutAnimation:^{
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:exsitModel.index] withRowAnimation:UITableViewRowAnimationNone];
+        }];
         return;
     }
     //如果是URL、TLM、UID、iBeacon中的一种，
@@ -458,11 +459,9 @@ static CGFloat const threeSensorCellHeight = 110.f;
             //TLM信息帧需要替换
             beacon.index = model.index;
             [exsitModel.dataArray replaceObjectAtIndex:model.index withObject:beacon];
-            moko_dispatch_main_safe(^{
-                [UIView performWithoutAnimation:^{
-                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:exsitModel.index] withRowAnimation:UITableViewRowAnimationNone];
-                }];
-            });
+            [UIView performWithoutAnimation:^{
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:exsitModel.index] withRowAnimation:UITableViewRowAnimationNone];
+            }];
             return;
         }
     }
@@ -484,11 +483,9 @@ static CGFloat const threeSensorCellHeight = 110.f;
         [exsitModel.dataArray addObject:tempModel];
     }
     NSIndexSet *set = [NSIndexSet indexSetWithIndex:exsitModel.index];
-    moko_dispatch_main_safe(^{
-        [UIView performWithoutAnimation:^{
-            [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
-        }];
-    });
+    [UIView performWithoutAnimation:^{
+        [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 - (MKScanBaseCell *)loadCellDataWithIndexPath:(NSIndexPath *)indexPath{
