@@ -39,7 +39,9 @@ static CGFloat const aboutIconHeight = 110.f;
 
 #pragma mark - event method
 - (void)openWebBrowser{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.mokosmart.com"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.mokosmart.com"]
+                                       options:@{}
+                             completionHandler:nil];
 }
 
 #pragma mark - ui

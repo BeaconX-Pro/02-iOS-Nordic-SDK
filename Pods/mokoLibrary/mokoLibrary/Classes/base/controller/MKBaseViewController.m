@@ -7,7 +7,6 @@
 //
 
 #import "MKBaseViewController.h"
-#import "YYKit.h"
 #import "WRNavigationBar.h"
 
 #import "MKMacroDefines.h"
@@ -138,7 +137,7 @@
 }
 
 -(void)setNavigationBarImage:(UIImage*)image{
-    if (iOS7) {
+    if (iOS(7)) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     if ([self.navigationController.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
@@ -193,7 +192,7 @@
 
 - (UIButton *)rightButton {
     if (!_rightButton) {
-        _rightButton = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth - 40.0f, 2.0f, 40.0f, 40.0f)];
+        _rightButton = [[UIButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 40.0f, 2.0f, 40.0f, 40.0f)];
         [_rightButton.titleLabel setFont:MKFont(16)];
         [_rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_rightButton setTitleColor:RGBACOLOR(255, 255, 255, 0.4) forState:UIControlStateHighlighted];
@@ -206,7 +205,7 @@
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, 7.0f, kScreenWidth - 120.0f, 30.0f)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, 7.0f, [UIScreen mainScreen].bounds.size.width - 120.0f, 30.0f)];
         _titleLabel.font = MKFont(18);
         _titleLabel.textColor = DEFAULT_TEXT_COLOR;
         _titleLabel.tintColor = DEFAULT_TEXT_COLOR;

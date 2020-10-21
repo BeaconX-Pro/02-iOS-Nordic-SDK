@@ -135,7 +135,9 @@ static CGFloat const leftIconHeight = 7.f;
 
 #pragma mark - event method
 - (void)linkUrlPressed{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.beacon.shortUrl]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.beacon.shortUrl]
+                                       options:@{}
+                             completionHandler:nil];
 }
 
 #pragma mark - Public method

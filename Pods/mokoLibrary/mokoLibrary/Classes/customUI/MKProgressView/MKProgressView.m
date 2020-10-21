@@ -9,7 +9,6 @@
 #import "MKProgressView.h"
 #import "CircleProgressBar.h"
 #import "Masonry.h"
-#import "YYKit.h"
 #import "MKMacroDefines.h"
 #import "MKCategoryModule.h"
 
@@ -105,7 +104,7 @@ static CGFloat const progressViewSpaceHeight = 33.f;
     [self dismiss];
     [kAppWindow addSubview:self];
     [UIView animateWithDuration:.3f animations:^{
-        self.alertView.transform = CGAffineTransformMakeTranslation(-kScreenWidth, 0);
+        self.alertView.transform = CGAffineTransformMakeTranslation(-[UIScreen mainScreen].bounds.size.width, 0);
     }];
 }
 

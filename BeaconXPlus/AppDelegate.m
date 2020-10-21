@@ -9,6 +9,10 @@
 #import "AppDelegate.h"
 #import "MKScanViewController.h"
 #import "MKMainTabBarController.h"
+#import <UMCommon/UMConfigure.h>
+
+//友盟统计的APP key
+static NSString *const AppKey = @"5f3f7e25b4b08b653e97ca8b";
 
 @interface AppDelegate ()
 
@@ -40,6 +44,10 @@
     [self setScanPage:NO];
     [_window makeKeyAndVisible];
     [self addLaunchScreen];
+    #ifdef DEBUG
+    #else
+        [UMConfigure initWithAppkey:AppKey channel:@"App Store"];
+    #endif
     return YES;
 }
 

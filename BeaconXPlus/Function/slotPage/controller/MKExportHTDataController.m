@@ -113,7 +113,9 @@ static NSString *synIconAnimationKey = @"synIconAnimationKey";
 - (void)exportButtonPressed {
     if (![MFMailComposeViewController canSendMail]) {
         //如果是未绑定有效的邮箱，则跳转到系统自带的邮箱去处理
-        [[UIApplication sharedApplication]openURL:[NSURL   URLWithString:@"MESSAGE://"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"MESSAGE://"]
+                                           options:@{}
+                                 completionHandler:nil];
         return;
     }
     NSData *emailData = [MKBLELogManager readCommandDataFromLocalFile];

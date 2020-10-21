@@ -8,7 +8,7 @@
 
 #import "MKAxisParametersCell.h"
 #import "MKSlider.h"
-#import "MKSlotConfigPickView.h"
+#import "MKPickerView.h"
 
 @interface MKAxisParametersCell ()
 
@@ -157,7 +157,7 @@
     }else if ([self.scaleValueLabel.text isEqualToString:@"±16g"]) {
         index = 3;
     }
-    MKSlotConfigPickView *pickView = [[MKSlotConfigPickView alloc] init];
+    MKPickerView *pickView = [[MKPickerView alloc] init];
     pickView.dataList = dataList;
     [pickView showPickViewWithIndex:index block:^(NSInteger currentRow) {
         self.scaleValueLabel.text = dataList[currentRow];
@@ -176,7 +176,7 @@
     }else if ([self.dataRateValueLabel.text isEqualToString:@"100hz"]) {
         index = 4;
     }
-    MKSlotConfigPickView *pickView = [[MKSlotConfigPickView alloc] init];
+    MKPickerView *pickView = [[MKPickerView alloc] init];
     pickView.dataList = dataList;
     [pickView showPickViewWithIndex:index block:^(NSInteger currentRow) {
         self.dataRateValueLabel.text = dataList[currentRow];

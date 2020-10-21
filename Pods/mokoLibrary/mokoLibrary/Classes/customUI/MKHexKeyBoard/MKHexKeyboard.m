@@ -7,7 +7,6 @@
 //
 
 #import "MKHexKeyboard.h"
-#import "YYKit.h"
 #import "MKCategoryModule.h"
 #import "MKMacroDefines.h"
 
@@ -97,7 +96,7 @@ static CGFloat const buttonSpace_X = 20.f;
 
 - (UIButton *)hexButton:(NSString *)title titleColor:(UIColor *)color{
     UIButton *hexBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [hexBtn setBackgroundColor:COLOR_WHITE_MACROS forState:UIControlStateNormal];
+    [hexBtn setBackgroundColor:COLOR_WHITE_MACROS];
     [hexBtn setTitle:title forState:UIControlStateNormal];
     [hexBtn setTitleColor:color forState:UIControlStateNormal];
     [hexBtn.titleLabel setFont:MKFont(18.f)];
@@ -106,7 +105,7 @@ static CGFloat const buttonSpace_X = 20.f;
 }
 
 - (void)loadKeyButtons{
-    CGFloat buttonWidth = (kScreenWidth - 2 * buttonSpace_X - 2 * buttonSpace) / 3;
+    CGFloat buttonWidth = ([UIScreen mainScreen].bounds.size.width - 2 * buttonSpace_X - 2 * buttonSpace) / 3;
     CGFloat buttonHeight = (keyboardHeight - 7 * buttonSpace) / 6;
     
     UIButton *DBtn = [self hexButton:@"D" titleColor:UIColorFromRGB(0x0099ff)];
@@ -171,7 +170,7 @@ static CGFloat const buttonSpace_X = 20.f;
     
     UIButton *delBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     delBtn.frame = CGRectMake(buttonSpace_X, 5 * buttonHeight + 6 * buttonSpace, buttonWidth, buttonHeight);
-    [delBtn setBackgroundColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+    [delBtn setBackgroundColor:UIColorFromRGB(0x999999)];
     
     NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(@"MKHexKeyboard")];
     NSString *bundlePath = [bundle pathForResource:@"mokoLibrary" ofType:@"bundle"];
@@ -187,7 +186,7 @@ static CGFloat const buttonSpace_X = 20.f;
     
     UIButton *doneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     doneBtn.frame = CGRectMake(buttonSpace_X + 2 * buttonWidth + 2 * buttonSpace, 5 * buttonHeight + 6 * buttonSpace, buttonWidth, buttonHeight);
-    [doneBtn setBackgroundColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+    [doneBtn setBackgroundColor:UIColorFromRGB(0x999999)];
     [doneBtn setTitle:@"Done" forState:UIControlStateNormal];
     [doneBtn.titleLabel setFont:MKFont(20.f)];
     [doneBtn addTarget:self action:@selector(doneButtonPressed) forControlEvents:UIControlEventTouchUpInside];
@@ -198,8 +197,8 @@ static CGFloat const buttonSpace_X = 20.f;
 - (UIView *)bottomView{
     if (!_bottomView) {
         _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                               kScreenHeight,
-                                                               kScreenWidth,
+                                                               [UIScreen mainScreen].bounds.size.height,
+                                                               [UIScreen mainScreen].bounds.size.width,
                                                                keyboardHeight)];
         _bottomView.backgroundColor = UIColorFromRGB(0xd9d9d9);
     }
@@ -210,8 +209,8 @@ static CGFloat const buttonSpace_X = 20.f;
     if (!_topView) {
         _topView = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                             0,
-                                                            kScreenWidth,
-                                                            kScreenHeight - keyboardHeight)];
+                                                            [UIScreen mainScreen].bounds.size.width,
+                                                            [UIScreen mainScreen].bounds.size.height - keyboardHeight)];
         _topView.backgroundColor = COLOR_CLEAR_MACROS;
     }
     return _topView;

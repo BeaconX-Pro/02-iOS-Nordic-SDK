@@ -7,7 +7,6 @@
 //
 
 #import "MKTimePickerView.h"
-#import "YYKit.h"
 #import "MKMacroDefines.h"
 #import "MKCategoryModule.h"
 
@@ -114,10 +113,10 @@ static CGFloat const kDatePickerH = 270;
 #pragma mark - setter & getter
 - (UIView *)bottomView{
     if (!_bottomView) {
-        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, kDatePickerH)];
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, kDatePickerH)];
         _bottomView.backgroundColor = RGBCOLOR(244, 244, 244);
         
-        UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
+        UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50)];
         topView.backgroundColor = COLOR_WHITE_MACROS;
         [_bottomView addSubview:topView];
         
@@ -131,7 +130,7 @@ static CGFloat const kDatePickerH = 270;
         [topView addSubview:cancelButton];
         
         UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        confirmBtn.frame = CGRectMake(kScreenWidth - 10 - 60, 10, 60, 30);
+        confirmBtn.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 10 - 60, 10, 60, 30);
         [confirmBtn setBackgroundColor:COLOR_CLEAR_MACROS];
         [confirmBtn setTitle:@"Confirm" forState:UIControlStateNormal];
         [confirmBtn setTitleColor:DEFAULT_TEXT_COLOR forState:UIControlStateNormal];
@@ -145,6 +144,18 @@ static CGFloat const kDatePickerH = 270;
 - (UIDatePicker *)datePicker{
     if (!_datePicker) {
         _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(10, kDatePickerH - 216, self.frame.size.width - 2 * 10, 216)];
+        
+        if (@available(iOS 13.0, *)) {
+            if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                //暗黑模式
+                _datePicker.backgroundColor = RGBCOLOR(239, 239, 239);
+                [_datePicker setValue:DEFAULT_TEXT_COLOR forKey:@"textColor"];
+            }
+        }
+        if (@available(iOS 13.4, *)) {
+            _datePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
+        }
+        
         _datePicker.datePickerMode = UIDatePickerModeTime;
         _datePicker.backgroundColor = COLOR_CLEAR_MACROS;
         _datePicker.maximumDate = [NSDate date];

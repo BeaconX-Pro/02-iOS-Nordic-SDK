@@ -7,7 +7,7 @@
 //
 
 #import "MKHTParamsConfigCell.h"
-#import "MKSlotConfigPickView.h"
+#import "MKPickerView.h"
 
 static CGFloat const pickViewRowHeight = 30.f;
 
@@ -161,7 +161,7 @@ static CGFloat const pickViewRowHeight = 30.f;
 - (void)temperValueButtonPressed {
     NSArray *dataList = [self fetchTemperDataList];
     NSInteger row = [self fetchSlectedRow:dataList value:self.temperValueLabel.text];
-    MKSlotConfigPickView *pickView = [[MKSlotConfigPickView alloc] init];
+    MKPickerView *pickView = [[MKPickerView alloc] init];
     pickView.dataList = dataList;
     [pickView showPickViewWithIndex:row block:^(NSInteger currentRow) {
         self.temperValueLabel.text = dataList[currentRow];
@@ -172,7 +172,7 @@ static CGFloat const pickViewRowHeight = 30.f;
 - (void)humiValueButtonPressed {
     NSArray *dataList = [self fetchHumidityDataList];
     NSInteger row = [self fetchSlectedRow:dataList value:self.humiValueLabel.text];
-    MKSlotConfigPickView *pickView = [[MKSlotConfigPickView alloc] init];
+    MKPickerView *pickView = [[MKPickerView alloc] init];
     pickView.dataList = dataList;
     [pickView showPickViewWithIndex:row block:^(NSInteger currentRow) {
         self.humiValueLabel.text = dataList[currentRow];

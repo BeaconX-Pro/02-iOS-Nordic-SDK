@@ -14,14 +14,11 @@
 
 @implementation WRNavigationBar
 
-+ (BOOL)isIphoneX {
-    return ([UIApplication sharedApplication].statusBarFrame.size.height == 44);
-}
 + (CGFloat)navBarBottom {
-    return [self isIphoneX] ? 88 : 64;
+    return ([[UIApplication sharedApplication] statusBarFrame].size.height + 44.f);
 }
 + (CGFloat)tabBarHeight {
-    return [self isIphoneX] ? 83 : 49;
+    return (VirtualHomeHeight + 49.f);
 }
 + (CGFloat)screenWidth {
     return [UIScreen mainScreen].bounds.size.width;

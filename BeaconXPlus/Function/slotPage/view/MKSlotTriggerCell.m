@@ -12,7 +12,7 @@
 #import "MKTriggerHumidityView.h"
 #import "MKTriggerTapView.h"
 
-#import "MKSlotConfigPickView.h"
+#import "MKPickerView.h"
 #import "MKSlider.h"
 
 @interface MKSlotTriggerCell ()
@@ -187,7 +187,7 @@
 - (void)triggerLabelPressed {
     NSArray *dataList = [self triggerTypeList];
     NSInteger index = [self pickViewIndex:dataList];
-    MKSlotConfigPickView *pickView = [[MKSlotConfigPickView alloc] init];
+    MKPickerView *pickView = [[MKPickerView alloc] init];
     pickView.dataList = dataList;
     [pickView showPickViewWithIndex:index block:^(NSInteger currentRow) {
         self.triggerLabel.text = dataList[currentRow];

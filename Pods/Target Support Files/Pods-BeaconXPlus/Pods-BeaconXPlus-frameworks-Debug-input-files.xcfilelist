@@ -2,6 +2,7 @@ ${PODS_ROOT}/Target Support Files/Pods-BeaconXPlus/Pods-BeaconXPlus-frameworks.s
 ${BUILT_PRODUCTS_DIR}/CircleProgressBar/CircleProgressBar.framework
 ${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework
 ${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework
+${BUILT_PRODUCTS_DIR}/MKBLEBaseModule/MKBLEBaseModule.framework
 ${BUILT_PRODUCTS_DIR}/MLInputDodger/MLInputDodger.framework
 ${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
 ${BUILT_PRODUCTS_DIR}/Toast/Toast.framework
