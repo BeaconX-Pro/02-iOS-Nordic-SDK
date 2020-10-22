@@ -308,7 +308,6 @@ static CGFloat const unitLabelWidth = 60.f;
 
 #pragma mark - Public method
 - (void)setDataDic:(NSDictionary *)dataDic{
-    _dataDic = nil;
     _dataDic = dataDic;
     if ([self isiBeaconType]) {
         _rssiLabel.attributedText = [MKAttributedString getAttributedString:@[@"RSSI@1M",@"    (-100dBm~+20dBm)"] fonts:@[MKFont(15.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];

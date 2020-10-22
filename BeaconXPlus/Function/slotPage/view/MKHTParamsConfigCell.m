@@ -186,7 +186,6 @@ static CGFloat const pickViewRowHeight = 30.f;
 
 #pragma mark -
 -(void)setDataDic:(NSDictionary *)dataDic {
-    _dataDic = nil;
     _dataDic = dataDic;
     if (!ValidDict(_dataDic)) {
         return;

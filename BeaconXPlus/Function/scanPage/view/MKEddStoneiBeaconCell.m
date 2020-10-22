@@ -210,7 +210,6 @@ static CGFloat const leftIconHeight = 7.f;
 
 #pragma mark - Public method
 - (void)setBeacon:(MKBXPiBeacon *)beacon {
-    _beacon = nil;
     _beacon = beacon;
     if (!_beacon) {
         return;

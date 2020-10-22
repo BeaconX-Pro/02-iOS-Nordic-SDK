@@ -98,7 +98,6 @@ static CGFloat const searchIconHeight = 22.f;
 #pragma mark - Public method
 
 - (void)setSearchConditions:(NSMutableArray *)searchConditions{
-    _searchConditions = nil;
     _searchConditions = searchConditions;
     if ([_searchConditions containsObject:@"-100dBm"]) {
         [_searchConditions removeObject:@"-100dBm"];

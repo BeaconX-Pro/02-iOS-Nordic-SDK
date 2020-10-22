@@ -27,6 +27,8 @@
 
 static NSString *const MKLeftButtonAnimationKey = @"MKLeftButtonAnimationKey";
 
+static NSTimeInterval const kRefreshInterval = .5f;
+
 static CGFloat const offset_X = 15.f;
 static CGFloat const searchButtonHeight = 40.f;
 static CGFloat const headerViewHeight = 90.f;
@@ -91,6 +93,10 @@ static CGFloat const threeSensorCellHeight = 110.f;
 /// 当左侧按钮停止扫描的时候,currentScanStatus = NO,开始扫描的时候currentScanStatus=YES
 @property (nonatomic, assign)BOOL currentScanStatus;
 
+@property (nonatomic, assign)CFRunLoopObserverRef observerRef;
+
+@property (nonatomic, assign)BOOL isNeedRefresh;
+
 @end
 
 @implementation MKScanViewController
@@ -99,6 +105,8 @@ static CGFloat const threeSensorCellHeight = 110.f;
 - (void)dealloc{
     NSLog(@"MKScanViewController销毁");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //移除runloop的监听
+    CFRunLoopRemoveObserver(CFRunLoopGetCurrent(), self.observerRef, kCFRunLoopCommonModes);
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -114,6 +122,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
+    [self runloopObserver];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setCentralScanDelegate)
                                                  name:@"MKCentralDeallocNotification"
@@ -228,22 +237,6 @@ static CGFloat const threeSensorCellHeight = 110.f;
 
 #pragma mark - MKBXPScanDelegate
 - (void)bxp_didReceiveBeacon:(NSArray <MKBXPBaseBeacon *>*)beaconList {
-//    @synchronized (self.dataList) {
-//        dispatch_async(self.scanQueue, ^{
-//            dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-//            if (!self.currentScanStatus) {
-//                //停止扫描了
-//                [self unlock];
-//                return ;
-//            }
-//            for (MKBXPBaseBeacon *beacon in beaconList) {
-//                [self updateDataWithBeacon:beacon];
-//                moko_dispatch_main_safe(^{
-//                    [self performSelector:@selector(unlock) afterDelay:.3f];
-//                });
-//            }
-//        });
-//    }
     for (MKBXPBaseBeacon *beacon in beaconList) {
         [self updateDataWithBeacon:beacon];
     }
@@ -409,21 +402,15 @@ static CGFloat const threeSensorCellHeight = 110.f;
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
         //如果是设备信息帧
         newModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
-        NSIndexSet *set = [NSIndexSet indexSetWithIndex:(self.dataList.count - 1)];
-        [UIView performWithoutAnimation:^{
-            [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationNone];
-        }];
+        [self needRefreshList];
     }else{
         //如果是URL、TLM、UID、iBeacon中的一种，直接加入到newModel中的数据帧数组里面
         [newModel.dataArray addObject:beacon];
         beacon.index = 0;
-        NSIndexSet *set = [NSIndexSet indexSetWithIndex:(self.dataList.count - 1)];
-        [UIView performWithoutAnimation:^{
-            [self.tableView insertSections:set withRowAnimation:UITableViewRowAnimationNone];
-        }];
+        [self needRefreshList];
     }
     //刷新顶部设备数量
-    [self resetDevicesNum];
+//    [self resetDevicesNum];
 }
 
 /**
@@ -443,9 +430,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
         //设备信息帧
         exsitModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
-        [UIView performWithoutAnimation:^{
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:exsitModel.index] withRowAnimation:UITableViewRowAnimationNone];
-        }];
+        [self needRefreshList];
         return;
     }
     //如果是URL、TLM、UID、iBeacon中的一种，
@@ -459,9 +444,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
             //TLM信息帧需要替换
             beacon.index = model.index;
             [exsitModel.dataArray replaceObjectAtIndex:model.index withObject:beacon];
-            [UIView performWithoutAnimation:^{
-                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:exsitModel.index] withRowAnimation:UITableViewRowAnimationNone];
-            }];
+            [self needRefreshList];
             return;
         }
     }
@@ -482,10 +465,7 @@ static CGFloat const threeSensorCellHeight = 110.f;
         tempModel.index = i;
         [exsitModel.dataArray addObject:tempModel];
     }
-    NSIndexSet *set = [NSIndexSet indexSetWithIndex:exsitModel.index];
-    [UIView performWithoutAnimation:^{
-        [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
-    }];
+    [self needRefreshList];
 }
 
 - (MKScanBaseCell *)loadCellDataWithIndexPath:(NSIndexPath *)indexPath{
@@ -722,6 +702,35 @@ static CGFloat const threeSensorCellHeight = 110.f;
     
 }
 
+#pragma mark - 刷新
+- (void)needRefreshList {
+    //标记需要刷新
+    self.isNeedRefresh = YES;
+    //唤醒runloop
+    CFRunLoopWakeUp(CFRunLoopGetMain());
+}
+
+- (void)runloopObserver {
+    WS(weakSelf);
+    __block NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
+    self.observerRef = CFRunLoopObserverCreateWithHandler(CFAllocatorGetDefault(), kCFRunLoopAllActivities, YES, 0, ^(CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
+        if (activity == kCFRunLoopBeforeWaiting) {
+            //runloop空闲的时候刷新需要处理的列表,但是需要控制刷新频率
+            NSTimeInterval currentInterval = [[NSDate date] timeIntervalSince1970];
+            if (currentInterval - timeInterval < kRefreshInterval) {
+                return;;
+            }
+            timeInterval = currentInterval;
+            if (weakSelf.isNeedRefresh) {
+                [weakSelf.tableView reloadData];
+                [weakSelf resetDevicesNum];
+                weakSelf.isNeedRefresh = NO;
+            }
+        }
+    });
+    //添加监听，模式为kCFRunLoopCommonModes
+    CFRunLoopAddObserver(CFRunLoopGetCurrent(), self.observerRef, kCFRunLoopCommonModes);
+}
 
 - (void)loadSubViews{
     self.custom_naviBarColor = UIColorFromRGB(0x2F84D0);

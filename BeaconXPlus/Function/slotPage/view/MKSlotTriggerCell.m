@@ -205,7 +205,6 @@
 
 #pragma mark -
 - (void)setDataDic:(NSDictionary *)dataDic {
-    _dataDic = nil;
     _dataDic = dataDic;
     if (!ValidDict(_dataDic)) {
         return;

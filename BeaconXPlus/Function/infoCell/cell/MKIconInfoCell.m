@@ -87,7 +87,6 @@ static CGFloat const rightIconHeight = 14.f;
 
 #pragma mark - Public method
 - (void)setDataModel:(MKMainCellModel *)dataModel{
-    _dataModel = nil;
     _dataModel = dataModel;
     if (!_dataModel) {
         return;

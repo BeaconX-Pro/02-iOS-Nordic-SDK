@@ -63,7 +63,7 @@
         case 0x03:
             return @"https://";
         default:
-            return nil;
+            return @"";
     }
 }
 
@@ -170,7 +170,7 @@
     }
     //如果不合法
     if (urlContent.length > 17 || urlContent.length < 2) {
-        return nil;
+        return @"";
     }
     NSString *content = @"";
     for (NSInteger i = 0; i < urlContent.length; i ++) {
@@ -264,7 +264,7 @@
 
 + (NSString *)fetchTxPowerWithContent:(NSString *)content{
     if (!MKValidStr(content) || content.length != 2) {
-        return nil;
+        return @"";
     }
     NSString *power = @"";
     if ([content isEqualToString:@"04"]) {

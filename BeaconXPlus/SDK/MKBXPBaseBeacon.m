@@ -16,7 +16,7 @@
 
 + (NSArray <MKBXPBaseBeacon *>*)parseAdvData:(NSDictionary *)advData {
     if (!MKValidDict(advData)) {
-        return nil;
+        return @[];
     }
     NSDictionary *advDic = advData[CBAdvertisementDataServiceDataKey];
     NSMutableArray *beaconList = [NSMutableArray array];

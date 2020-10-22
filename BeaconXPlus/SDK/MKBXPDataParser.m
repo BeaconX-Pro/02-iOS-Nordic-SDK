@@ -23,11 +23,11 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
 
 + (NSDictionary *)parseReadDataFromCharacteristic:(CBCharacteristic *)characteristic{
     if (!characteristic) {
-        return nil;
+        return @{};
     }
     NSData *readData = characteristic.value;
     if (!MKValidData(readData)) {
-        return nil;
+        return @{};
     }
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:modeIDUUID]]){
         //产品型号信息
@@ -85,7 +85,7 @@ NSString *const MKBXPDataNum = @"MKBXPDataNum";
         //可连接状态
         return [self parseConnectStatus:readData];
     }
-    return nil;
+    return @{};
 }
 
 + (NSDictionary *)parseWriteDataFromCharacteristic:(CBCharacteristic *)characteristic{

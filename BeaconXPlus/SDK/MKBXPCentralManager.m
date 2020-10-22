@@ -287,6 +287,9 @@ NSString *const MKBXPReceiveRecordHTDataNotification = @"MKBXPReceiveRecordHTDat
         return;
     }
     self.readingLockState = YES;
+    self.sucBlock = nil;
+    self.failedBlock = nil;
+    self.progressBlock = nil;
     __weak typeof(self) weakSelf = self;
     self.readLockStateBlock = ^(NSString *lockState) {
         if (sucBlock) {
@@ -295,9 +298,17 @@ NSString *const MKBXPReceiveRecordHTDataNotification = @"MKBXPReceiveRecordHTDat
         __strong typeof(self) sself = weakSelf;
         [sself clearAllParams];
     };
-    self.failedBlock = nil;
-    self.failedBlock = failedBlock;
-    [self connect:peripheral progressBlock:nil sucBlock:nil failedBlock:failedBlock];
+    MKBXPPeripheral *bxpPeripheral = [[MKBXPPeripheral alloc] init];
+    bxpPeripheral.peripheral = peripheral;
+    [[MKBLEBaseCentralManager shared] connectDevice:bxpPeripheral sucBlock:^(CBPeripheral * _Nonnull peripheral) {
+        [self sendPasswordToDevice];
+    } failedBlock:^(NSError * _Nonnull error) {
+        if (failedBlock) {
+            failedBlock(error);
+        }
+        __strong typeof(self) sself = weakSelf;
+        [sself clearAllParams];
+    }];
 }
 
 - (void)connectPeripheral:(CBPeripheral *)peripheral
@@ -411,6 +422,7 @@ NSString *const MKBXPReceiveRecordHTDataNotification = @"MKBXPReceiveRecordHTDat
         [self updateConnectProgress:50.f];
         if (lockState == MKBXPLockStateUnknow) {
             [MKBLEBaseSDKAdopter operationConnectFailedBlock:self.failedBlock];
+            self.readingLockState = NO;
             return;
         }
         if (lockState == MKBXPLockStateLock) {
@@ -420,11 +432,13 @@ NSString *const MKBXPReceiveRecordHTDataNotification = @"MKBXPReceiveRecordHTDat
             [self updateConnectProgress:65.f];
             if (!MKValidData(randKey) || randKey.length != 16) {
                 [MKBLEBaseSDKAdopter operationConnectFailedBlock:self.failedBlock];
+                self.readingLockState = NO;
                 return;
             }
             NSData *keyToUnlock = [MKBXPAdopter fetchKeyToUnlockWithPassword:self.password randKey:randKey];
             if (!MKValidData(keyToUnlock)) {
                 [MKBLEBaseSDKAdopter operationConnectFailedBlock:self.failedBlock];
+                self.readingLockState = NO;
                 return;
             }
             //当前密码与unlock返回的16位key进行aes128加密之后生成对应的解锁码，发送给设备的unlock特征进行解锁
@@ -432,6 +446,7 @@ NSString *const MKBXPReceiveRecordHTDataNotification = @"MKBXPReceiveRecordHTDat
             [self updateConnectProgress:80.f];
             if (!sendToUnlockSuccess) {
                 [MKBLEBaseSDKAdopter operationConnectFailedBlock:self.failedBlock];
+                self.readingLockState = NO;
                 return;
             }
             //解锁码发送给设备之后，再次获取设备的锁定状态，看看是否解锁成功
@@ -440,11 +455,14 @@ NSString *const MKBXPReceiveRecordHTDataNotification = @"MKBXPReceiveRecordHTDat
             [self updateConnectProgress:100.f];
             if (newLockState == MKBXPLockStateUnknow || newLockState == MKBXPLockStateLock) {
                 [self operationFailedBlockWithMsg:@"Password Error" failedBlock:self.failedBlock];
+                self.readingLockState = NO;
                 return;
             }
+            self.readingLockState = NO;
             [self connectDeviecSuccess];
             return;
         }
+        self.readingLockState = NO;
         [self connectDeviecSuccess];
     });
     

@@ -512,7 +512,6 @@ static CGFloat const headerViewHeight = 130.f;
 
 #pragma mark - Public method
 - (void)setVcModel:(MKSlotDataTypeModel *)vcModel{
-    _vcModel = nil;
     _vcModel = vcModel;
     if (!_vcModel) {
         return;

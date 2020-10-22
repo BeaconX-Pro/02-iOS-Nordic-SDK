@@ -161,7 +161,6 @@ static CGFloat const leftIconHeight = 7.f;
 
 #pragma mark -
 - (void)setBeacon:(MKBXPThreeASensorBeacon *)beacon {
-    _beacon = nil;
     _beacon = beacon;
     if (!_beacon) {
         return;

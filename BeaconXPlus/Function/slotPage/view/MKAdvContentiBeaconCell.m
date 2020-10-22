@@ -150,7 +150,6 @@ static CGFloat labelHeight = 30.f;
 
 #pragma mark - Public method
 - (void)setDataDic:(NSDictionary *)dataDic{
-    _dataDic = nil;
     _dataDic = dataDic;
     if (!ValidDict(_dataDic)) {
         return;

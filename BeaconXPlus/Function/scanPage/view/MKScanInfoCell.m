@@ -252,7 +252,6 @@ static CGFloat const batteryIconHeight = 25.f;
 
 #pragma mark - Public method
 - (void)setBeacon:(MKScanBeaconModel *)beacon {
-    _beacon = nil;
     _beacon = beacon;
     self.txPowerLabel.text = @"";
     self.txPowerValueLabel.text = @"";

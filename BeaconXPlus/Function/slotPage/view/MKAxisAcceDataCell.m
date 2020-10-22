@@ -123,7 +123,6 @@
 
 #pragma mark -
 - (void)setAxisData:(NSDictionary *)axisData {
-    _axisData = nil;
     _axisData = axisData;
     if (!ValidDict(_axisData)) {
         return;
