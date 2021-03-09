@@ -1,0 +1,56 @@
+{
+  "name": "MKBeaconXPlus",
+  "version": "0.0.1",
+  "summary": "A short description of MKBeaconXPlus.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/aadyx2007@163.com/MKBeaconXPlus",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "aadyx2007@163.com": "aadyx2007@163.com"
+  },
+  "source": {
+    "git": "https://github.com/aadyx2007@163.com/MKBeaconXPlus.git",
+    "tag": "0.0.1"
+  },
+  "platforms": {
+    "ios": "12.0"
+  },
+  "source_files": "MKBeaconXPlus/Classes/**/*",
+  "resource_bundles": {
+    "MKBeaconXPlus": [
+      "MKBeaconXPlus/Assets/*.png"
+    ]
+  },
+  "dependencies": {
+    "MKBaseBleModule": [
+
+    ],
+    "MKBaseModuleLibrary": [
+
+    ],
+    "MKCustomUIModule": [
+
+    ],
+    "HHTransition": [
+
+    ],
+    "FMDB": [
+
+    ],
+    "MLInputDodger": [
+
+    ],
+    "iOSDFULibrary": [
+      "4.6.1"
+    ],
+    "CTMediator": [
+
+    ],
+    "AAChartKit": [
+
+    ]
+  }
+}
