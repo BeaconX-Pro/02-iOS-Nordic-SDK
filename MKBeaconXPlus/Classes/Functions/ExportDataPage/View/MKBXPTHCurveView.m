@@ -14,7 +14,7 @@
 #import "UIView+MKAdd.h"
 
 static CGFloat const valueLabelWidth = 35.f;
-static NSInteger const maxPointCount = 100;
+static NSInteger const maxPointCount = 1000;
 
 @implementation MKBXPTHCurveViewModel
 
@@ -72,7 +72,6 @@ static NSInteger const maxPointCount = 100;
         CGFloat tempValue = (self.frame.size.height - 13.f) * (maxValue - [pointList[i] floatValue]) / totalValue;
         [self.pointList addObject:@(tempValue)];
     }
-    [self.pointList addObjectsFromArray:pointList];
     [self setNeedsDisplay];
 }
 
@@ -116,13 +115,23 @@ static NSInteger const maxPointCount = 100;
 
 @property (nonatomic, strong)UILabel *maxLabel;
 
+@property (nonatomic, strong)UIView *maxLine;
+
 @property (nonatomic, strong)UILabel *minLabel;
+
+@property (nonatomic, strong)UIView *minLine;
 
 @property (nonatomic, strong)UILabel *aveLabel;
 
+@property (nonatomic, strong)UIView *aveLine;
+
 @property (nonatomic, strong)UILabel *valueMaxLabel;
 
+@property (nonatomic, strong)UIView *valueMaxLine;
+
 @property (nonatomic, strong)UILabel *valueMinLabel;
+
+@property (nonatomic, strong)UIView *valueMinLine;
 
 @property (nonatomic, strong)MKBXPCurveView *curveView;
 
@@ -137,10 +146,15 @@ static NSInteger const maxPointCount = 100;
         [self addSubview:self.titleLabel];
         [self addSubview:self.horizontalLine];
         [self addSubview:self.maxLabel];
+        [self addSubview:self.maxLine];
         [self addSubview:self.valueMaxLabel];
+        [self addSubview:self.valueMaxLine];
         [self addSubview:self.valueMinLabel];
+        [self addSubview:self.valueMinLine];
         [self addSubview:self.minLabel];
+        [self addSubview:self.minLine];
         [self addSubview:self.aveLabel];
+        [self addSubview:self.aveLine];
         [self addSubview:self.scrollView];
         [self.scrollView addSubview:self.curveView];
     }
@@ -191,6 +205,36 @@ static NSInteger const maxPointCount = 100;
         make.top.mas_equalTo(5.f);
         make.bottom.mas_equalTo(-5.f);
     }];
+    [self.maxLine mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.horizontalLine.mas_right);
+        make.width.mas_equalTo(3.f);
+        make.centerY.mas_equalTo(self.maxLabel.mas_centerY);
+        make.height.mas_equalTo(0.5f);
+    }];
+    [self.minLine mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.horizontalLine.mas_right);
+        make.width.mas_equalTo(3.f);
+        make.centerY.mas_equalTo(self.minLabel.mas_centerY);
+        make.height.mas_equalTo(0.5f);
+    }];
+    [self.aveLine mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.horizontalLine.mas_right);
+        make.width.mas_equalTo(3.f);
+        make.centerY.mas_equalTo(self.aveLabel.mas_centerY);
+        make.height.mas_equalTo(0.5f);
+    }];
+    [self.valueMaxLine mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.horizontalLine.mas_right);
+        make.width.mas_equalTo(3.f);
+        make.centerY.mas_equalTo(self.valueMaxLabel.mas_centerY);
+        make.height.mas_equalTo(0.5f);
+    }];
+    [self.valueMinLine mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.horizontalLine.mas_right);
+        make.width.mas_equalTo(3.f);
+        make.centerY.mas_equalTo(self.valueMinLabel.mas_centerY);
+        make.height.mas_equalTo(0.5f);
+    }];
     [self.scrollView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.horizontalLine.mas_right);
         make.right.mas_equalTo(-5.f);
@@ -202,10 +246,12 @@ static NSInteger const maxPointCount = 100;
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    NSLog(@"当前滚动范围:%@",@(self.scrollView.contentOffset.x));
     if (self.scrollView.contentOffset.x <= 0) {
         CGPoint offset = scrollView.contentOffset;
         offset.x = 0;
         self.scrollView.contentOffset = offset;
+        return;
     }
 }
 
@@ -237,11 +283,13 @@ static NSInteger const maxPointCount = 100;
         CGFloat space = curveViewWidth / maxPointCount;
         tempViewWidth = (pointList.count / maxPointCount) * curveViewWidth + (pointList.count % maxPointCount) * space;
     }
-    self.curveView.frame = CGRectMake(0, 0, curveViewWidth, curveViewHeight);
+    self.curveView.frame = CGRectMake(0, 0, tempViewWidth, curveViewHeight);
     [self.curveView updatePointValues:pointList maxValue:maxValue minValue:minValue];
-    NSInteger totalPage = pointList.count / maxPointCount;
-    self.scrollView.contentSize = CGSizeMake(totalPage * curveViewWidth, 0);
-    
+    if (pointList.count <= maxPointCount) {
+        self.scrollView.contentSize = CGSizeMake(0, 0);
+    }else {
+        self.scrollView.contentSize = CGSizeMake(tempViewWidth, 0);
+    }
 }
 
 - (void)drawCurveWithPointList:(NSArray <NSString *>*)pointList
@@ -304,11 +352,27 @@ static NSInteger const maxPointCount = 100;
     return _maxLabel;
 }
 
+- (UIView *)maxLine {
+    if (!_maxLine) {
+        _maxLine = [[UIView alloc] init];
+        _maxLine.backgroundColor = RGBCOLOR(136, 136, 136);
+    }
+    return _maxLine;
+}
+
 - (UILabel *)valueMaxLabel {
     if (!_valueMaxLabel) {
         _valueMaxLabel = [self loadLabel];
     }
     return _valueMaxLabel;
+}
+
+- (UIView *)valueMaxLine {
+    if (!_valueMaxLine) {
+        _valueMaxLine = [[UIView alloc] init];
+        _valueMaxLine.backgroundColor = RGBCOLOR(136, 136, 136);
+    }
+    return _valueMaxLine;
 }
 
 - (UILabel *)minLabel {
@@ -318,6 +382,14 @@ static NSInteger const maxPointCount = 100;
     return _minLabel;
 }
 
+- (UIView *)minLine {
+    if (!_minLine) {
+        _minLine = [[UIView alloc] init];
+        _minLine.backgroundColor = RGBCOLOR(136, 136, 136);
+    }
+    return _minLine;
+}
+
 - (UILabel *)valueMinLabel {
     if (!_valueMinLabel) {
         _valueMinLabel = [self loadLabel];
@@ -325,11 +397,27 @@ static NSInteger const maxPointCount = 100;
     return _valueMinLabel;
 }
 
+- (UIView *)valueMinLine {
+    if (!_valueMinLine) {
+        _valueMinLine = [[UIView alloc] init];
+        _valueMinLine.backgroundColor = RGBCOLOR(136, 136, 136);
+    }
+    return _valueMinLine;
+}
+
 - (UILabel *)aveLabel {
     if (!_aveLabel) {
         _aveLabel = [self loadLabel];
     }
     return _aveLabel;
+}
+
+- (UIView *)aveLine {
+    if (!_aveLine) {
+        _aveLine = [[UIView alloc] init];
+        _aveLine.backgroundColor = RGBCOLOR(136, 136, 136);
+    }
+    return _aveLine;
 }
 
 - (UIScrollView *)scrollView {

@@ -108,7 +108,7 @@
     }];
     [self.intervalTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.intervalUnitLabel.mas_left).mas_offset(-5.f);
-        make.width.mas_equalTo(30.f);
+        make.width.mas_equalTo(60.f);
         make.top.mas_equalTo(self.leftIcon.mas_bottom).mas_offset(15.f);
         make.height.mas_equalTo(20.f);
     }];

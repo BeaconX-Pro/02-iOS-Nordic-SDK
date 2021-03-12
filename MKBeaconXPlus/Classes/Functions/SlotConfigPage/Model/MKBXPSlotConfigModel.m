@@ -21,6 +21,9 @@
 
 @property (nonatomic, strong)dispatch_semaphore_t semaphore;
 
+/// 固件某个版本存在bug，如果将设备的通道广播间隔设置得跟当前设备广播间隔值一样，则固件会产生bug，所以当读取回来的跟要设置的值一样的情况下，不再设置广播间隔给设备
+@property (nonatomic, copy)NSString *originAdvInterval;
+
 @end
 
 @implementation MKBXPSlotConfigModel
@@ -117,7 +120,6 @@
             [self operationFailedBlockWithMsg:@"Config Adv Data Error" block:failedBlock];
             return;
         }
-        sleep(1.f);
         if (![self configTxPower:[params[bxp_slotConfig_advParamType][@"txPower"] integerValue]]) {
             [self operationFailedBlockWithMsg:@"Config Tx Power Error" block:failedBlock];
             return;
@@ -126,9 +128,11 @@
             [self operationFailedBlockWithMsg:@"Config Rssi Error" block:failedBlock];
             return;
         }
-        if (![self configAdvInterval:[params[bxp_slotConfig_advParamType][@"interval"] integerValue]]) {
-            [self operationFailedBlockWithMsg:@"Config Interval Error" block:failedBlock];
-            return;
+        if (![self.originAdvInterval isEqualToString:params[bxp_slotConfig_advParamType][@"interval"]]) {
+            if (![self configAdvInterval:[params[bxp_slotConfig_advParamType][@"interval"] integerValue]]) {
+                [self operationFailedBlockWithMsg:@"Config Interval Error" block:failedBlock];
+                return;
+            }
         }
         if (![self configTriggerConditions:params[bxp_slotConfig_advTriggerType]]) {
             [self operationFailedBlockWithMsg:@"Config Adv Trigger Error" block:failedBlock];
@@ -211,6 +215,7 @@
         success = YES;
         NSInteger tempInterval = [returnData[@"result"][@"advertisingInterval"] integerValue] / 100;
         self.advInterval = [NSString stringWithFormat:@"%ld",(long)tempInterval];
+        self.originAdvInterval = [NSString stringWithFormat:@"%ld",(long)tempInterval];
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);

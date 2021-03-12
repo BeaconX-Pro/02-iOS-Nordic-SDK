@@ -664,7 +664,7 @@ MKBXPTriggerTapViewDelegate>
                                      @"triggerType":triggerType,
                                      @"conditions":@{
                                              @"time":timeValue,
-                                             @"start":@(tempModel.index == 1)
+                                             @"start":@(tempModel.index != 2)
                                      }
                              },
                      },

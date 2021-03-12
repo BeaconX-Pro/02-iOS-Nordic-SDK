@@ -25,19 +25,16 @@
 
 - (void)setIndex:(NSInteger)index {
     _index = index;
-    NSLog(@"+++++++++++index发生了改变");
 }
 
 - (void)setStartValue:(NSString *)startValue {
     _startValue = nil;
     _startValue = startValue;
-    NSLog(@"+++++++++++startValue发生了改变");
 }
 
 - (void)setStopValue:(NSString *)stopValue {
     _stopValue = nil;
     _stopValue = stopValue;
-    NSLog(@"+++++++++++stopValue发生了改变");
 }
 
 @end

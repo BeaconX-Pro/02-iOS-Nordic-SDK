@@ -265,7 +265,12 @@ MKBXPSlotConfigTriggerCellDelegate>
     MKBXPSlotConfigTriggerCellModel *cellModel = [[MKBXPSlotConfigTriggerCellModel alloc] init];
     cellModel.type = self.dataModel.triggerConditions[@"type"];
     cellModel.conditions = self.dataModel.triggerConditions[@"conditions"];
-    cellModel.isOn = !([self.dataModel.triggerConditions[@"type"] isEqualToString:@"00"]);
+    if (ValidDict(self.dataModel.triggerConditions) && ValidStr(self.dataModel.triggerConditions[@"type"])) {
+        cellModel.isOn = !([self.dataModel.triggerConditions[@"type"] isEqualToString:@"00"]);
+    }else {
+        cellModel.isOn = NO;
+    }
+    
     [self.section2List addObject:cellModel];
 }
 

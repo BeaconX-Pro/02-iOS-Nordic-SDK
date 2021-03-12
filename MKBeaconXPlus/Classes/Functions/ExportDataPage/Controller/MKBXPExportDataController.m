@@ -78,6 +78,7 @@
     if (self.receiveTimer) {
         dispatch_cancel(self.receiveTimer);
     }
+    [MKBLEBaseLogManager deleteLogWithFileName:@"T&HDatas"];
 }
 
 - (void)viewDidLoad {
@@ -87,9 +88,6 @@
                                              selector:@selector(receiveRecordHTData:)
                                                  name:mk_bxp_receiveRecordHTDataNotification
                                                object:nil];
-    NSData *recordData = [MKBLEBaseLogManager readDataWithFileName:@"/T&HDatas"];
-    NSString *record = [[NSString alloc] initWithData:recordData encoding:NSUTF8StringEncoding];
-    self.textView.text = record;
     // Do any additional setup after loading the view.
 }
 

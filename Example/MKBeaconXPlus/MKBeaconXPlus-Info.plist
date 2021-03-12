@@ -2,16 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIFileSharingEnabled</key>
-	<true/>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Beacon Pro need to use your mobile phone bluetooth to communicate with devices</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Beacon Pro need to use your mobile phone bluetooth to communicate with devices</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>BeaconX Pro</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
@@ -29,6 +23,12 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Beacon Pro need to use your mobile phone bluetooth to communicate with devices</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Beacon Pro need to use your mobile phone bluetooth to communicate with devices</string>
+	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

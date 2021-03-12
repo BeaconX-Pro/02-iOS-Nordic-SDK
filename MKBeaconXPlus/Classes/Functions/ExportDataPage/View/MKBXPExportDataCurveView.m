@@ -35,7 +35,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = RGBCOLOR(224, 245, 254);
+        self.backgroundColor = COLOR_WHITE_MACROS;
         [self addSubview:self.tempView];
         [self addSubview:self.humidityView];
         [self addSubview:self.totalLabel];
@@ -118,6 +118,9 @@
     if (!_tempModel) {
         _tempModel = [[MKBXPTHCurveViewModel alloc] init];
         _tempModel.curveTitle = @"Temperature(℃)";
+        _tempModel.curveViewBackgroundColor = COLOR_WHITE_MACROS;
+        _tempModel.lineWidth = 3.f;
+        _tempModel.labelColor = RGBCOLOR(136, 136, 136);
     }
     return _tempModel;
 }
@@ -133,7 +136,10 @@
     if (!_humidityModel) {
         _humidityModel = [[MKBXPTHCurveViewModel alloc] init];
         _humidityModel.lineColor = [UIColor greenColor];
+        _humidityModel.curveViewBackgroundColor = COLOR_WHITE_MACROS;
+        _humidityModel.lineWidth = 3.f;
         _humidityModel.curveTitle = @"Humidity(%RH)";
+        _humidityModel.labelColor = RGBCOLOR(136, 136, 136);
     }
     return _humidityModel;
 }
