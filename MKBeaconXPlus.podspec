@@ -38,15 +38,21 @@ TODO: Add long description of the pod here.
    
    s.subspec 'ApplicationModule' do |ss|
      ss.source_files = 'MKBeaconXPlus/Classes/ApplicationModule/**'
+     ss.dependency 'MKBaseModuleLibrary'
    end
    
    s.subspec 'ConnectManager' do |ss|
      ss.source_files = 'MKBeaconXPlus/Classes/ConnectManager/**'
+     
+     ss.dependency 'MKBaseModuleLibrary'
+     
      ss.dependency 'MKBeaconXPlus/SDK-BXP'
    end
    
    s.subspec 'CTMediator' do |ss|
      ss.source_files = 'MKBeaconXPlus/Classes/CTMediator/**'
+     
+     s.dependency 'CTMediator'
    end
    
    s.subspec 'Expand' do |ss|
@@ -57,10 +63,13 @@ TODO: Add long description of the pod here.
      ss.subspec 'Defines' do |sss|
        sss.source_files = 'MKBeaconXPlus/Classes/Expand/Defines/**'
      end
+     
+     ss.dependency 'MKBaseModuleLibrary'
    end
    
    s.subspec 'SDK-BXP' do |ss|
      ss.source_files = 'MKBeaconXPlus/Classes/SDK-BXP/**'
+     ss.dependency 'MKBaseBleModule'
    end
    
    s.subspec 'Target' do |ss|
@@ -211,14 +220,11 @@ TODO: Add long description of the pod here.
      ss.dependency 'MKBeaconXPlus/Expand'
      ss.dependency 'MKBeaconXPlus/SDK-BXP'
      ss.dependency 'MKBeaconXPlus/CTMediator'
+     
+     ss.dependency 'MKBaseModuleLibrary'
+     ss.dependency 'MKCustomUIModule'
+     ss.dependency 'HHTransition'
+     ss.dependency 'MLInputDodger'
+     ss.dependency 'iOSDFULibrary','4.6.1'
    end
-
-  s.dependency 'MKBaseBleModule'
-  s.dependency 'MKBaseModuleLibrary'
-  s.dependency 'MKCustomUIModule'
-  s.dependency 'HHTransition'
-  s.dependency 'FMDB'
-  s.dependency 'MLInputDodger'
-  s.dependency 'iOSDFULibrary','4.6.1'
-  s.dependency 'CTMediator'
 end

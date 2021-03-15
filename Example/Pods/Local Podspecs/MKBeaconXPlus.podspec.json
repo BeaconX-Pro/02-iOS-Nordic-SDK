@@ -25,7 +25,7 @@
     ]
   },
   "dependencies": {
-    "MKBaseBleModule": [
+    "CTMediator": [
 
     ],
     "MKBaseModuleLibrary": [
@@ -37,28 +37,30 @@
     "HHTransition": [
 
     ],
-    "FMDB": [
-
-    ],
     "MLInputDodger": [
 
     ],
     "iOSDFULibrary": [
       "4.6.1"
-    ],
-    "CTMediator": [
-
     ]
   },
   "subspecs": [
     {
       "name": "ApplicationModule",
-      "source_files": "MKBeaconXPlus/Classes/ApplicationModule/**"
+      "source_files": "MKBeaconXPlus/Classes/ApplicationModule/**",
+      "dependencies": {
+        "MKBaseModuleLibrary": [
+
+        ]
+      }
     },
     {
       "name": "ConnectManager",
       "source_files": "MKBeaconXPlus/Classes/ConnectManager/**",
       "dependencies": {
+        "MKBaseModuleLibrary": [
+
+        ],
         "MKBeaconXPlus/SDK-BXP": [
 
         ]
@@ -70,6 +72,11 @@
     },
     {
       "name": "Expand",
+      "dependencies": {
+        "MKBaseModuleLibrary": [
+
+        ]
+      },
       "subspecs": [
         {
           "name": "Adopter",
@@ -88,7 +95,12 @@
     },
     {
       "name": "SDK-BXP",
-      "source_files": "MKBeaconXPlus/Classes/SDK-BXP/**"
+      "source_files": "MKBeaconXPlus/Classes/SDK-BXP/**",
+      "dependencies": {
+        "MKBaseBleModule": [
+
+        ]
+      }
     },
     {
       "name": "Target",
