@@ -214,9 +214,7 @@
 
 - (MKTextField *)nameTextField {
     if (!_nameTextField) {
-        _nameTextField = [[MKTextField alloc] initWithTextFieldType:mk_hexCharOnly textChangedBlock:^(NSString * _Nonnull text) {
-            
-        }];
+        _nameTextField = [[MKTextField alloc] initWithTextFieldType:mk_hexCharOnly];
         _nameTextField.textColor = DEFAULT_TEXT_COLOR;
         _nameTextField.placeholder = @"10bytes";
         _nameTextField.font = MKFont(15.f);
@@ -254,9 +252,7 @@
 
 - (MKTextField *)instanceTextField {
     if (!_instanceTextField) {
-        _instanceTextField = [[MKTextField alloc] initWithTextFieldType:mk_hexCharOnly textChangedBlock:^(NSString * _Nonnull text) {
-            
-        }];
+        _instanceTextField = [[MKTextField alloc] initWithTextFieldType:mk_hexCharOnly];
         _instanceTextField.textColor = DEFAULT_TEXT_COLOR;
         _instanceTextField.placeholder = @"6bytes";
         _instanceTextField.font = MKFont(15.f);

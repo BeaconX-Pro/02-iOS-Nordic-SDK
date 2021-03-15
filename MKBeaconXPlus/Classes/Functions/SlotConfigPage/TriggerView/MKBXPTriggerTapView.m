@@ -337,10 +337,11 @@
 - (MKTextField *)startField {
     if (!_startField) {
         WS(weakSelf);
-        _startField = [[MKTextField alloc] initWithTextFieldType:mk_realNumberOnly textChangedBlock:^(NSString * _Nonnull text) {
+        _startField = [[MKTextField alloc] initWithTextFieldType:mk_realNumberOnly];
+        _startField.textChangedBlock = ^(NSString * _Nonnull text) {
             __strong typeof(self) sself = weakSelf;
             [sself startTextFieldValueChanged:text];
-        }];
+        };
         _startField.textColor = DEFAULT_TEXT_COLOR;
         _startField.textAlignment = NSTextAlignmentCenter;
         _startField.font = MKFont(12.f);
@@ -364,10 +365,11 @@
 - (MKTextField *)stopField {
     if (!_stopField) {
         WS(weakSelf);
-        _stopField = [[MKTextField alloc] initWithTextFieldType:mk_realNumberOnly textChangedBlock:^(NSString * _Nonnull text) {
+        _stopField = [[MKTextField alloc] initWithTextFieldType:mk_realNumberOnly];
+        _stopField.textChangedBlock = ^(NSString * _Nonnull text) {
             __strong typeof(self) sself = weakSelf;
             [sself stopTextFieldValueChanged:text];
-        }];
+        };
         _stopField.textColor = DEFAULT_TEXT_COLOR;
         _stopField.textAlignment = NSTextAlignmentCenter;
         _stopField.font = MKFont(12.f);

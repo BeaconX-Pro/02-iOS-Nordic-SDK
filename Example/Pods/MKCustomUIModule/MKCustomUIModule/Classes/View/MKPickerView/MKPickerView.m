@@ -7,7 +7,6 @@
 
 #import "MKPickerView.h"
 #import "MKMacroDefines.h"
-#import "MKCustomUIAdopter.h"
 
 static NSTimeInterval const animationDuration = .3f;
 static CGFloat const kDatePickerH = 270;
@@ -66,8 +65,15 @@ static CGFloat const pickViewRowHeight = 30;
 }
 
 - (nullable NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    NSString *titleString = self.dataList[row];
-    NSAttributedString *attributedString = [MKCustomUIAdopter attributedString:@[titleString] fonts:@[MKFont(15.f)] colors:@[DEFAULT_TEXT_COLOR]];
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.dataList[row]];
+    [attributedString addAttribute:NSForegroundColorAttributeName
+                             value:(id)(DEFAULT_TEXT_COLOR)
+                             range:NSMakeRange(0, attributedString.length)];
+    [attributedString addAttribute:NSFontAttributeName
+                             value:(id)(MKFont(15.f))
+                             range:NSMakeRange(0, attributedString.length)];
+    
     return attributedString;
 }
 

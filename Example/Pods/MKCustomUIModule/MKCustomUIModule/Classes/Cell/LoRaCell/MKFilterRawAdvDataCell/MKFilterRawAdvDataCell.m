@@ -25,6 +25,13 @@
 
 @implementation MKFilterRawAdvDataCellModel
 
+- (instancetype)init {
+    if (self = [super init]) {
+        self.rawDataMaxBytes = 29;
+    }
+    return self;
+}
+
 - (BOOL)validParamsSuccess {
     if (!ValidStr(self.dataType) || self.dataType.length != 2) {
         return NO;
@@ -37,7 +44,7 @@
         //
         return [self validRawDatas];
     }
-    if (!ValidStr(self.minIndex) || self.minIndex.length > 2 || ![self.minIndex regularExpressions:isRealNumbers] || [self.minIndex integerValue] < 0 || [self.minIndex integerValue] > 29) {
+    if (!ValidStr(self.minIndex) || self.minIndex.length > 2 || ![self.minIndex regularExpressions:isRealNumbers] || [self.minIndex integerValue] < 0 || [self.minIndex integerValue] > self.rawDataMaxBytes) {
         return NO;
     }
     if ([self.minIndex integerValue] == 0) {
@@ -47,13 +54,13 @@
         }
         return NO;
     }
-    if (!ValidStr(self.maxIndex) || self.maxIndex.length > 2 || ![self.maxIndex regularExpressions:isRealNumbers] || [self.maxIndex integerValue] < 0 || [self.maxIndex integerValue] > 29) {
+    if (!ValidStr(self.maxIndex) || self.maxIndex.length > 2 || ![self.maxIndex regularExpressions:isRealNumbers] || [self.maxIndex integerValue] < 0 || [self.maxIndex integerValue] > self.rawDataMaxBytes) {
         return NO;
     }
     if ([self.maxIndex integerValue] < [self.minIndex integerValue]) {
         return NO;
     }
-    if (!ValidStr(self.rawData) || self.rawData.length > 58 || ![self.rawData regularExpressions:isHexadecimal]) {
+    if (!ValidStr(self.rawData) || self.rawData.length > (self.rawDataMaxBytes * 2) || ![self.rawData regularExpressions:isHexadecimal]) {
         return NO;
     }
     NSInteger totalLen = ([self.maxIndex integerValue] - [self.minIndex integerValue] + 1) * 2;
@@ -64,7 +71,7 @@
 }
 
 - (BOOL)validRawDatas {
-    if (!ValidStr(self.rawData) || self.rawData.length > 58 || ![self.rawData regularExpressions:isHexadecimal]) {
+    if (!ValidStr(self.rawData) || self.rawData.length > (self.rawDataMaxBytes * 2) || ![self.rawData regularExpressions:isHexadecimal]) {
         return NO;
     }
     if (self.rawData.length % 2 != 0) {
@@ -89,17 +96,17 @@
 
 @interface MKFilterRawAdvDataCell ()
 
-@property (nonatomic, strong)UITextField *typeTextField;
+@property (nonatomic, strong)MKTextField *typeTextField;
 
-@property (nonatomic, strong)UITextField *minTextField;
+@property (nonatomic, strong)MKTextField *minTextField;
 
-@property (nonatomic, strong)UITextField *maxTextField;
+@property (nonatomic, strong)MKTextField *maxTextField;
 
 @property (nonatomic, strong)UILabel *characterLabel;
 
 @property (nonatomic, strong)UILabel *unitLabel;
 
-@property (nonatomic, strong)UITextField *rawDataField;
+@property (nonatomic, strong)MKTextField *rawDataField;
 
 @end
 
@@ -180,38 +187,54 @@
         return;
     }
     self.typeTextField.text = SafeStr(_dataModel.dataType);
+    self.typeTextField.placeholder = SafeStr(_dataModel.dataTypePlaceHolder);
     self.minTextField.text = SafeStr(_dataModel.minIndex);
+    self.minTextField.placeholder = SafeStr(_dataModel.minTextFieldPlaceHolder);
     self.maxTextField.text = SafeStr(_dataModel.maxIndex);
+    self.maxTextField.placeholder = SafeStr(_dataModel.maxTextFieldPlaceHolder);
     self.rawDataField.text = SafeStr(_dataModel.rawData);
+    self.rawDataField.placeholder = SafeStr(_dataModel.rawTextFieldPlaceHolder);
+    self.rawDataField.maxLength = _dataModel.rawDataMaxBytes * 2;
 }
 
 #pragma mark -
-- (UITextField *)typeTextField {
+- (MKTextField *)typeTextField {
     if (!_typeTextField) {
+        _typeTextField = [self loadTextWithTextType:mk_hexCharOnly];
+        _typeTextField.maxLength = 2;
         WS(weakSelf);
-        _typeTextField = [self loadTextWithTextType:mk_hexCharOnly placeHolder:@"Data Type" maxLen:2 callback:^(NSString *textValue) {
-            [weakSelf textFieldValueChanged:textValue textType:mk_filterRawAdvDataTextTypeDataType];
-        }];
+        _typeTextField.textChangedBlock = ^(NSString * _Nonnull text) {
+            __strong typeof(self) sself = weakSelf;
+            [sself textFieldValueChanged:text textType:mk_filterRawAdvDataTextTypeDataType];
+        };
     }
     return _typeTextField;
 }
 
-- (UITextField *)minTextField {
+- (MKTextField *)minTextField {
     if (!_minTextField) {
+        _minTextField = [self loadTextWithTextType:mk_realNumberOnly];
+        _minTextField.maxLength = 2;
+        
         WS(weakSelf);
-        _minTextField = [self loadTextWithTextType:mk_realNumberOnly placeHolder:@"" maxLen:2 callback:^(NSString *textValue) {
-            [weakSelf textFieldValueChanged:textValue textType:mk_filterRawAdvDataTextTypeMinIndex];
-        }];
+        _minTextField.textChangedBlock = ^(NSString * _Nonnull text) {
+            __strong typeof(self) sself = weakSelf;
+            [sself textFieldValueChanged:text textType:mk_filterRawAdvDataTextTypeMinIndex];
+        };
     }
     return _minTextField;
 }
 
-- (UITextField *)maxTextField {
+- (MKTextField *)maxTextField {
     if (!_maxTextField) {
+        _maxTextField = [self loadTextWithTextType:mk_realNumberOnly];
+        _maxTextField.maxLength = 2;
+        
         WS(weakSelf);
-        _maxTextField = [self loadTextWithTextType:mk_realNumberOnly placeHolder:@"" maxLen:2 callback:^(NSString *textValue) {
-            [weakSelf textFieldValueChanged:textValue textType:mk_filterRawAdvDataTextTypeMaxIndex];
-        }];
+        _maxTextField.textChangedBlock = ^(NSString * _Nonnull text) {
+            __strong typeof(self) sself = weakSelf;
+            [sself textFieldValueChanged:text textType:mk_filterRawAdvDataTextTypeMaxIndex];
+        };
     }
     return _maxTextField;
 }
@@ -238,25 +261,23 @@
     return _unitLabel;
 }
 
-- (UITextField *)rawDataField {
+- (MKTextField *)rawDataField {
     if (!_rawDataField) {
+        _rawDataField = [self loadTextWithTextType:mk_hexCharOnly];
+        
         WS(weakSelf);
-        _rawDataField = [self loadTextWithTextType:mk_hexCharOnly placeHolder:@"Raw data field" maxLen:58 callback:^(NSString *textValue) {
-            [weakSelf textFieldValueChanged:textValue textType:mk_filterRawAdvDataTextTypeRawDataType];
-        }];
+        _rawDataField.textChangedBlock = ^(NSString * _Nonnull text) {
+            __strong typeof(self) sself = weakSelf;
+            [sself textFieldValueChanged:text textType:mk_filterRawAdvDataTextTypeRawDataType];
+        };
     }
     return _rawDataField;
 }
 
-- (MKTextField *)loadTextWithTextType:(mk_textFieldType)fieldType
-                          placeHolder:(NSString *)placeHolder
-                               maxLen:(NSInteger)maxLen
-                             callback:(void (^)(NSString *textValue))callback{
-    MKTextField *textField = [[MKTextField alloc] initWithTextFieldType:fieldType
-                                                       textChangedBlock:callback];
+- (MKTextField *)loadTextWithTextType:(mk_textFieldType)fieldType {
+    MKTextField *textField = [[MKTextField alloc] init];
+    textField.textType = fieldType;
     textField.backgroundColor = COLOR_WHITE_MACROS;
-    textField.maxLength = maxLen;
-    textField.placeholder = placeHolder;
     textField.font = MKFont(13.f);
     textField.textColor = DEFAULT_TEXT_COLOR;
     textField.textAlignment = NSTextAlignmentLeft;

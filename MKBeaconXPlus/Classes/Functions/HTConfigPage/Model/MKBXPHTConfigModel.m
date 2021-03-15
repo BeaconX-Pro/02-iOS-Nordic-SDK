@@ -156,12 +156,6 @@
 - (BOOL)configHTStorageConditions:(MKBXPHTStorageConditionsModel *)conditionsModel {
     __block BOOL success = NO;
     
-//    MKBXPHTStorageConditionsModel *model = [[MKBXPHTStorageConditionsModel alloc] init];
-//    model.condition = self.triggerType;
-//    model.temperature = [self.temperature floatValue] * 10;
-//    model.humidity = [self.humidity floatValue] * 10;
-//    model.time = [self.storageTime integerValue];
-    
     [MKBXPInterface bxp_configHTStorageConditions:conditionsModel sucBlock:^(id  _Nonnull returnData) {
         success = YES;
         dispatch_semaphore_signal(self.semaphore);

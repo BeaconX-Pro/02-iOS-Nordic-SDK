@@ -216,9 +216,7 @@
 
 - (MKTextField *)majorTextField {
     if (!_majorTextField) {
-        _majorTextField = [[MKTextField alloc] initWithTextFieldType:mk_realNumberOnly textChangedBlock:^(NSString * _Nonnull text) {
-            
-        }];
+        _majorTextField = [[MKTextField alloc] initWithTextFieldType:mk_realNumberOnly];
         _majorTextField.textColor = DEFAULT_TEXT_COLOR;
         _majorTextField.placeholder = @"0~65535";
         _majorTextField.maxLength = 5;
@@ -245,9 +243,7 @@
 
 - (MKTextField *)minorTextField {
     if (!_minorTextField) {
-        _minorTextField = [[MKTextField alloc] initWithTextFieldType:mk_realNumberOnly textChangedBlock:^(NSString * _Nonnull text) {
-            
-        }];
+        _minorTextField = [[MKTextField alloc] initWithTextFieldType:mk_realNumberOnly];
         _minorTextField.textColor = DEFAULT_TEXT_COLOR;
         _minorTextField.placeholder = @"0~65535";
         _minorTextField.maxLength = 5;
@@ -285,9 +281,7 @@
 
 - (MKTextField *)uuidTextField {
     if (!_uuidTextField) {
-        _uuidTextField = [[MKTextField alloc] initWithTextFieldType:mk_uuidMode textChangedBlock:^(NSString * _Nonnull text) {
-            
-        }];
+        _uuidTextField = [[MKTextField alloc] initWithTextFieldType:mk_uuidMode];
         _uuidTextField.textColor = DEFAULT_TEXT_COLOR;
         _uuidTextField.placeholder = @"16bytes";
         _uuidTextField.font = MKFont(15.f);

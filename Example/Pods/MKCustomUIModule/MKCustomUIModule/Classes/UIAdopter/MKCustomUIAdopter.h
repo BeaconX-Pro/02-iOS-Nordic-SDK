@@ -10,11 +10,21 @@
 
 #import <UIKit/UIKit.h>
 
+#import "MKTextField.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MKCustomUIAdopter : NSObject
 
-/// 自定义按钮，圆角为7的按钮
+/// 自定义按钮，圆角为7、背景颜色#2F84D0、标题大小为15.f、字体颜色为白色。
+/// @param title 按钮title
+/// @param target target
+/// @param action action
++ (UIButton *)customButtonWithTitle:(NSString *)title
+                             target:(nonnull id)target
+                             action:(nonnull SEL)action;
+
+/// 自定义圆角为7的按钮,标题大小为15.f
 /// @param title 按钮title
 /// @param titleColor 按钮title颜色
 /// @param backgroundColor 按钮背景颜色
@@ -25,6 +35,27 @@ NS_ASSUME_NONNULL_BEGIN
                     backgroundColor:(UIColor *)backgroundColor
                              target:(nonnull id)target
                              action:(nonnull SEL)action;
+
+/// 生成一个自定义的内容居左、字体大小15.f、字体颜色#333333的label
++ (UILabel *)customTextLabel;
+
+/// 自定义label
+/// @param text text
+/// @param textColor 标签字体颜色
+/// @param font 字体大小
+/// @param textAlignment 字体位置
++ (UILabel *)customLabelWithText:(NSString *)text
+                       textColor:(UIColor *)textColor
+                            font:(UIFont *)font
+                   textAlignment:(NSTextAlignment)textAlignment;
+
+/// 生成一个MKTextField，字体大小15，颜色#353535，文本居左，带边框。
+/// @param msg textField的显示内容
+/// @param placeHolder textField的占位符
+/// @param textType 输入框类型
++ (MKTextField *)customNormalTextFieldWithText:(NSString *)text
+                                   placeHolder:(NSString *)placeHolder
+                                      textType:(mk_textFieldType)textType;
 
 /// 获取富文本
 /// @param strings 富文本内容

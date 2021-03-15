@@ -312,9 +312,7 @@
 
 - (MKTextField *)textField {
     if (!_textField) {
-        _textField = [[MKTextField alloc] initWithTextFieldType:mk_normal textChangedBlock:^(NSString * _Nonnull text) {
-            
-        }];
+        _textField = [[MKTextField alloc] initWithTextFieldType:mk_normal];
         _textField.textColor = DEFAULT_TEXT_COLOR;
         _textField.textAlignment = NSTextAlignmentLeft;
         _textField.font = MKFont(15.f);

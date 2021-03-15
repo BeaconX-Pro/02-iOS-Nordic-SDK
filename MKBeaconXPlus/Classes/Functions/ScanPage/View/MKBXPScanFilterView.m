@@ -211,9 +211,7 @@ static NSString *const noteMsg2 = @"* There is an “OR“ relationship between 
 
 - (MKTextField *)nameTextField {
     if (!_nameTextField) {
-        _nameTextField = [[MKTextField alloc] initWithTextFieldType:mk_normal textChangedBlock:^(NSString * _Nonnull text) {
-            
-        }];
+        _nameTextField = [[MKTextField alloc] initWithTextFieldType:mk_normal];
         _nameTextField.frame  = CGRectMake(textFieldPostion_X,
                                            nameLabelPostion_Y,
                                            textFieldWidth,
@@ -245,9 +243,7 @@ static NSString *const noteMsg2 = @"* There is an “OR“ relationship between 
 
 - (MKTextField *)macTextField {
     if (!_macTextField) {
-        _macTextField = [[MKTextField alloc] initWithTextFieldType:mk_hexCharOnly textChangedBlock:^(NSString * _Nonnull text) {
-            
-        }];
+        _macTextField = [[MKTextField alloc] initWithTextFieldType:mk_hexCharOnly];
         _macTextField.frame  = CGRectMake(textFieldPostion_X,
                                           nameLabelPostion_Y + textSpaceY,
                                           textFieldWidth,

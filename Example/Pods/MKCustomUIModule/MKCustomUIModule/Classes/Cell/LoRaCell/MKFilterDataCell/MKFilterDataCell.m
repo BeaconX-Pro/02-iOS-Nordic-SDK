@@ -167,10 +167,11 @@
 - (MKFilterNormalTextView *)leftTextField {
     if (!_leftTextField) {
         WS(weakSelf);
-        MKTextField *textField = [self loadTextFieldWithCallback:^(NSString *text) {
+        MKTextField *textField = [self loadTextField];
+        textField.textChangedBlock = ^(NSString * _Nonnull text) {
             __strong typeof(self) sself = weakSelf;
             [sself leftTextFieldValueChanged:text];
-        }];
+        };
         _leftTextField = [[MKFilterNormalTextView alloc] initWithTextField:textField];
     }
     return _leftTextField;
@@ -179,10 +180,11 @@
 - (MKFilterNormalTextView *)rightTextField {
     if (!_rightTextField) {
         WS(weakSelf);
-        MKTextField *textField = [self loadTextFieldWithCallback:^(NSString *text) {
+        MKTextField *textField = [self loadTextField];
+        textField.textChangedBlock = ^(NSString * _Nonnull text) {
             __strong typeof(self) sself = weakSelf;
             [sself rightTextFieldValueChanged:text];
-        }];
+        };
         _rightTextField = [[MKFilterNormalTextView alloc] initWithTextField:textField];
     }
     return _rightTextField;
@@ -210,8 +212,8 @@
     return _toLabel;
 }
 
-- (MKTextField *)loadTextFieldWithCallback:(void (^)(NSString *text))callback{
-    MKTextField *textField = [[MKTextField alloc] initWithTextFieldType:mk_realNumberOnly textChangedBlock:callback];
+- (MKTextField *)loadTextField {
+    MKTextField *textField = [[MKTextField alloc] initWithTextFieldType:mk_realNumberOnly];
     textField.borderStyle = UITextBorderStyleNone;
     textField.maxLength = 5;
     textField.placeholder = @"0~65535";
@@ -485,7 +487,9 @@
                                 maxLength:(NSInteger)maxLength
                                      type:(mk_textFieldType)type
                                  callBack:(void (^)(NSString *text))callBack{
-    MKTextField *textField = [[MKTextField alloc] initWithTextFieldType:type textChangedBlock:callBack];
+    MKTextField *textField = [[MKTextField alloc] init];
+    textField.textType = type;
+    textField.textChangedBlock = callBack;
     textField.borderStyle = UITextBorderStyleNone;
     textField.maxLength = maxLength;
     textField.placeholder = placeholder;

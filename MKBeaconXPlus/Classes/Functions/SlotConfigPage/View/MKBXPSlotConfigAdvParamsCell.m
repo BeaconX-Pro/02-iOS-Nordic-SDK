@@ -284,9 +284,7 @@
 
 - (MKTextField *)intervalTextField {
     if (!_intervalTextField) {
-        _intervalTextField = [[MKTextField alloc] initWithTextFieldType:mk_realNumberOnly textChangedBlock:^(NSString * _Nonnull text) {
-            
-        }];
+        _intervalTextField = [[MKTextField alloc] initWithTextFieldType:mk_realNumberOnly];
         _intervalTextField.textColor = DEFAULT_TEXT_COLOR;
         _intervalTextField.textAlignment = NSTextAlignmentCenter;
         _intervalTextField.font = MKFont(12.f);

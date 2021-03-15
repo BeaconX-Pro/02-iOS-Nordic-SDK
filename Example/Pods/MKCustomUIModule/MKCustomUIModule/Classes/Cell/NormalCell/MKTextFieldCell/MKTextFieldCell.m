@@ -288,7 +288,9 @@ static CGFloat const unitLabelWidth = 70.f;
                                      font:(UIFont *)font
                                 textColor:(UIColor *)textColor
                                  callBack:(void (^)(NSString *text))callBack{
-    MKTextField *textField = [[MKTextField alloc] initWithTextFieldType:type textChangedBlock:callBack];
+    MKTextField *textField = [[MKTextField alloc] init];
+    textField.textType = type;
+    textField.textChangedBlock = callBack;
     textField.borderStyle = UITextBorderStyleNone;
     textField.maxLength = maxLength;
     textField.placeholder = placeholder;

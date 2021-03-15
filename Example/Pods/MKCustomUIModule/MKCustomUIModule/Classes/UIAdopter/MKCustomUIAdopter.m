@@ -13,6 +13,15 @@
 @implementation MKCustomUIAdopter
 
 + (UIButton *)customButtonWithTitle:(NSString *)title
+                             target:(nonnull id)target
+                             action:(nonnull SEL)action {
+    return [self customButtonWithTitle:title
+                            titleColor:COLOR_WHITE_MACROS
+                       backgroundColor:UIColorFromRGB(0x2F84D0)
+                                target:target action:action];
+}
+
++ (UIButton *)customButtonWithTitle:(NSString *)title
                          titleColor:(UIColor *)titleColor
                     backgroundColor:(UIColor *)backgroundColor
                              target:(nonnull id)target
@@ -20,6 +29,7 @@
     UIButton *customButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [customButton setTitle:title forState:UIControlStateNormal];
     [customButton setTitleColor:titleColor forState:UIControlStateNormal];
+    [customButton.titleLabel setFont:MKFont(15.f)];
     [customButton setBackgroundColor:backgroundColor];
     [customButton.layer setMasksToBounds:YES];
     [customButton.layer setCornerRadius:6.f];
@@ -27,6 +37,46 @@
                      action:action
            forControlEvents:UIControlEventTouchUpInside];
     return customButton;
+}
+
++ (UILabel *)customTextLabel {
+    UILabel *label = [[UILabel alloc] init];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = NSTextAlignmentLeft;
+    label.textColor = DEFAULT_TEXT_COLOR;
+    label.font = MKFont(15.f);
+    return label;
+}
+
++ (UILabel *)customLabelWithText:(NSString *)text
+                       textColor:(UIColor *)textColor
+                            font:(UIFont *)font
+                   textAlignment:(NSTextAlignment)textAlignment {
+    UILabel *label = [[UILabel alloc] init];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = textAlignment;
+    label.textColor = textColor;
+    label.font = font;
+    label.text = text;
+    return label;
+}
+
++ (MKTextField *)customNormalTextFieldWithText:(NSString *)text
+                                   placeHolder:(NSString *)placeHolder
+                                      textType:(mk_textFieldType)textType {
+    MKTextField *textField = [[MKTextField alloc] initWithTextFieldType:textType];
+    textField.textColor = DEFAULT_TEXT_COLOR;
+    textField.font = MKFont(15.f);
+    textField.textAlignment = NSTextAlignmentLeft;
+    textField.placeholder = placeHolder;
+    textField.text = text;
+    
+    textField.layer.masksToBounds = YES;
+    textField.layer.borderWidth = 0.5f;
+    textField.layer.borderColor = RGBCOLOR(162, 162, 162).CGColor;
+    textField.layer.cornerRadius = 6.f;
+    
+    return textField;
 }
 
 + (NSMutableAttributedString *)attributedString:(NSArray <NSString *>*)strings

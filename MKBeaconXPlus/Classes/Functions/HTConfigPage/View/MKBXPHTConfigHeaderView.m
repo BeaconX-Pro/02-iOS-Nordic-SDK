@@ -246,9 +246,7 @@
 - (MKTextField *)textField {
     if (!_textField) {
         WS(weakSelf);
-        _textField = [[MKTextField alloc] initWithTextFieldType:mk_realNumberOnly textChangedBlock:^(NSString * _Nonnull text) {
-            [weakSelf samplingIntervalChanged:text];
-        }];
+        _textField = [[MKTextField alloc] initWithTextFieldType:mk_realNumberOnly];
         _textField.textColor = DEFAULT_TEXT_COLOR;
         _textField.textAlignment = NSTextAlignmentCenter;
         _textField.font = MKFont(12.f);
