@@ -50,9 +50,6 @@ PODS:
   - MKBaseModuleLibrary/Tools/MKModuleManager (1.0.11)
   - MKBeaconXPlus (0.0.1):
     - CTMediator
-    - HHTransition
-    - iOSDFULibrary (= 4.6.1)
-    - MKBaseModuleLibrary
     - MKBeaconXPlus/ApplicationModule (= 0.0.1)
     - MKBeaconXPlus/ConnectManager (= 0.0.1)
     - MKBeaconXPlus/CTMediator (= 0.0.1)
@@ -60,54 +57,27 @@ PODS:
     - MKBeaconXPlus/Functions (= 0.0.1)
     - MKBeaconXPlus/SDK-BXP (= 0.0.1)
     - MKBeaconXPlus/Target (= 0.0.1)
-    - MKCustomUIModule
-    - MLInputDodger
   - MKBeaconXPlus/ApplicationModule (0.0.1):
     - CTMediator
-    - HHTransition
-    - iOSDFULibrary (= 4.6.1)
     - MKBaseModuleLibrary
-    - MKCustomUIModule
-    - MLInputDodger
   - MKBeaconXPlus/ConnectManager (0.0.1):
     - CTMediator
-    - HHTransition
-    - iOSDFULibrary (= 4.6.1)
     - MKBaseModuleLibrary
     - MKBeaconXPlus/SDK-BXP
-    - MKCustomUIModule
-    - MLInputDodger
   - MKBeaconXPlus/CTMediator (0.0.1):
     - CTMediator
-    - HHTransition
-    - iOSDFULibrary (= 4.6.1)
-    - MKBaseModuleLibrary
-    - MKCustomUIModule
-    - MLInputDodger
   - MKBeaconXPlus/Expand (0.0.1):
     - CTMediator
-    - HHTransition
-    - iOSDFULibrary (= 4.6.1)
     - MKBaseModuleLibrary
     - MKBeaconXPlus/Expand/Adopter (= 0.0.1)
     - MKBeaconXPlus/Expand/Defines (= 0.0.1)
-    - MKCustomUIModule
-    - MLInputDodger
   - MKBeaconXPlus/Expand/Adopter (0.0.1):
     - CTMediator
-    - HHTransition
-    - iOSDFULibrary (= 4.6.1)
     - MKBaseModuleLibrary
     - MKBeaconXPlus/Expand/Defines
-    - MKCustomUIModule
-    - MLInputDodger
   - MKBeaconXPlus/Expand/Defines (0.0.1):
     - CTMediator
-    - HHTransition
-    - iOSDFULibrary (= 4.6.1)
     - MKBaseModuleLibrary
-    - MKCustomUIModule
-    - MLInputDodger
   - MKBeaconXPlus/Functions (0.0.1):
     - CTMediator
     - HHTransition
@@ -565,20 +535,10 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/SDK-BXP (0.0.1):
     - CTMediator
-    - HHTransition
-    - iOSDFULibrary (= 4.6.1)
     - MKBaseBleModule
-    - MKBaseModuleLibrary
-    - MKCustomUIModule
-    - MLInputDodger
   - MKBeaconXPlus/Target (0.0.1):
     - CTMediator
-    - HHTransition
-    - iOSDFULibrary (= 4.6.1)
-    - MKBaseModuleLibrary
     - MKBeaconXPlus/Functions
-    - MKCustomUIModule
-    - MLInputDodger
   - MKCustomUIModule (1.0.20):
     - CircleProgressBar
     - Masonry
@@ -865,7 +825,7 @@ SPEC CHECKSUMS:
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   MKBaseBleModule: 553e5ac68fd89acd0642ae7fc0ba7a5f2ce25950
   MKBaseModuleLibrary: 7fb73829fe9bef794deeb4484ec80256c03a95e6
-  MKBeaconXPlus: bf203dbe2ac7d4627415081767bf8d66f744b698
+  MKBeaconXPlus: 6b37849a8018ed06047222ea0fb9d0264a5413d0
   MKCustomUIModule: 9b0954210ca32870a83ba4fc221aa77ff59baf6c
   MLInputDodger: 79a0e420a80d0d3bba122bf2639603cc76609ba8
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196

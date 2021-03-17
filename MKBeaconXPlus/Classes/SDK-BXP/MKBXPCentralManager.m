@@ -24,6 +24,7 @@
 NSString *const mk_bxp_receiveThreeAxisAccelerometerDataNotification = @"mk_bxp_receiveThreeAxisAccelerometerDataNotification";
 NSString *const mk_bxp_receiveHTDataNotification = @"mk_bxp_receiveHTDataNotification";
 NSString *const mk_bxp_receiveRecordHTDataNotification = @"mk_bxp_receiveRecordHTDataNotification";
+NSString *const mk_bxp_deviceDisconnectTypeNotification = @"mk_bxp_deviceDisconnectTypeNotification";
 NSString *const mk_bxp_peripheralConnectStateChangedNotification = @"mk_bxp_peripheralConnectStateChangedNotification";
 NSString *const mk_bxp_centralManagerStateChangedNotification = @"mk_bxp_centralManagerStateChangedNotification";
 NSString *const mk_bxp_peripheralLockStateChangedNotification = @"mk_bxp_peripheralLockStateChangedNotification";
@@ -143,6 +144,16 @@ static dispatch_once_t onceToken;
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     if (error) {
         NSLog(@"+++++++++++++++++接收数据出错");
+        return;
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_disconnectListenUUID]]) {
+        //设备断开原因
+        NSString *content = [MKBLEBaseSDKAdopter hexStringFromData:characteristic.value];
+        MKBLEBase_main_safe(^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:mk_bxp_deviceDisconnectTypeNotification
+                                                                object:nil
+                                                              userInfo:@{@"type":content}];
+        });
         return;
     }
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_notifyUUID]]) {
@@ -296,21 +307,21 @@ static dispatch_once_t onceToken;
     self.progressBlock = nil;
     __weak typeof(self) weakSelf = self;
     self.readLockStateBlock = ^(NSString *lockState) {
+        __strong typeof(self) sself = weakSelf;
+        [sself clearAllParams];
         if (sucBlock) {
             MKBLEBase_main_safe(^{sucBlock(lockState);});
         }
-        __strong typeof(self) sself = weakSelf;
-        [sself clearAllParams];
     };
     MKBXPPeripheral *bxpPeripheral = [[MKBXPPeripheral alloc] initWithPeripheral:peripheral];
     [[MKBLEBaseCentralManager shared] connectDevice:bxpPeripheral sucBlock:^(CBPeripheral * _Nonnull peripheral) {
         [self sendPasswordToDevice];
     } failedBlock:^(NSError * _Nonnull error) {
+        __strong typeof(self) sself = weakSelf;
+        [sself clearAllParams];
         if (failedBlock) {
             failedBlock(error);
         }
-        __strong typeof(self) sself = weakSelf;
-        [sself clearAllParams];
     }];
 }
 
@@ -332,17 +343,17 @@ static dispatch_once_t onceToken;
             progressBlock(progress);
         }
     } sucBlock:^(CBPeripheral * _Nonnull peripheral) {
+        __strong typeof(self) sself = weakSelf;
+        [sself clearAllParams];
         if (sucBlock) {
             sucBlock(peripheral);
         }
+    } failedBlock:^(NSError * _Nonnull error) {
         __strong typeof(self) sself = weakSelf;
         [sself clearAllParams];
-    } failedBlock:^(NSError * _Nonnull error) {
         if (failedBlock) {
             failedBlock(error);
         }
-        __strong typeof(self) sself = weakSelf;
-        [sself clearAllParams];
     }];
 }
 
@@ -411,6 +422,9 @@ static dispatch_once_t onceToken;
         mk_bxp_lockState lockState = [self fetchLockState];
         if (self.readingLockState) {
             //读取lockState操作，不需要进行后续步骤
+            //读取完数据之后断开连接
+            [[MKBLEBaseCentralManager shared] disconnect];
+            self.readingLockState = NO;
             if (self.readLockStateBlock) {
                 NSString *lockInfo = @"00";
                 if (lockState == mk_bxp_lockStateUnlockAutoMaticRelockDisabled) {
@@ -420,9 +434,6 @@ static dispatch_once_t onceToken;
                     self.readLockStateBlock(lockInfo);
                 });
             }
-            //读取完数据之后断开连接
-            [[MKBLEBaseCentralManager shared] disconnect];
-            self.readingLockState = NO;
             return ;
         }
         [self updateLockState:lockState];

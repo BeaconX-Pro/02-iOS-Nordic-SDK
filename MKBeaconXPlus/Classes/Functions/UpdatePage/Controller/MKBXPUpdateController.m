@@ -76,6 +76,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"mk_bxp_startDfuProcessNotification" object:nil];
     NSString *document = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *filePath = [document stringByAppendingPathComponent:firmwareModel.leftMsg];
+    self.leftButton.enabled = NO;
     //BLE升级
     [[MKHudManager share] showHUDWithTitle:@"Waiting..." inView:self.view isPenetration:NO];
     WS(weakSelf);
@@ -103,6 +104,7 @@
 
 #pragma mark -
 - (void)updateComplete {
+    self.leftButton.enabled = YES;
     [[MKHudManager share] hide];
     [MKBXPCentralManager sharedDealloc];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"mk_bxp_centralDeallocNotification" object:nil];

@@ -31,4 +31,10 @@
     return manager;
 }
 
+- (void)clearParams {
+    self.password = @"";
+    self.deviceType = @"";
+    self.newVersion = NO;
+}
+
 @end

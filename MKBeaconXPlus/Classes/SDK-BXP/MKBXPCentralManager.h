@@ -21,6 +21,11 @@ extern NSString *const mk_bxp_receiveThreeAxisAccelerometerDataNotification;
 extern NSString *const mk_bxp_receiveHTDataNotification;
 extern NSString *const mk_bxp_receiveRecordHTDataNotification;
 
+/*
+ After connecting the device, if no password is entered within one minute, it returns 0x00. After successful password change, it returns 0x01. Factory reset of the device,it returns 0x02.
+ */
+extern NSString *const mk_bxp_deviceDisconnectTypeNotification;
+
 //Notification of device connection status changes.
 extern NSString *const mk_bxp_peripheralConnectStateChangedNotification;
 

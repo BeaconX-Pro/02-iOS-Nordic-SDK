@@ -17,11 +17,11 @@
 
 #import "MKBXPCentralManager.h"
 
+#import "MKBXPConnectManager.h"
+
 @interface MKBXPTabBarController ()
 
-@property (nonatomic, assign)BOOL modifyPassword;
-
-@property (nonatomic, assign)BOOL isShow;
+@property (nonatomic, assign)BOOL disconnectType;
 
 @end
 
@@ -30,12 +30,12 @@
 - (void)dealloc {
     NSLog(@"MKBXPTabBarController销毁");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[MKBXPConnectManager shared] clearParams];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     if (![[self.navigationController viewControllers] containsObject:self]){
-        self.isShow = NO;
         [[MKBXPCentralManager shared] disconnect];
     }
 }
@@ -47,7 +47,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isShow = YES;
     [self loadSubPages];
     [self addNotifications];
 }
@@ -74,7 +73,7 @@
 }
 
 - (void)centralManagerStateChanged {
-    if (!self.isShow) {
+    if (self.disconnectType) {
         return;
     }
     if ([MKBXPCentralManager shared].centralStatus != mk_bxp_centralManagerStatusEnable) {
@@ -83,7 +82,7 @@
 }
 
 - (void)deviceConnectStateChanged {
-    if (!self.isShow) {
+    if (self.disconnectType) {
         return;
     }
     [self showAlertWithMsg:@"The device is disconnected." title:@"Dismiss"];
@@ -91,27 +90,34 @@
 }
 
 - (void)deviceLockStateChanged {
-    if (!self.isShow) {
+    if (self.disconnectType) {
         return;
     }
     if ([MKBXPCentralManager shared].lockState != mk_bxp_lockStateOpen
         && [MKBXPCentralManager shared].lockState != mk_bxp_lockStateUnlockAutoMaticRelockDisabled
         && [MKBXPCentralManager shared].connectState == mk_bxp_centralConnectStatusConnected) {
-        [self performSelector:@selector(showLockStateAlert)
-                   withObject:nil
-                   afterDelay:0.1f];
+        [self showAlertWithMsg:@"The device is locked!" title:@"Dismiss"];
     }
 }
 
-/**
- 修改密码成功之后，锁定状态发生改变，弹窗提示修改密码成功
- */
-- (void)modifyPasswordSuccess {
-    self.modifyPassword = YES;
+- (void)disconnectTypeNotification:(NSNotification *)note {
+    NSString *type = note.userInfo[@"type"];
+    //00一分钟之内没有输入密码,01修改密码成功，02:设备恢复出厂设置
+    self.disconnectType = YES;
+    if ([type isEqualToString:@"01"]) {
+        [self showAlertWithMsg:@"Password changed successfully! Please reconnect the device." title:@"Change Password"];
+        return;
+    }
+    if ([type isEqualToString:@"02"]) {
+        [self showAlertWithMsg:@"Factry reset successfully!Please reconnect the device." title:@"Dismiss"];
+        return;
+    }
 }
 
 - (void)devicePowerOff {
-    self.isShow = NO;
+    if (self.disconnectType) {
+        return;
+    }
     [self showAlertWithMsg:@"The device is turned off" title:@"Dismiss"];
 }
 
@@ -127,8 +133,8 @@
                                                  name:@"mk_bxp_centralDeallocNotification"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(modifyPasswordSuccess)
-                                                 name:@"mk_bxp_modifyPasswordSuccessNotification"
+                                             selector:@selector(disconnectTypeNotification:)
+                                                 name:@"mk_bxp_deviceDisconnectTypeNotification"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(deviceConnectStateChanged)
@@ -146,11 +152,6 @@
                                              selector:@selector(devicePowerOff)
                                                  name:@"mk_bxp_powerOffNotification"
                                                object:nil];
-}
-
-- (void)showLockStateAlert{
-    NSString *msg = (self.modifyPassword ? @"Password changed successfully!Please reconnect the Device." : @"The device is locked!");
-    [self showAlertWithMsg:msg title:@"Dismiss"];
 }
 
 - (void)showAlertWithMsg:(NSString *)msg title:(NSString *)title{

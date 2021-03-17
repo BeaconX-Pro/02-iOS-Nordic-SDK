@@ -94,8 +94,18 @@ NS_ASSUME_NONNULL_BEGIN
                                     failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
- Reading current frame types of the 5 SLOTs,
- eg:@"001020506070":@"00":UID,@"10":URL,@"20":TLM,@"40":设备信息,@"50":iBeacon,@"60":3轴加速度计,@"70":温湿度传感器,@"FF":NO DATA
+ Reading current frame types of the 6 SLOTs,
+ eg:@"001020506070":
+ @[@"00",@"10",@"20",@"50",@"60",@"70"]
+ 
+ @"00":UID,
+ @"10":URL,
+ @"20":TLM,
+ @"40":Device Info,
+ @"50":iBeacon,
+ @"60":3-axis,
+ @"70":H&T,
+ @"FF":NO DATA
 
  @param sucBlock success callback
  @param failedBlock failed callback

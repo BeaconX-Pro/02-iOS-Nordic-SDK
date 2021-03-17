@@ -277,7 +277,7 @@ mk_textSwitchCellDelegate>
     MKTextSwitchCellModel *verificationModel = [[MKTextSwitchCellModel alloc] init];
     verificationModel.msg = @"Password Verification";
     verificationModel.index = 3;
-    verificationModel.isOn = ([MKBXPCentralManager shared].lockState == mk_bxp_lockStateUnlockAutoMaticRelockDisabled);
+    verificationModel.isOn = ([MKBXPCentralManager shared].lockState == mk_bxp_lockStateOpen);
     [self.section1List addObject:verificationModel];
 }
 
@@ -431,8 +431,9 @@ mk_textSwitchCellDelegate>
 
 - (void)commandForLockState:(BOOL)isOn{
     [[MKHudManager share] showHUDWithTitle:@"Setting..." inView:self.view isPenetration:NO];
-    [MKBXPInterface bxp_configLockState:(isOn ? mk_bxp_lockStateUnlockAutoMaticRelockDisabled : mk_bxp_lockStateOpen) sucBlock:^(id  _Nonnull returnData) {
+    [MKBXPInterface bxp_configLockState:(isOn ? mk_bxp_lockStateOpen : mk_bxp_lockStateUnlockAutoMaticRelockDisabled) sucBlock:^(id  _Nonnull returnData) {
         [[MKHudManager share] hide];
+        [self loadSection2Datas];
         [self.tableView mk_reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
@@ -448,7 +449,8 @@ mk_textSwitchCellDelegate>
 
 - (void)loadSection2Datas {
     [self.section2List removeAllObjects];
-    if ([MKBXPCentralManager shared].lockState == mk_bxp_lockStateOpen) {
+    if (ValidStr([MKBXPConnectManager shared].password)) {
+        //是否能够修改密码取决于用户是否是输入密码这种情况进来的
         MKNormalTextCellModel *passwordModel = [[MKNormalTextCellModel alloc] init];
         passwordModel.leftMsg = @"Modify Password";
         passwordModel.showRightIcon = YES;
@@ -456,7 +458,7 @@ mk_textSwitchCellDelegate>
         [self.section2List addObject:passwordModel];
     }
     MKTextSwitchCellModel *verificationModel = [self.section1List lastObject];
-    if (!verificationModel.isOn) {
+    if (verificationModel.isOn) {
         MKNormalTextCellModel *resetModel = [[MKNormalTextCellModel alloc] init];
         resetModel.leftMsg = @"Remote Reset";
         resetModel.showRightIcon = YES;
@@ -529,6 +531,7 @@ mk_textSwitchCellDelegate>
                               isPenetration:NO];
     [MKBXPInterface bxp_configNewPassword:password originalPassword:[MKBXPConnectManager shared].password sucBlock:^(id  _Nonnull returnData) {
         [[MKHudManager share] hide];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"mk_bxp_modifyPasswordSuccessNotification" object:nil];
         [self.view showCentralToast:@"Success"];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];

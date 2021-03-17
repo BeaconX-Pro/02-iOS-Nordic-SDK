@@ -27,21 +27,6 @@
   "dependencies": {
     "CTMediator": [
 
-    ],
-    "MKBaseModuleLibrary": [
-
-    ],
-    "MKCustomUIModule": [
-
-    ],
-    "HHTransition": [
-
-    ],
-    "MLInputDodger": [
-
-    ],
-    "iOSDFULibrary": [
-      "4.6.1"
     ]
   },
   "subspecs": [
@@ -125,6 +110,21 @@
         ],
         "MKBeaconXPlus/CTMediator": [
 
+        ],
+        "MKBaseModuleLibrary": [
+
+        ],
+        "MKCustomUIModule": [
+
+        ],
+        "HHTransition": [
+
+        ],
+        "MLInputDodger": [
+
+        ],
+        "iOSDFULibrary": [
+          "4.6.1"
         ]
       },
       "subspecs": [

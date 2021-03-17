@@ -23,6 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (MKBXPConnectManager *)shared;
 
+/// 清除当前所有参数
+- (void)clearParams;
+
 @end
 
 NS_ASSUME_NONNULL_END
