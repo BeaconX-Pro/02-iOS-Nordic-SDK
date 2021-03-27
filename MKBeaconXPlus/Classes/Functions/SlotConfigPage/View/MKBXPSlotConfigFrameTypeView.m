@@ -134,7 +134,7 @@
     MKBXPFrameTypeViewModel *model = self.dataList[row];
     NSAttributedString *attString = [MKCustomUIAdopter attributedString:@[model.typeName]
                                                                   fonts:@[MKFont(13.f)]
-                                                                 colors:@[UIColorFromRGB(0x2F84D0)]];
+                                                                 colors:@[NAVBAR_COLOR_MACROS]];
     return attString;
 }
 
@@ -259,7 +259,7 @@
         _pickerView.delegate = self;
         
         _pickerView.layer.masksToBounds = YES;
-        _pickerView.layer.borderColor = UIColorFromRGB(0x2F84D0).CGColor;
+        _pickerView.layer.borderColor = NAVBAR_COLOR_MACROS.CGColor;
         _pickerView.layer.borderWidth = 0.5f;
         _pickerView.layer.cornerRadius = 4.f;
     }

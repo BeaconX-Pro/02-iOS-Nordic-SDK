@@ -93,7 +93,7 @@
         self.appNameLabel.text = self.protocol.appName;
     }
     if (ValidStr(self.protocol.appVersion)) {
-        self.versionLabel.text = [@"Version: V" stringByAppendingString:self.protocol.appVersion];
+        self.versionLabel.text = self.protocol.appVersion;
     }
     [self.aboutIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view.mas_centerX);
@@ -179,7 +179,7 @@
     if (!_companyNetLabel) {
         _companyNetLabel = [[UILabel alloc] init];
         _companyNetLabel.textAlignment = NSTextAlignmentCenter;
-        _companyNetLabel.textColor = RGBCOLOR(3, 191, 234);
+        _companyNetLabel.textColor = NAVBAR_COLOR_MACROS;
         _companyNetLabel.font = MKFont(16.f);
         _companyNetLabel.text = @"www.mokosmart.com";
         [_companyNetLabel addTapAction:self selector:@selector(openWebBrowser)];

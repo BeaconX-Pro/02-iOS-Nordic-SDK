@@ -177,7 +177,7 @@ static CGFloat const signalIconHeight = 15.f;
         _textField.placeholder = @"Device name or mac address";
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _textField.layer.masksToBounds = YES;
-        _textField.layer.borderColor = UIColorFromRGB(0x2F84D0).CGColor;
+        _textField.layer.borderColor = NAVBAR_COLOR_MACROS.CGColor;
         _textField.layer.borderWidth = 0.5f;
         _textField.layer.cornerRadius = 4.f;
     }
@@ -191,7 +191,7 @@ static CGFloat const signalIconHeight = 15.f;
                                        backViewHeight - 45.f - offset_X,
                                        kViewWidth - 4 * offset_X,
                                        45.f);
-        [_doneButton setBackgroundColor:UIColorFromRGB(0x2F84D0)];
+        [_doneButton setBackgroundColor:NAVBAR_COLOR_MACROS];
         [_doneButton setTitle:@"DONE" forState:UIControlStateNormal];
         [_doneButton.titleLabel setFont:MKFont(16.f)];
         [_doneButton.layer setMasksToBounds:YES];

@@ -174,7 +174,7 @@ static CGFloat const leftIconHeight = 7.f;
         [self.batteryLabel setText:[NSString stringWithFormat:@"%@mV",[NSString stringWithFormat:@"%ld",(long)[_beacon.mvPerbit integerValue]]]];
     }
     if (ValidNum(_beacon.temperature)) {
-        NSString *temperature = [NSString stringWithFormat:@"%ld",(long)[_beacon.temperature integerValue]];
+        NSString *temperature = [NSString stringWithFormat:@"%.1f",[_beacon.temperature floatValue]];
         [self.temperatureLabel setText:[NSString stringWithFormat:@"%@°C",temperature]];
     }
     if (ValidNum(_beacon.advertiseCount)) {

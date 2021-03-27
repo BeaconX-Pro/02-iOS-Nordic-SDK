@@ -53,15 +53,9 @@
 #define CUTTING_LINE_COLOR               RGBCOLOR(0xe8, 0xe8, 0xe8)
 
 /**
- *  所有页面的背景颜色
- *
- */
-#define BACKGROUND_VIEW_COLOR            UIColorFromRGB(0xffffff)
-
-/**
  *  导航栏颜色
  *
  */
-#define NAVIGATION_BAR_COLOR             UIColorFromRGB(0xf8f8f8)
+#define NAVBAR_COLOR_MACROS            UIColorFromRGB(0x2F84D0)
 
 #define DEFAULT_TEXT_COLOR               UIColorFromRGB(0x353535)

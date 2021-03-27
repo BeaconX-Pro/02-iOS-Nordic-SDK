@@ -70,13 +70,15 @@ MKBXPAccelerationParamsCellDelegate>
 #pragma mark - super method
 - (void)rightButtonMethod {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-    WS(weakSelf);
+    @weakify(self);
     [self.dataModel configWithSucBlock:^{
+        @strongify(self);
         [[MKHudManager share] hide];
-        [weakSelf.view showCentralToast:@"Success"];
+        [self.view showCentralToast:@"Success"];
     } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
         [[MKHudManager share] hide];
-        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
     }];
 }
 
@@ -148,13 +150,15 @@ MKBXPAccelerationParamsCellDelegate>
 #pragma mark - 读取数据
 - (void)readDataFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
-    WS(weakSelf);
+    @weakify(self);
     [self.dataModel readWithSucBlock:^{
+        @strongify(self);
         [[MKHudManager share] hide];
-        [weakSelf loadSectionDatas];
+        [self loadSectionDatas];
     } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
         [[MKHudManager share] hide];
-        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
     }];
 }
 

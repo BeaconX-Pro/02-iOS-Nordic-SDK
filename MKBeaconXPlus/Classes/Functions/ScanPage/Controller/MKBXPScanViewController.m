@@ -324,10 +324,11 @@ MKBXPTabBarControllerDelegate>
     //间隔时间
     uint64_t interval = 60 * NSEC_PER_SEC;
     dispatch_source_set_timer(self.scanTimer, start, interval, 0);
-    WS(weakSelf);
+    @weakify(self);
     dispatch_source_set_event_handler(self.scanTimer, ^{
+        @strongify(self);
         [[MKBXPCentralManager shared] stopScan];
-        [weakSelf needRefreshList];
+        [self needRefreshList];
     });
     dispatch_resume(self.scanTimer);
 }
@@ -340,9 +341,10 @@ MKBXPTabBarControllerDelegate>
 }
 
 - (void)runloopObserver {
-    WS(weakSelf);
+    @weakify(self);
     __block NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
     self.observerRef = CFRunLoopObserverCreateWithHandler(CFAllocatorGetDefault(), kCFRunLoopAllActivities, YES, 0, ^(CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
+        @strongify(self);
         if (activity == kCFRunLoopBeforeWaiting) {
             //runloop空闲的时候刷新需要处理的列表,但是需要控制刷新频率
             NSTimeInterval currentInterval = [[NSDate date] timeIntervalSince1970];
@@ -350,10 +352,10 @@ MKBXPTabBarControllerDelegate>
                 return;
             }
             timeInterval = currentInterval;
-            if (weakSelf.isNeedRefresh) {
-                [weakSelf.tableView reloadData];
-                [weakSelf.titleLabel setText:[NSString stringWithFormat:@"DEVICE(%@)",[NSString stringWithFormat:@"%ld",(long)weakSelf.dataList.count]]];
-                weakSelf.isNeedRefresh = NO;
+            if (self.isNeedRefresh) {
+                [self.tableView reloadData];
+                [self.titleLabel setText:[NSString stringWithFormat:@"DEVICE(%@)",[NSString stringWithFormat:@"%ld",(long)self.dataList.count]]];
+                self.isNeedRefresh = NO;
             }
         }
     });
@@ -394,7 +396,7 @@ MKBXPTabBarControllerDelegate>
         //如果是设备信息帧
         MKBXPDeviceInfoBeacon *tempBeacon = (MKBXPDeviceInfoBeacon *)beacon;
         if ([[tempBeacon.deviceName uppercaseString] containsString:[self.buttonModel.searchName uppercaseString]]
-            || [[tempBeacon.macAddress uppercaseString] containsString:[self.buttonModel.searchMac uppercaseString]]) {
+            || [[[tempBeacon.macAddress stringByReplacingOccurrencesOfString:@":" withString:@""] uppercaseString] containsString:[self.buttonModel.searchMac uppercaseString]]) {
             //如果mac地址和设备名称包含搜索条件，则加入
             [self processBeacon:beacon];
         }
@@ -442,6 +444,7 @@ MKBXPTabBarControllerDelegate>
     newModel.deviceName = (ValidStr(beacon.deviceName) ? beacon.deviceName : @"");
     newModel.displayTime = @"N/A";
     newModel.lastScanDate = kSystemTimeStamp;
+    newModel.connectable = beacon.connectEnable;
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
         //如果是设备信息帧
         newModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
@@ -459,6 +462,7 @@ MKBXPTabBarControllerDelegate>
                 infoBeacon.macAddress = tempBeacon.macAddress;
                 infoBeacon.battery = tempBeacon.battery;
                 infoBeacon.rssi0M = tempBeacon.rssi0M;
+                infoBeacon.peripheral = tempBeacon.peripheral;
                 newModel.infoBeacon = infoBeacon;
             }
         }else if (beacon.frameType == MKBXPTHSensorFrameType) {
@@ -469,6 +473,7 @@ MKBXPTabBarControllerDelegate>
                 infoBeacon.macAddress = tempBeacon.macAddress;
                 infoBeacon.battery = tempBeacon.battery;
                 infoBeacon.rssi0M = tempBeacon.rssi0M;
+                infoBeacon.peripheral = tempBeacon.peripheral;
                 newModel.infoBeacon = infoBeacon;
             }
         }
@@ -484,6 +489,7 @@ MKBXPTabBarControllerDelegate>
  @param beacon  新扫描到的数据帧
  */
 - (void)beaconExistDataSource:(MKBXPScanBeaconModel *)exsitModel beacon:(MKBXPBaseBeacon *)beacon{
+    exsitModel.connectable = beacon.connectEnable;
     if (ValidStr(beacon.deviceName)) {
         exsitModel.deviceName = beacon.deviceName;
     }
@@ -505,6 +511,7 @@ MKBXPTabBarControllerDelegate>
             infoBeacon.macAddress = tempBeacon.macAddress;
             infoBeacon.battery = tempBeacon.battery;
             infoBeacon.rssi0M = tempBeacon.rssi0M;
+            infoBeacon.peripheral = tempBeacon.peripheral;
             exsitModel.infoBeacon = infoBeacon;
         }
     }else if (beacon.frameType == MKBXPTHSensorFrameType && !exsitModel.infoBeacon) {
@@ -515,6 +522,7 @@ MKBXPTabBarControllerDelegate>
             infoBeacon.macAddress = tempBeacon.macAddress;
             infoBeacon.battery = tempBeacon.battery;
             infoBeacon.rssi0M = tempBeacon.rssi0M;
+            infoBeacon.peripheral = tempBeacon.peripheral;
             exsitModel.infoBeacon = infoBeacon;
         }
     }
@@ -661,10 +669,10 @@ MKBXPTabBarControllerDelegate>
 - (void)pushTabBarPage {
     MKBXPTabBarController *vc = [[MKBXPTabBarController alloc] init];
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
-    WS(weakSelf);
+    @weakify(self);
     [self hh_presentViewController:vc presentStyle:HHPresentStyleErected completion:^{
-        __strong typeof(self) sself = weakSelf;
-        vc.delegate = sself;
+        @strongify(self);
+        vc.delegate = self;
     }];
 }
 
@@ -690,22 +698,25 @@ MKBXPTabBarControllerDelegate>
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter password"
                                                                              message:msg
                                                                       preferredStyle:UIAlertControllerStyleAlert];
-    WS(weakSelf);
+    @weakify(self);
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        weakSelf.passwordField = nil;
-        weakSelf.passwordField = textField;
+        @strongify(self);
+        self.passwordField = nil;
+        self.passwordField = textField;
         if (ValidStr([[NSUserDefaults standardUserDefaults] objectForKey:@"mk_bxp_localPasswordKey"])) {
             textField.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"mk_bxp_localPasswordKey"];
         }
-        weakSelf.passwordField.placeholder = @"1~16 characters";
+        self.passwordField.placeholder = @"1~16 characters";
         [textField addTarget:self action:@selector(passwordInput) forControlEvents:UIControlEventEditingChanged];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [weakSelf connectFailed];
+        @strongify(self);
+        [self connectFailed];
     }];
     [alertController addAction:cancelAction];
     UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [weakSelf connectDeviceWithPassword:peripheral];
+        @strongify(self);
+        [self connectDeviceWithPassword:peripheral];
     }];
     [alertController addAction:moreAction];
     

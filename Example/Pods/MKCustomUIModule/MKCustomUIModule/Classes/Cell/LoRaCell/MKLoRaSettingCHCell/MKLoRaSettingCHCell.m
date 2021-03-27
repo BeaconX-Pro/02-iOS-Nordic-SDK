@@ -183,7 +183,7 @@ static CGFloat const msgLabelWidth = 100.f;
     if (_dataModel.chHighBackColor) {
         [self.chHighButton setBackgroundColor:_dataModel.chHighBackColor];
     }else {
-        [self.chHighButton setBackgroundColor:UIColorFromRGB(0x2F84D0)];
+        [self.chHighButton setBackgroundColor:NAVBAR_COLOR_MACROS];
     }
     if (_dataModel.chHighTitleColor) {
         [self.chHighButton setTitleColor:_dataModel.chHighTitleColor forState:UIControlStateNormal];
@@ -200,7 +200,7 @@ static CGFloat const msgLabelWidth = 100.f;
     if (_dataModel.chLowBackColor) {
         [self.chLowButton setBackgroundColor:_dataModel.chLowBackColor];
     }else {
-        [self.chLowButton setBackgroundColor:UIColorFromRGB(0x2F84D0)];
+        [self.chLowButton setBackgroundColor:NAVBAR_COLOR_MACROS];
     }
     if (_dataModel.chLowTitleColor) {
         [self.chLowButton setTitleColor:_dataModel.chLowTitleColor forState:UIControlStateNormal];
@@ -248,7 +248,7 @@ static CGFloat const msgLabelWidth = 100.f;
 - (UIButton *)chLowButton {
     if (!_chLowButton) {
         _chLowButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _chLowButton.backgroundColor = UIColorFromRGB(0x2F84D0);
+        _chLowButton.backgroundColor = NAVBAR_COLOR_MACROS;
         [_chLowButton setTitleColor:COLOR_WHITE_MACROS forState:UIControlStateNormal];
         [_chLowButton.layer setMasksToBounds:YES];
         [_chLowButton.layer setCornerRadius:6.f];
@@ -262,7 +262,7 @@ static CGFloat const msgLabelWidth = 100.f;
 - (UIButton *)chHighButton {
     if (!_chHighButton) {
         _chHighButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _chHighButton.backgroundColor = UIColorFromRGB(0x2F84D0);
+        _chHighButton.backgroundColor = NAVBAR_COLOR_MACROS;
         [_chHighButton setTitleColor:COLOR_WHITE_MACROS forState:UIControlStateNormal];
         [_chHighButton.layer setMasksToBounds:YES];
         [_chHighButton.layer setCornerRadius:6.f];

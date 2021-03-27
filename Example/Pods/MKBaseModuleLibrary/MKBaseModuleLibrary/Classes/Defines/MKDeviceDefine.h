@@ -6,6 +6,50 @@
 //弱引用对象
 #define WS(weakSelf)          __weak __typeof(&*self)weakSelf = self;
 
+#pragma mark - ***************************    优雅的使用弱引用和强引用      **************************
+/*
+ @weakify(self)
+
+ blcok = ^{
+     @strongify(self)
+     self.view = ...
+ }
+ */
+
+#ifndef weakify
+    #if DEBUG
+        #if __has_feature(objc_arc)
+            #define weakify(object) autoreleasepool{} __weak __typeof__(object) weak##_##object = object;
+        #else
+            #define weakify(object) autoreleasepool{} __block __typeof__(object) block##_##object = object;
+        #endif
+    #else
+        #if __has_feature(objc_arc)
+            #define weakify(object) try{} @finally{} {} __weak __typeof__(object) weak##_##object = object;
+        #else
+            #define weakify(object) try{} @finally{} {} __block __typeof__(object) block##_##object = object;
+        #endif
+    #endif
+#endif
+
+
+#ifndef strongify
+    #if DEBUG
+        #if __has_feature(objc_arc)
+            #define strongify(object) autoreleasepool{} __typeof__(object) object = weak##_##object;
+        #else
+            #define strongify(object) autoreleasepool{} __typeof__(object) object = block##_##object;
+        #endif
+    #else
+        #if __has_feature(objc_arc)
+            #define strongify(object) try{} @finally{} __typeof__(object) object = weak##_##object;
+        #else
+            #define strongify(object) try{} @finally{} __typeof__(object) object = block##_##object;
+        #endif
+    #endif
+#endif
+
+
 #pragma mark - *************************  硬件相关  *************************
 /** 获取屏幕尺寸、宽度、高度 */
 #define kScreenRect                 ([[UIScreen mainScreen] bounds])            //屏幕frame
@@ -74,7 +118,7 @@
 
 #pragma mark - *************************  系统相关  *************************
 //delegate对象//AppWindow
-#define kAppDelegate            ((AppDelegate *)[[UIApplication sharedApplication] delegate])
+#define kAppDelegate            ([[UIApplication sharedApplication] delegate])
 #define kAppWindow              ([UIApplication sharedApplication].keyWindow)
 #define kAppRootController      [UIApplication sharedApplication].keyWindow.rootViewController
 
@@ -82,7 +126,7 @@
 #define kSystemVersionString    ([[UIDevice currentDevice] systemVersion])
 
 /** 获取APP名称 */
-#define kAppName                ([[[NSBundle mainBundle] infoDictionary] objectForKey:@"kCFBundleNameKey"])
+#define kAppName                ([[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"])
 /** 获取APP版本 */
 #define kAppVersion             ([[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"])
 /** 获取APP build版本 */

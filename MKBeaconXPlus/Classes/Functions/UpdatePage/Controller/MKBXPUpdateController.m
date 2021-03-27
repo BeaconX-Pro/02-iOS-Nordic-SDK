@@ -79,15 +79,17 @@
     self.leftButton.enabled = NO;
     //BLE升级
     [[MKHudManager share] showHUDWithTitle:@"Waiting..." inView:self.view isPenetration:NO];
-    WS(weakSelf);
+    @weakify(self);
     [self.dfuModule updateWithFileUrl:filePath progressBlock:^(CGFloat progress) {
         
     } sucBlock:^{
-        [[MKHudManager share] showHUDWithTitle:@"Update firmware successfully!" inView:weakSelf.view isPenetration:NO];
-        [weakSelf performSelector:@selector(updateComplete) withObject:nil afterDelay:1.f];
+        @strongify(self);
+        [[MKHudManager share] showHUDWithTitle:@"Update firmware successfully!" inView:self.view isPenetration:NO];
+        [self performSelector:@selector(updateComplete) withObject:nil afterDelay:1.f];
     } failedBlock:^(NSError * _Nonnull error) {
-        [[MKHudManager share] showHUDWithTitle:@"Opps!DFU Failed. Please try again!" inView:weakSelf.view isPenetration:NO];
-        [weakSelf performSelector:@selector(updateComplete) withObject:nil afterDelay:1.f];
+        @strongify(self);
+        [[MKHudManager share] showHUDWithTitle:@"Opps!DFU Failed. Please try again!" inView:self.view isPenetration:NO];
+        [self performSelector:@selector(updateComplete) withObject:nil afterDelay:1.f];
     }];
 }
 
@@ -125,13 +127,13 @@
     // 创建 GCD source. 将用于监听 file descriptor 来判断是否有文件写入操作
     self.monitorSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, filedes, DISPATCH_VNODE_WRITE, self.monitorQueue);
     // 当文件发生改变时会调用该 block
-    WS(weakSelf);
+    @weakify(self);
     dispatch_source_set_event_handler(self.monitorSource, ^{
-        __strong typeof(self) sself = weakSelf;
+        @strongify(self);
         // 在文件发生改变时发出通知
         dispatch_async(dispatch_get_main_queue(), ^{
             //监听到有文件了
-            [sself loadFileList];
+            [self loadFileList];
         });
     });
     

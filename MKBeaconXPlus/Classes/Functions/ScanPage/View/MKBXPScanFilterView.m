@@ -216,14 +216,15 @@ static NSString *const noteMsg2 = @"* There is an “OR“ relationship between 
                                            nameLabelPostion_Y,
                                            textFieldWidth,
                                            30.f);
+        _nameTextField.maxLength = 20;
         _nameTextField.textColor = DEFAULT_TEXT_COLOR;
         _nameTextField.borderStyle = UITextBorderStyleNone;
         _nameTextField.font = MKFont(13.f);
         _nameTextField.textColor = DEFAULT_TEXT_COLOR;
-        _nameTextField.placeholder = @"Device Name";
+        _nameTextField.placeholder = @"1-20 characters";
         _nameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _nameTextField.layer.masksToBounds = YES;
-        _nameTextField.layer.borderColor = UIColorFromRGB(0x2F84D0).CGColor;
+        _nameTextField.layer.borderColor = NAVBAR_COLOR_MACROS.CGColor;
         _nameTextField.layer.borderWidth = 0.5f;
         _nameTextField.layer.cornerRadius = 4.f;
     }
@@ -248,14 +249,15 @@ static NSString *const noteMsg2 = @"* There is an “OR“ relationship between 
                                           nameLabelPostion_Y + textSpaceY,
                                           textFieldWidth,
                                            30.f);
+        _macTextField.maxLength = 12;
         _macTextField.textColor = DEFAULT_TEXT_COLOR;
         _macTextField.borderStyle = UITextBorderStyleNone;
         _macTextField.font = MKFont(13.f);
         _macTextField.textColor = DEFAULT_TEXT_COLOR;
-        _macTextField.placeholder = @"Mac Address";
+        _macTextField.placeholder = @"1-6bytes Hex";
         _macTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _macTextField.layer.masksToBounds = YES;
-        _macTextField.layer.borderColor = UIColorFromRGB(0x2F84D0).CGColor;
+        _macTextField.layer.borderColor = NAVBAR_COLOR_MACROS.CGColor;
         _macTextField.layer.borderWidth = 0.5f;
         _macTextField.layer.cornerRadius = 4.f;
     }
@@ -392,7 +394,7 @@ static NSString *const noteMsg2 = @"* There is an “OR“ relationship between 
     if (!_doneButton) {
         _doneButton = [MKCustomUIAdopter customButtonWithTitle:@"Apply"
                                                     titleColor:COLOR_WHITE_MACROS
-                                               backgroundColor:UIColorFromRGB(0x2F84D0)
+                                               backgroundColor:NAVBAR_COLOR_MACROS
                                                         target:self action:@selector(doneButtonPressed)];
         _doneButton.frame = CGRectMake(offset_X, backViewHeight - 40.f - 45.f, backViewWidth - 2 * offset_X, 45.f);
     }

@@ -123,7 +123,7 @@
                forControlEvents:UIControlEventTouchUpInside];
         
         _valueButton.layer.masksToBounds = YES;
-        _valueButton.layer.borderColor = UIColorFromRGB(0x2F84D0).CGColor;
+        _valueButton.layer.borderColor = NAVBAR_COLOR_MACROS.CGColor;
         _valueButton.layer.borderWidth = 0.5f;
         _valueButton.layer.cornerRadius = 6.f;
     }

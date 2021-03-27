@@ -94,6 +94,7 @@ static dispatch_once_t onceToken;
             beaconModel.rssi = RSSI;
             beaconModel.peripheral = peripheral;
             beaconModel.deviceName = advertisementData[CBAdvertisementDataLocalNameKey];
+            beaconModel.connectEnable = [advertisementData[CBAdvertisementDataIsConnectable] boolValue];
         }
         if ([self.delegate respondsToSelector:@selector(mk_bxp_receiveBeacon:)]) {
             dispatch_async(dispatch_get_main_queue(), ^{

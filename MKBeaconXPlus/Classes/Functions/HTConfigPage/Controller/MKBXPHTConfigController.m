@@ -99,13 +99,15 @@ MKBXPSyncBeaconTimeCellDelegate>
         model.time = [dic[@"time"] integerValue];
     }
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-    WS(weakSelf);
+    @weakify(self);
     [self.dataModel configDataWithSamplingInterval:[samplingInterval integerValue] triggerConditions:model sucBlock:^{
+        @strongify(self);
         [[MKHudManager share] hide];
-        [weakSelf.view showCentralToast:@"Success"];
+        [self.view showCentralToast:@"Success"];
     } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
         [[MKHudManager share] hide];
-        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
     }];
 }
 
@@ -167,13 +169,15 @@ MKBXPSyncBeaconTimeCellDelegate>
 #pragma mark - MKBXPSyncBeaconTimeCellDelegate
 - (void)bxp_needUpdateDate {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-    WS(weakSelf);
+    @weakify(self);
     [self.dataModel configDeviceTimeWithSucBlock:^{
+        @strongify(self);
         [[MKHudManager share] hide];
-        [weakSelf reloadDeviceTime];
+        [self reloadDeviceTime];
     } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
         [[MKHudManager share] hide];
-        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
     }];
 }
 
@@ -189,13 +193,15 @@ MKBXPSyncBeaconTimeCellDelegate>
 #pragma mark - 读取数据
 - (void)startReadDatas {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
-    WS(weakSelf);
+    @weakify(self);
     [self.dataModel readDataWithSucBlock:^{
+        @strongify(self);
         [[MKHudManager share] hide];
-        [weakSelf loadSectionDatas];
+        [self loadSectionDatas];
     } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
         [[MKHudManager share] hide];
-        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
     }];
 }
 

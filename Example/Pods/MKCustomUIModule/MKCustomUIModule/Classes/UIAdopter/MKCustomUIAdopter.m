@@ -17,7 +17,7 @@
                              action:(nonnull SEL)action {
     return [self customButtonWithTitle:title
                             titleColor:COLOR_WHITE_MACROS
-                       backgroundColor:UIColorFromRGB(0x2F84D0)
+                       backgroundColor:NAVBAR_COLOR_MACROS
                                 target:target action:action];
 }
 

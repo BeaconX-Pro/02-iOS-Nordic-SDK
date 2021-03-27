@@ -155,7 +155,7 @@ static CGFloat const selectButtonHeight = 30.f;
     if (_dataModel.buttonBackColor) {
         [self.selectedButton setBackgroundColor:_dataModel.buttonBackColor];
     }else {
-        [self.selectedButton setBackgroundColor:UIColorFromRGB(0x2F84D0)];
+        [self.selectedButton setBackgroundColor:NAVBAR_COLOR_MACROS];
     }
     if (_dataModel.buttonTitleColor) {
         [self.selectedButton setTitleColor:_dataModel.buttonTitleColor forState:UIControlStateNormal];
@@ -217,7 +217,7 @@ static CGFloat const selectButtonHeight = 30.f;
     if (!_selectedButton) {
         _selectedButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_selectedButton setTitleColor:COLOR_WHITE_MACROS forState:UIControlStateNormal];
-        [_selectedButton setBackgroundColor:UIColorFromRGB(0x2F84D0)];
+        [_selectedButton setBackgroundColor:NAVBAR_COLOR_MACROS];
         [_selectedButton.layer setMasksToBounds:YES];
         [_selectedButton.layer setCornerRadius:6.f];
         [_selectedButton addTarget:self

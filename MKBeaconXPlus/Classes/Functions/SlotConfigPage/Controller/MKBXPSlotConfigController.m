@@ -108,16 +108,16 @@ MKBXPSlotConfigTriggerCellDelegate>
         }
     }
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-    WS(weakSelf);
+    @weakify(self);
     [self.dataModel configSlotParams:dataDic sucBlock:^{
-        __strong typeof(self) sself = weakSelf;
+        @strongify(self);
         [[MKHudManager share] hide];
-        [sself.view showCentralToast:@"Success"];
-        [sself performSelector:@selector(leftButtonMethod) withObject:nil afterDelay:0.5f];
+        [self.view showCentralToast:@"Success"];
+        [self performSelector:@selector(leftButtonMethod) withObject:nil afterDelay:0.5f];
     } failedBlock:^(NSError * _Nonnull error) {
-        __strong typeof(self) sself = weakSelf;
+        @strongify(self);
         [[MKHudManager share] hide];
-        [sself.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
     }];
     
 }
@@ -182,15 +182,15 @@ MKBXPSlotConfigTriggerCellDelegate>
 #pragma mark - 读取数据
 - (void)readDataFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
-    WS(weakSelf);
+    @weakify(self);
     [self.dataModel readWithSucBlock:^{
-        __strong typeof(self) sself = weakSelf;
+        @strongify(self);
         [[MKHudManager share] hide];
-        [sself loadSectionDatas];
+        [self loadSectionDatas];
     } failedBlock:^(NSError * _Nonnull error) {
-        __strong typeof(self) sself = weakSelf;
+        @strongify(self);
         [[MKHudManager share] hide];
-        [sself.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
     }];
 }
 

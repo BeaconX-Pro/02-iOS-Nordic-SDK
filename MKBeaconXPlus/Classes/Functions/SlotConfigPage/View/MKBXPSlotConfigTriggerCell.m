@@ -717,7 +717,7 @@ MKBXPTriggerTapViewDelegate>
 - (UILabel *)triggerLabel {
     if (!_triggerLabel) {
         _triggerLabel = [[UILabel alloc] init];
-        _triggerLabel.textColor = UIColorFromRGB(0x2F84D0);
+        _triggerLabel.textColor = NAVBAR_COLOR_MACROS;
         _triggerLabel.textAlignment = NSTextAlignmentLeft;
         _triggerLabel.font = MKFont(13.f);
         _triggerLabel.text = @"Press button twice";

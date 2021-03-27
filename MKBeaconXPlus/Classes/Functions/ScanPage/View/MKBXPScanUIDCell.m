@@ -153,10 +153,10 @@ static CGFloat const leftIconHeight = 7.f;
         [self.txPowerLabel setText:[NSString stringWithFormat:@"%@dBm",[NSString stringWithFormat:@"%ld",(long)[_beacon.txPower integerValue]]]];
     }
     if (ValidStr(_beacon.namespaceId)) {
-        [self.nameSpaceIDLabel setText:[_beacon.namespaceId uppercaseString]];
+        [self.nameSpaceIDLabel setText:[@"0x" stringByAppendingString:[_beacon.namespaceId uppercaseString]]];
     }
     if (ValidStr(_beacon.instanceId)) {
-        [self.instanceIDLabel setText:[_beacon.instanceId uppercaseString]];
+        [self.instanceIDLabel setText:[@"0x" stringByAppendingString:[_beacon.instanceId uppercaseString]]];
     }
 }
 
@@ -181,7 +181,7 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)rssiLabel{
     if (!_rssiLabel) {
         _rssiLabel = [self createLabelWithFont:msgFont];
-        _rssiLabel.text = @"RSSI@0m:";
+        _rssiLabel.text = @"RSSI@0m";
     }
     return _rssiLabel;
 }
@@ -197,7 +197,7 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)nameSpaceLabel{
     if (!_nameSpaceLabel) {
         _nameSpaceLabel = [self createLabelWithFont:msgFont];
-        _nameSpaceLabel.text = @"NamespaceID";
+        _nameSpaceLabel.text = @"Namespace";
     }
     return _nameSpaceLabel;
 }
@@ -212,7 +212,7 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)instanceLabel{
     if (!_instanceLabel) {
         _instanceLabel = [self createLabelWithFont:msgFont];
-        _instanceLabel.text = @"InstanceID";
+        _instanceLabel.text = @"Instance ID";
     }
     return _instanceLabel;
 }

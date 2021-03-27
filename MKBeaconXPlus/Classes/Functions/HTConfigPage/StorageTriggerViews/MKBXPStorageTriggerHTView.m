@@ -199,7 +199,7 @@
               forControlEvents:UIControlEventTouchUpInside];
         
         _tempButton.layer.masksToBounds = YES;
-        _tempButton.layer.borderColor = UIColorFromRGB(0x2F84D0).CGColor;
+        _tempButton.layer.borderColor = NAVBAR_COLOR_MACROS.CGColor;
         _tempButton.layer.borderWidth = 0.5f;
         _tempButton.layer.cornerRadius = 6.f;
     }
@@ -238,7 +238,7 @@
                   forControlEvents:UIControlEventTouchUpInside];
         
         _humidityButton.layer.masksToBounds = YES;
-        _humidityButton.layer.borderColor = UIColorFromRGB(0x2F84D0).CGColor;
+        _humidityButton.layer.borderColor = NAVBAR_COLOR_MACROS.CGColor;
         _humidityButton.layer.borderWidth = 0.5f;
         _humidityButton.layer.cornerRadius = 6.f;
     }

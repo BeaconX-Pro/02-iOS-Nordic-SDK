@@ -46,6 +46,9 @@ typedef NS_ENUM(NSInteger, MKBXPDataFrameType) {
  rssi
  */
 @property (nonatomic, strong)NSNumber *rssi;
+
+@property (nonatomic, assign) BOOL connectEnable;
+
 /**
  Scanned device identifier
  */
@@ -112,8 +115,6 @@ typedef NS_ENUM(NSInteger, MKBXPDataFrameType) {
 @property (nonatomic, copy) NSString *battery;
 
 @property (nonatomic, copy) NSString *lockState;
-
-@property (nonatomic, assign) BOOL connectEnable;
 
 @property (nonatomic, copy) NSString *macAddress;
 

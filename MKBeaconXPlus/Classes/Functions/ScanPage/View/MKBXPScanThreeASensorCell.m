@@ -245,6 +245,7 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)typeLabel{
     if (!_typeLabel) {
         _typeLabel = [self createLabelWithFont:MKFont(15.f)];
+        _typeLabel.textColor = DEFAULT_TEXT_COLOR;
         _typeLabel.text = @"3-axis Sensor";
     }
     return _typeLabel;
@@ -268,7 +269,6 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)txPowerLabel {
     if (!_txPowerLabel) {
         _txPowerLabel = [self createLabelWithFont:msgFont];
-        _txPowerLabel.textColor = RGBCOLOR(153, 153, 153);
         _txPowerLabel.text = @"Tx Power";
     }
     return _txPowerLabel;
@@ -284,7 +284,6 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)dataRateLabel {
     if (!_dataRateLabel) {
         _dataRateLabel = [self createLabelWithFont:msgFont];
-        _dataRateLabel.textColor = RGBCOLOR(153, 153, 153);
         _dataRateLabel.text = @"Data rate";
     }
     return _dataRateLabel;
@@ -300,7 +299,6 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)scaleLabel {
     if (!_scaleLabel) {
         _scaleLabel = [self createLabelWithFont:msgFont];
-        _scaleLabel.textColor = RGBCOLOR(153, 153, 153);
         _scaleLabel.text = @"Scale";
     }
     return _scaleLabel;
@@ -316,7 +314,6 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)rawLabel {
     if (!_rawLabel) {
         _rawLabel = [self createLabelWithFont:msgFont];
-        _rawLabel.textColor = RGBCOLOR(153, 153, 153);
         _rawLabel.text = @"Raw Data";
     }
     return _rawLabel;
@@ -331,7 +328,7 @@ static CGFloat const leftIconHeight = 7.f;
 
 - (UILabel *)createLabelWithFont:(UIFont *)font{
     UILabel *label = [[UILabel alloc] init];
-    label.textColor = DEFAULT_TEXT_COLOR;
+    label.textColor = RGBCOLOR(184, 184, 184);
     label.textAlignment = NSTextAlignmentLeft;
     label.font = font;
     return label;

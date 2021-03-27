@@ -207,7 +207,7 @@ static CGFloat const leftIconHeight = 7.f;
         return;
     }
     if (ValidStr(_beacon.uuid)) {
-        [self.uuidIDLabel setText:_beacon.uuid];
+        [self.uuidIDLabel setText:[_beacon.uuid stringByReplacingOccurrencesOfString:@"-" withString:@""]];
     }
     if (ValidStr(_beacon.major)) {
         [self.majorIDLabel setText:_beacon.major];

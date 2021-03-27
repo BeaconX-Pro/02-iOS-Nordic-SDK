@@ -133,7 +133,7 @@
     if (!_syncButton) {
         _syncButton = [MKCustomUIAdopter customButtonWithTitle:@"Sync"
                                                     titleColor:COLOR_WHITE_MACROS
-                                               backgroundColor:UIColorFromRGB(0x2F84D0)
+                                               backgroundColor:NAVBAR_COLOR_MACROS
                                                         target:self
                                                         action:@selector(syncButtonPressed)];
     }

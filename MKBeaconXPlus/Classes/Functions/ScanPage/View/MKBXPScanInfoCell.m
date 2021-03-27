@@ -210,6 +210,7 @@ static CGFloat const batteryIconHeight = 25.f;
 #pragma mark - setter
 - (void)setBeacon:(MKBXPScanBeaconModel *)beacon {
     _beacon = beacon;
+    self.connectButton.hidden = !_beacon.connectable;
     self.txPowerLabel.text = @"";
     self.txPowerValueLabel.text = @"";
     self.timeLabel.text = @"";
@@ -265,7 +266,7 @@ static CGFloat const batteryIconHeight = 25.f;
 - (UIButton *)connectButton{
     if (!_connectButton) {
         _connectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_connectButton setBackgroundColor:UIColorFromRGB(0x2F84D0)];
+        [_connectButton setBackgroundColor:NAVBAR_COLOR_MACROS];
         [_connectButton setTitle:@"CONNECT" forState:UIControlStateNormal];
         [_connectButton setTitleColor:COLOR_WHITE_MACROS forState:UIControlStateNormal];
         [_connectButton.titleLabel setFont:MKFont(15.f)];

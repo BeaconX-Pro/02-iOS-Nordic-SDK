@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class MKBXPDeviceInfoBeacon;
 @interface MKBXPScanBeaconModel : NSObject
 
+@property (nonatomic, assign)BOOL connectable;
+
 /**
  设备信息帧，这个需要单列出来
  */

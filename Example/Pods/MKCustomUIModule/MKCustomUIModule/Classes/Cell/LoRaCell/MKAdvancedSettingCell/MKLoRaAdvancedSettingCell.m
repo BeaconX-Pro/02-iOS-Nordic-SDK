@@ -102,7 +102,7 @@
 - (UILabel *)msgLabel {
     if (!_msgLabel) {
         _msgLabel = [[UILabel alloc] init];
-        _msgLabel.textColor = UIColorFromRGB(0x2F84D0);
+        _msgLabel.textColor = NAVBAR_COLOR_MACROS;
         _msgLabel.textAlignment = NSTextAlignmentLeft;
         _msgLabel.font = MKFont(18.f);
         _msgLabel.text = @"Advanced Setting(Optional)";

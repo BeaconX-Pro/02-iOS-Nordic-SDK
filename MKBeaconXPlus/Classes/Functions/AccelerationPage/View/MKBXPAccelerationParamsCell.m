@@ -284,7 +284,7 @@
                forControlEvents:UIControlEventTouchUpInside];
         
         _scaleButton.layer.masksToBounds = YES;
-        _scaleButton.layer.borderColor = UIColorFromRGB(0x2F84D0).CGColor;
+        _scaleButton.layer.borderColor = NAVBAR_COLOR_MACROS.CGColor;
         _scaleButton.layer.borderWidth = 0.5f;
         _scaleButton.layer.cornerRadius = 6.f;
     }
@@ -319,7 +319,7 @@
                     forControlEvents:UIControlEventTouchUpInside];
         
         _sampleRateButton.layer.masksToBounds = YES;
-        _sampleRateButton.layer.borderColor = UIColorFromRGB(0x2F84D0).CGColor;
+        _sampleRateButton.layer.borderColor = NAVBAR_COLOR_MACROS.CGColor;
         _sampleRateButton.layer.borderWidth = 0.5f;
         _sampleRateButton.layer.cornerRadius = 6.f;
     }

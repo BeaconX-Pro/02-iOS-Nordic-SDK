@@ -172,6 +172,7 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)typeLabel{
     if (!_typeLabel) {
         _typeLabel = [self createLabelWithFont:MKFont(15.f)];
+        _typeLabel.textColor = DEFAULT_TEXT_COLOR;
         _typeLabel.text = @"T&H";
     }
     return _typeLabel;
@@ -195,7 +196,6 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)txPowerLabel {
     if (!_txPowerLabel) {
         _txPowerLabel = [self createLabelWithFont:msgFont];
-        _txPowerLabel.textColor = RGBCOLOR(153, 153, 153);
         _txPowerLabel.text = @"Tx Power";
     }
     return _txPowerLabel;
@@ -211,7 +211,6 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)tempLabel {
     if (!_tempLabel) {
         _tempLabel = [self createLabelWithFont:msgFont];
-        _tempLabel.textColor = RGBCOLOR(153, 153, 153);
         _tempLabel.text = @"Temperature";
     }
     return _tempLabel;
@@ -227,7 +226,6 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)humidityLabel {
     if (!_humidityLabel) {
         _humidityLabel = [self createLabelWithFont:msgFont];
-        _humidityLabel.textColor = RGBCOLOR(153, 153, 153);
         _humidityLabel.text = @"Humidity";
     }
     return _humidityLabel;
@@ -242,7 +240,7 @@ static CGFloat const leftIconHeight = 7.f;
 
 - (UILabel *)createLabelWithFont:(UIFont *)font{
     UILabel *label = [[UILabel alloc] init];
-    label.textColor = DEFAULT_TEXT_COLOR;
+    label.textColor = RGBCOLOR(184, 184, 184);
     label.textAlignment = NSTextAlignmentLeft;
     label.font = font;
     return label;

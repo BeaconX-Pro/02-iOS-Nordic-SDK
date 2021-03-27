@@ -142,12 +142,13 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning!"
                                                                              message:msg
                                                                       preferredStyle:UIAlertControllerStyleAlert];
-    WS(weakSelf);
+    @weakify(self);
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];
     [alertController addAction:cancelAction];
     UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [weakSelf deleteRecordDatas];
+        @strongify(self);
+        [self deleteRecordDatas];
     }];
     [alertController addAction:moreAction];
     
@@ -252,19 +253,19 @@
 - (void)startReceiveTimer {
     self.receiveTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,dispatch_get_global_queue(0, 0));
     dispatch_source_set_timer(self.receiveTimer, dispatch_time(DISPATCH_TIME_NOW, 1.f * NSEC_PER_SEC),  1.f * NSEC_PER_SEC, 0);
-    __weak typeof(self) weakSelf = self;
+    @weakify(self);
     dispatch_source_set_event_handler(self.receiveTimer, ^{
-        __strong typeof(self) sself = weakSelf;
-        sself.receiveCount ++;
-        if (sself.receiveCount == 10) {
+        @strongify(self);
+        self.receiveCount ++;
+        if (self.receiveCount == 10) {
             //超时没有接收到数据，认为数据接收完毕
             moko_dispatch_main_safe(^{
-                dispatch_cancel(sself.receiveTimer);
-                sself.syncButton.selected = !sself.syncButton.selected;
-                [sself.synIcon.layer removeAnimationForKey:@"synIconAnimationKey"];
-                [[MKBXPCentralManager shared] notifyRecordTHData:sself.syncButton.selected];
-                sself.syncLabel.text = @"Sync";
-                sself.switchButton.enabled = YES;
+                dispatch_cancel(self.receiveTimer);
+                self.syncButton.selected = !self.syncButton.selected;
+                [self.synIcon.layer removeAnimationForKey:@"synIconAnimationKey"];
+                [[MKBXPCentralManager shared] notifyRecordTHData:self.syncButton.selected];
+                self.syncLabel.text = @"Sync";
+                self.switchButton.enabled = YES;
             });
             return;
         }

@@ -67,13 +67,15 @@
 #pragma mark - interface
 - (void)startReadDatas {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
-    WS(weakSelf);
+    @weakify(self);
     [self.dataModel readWithSucBlock:^{
+        @strongify(self);
         [[MKHudManager share] hide];
-        [weakSelf loadDatasFromDevice];
+        [self loadDatasFromDevice];
     } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
         [[MKHudManager share] hide];
-        [weakSelf.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
     }];
 }
 

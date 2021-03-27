@@ -113,7 +113,7 @@
 
 - (void)setupNavigationParams {
     self.view.backgroundColor = COLOR_WHITE_MACROS;
-    [self wr_setNavBarBarTintColor:UIColorFromRGB(0x2F84D0)];
+    [self wr_setNavBarBarTintColor:NAVBAR_COLOR_MACROS];
     UIBarButtonItem *leftbuttonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftButton];
     [self.navigationItem setLeftBarButtonItem1:leftbuttonItem];
     UIBarButtonItem *rightbuttonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];

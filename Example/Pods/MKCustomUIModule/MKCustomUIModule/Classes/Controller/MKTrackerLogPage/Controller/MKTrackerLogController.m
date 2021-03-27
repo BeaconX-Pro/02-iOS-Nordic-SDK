@@ -204,7 +204,7 @@
     if (!_sendButton) {
         _sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_sendButton setTitle:@"Email" forState:UIControlStateNormal];
-        [_sendButton setBackgroundColor:UIColorFromRGB(0x2F84D0)];
+        [_sendButton setBackgroundColor:NAVBAR_COLOR_MACROS];
         [_sendButton.layer setMasksToBounds:YES];
         [_sendButton.layer setCornerRadius:6.f];
         [_sendButton addTapAction:self selector:@selector(sendButtonPressed)];
