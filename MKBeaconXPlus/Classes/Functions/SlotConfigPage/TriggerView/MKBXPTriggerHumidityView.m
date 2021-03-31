@@ -152,6 +152,9 @@
         return;
     }
     self.start = _dataModel.start;
+    NSString *value = [NSString stringWithFormat:@"%.f",_dataModel.sliderValue];
+    self.sliderValueLabel.text = [value stringByAppendingString:@"%"];
+    self.humiditySlider.value = _dataModel.sliderValue;
     [self updateNoteMsg];
     [self updateSlectedIcon];
 }

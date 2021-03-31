@@ -23,6 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 对于beacon，rssi@1m,其他的都是rssi@0m.
 @property (nonatomic, assign)BOOL isBeacon;
 
+/// TLM隐藏RSSI@0M
+@property (nonatomic, assign)BOOL isTLM;
+
 @end
 
 @interface MKBXPSlotConfigAdvParamsCell : MKBaseCell<MKBXPSlotConfigCellProtocol>

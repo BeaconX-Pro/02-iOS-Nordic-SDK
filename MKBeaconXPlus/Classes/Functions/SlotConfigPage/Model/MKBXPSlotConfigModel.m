@@ -124,9 +124,11 @@
             [self operationFailedBlockWithMsg:@"Config Tx Power Error" block:failedBlock];
             return;
         }
-        if (![self configRssi:[params[bxp_slotConfig_advParamType][@"rssi"] integerValue]]) {
-            [self operationFailedBlockWithMsg:@"Config Rssi Error" block:failedBlock];
-            return;
+        if (self.slotType != mk_bxp_slotFrameTypeTLM) {
+            if (![self configRssi:[params[bxp_slotConfig_advParamType][@"rssi"] integerValue]]) {
+                [self operationFailedBlockWithMsg:@"Config Rssi Error" block:failedBlock];
+                return;
+            }
         }
         if (![self.originAdvInterval isEqualToString:params[bxp_slotConfig_advParamType][@"interval"]]) {
             if (![self configAdvInterval:[params[bxp_slotConfig_advParamType][@"interval"] integerValue]]) {

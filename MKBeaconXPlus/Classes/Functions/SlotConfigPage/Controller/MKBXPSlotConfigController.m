@@ -93,7 +93,7 @@ MKBXPSlotConfigTriggerCellDelegate>
 #pragma mark - super method
 - (void)rightButtonMethod {
     NSMutableDictionary *dataDic = [NSMutableDictionary dictionary];
-    if (self.dataModel.slotType != mk_bxp_slotFrameTypeNull) {
+    if (self.slotType != mk_bxp_slotFrameTypeNull) {
         //当前要配置的通道信息不是NO DATA
         NSArray *keys = self.cellDic.allKeys;
         for (NSString *key in keys) {
@@ -107,6 +107,7 @@ MKBXPSlotConfigTriggerCellDelegate>
             [dataDic setObject:paramDic[@"result"][@"params"] forKey:paramDic[@"result"][@"dataType"]];
         }
     }
+    self.dataModel.slotType = self.slotType;
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
     @weakify(self);
     [self.dataModel configSlotParams:dataDic sucBlock:^{
@@ -138,18 +139,18 @@ MKBXPSlotConfigTriggerCellDelegate>
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return (self.dataModel.slotType == mk_bxp_slotFrameTypeNull) ? 0 : 3;
+    return (self.slotType == mk_bxp_slotFrameTypeNull) ? 0 : 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.dataModel.slotType == mk_bxp_slotFrameTypeNull) {
+    if (self.slotType == mk_bxp_slotFrameTypeNull) {
         return 0;
     }
     if (section == 0) {
-        if (self.dataModel.slotType == mk_bxp_slotFrameTypeBeacon
-            || self.dataModel.slotType == mk_bxp_slotFrameTypeUID
-            || self.dataModel.slotType == mk_bxp_slotFrameTypeURL
-            || self.dataModel.slotType == mk_bxp_slotFrameTypeInfo) {
+        if (self.slotType == mk_bxp_slotFrameTypeBeacon
+            || self.slotType == mk_bxp_slotFrameTypeUID
+            || self.slotType == mk_bxp_slotFrameTypeURL
+            || self.slotType == mk_bxp_slotFrameTypeInfo) {
             return self.section0List.count;
         }
         return 0;
@@ -166,7 +167,7 @@ MKBXPSlotConfigTriggerCellDelegate>
 
 #pragma mark - MKBXPSlotConfigFrameTypeViewDelegate
 - (void)bxp_frameTypeChangedMethod:(mk_bxp_slotFrameType)frameType {
-    self.dataModel.slotType = frameType;
+    self.slotType = frameType;
     [self loadSectionDatas];
 }
 
@@ -186,6 +187,7 @@ MKBXPSlotConfigTriggerCellDelegate>
     [self.dataModel readWithSucBlock:^{
         @strongify(self);
         [[MKHudManager share] hide];
+        self.slotType = self.dataModel.slotType;
         [self loadSectionDatas];
     } failedBlock:^(NSError * _Nonnull error) {
         @strongify(self);
@@ -200,7 +202,7 @@ MKBXPSlotConfigTriggerCellDelegate>
     [self.section1List removeAllObjects];
     [self.section2List removeAllObjects];
     [self.cellDic removeAllObjects];
-    if (self.dataModel.slotType == mk_bxp_slotFrameTypeNull) {
+    if (self.slotType == mk_bxp_slotFrameTypeNull) {
         [self.tableView reloadData];
         return;
     }
@@ -211,7 +213,7 @@ MKBXPSlotConfigTriggerCellDelegate>
 }
 
 - (void)loadSection0Datas {
-    if (self.dataModel.slotType == mk_bxp_slotFrameTypeBeacon) {
+    if (self.slotType == mk_bxp_slotFrameTypeBeacon) {
         MKBXPSlotConfigBeaconCellModel *cellModel = [[MKBXPSlotConfigBeaconCellModel alloc] init];
         if (ValidDict(self.dataModel.advSlotData) && [self.dataModel.advSlotData[@"frameType"] isEqualToString:@"50"]) {
             //当前设备广播通道是beacon
@@ -222,7 +224,7 @@ MKBXPSlotConfigTriggerCellDelegate>
         [self.section0List addObject:cellModel];
         return;
     }
-    if (self.dataModel.slotType == mk_bxp_slotFrameTypeUID) {
+    if (self.slotType == mk_bxp_slotFrameTypeUID) {
         MKBXPSlotConfigUIDCellModel *cellModel = [[MKBXPSlotConfigUIDCellModel alloc] init];
         if (ValidDict(self.dataModel.advSlotData) && [self.dataModel.advSlotData[@"frameType"] isEqualToString:@"00"]) {
             //当前设备广播通道是UID
@@ -232,7 +234,7 @@ MKBXPSlotConfigTriggerCellDelegate>
         [self.section0List addObject:cellModel];
         return;
     }
-    if (self.dataModel.slotType == mk_bxp_slotFrameTypeURL) {
+    if (self.slotType == mk_bxp_slotFrameTypeURL) {
         MKBXPSlotConfigURLCellModel *cellModel = [[MKBXPSlotConfigURLCellModel alloc] init];
         if (ValidDict(self.dataModel.advSlotData) && [self.dataModel.advSlotData[@"frameType"] isEqualToString:@"10"]) {
             //当前设备广播通道是URL
@@ -241,7 +243,7 @@ MKBXPSlotConfigTriggerCellDelegate>
         [self.section0List addObject:cellModel];
         return;
     }
-    if (self.dataModel.slotType == mk_bxp_slotFrameTypeInfo) {
+    if (self.slotType == mk_bxp_slotFrameTypeInfo) {
         MKBXPSlotConfigInfoCellModel *cellModel = [[MKBXPSlotConfigInfoCellModel alloc] init];
         if (ValidDict(self.dataModel.advSlotData) && [self.dataModel.advSlotData[@"frameType"] isEqualToString:@"40"]) {
             //当前设备广播通道是Info
@@ -254,20 +256,33 @@ MKBXPSlotConfigTriggerCellDelegate>
 
 - (void)loadSection1Datas {
     MKBXPSlotConfigAdvParamsCellModel *cellModel = [[MKBXPSlotConfigAdvParamsCellModel alloc] init];
-    cellModel.isBeacon = (self.dataModel.slotType == mk_bxp_slotFrameTypeBeacon);
-    cellModel.txPower = self.dataModel.txPower;
-    cellModel.rssiValue = self.dataModel.rssi0M;
-    cellModel.advInterval = self.dataModel.advInterval;
+    cellModel.isBeacon = (self.slotType == mk_bxp_slotFrameTypeBeacon);
+    cellModel.isTLM = (self.slotType == mk_bxp_slotFrameTypeTLM);
+    if (self.slotType == self.dataModel.slotType) {
+        cellModel.txPower = self.dataModel.txPower;
+        cellModel.rssiValue = self.dataModel.rssi0M;
+        cellModel.advInterval = self.dataModel.advInterval;
+    }else {
+        cellModel.txPower = 6;
+        cellModel.rssiValue = (self.slotType == mk_bxp_slotFrameTypeBeacon ? -59 : 0);
+        cellModel.advInterval = @"10";
+    }
+    
     [self.section1List addObject:cellModel];
 }
 
 - (void)loadSection2Datas {
     MKBXPSlotConfigTriggerCellModel *cellModel = [[MKBXPSlotConfigTriggerCellModel alloc] init];
-    cellModel.type = self.dataModel.triggerConditions[@"type"];
-    cellModel.conditions = self.dataModel.triggerConditions[@"conditions"];
-    if (ValidDict(self.dataModel.triggerConditions) && ValidStr(self.dataModel.triggerConditions[@"type"])) {
-        cellModel.isOn = !([self.dataModel.triggerConditions[@"type"] isEqualToString:@"00"]);
+    if (self.slotType == self.dataModel.slotType) {
+        cellModel.type = self.dataModel.triggerConditions[@"type"];
+        cellModel.conditions = self.dataModel.triggerConditions[@"conditions"];
+        if (ValidDict(self.dataModel.triggerConditions) && ValidStr(self.dataModel.triggerConditions[@"type"])) {
+            cellModel.isOn = !([self.dataModel.triggerConditions[@"type"] isEqualToString:@"00"]);
+        }else {
+            cellModel.isOn = NO;
+        }
     }else {
+        cellModel.type = @"00";
         cellModel.isOn = NO;
     }
     
@@ -276,28 +291,28 @@ MKBXPSlotConfigTriggerCellDelegate>
 
 - (UITableViewCell *)loadCellWithIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (self.dataModel.slotType == mk_bxp_slotFrameTypeBeacon) {
+        if (self.slotType == mk_bxp_slotFrameTypeBeacon) {
             //Beacon
             MKBXPSlotConfigBeaconCell *cell = [MKBXPSlotConfigBeaconCell initCellWithTableView:self.tableView];
             cell.dataModel = self.section0List[indexPath.row];
             [self.cellDic setObject:cell forKey:mk_advContentKey];
             return cell;
         }
-        if (self.dataModel.slotType == mk_bxp_slotFrameTypeUID) {
+        if (self.slotType == mk_bxp_slotFrameTypeUID) {
             //UID
             MKBXPSlotConfigUIDCell *cell = [MKBXPSlotConfigUIDCell initCellWithTableView:self.tableView];
             cell.dataModel = self.section0List[indexPath.row];
             [self.cellDic setObject:cell forKey:mk_advContentKey];
             return cell;
         }
-        if (self.dataModel.slotType == mk_bxp_slotFrameTypeURL) {
+        if (self.slotType == mk_bxp_slotFrameTypeURL) {
             //URL
             MKBXPSlotConfigURLCell *cell = [MKBXPSlotConfigURLCell initCellWithTableView:self.tableView];
             cell.dataModel = self.section0List[indexPath.row];
             [self.cellDic setObject:cell forKey:mk_advContentKey];
             return cell;
         }
-        if (self.dataModel.slotType == mk_bxp_slotFrameTypeInfo) {
+        if (self.slotType == mk_bxp_slotFrameTypeInfo) {
             //Info
             MKBXPSlotConfigInfoCell *cell = [MKBXPSlotConfigInfoCell initCellWithTableView:self.tableView];
             cell.dataModel = self.section0List[indexPath.row];
@@ -321,25 +336,25 @@ MKBXPSlotConfigTriggerCellDelegate>
 }
 
 - (CGFloat)getCellHeightWithIndexPath:(NSIndexPath *)indexPath {
-    if (self.dataModel.slotType == mk_bxp_slotFrameTypeNull) {
+    if (self.slotType == mk_bxp_slotFrameTypeNull) {
         //NO DATA
         return 0.f;
     }
     if (indexPath.section == 0) {
         //adv content
-        if (self.dataModel.slotType == mk_bxp_slotFrameTypeBeacon) {
+        if (self.slotType == mk_bxp_slotFrameTypeBeacon) {
             //当前是beacon通道
             return mk_beaconAdvContentHeight;
         }
-        if (self.dataModel.slotType == mk_bxp_slotFrameTypeUID) {
+        if (self.slotType == mk_bxp_slotFrameTypeUID) {
             //当前是UID通道
             return mk_uidAdvContentHeight;
         }
-        if (self.dataModel.slotType == mk_bxp_slotFrameTypeURL) {
+        if (self.slotType == mk_bxp_slotFrameTypeURL) {
             //当前通道是URL
             return mk_urlAdvContentHeight;
         }
-        if (self.dataModel.slotType == mk_bxp_slotFrameTypeInfo) {
+        if (self.slotType == mk_bxp_slotFrameTypeInfo) {
             //当前通道是设备信息
             return mk_deviceAdvContentHeight;
         }
@@ -347,7 +362,7 @@ MKBXPSlotConfigTriggerCellDelegate>
     }
     if (indexPath.section == 1) {
         //Adv parameters
-        return mk_advParamsContentHeight;
+        return (self.slotType == mk_bxp_slotFrameTypeTLM ? 140.f : mk_advParamsContentHeight);
     }
     //Trigger
     MKBXPSlotConfigTriggerCellModel *cellModel = self.section2List[0];

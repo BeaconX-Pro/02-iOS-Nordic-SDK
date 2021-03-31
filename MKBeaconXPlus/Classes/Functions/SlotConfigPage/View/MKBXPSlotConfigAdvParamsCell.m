@@ -99,61 +99,6 @@
         make.centerY.mas_equalTo(self.leftIcon.mas_centerY);
         make.height.mas_equalTo(MKFont(15.f).lineHeight);
     }];
-    
-    [self.advIntervalLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(15.f);
-        make.right.mas_equalTo(self.intervalTextField.mas_left).mas_offset(-15.f);
-        make.centerY.mas_equalTo(self.intervalTextField.mas_centerY);
-        make.height.mas_equalTo(MKFont(13.f).lineHeight);
-    }];
-    [self.intervalTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.intervalUnitLabel.mas_left).mas_offset(-5.f);
-        make.width.mas_equalTo(60.f);
-        make.top.mas_equalTo(self.leftIcon.mas_bottom).mas_offset(15.f);
-        make.height.mas_equalTo(20.f);
-    }];
-    [self.intervalUnitLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-15.f);
-        make.width.mas_equalTo(60.f);
-        make.centerY.mas_equalTo(self.intervalTextField.mas_centerY);
-        make.height.mas_equalTo(MKFont(12.f).lineHeight);
-    }];
-    [self.rssiMsgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(15.f);
-        make.top.mas_equalTo(self.intervalTextField.mas_bottom).mas_offset(15.f);
-        make.right.mas_equalTo(-15.f);
-        make.height.mas_equalTo(MKFont(15.f).lineHeight);
-    }];
-    [self.rssiSlider mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(15.f);
-        make.right.mas_equalTo(self.rssiValueLabel.mas_left).mas_offset(-5.f);
-        make.top.mas_equalTo(self.rssiMsgLabel.mas_bottom).mas_offset(5.f);
-        make.height.mas_equalTo(10.f);
-    }];
-    [self.rssiValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-15.f);
-        make.width.mas_equalTo(60.f);
-        make.centerY.mas_equalTo(self.rssiSlider.mas_centerY);
-        make.height.mas_equalTo(MKFont(12.f).lineHeight);
-    }];
-    [self.txPowerMsgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(15.f);
-        make.top.mas_equalTo(self.rssiSlider.mas_bottom).mas_offset(15.f);
-        make.right.mas_equalTo(-15.f);
-        make.height.mas_equalTo(MKFont(15.f).lineHeight);
-    }];
-    [self.txPowerSlider mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(15.f);
-        make.right.mas_equalTo(self.txPowerValueLabel.mas_left).mas_offset(-5.f);
-        make.top.mas_equalTo(self.txPowerMsgLabel.mas_bottom).mas_offset(5.f);
-        make.height.mas_equalTo(10.f);
-    }];
-    [self.txPowerValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-15.f);
-        make.width.mas_equalTo(60.f);
-        make.centerY.mas_equalTo(self.txPowerSlider.mas_centerY);
-        make.height.mas_equalTo(MKFont(12.f).lineHeight);
-    }];
 }
 
 #pragma mark - MKBXPSlotConfigCellProtocol
@@ -166,9 +111,12 @@
     }
     
     NSString *txPowerValue = [NSString stringWithFormat:@"%.f",self.txPowerSlider.value];
-    NSString *rssiValue = [NSString stringWithFormat:@"%.f",self.rssiSlider.value];
-    if ([rssiValue isEqualToString:@"-0"]) {
-        rssiValue = @"0";
+    NSString *rssiValue = @"";
+    if (!self.dataModel.isTLM) {
+        rssiValue = [NSString stringWithFormat:@"%.f",self.rssiSlider.value];
+        if ([rssiValue isEqualToString:@"-0"]) {
+            rssiValue = @"0";
+        }
     }
     return @{
         @"msg":@"",
@@ -204,13 +152,26 @@
     if (!_dataModel) {
         return;
     }
-    self.rssiSlider.value = _dataModel.rssiValue;
-    self.rssiValueLabel.text = [NSString stringWithFormat:@"%lddBm",(long)_dataModel.rssiValue];
+    
     self.txPowerSlider.value = _dataModel.txPower;
     self.txPowerValueLabel.text = [self txPowerValueText:_dataModel.txPower];
     self.intervalTextField.text = _dataModel.advInterval;
-    NSString *tempMsg = (_dataModel.isBeacon ? @"RSSI@1m" : @"RSSI@0m");
-    self.rssiMsgLabel.attributedText = [MKCustomUIAdopter attributedString:@[tempMsg,@"   (-100dBm ~ 0dBm)"] fonts:@[MKFont(13.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
+    
+    if (self.rssiMsgLabel.superview) {
+        [self.rssiMsgLabel removeFromSuperview];
+    }
+    if (self.rssiSlider.superview) {
+        [self.rssiSlider removeFromSuperview];
+    }
+    if (self.rssiValueLabel.superview) {
+        [self.rssiValueLabel removeFromSuperview];
+    }
+    
+    if (_dataModel.isTLM) {
+        [self setupTLMUI];
+        return;
+    }
+    [self setupNormalUI];
 }
 
 #pragma mark - private method
@@ -240,6 +201,110 @@
         return @"3dBm";
     }
     return @"4dBm";
+}
+
+- (void)setupNormalUI {
+    [self.backView addSubview:self.rssiMsgLabel];
+    [self.backView addSubview:self.rssiSlider];
+    [self.backView addSubview:self.rssiValueLabel];
+    self.rssiSlider.value = self.dataModel.rssiValue;
+    self.rssiValueLabel.text = [NSString stringWithFormat:@"%lddBm",(long)self.dataModel.rssiValue];
+    NSString *tempMsg = (_dataModel.isBeacon ? @"RSSI@1m" : @"RSSI@0m");
+    self.rssiMsgLabel.attributedText = [MKCustomUIAdopter attributedString:@[tempMsg,@"   (-100dBm ~ 0dBm)"] fonts:@[MKFont(13.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
+    
+    [self.advIntervalLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15.f);
+        make.right.mas_equalTo(self.intervalTextField.mas_left).mas_offset(-15.f);
+        make.centerY.mas_equalTo(self.intervalTextField.mas_centerY);
+        make.height.mas_equalTo(MKFont(13.f).lineHeight);
+    }];
+    [self.intervalTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.intervalUnitLabel.mas_left).mas_offset(-5.f);
+        make.width.mas_equalTo(60.f);
+        make.top.mas_equalTo(self.leftIcon.mas_bottom).mas_offset(15.f);
+        make.height.mas_equalTo(20.f);
+    }];
+    [self.intervalUnitLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-15.f);
+        make.width.mas_equalTo(60.f);
+        make.centerY.mas_equalTo(self.intervalTextField.mas_centerY);
+        make.height.mas_equalTo(MKFont(12.f).lineHeight);
+    }];
+    [self.rssiMsgLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15.f);
+        make.top.mas_equalTo(self.intervalTextField.mas_bottom).mas_offset(15.f);
+        make.right.mas_equalTo(-15.f);
+        make.height.mas_equalTo(MKFont(15.f).lineHeight);
+    }];
+    [self.rssiSlider mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15.f);
+        make.right.mas_equalTo(self.rssiValueLabel.mas_left).mas_offset(-5.f);
+        make.top.mas_equalTo(self.rssiMsgLabel.mas_bottom).mas_offset(5.f);
+        make.height.mas_equalTo(10.f);
+    }];
+    [self.rssiValueLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-15.f);
+        make.width.mas_equalTo(60.f);
+        make.centerY.mas_equalTo(self.rssiSlider.mas_centerY);
+        make.height.mas_equalTo(MKFont(12.f).lineHeight);
+    }];
+    [self.txPowerMsgLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15.f);
+        make.top.mas_equalTo(self.rssiSlider.mas_bottom).mas_offset(15.f);
+        make.right.mas_equalTo(-15.f);
+        make.height.mas_equalTo(MKFont(15.f).lineHeight);
+    }];
+    [self.txPowerSlider mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15.f);
+        make.right.mas_equalTo(self.txPowerValueLabel.mas_left).mas_offset(-5.f);
+        make.top.mas_equalTo(self.txPowerMsgLabel.mas_bottom).mas_offset(5.f);
+        make.height.mas_equalTo(10.f);
+    }];
+    [self.txPowerValueLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-15.f);
+        make.width.mas_equalTo(60.f);
+        make.centerY.mas_equalTo(self.txPowerSlider.mas_centerY);
+        make.height.mas_equalTo(MKFont(12.f).lineHeight);
+    }];
+}
+
+- (void)setupTLMUI {
+    [self.advIntervalLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15.f);
+        make.right.mas_equalTo(self.intervalTextField.mas_left).mas_offset(-15.f);
+        make.centerY.mas_equalTo(self.intervalTextField.mas_centerY);
+        make.height.mas_equalTo(MKFont(13.f).lineHeight);
+    }];
+    [self.intervalTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.intervalUnitLabel.mas_left).mas_offset(-5.f);
+        make.width.mas_equalTo(60.f);
+        make.top.mas_equalTo(self.leftIcon.mas_bottom).mas_offset(15.f);
+        make.height.mas_equalTo(20.f);
+    }];
+    [self.intervalUnitLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-15.f);
+        make.width.mas_equalTo(60.f);
+        make.centerY.mas_equalTo(self.intervalTextField.mas_centerY);
+        make.height.mas_equalTo(MKFont(12.f).lineHeight);
+    }];
+    [self.txPowerMsgLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15.f);
+        make.top.mas_equalTo(self.intervalTextField.mas_bottom).mas_offset(15.f);
+        make.right.mas_equalTo(-15.f);
+        make.height.mas_equalTo(MKFont(15.f).lineHeight);
+    }];
+    [self.txPowerSlider mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15.f);
+        make.right.mas_equalTo(self.txPowerValueLabel.mas_left).mas_offset(-5.f);
+        make.top.mas_equalTo(self.txPowerMsgLabel.mas_bottom).mas_offset(5.f);
+        make.height.mas_equalTo(10.f);
+    }];
+    [self.txPowerValueLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-15.f);
+        make.width.mas_equalTo(60.f);
+        make.centerY.mas_equalTo(self.txPowerSlider.mas_centerY);
+        make.height.mas_equalTo(MKFont(12.f).lineHeight);
+    }];
 }
 
 #pragma mark - getter

@@ -118,7 +118,6 @@ static dispatch_once_t onceToken;
 
 #pragma mark - MKBLEBaseCentralManagerStateProtocol
 - (void)MKBLEBaseCentralManagerStateChanged:(MKCentralManagerState)centralManagerState {
-    NSLog(@"蓝牙中心改变");
     [[NSNotificationCenter defaultCenter] postNotificationName:mk_bxp_centralManagerStateChangedNotification object:nil];
 }
 
@@ -137,7 +136,6 @@ static dispatch_once_t onceToken;
     }else if (connectState == MKPeripheralConnectStateConnectedFailed) {
         self.connectState = mk_bxp_centralConnectStatusConnectedFailed;
     }
-    NSLog(@"当前连接状态发生改变了:%@",@(connectState));
     [[NSNotificationCenter defaultCenter] postNotificationName:mk_bxp_peripheralConnectStateChangedNotification object:nil];
 }
 

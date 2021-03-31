@@ -318,7 +318,7 @@
                           sensitivity:(NSInteger)sensitivity
                              sucBlock:(void (^)(id returnData))sucBlock
                           failedBlock:(void (^)(NSError *error))failedBlock {
-    if (sensitivity < 7 || sensitivity > 255) {
+    if (sensitivity < 1 || sensitivity > 255) {
         [self operationParamsErrorBlock:failedBlock];
         return;
     }

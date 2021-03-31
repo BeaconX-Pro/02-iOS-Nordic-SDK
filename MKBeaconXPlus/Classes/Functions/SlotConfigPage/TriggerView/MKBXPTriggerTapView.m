@@ -245,6 +245,7 @@
     [self updateNoteMsg];
     self.msgLabel2.text = (_dataModel.viewType == MKBXPTriggerTapViewDeviceMoves) ? @"Stop advertising after a static period of time" : @"Start advertising for a while";
     self.msgLabel4.text = (_dataModel.viewType == MKBXPTriggerTapViewDeviceMoves) ? @"Start advertising after a static period of time" : @"Stop advertising for a while";
+    [self setNeedsLayout];
 }
 
 #pragma mark - private method
@@ -260,19 +261,23 @@
         if (self.index == 2) {
             self.noteMsgLabel.text = [NSString stringWithFormat:@"*The Beacon will start to broadcast after a static period of %@s and it stops broadcasting again once a movement occurred.",self.stopField.text];
         }
+        [self setNeedsLayout];
         return;
     }
     NSString *typeString = (self.dataModel.viewType == MKBXPTriggerTapViewTriple) ? @"three times" : @"twice";
     if (self.index == 0) {
         self.noteMsgLabel.text = [NSString stringWithFormat:@"*The Beacon will always broadcast after press the button %@.",typeString];
+        [self setNeedsLayout];
         return;
     }
     if (self.index == 1) {
-        self.noteMsgLabel.text = [NSString stringWithFormat:@"*The Beacon will start to broadcast for %@s after press button %@.",self.startField.text,typeString];
+        self.noteMsgLabel.text = [NSString stringWithFormat:@"*The Beacon will start to broadcast for %@s after press the button %@.",self.startField.text,typeString];
+        [self setNeedsLayout];
         return;
     }
     if (self.index == 2) {
         self.noteMsgLabel.text = [NSString stringWithFormat:@"*The Beacon will stop broadcasting for %@s after press the button %@.",self.stopField.text,typeString];
+        [self setNeedsLayout];
         return;
     }
 }

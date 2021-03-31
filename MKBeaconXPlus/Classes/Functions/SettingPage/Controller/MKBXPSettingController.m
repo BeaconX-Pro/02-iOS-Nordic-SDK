@@ -337,7 +337,7 @@ mk_textSwitchCellDelegate>
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         @strongify(self);
         MKTextSwitchCellModel *model = self.section1List[1];
-        model.isOn = YES;
+        model.isOn = NO;
         [self.tableView mk_reloadRow:1 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
     }];
     [self.currentAlert addAction:cancelAction];
@@ -363,7 +363,7 @@ mk_textSwitchCellDelegate>
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
         MKTextSwitchCellModel *model = self.section1List[1];
-        model.isOn = YES;
+        model.isOn = NO;
         [self.tableView mk_reloadRow:1 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
     }];
 }

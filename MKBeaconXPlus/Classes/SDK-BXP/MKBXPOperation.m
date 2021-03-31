@@ -88,7 +88,7 @@ NSString *const mk_bxp_dataStatusLev = @"mk_bxp_dataStatusLev";
 #pragma mark - life circle
 
 - (void)dealloc{
-    NSLog(@"BXP任务销毁");
+//    NSLog(@"BXP任务销毁");
 }
 
 - (instancetype)initOperationWithID:(mk_bxp_taskOperationID)operationID

@@ -394,26 +394,28 @@ MKBXPTriggerTapViewDelegate>
         [self.humidityView setHidden:YES];
         [self.tripleTapView setHidden:YES];
         [self.movesView setHidden:YES];
-        NSString *timeValue = @"30";
+        NSString *startValue = @"30";
+        NSString *stopValue = @"30";
         NSInteger tempIndex = 0;
         if (ValidDict(self.dataModel.conditions)) {
             BOOL start = [self.dataModel.conditions[@"start"] boolValue];
-            timeValue = self.dataModel.conditions[@"time"];
-            if ([timeValue integerValue] == 0) {
+            if ([self.dataModel.conditions[@"time"] integerValue] == 0) {
                 if (start) {
                     tempIndex = 0;
                 }
             }else {
                 if (start) {
                     tempIndex = 1;
+                    startValue = self.dataModel.conditions[@"time"];
                 }else {
                     tempIndex = 2;
+                    stopValue = self.dataModel.conditions[@"time"];
                 }
             }
         }
         self.doubleTapViewModel.index = tempIndex;
-        self.doubleTapViewModel.startValue = timeValue;
-        self.doubleTapViewModel.stopValue = timeValue;
+        self.doubleTapViewModel.startValue = startValue;
+        self.doubleTapViewModel.stopValue = stopValue;
         self.doubleTapView.dataModel = self.doubleTapViewModel;
         return;
     }
@@ -425,27 +427,29 @@ MKBXPTriggerTapViewDelegate>
         [self.tripleTapView setHidden:NO];
         [self.movesView setHidden:YES];
         
-        NSString *timeValue = @"30";
+        NSString *startValue = @"30";
+        NSString *stopValue = @"30";
         NSInteger tempIndex = 0;
         
         if (ValidDict(self.dataModel.conditions)) {
             BOOL start = [self.dataModel.conditions[@"start"] boolValue];
-            timeValue = self.dataModel.conditions[@"time"];
-            if ([timeValue integerValue] == 0) {
+            if ([self.dataModel.conditions[@"time"] integerValue] == 0) {
                 if (start) {
                     tempIndex = 0;
                 }
             }else {
                 if (start) {
                     tempIndex = 1;
+                    startValue = self.dataModel.conditions[@"time"];
                 }else {
                     tempIndex = 2;
+                    stopValue = self.dataModel.conditions[@"time"];
                 }
             }
         }
         self.tripleTapViewModel.index = tempIndex;
-        self.tripleTapViewModel.startValue = timeValue;
-        self.tripleTapViewModel.stopValue = timeValue;
+        self.tripleTapViewModel.startValue = startValue;
+        self.tripleTapViewModel.stopValue = stopValue;
         self.tripleTapView.dataModel = self.tripleTapViewModel;
         return;
     }
@@ -463,27 +467,29 @@ MKBXPTriggerTapViewDelegate>
             [self.tripleTapView setHidden:YES];
             [self.movesView setHidden:NO];
             
-            NSString *timeValue = @"30";
+            NSString *startValue = @"30";
+            NSString *stopValue = @"30";
             NSInteger tempIndex = 0;
             
             if (ValidDict(self.dataModel.conditions)) {
                 BOOL start = [self.dataModel.conditions[@"start"] boolValue];
-                timeValue = self.dataModel.conditions[@"time"];
-                if ([timeValue integerValue] == 0) {
+                if ([self.dataModel.conditions[@"time"] integerValue] == 0) {
                     if (start) {
                         tempIndex = 0;
                     }
                 }else {
                     if (start) {
                         tempIndex = 1;
+                        startValue = self.dataModel.conditions[@"time"];
                     }else {
                         tempIndex = 2;
+                        stopValue = self.dataModel.conditions[@"time"];
                     }
                 }
             }
             self.movesViewModel.index = tempIndex;
-            self.movesViewModel.startValue = timeValue;
-            self.movesViewModel.stopValue = timeValue;
+            self.movesViewModel.startValue = startValue;
+            self.movesViewModel.stopValue = stopValue;
             self.movesView.dataModel = self.movesViewModel;
             return;
         }
@@ -534,27 +540,29 @@ MKBXPTriggerTapViewDelegate>
             [self.tripleTapView setHidden:YES];
             [self.movesView setHidden:NO];
             
-            NSString *timeValue = @"30";
+            NSString *startValue = @"30";
+            NSString *stopValue = @"30";
             NSInteger tempIndex = 0;
             
             if (ValidDict(self.dataModel.conditions)) {
                 BOOL start = [self.dataModel.conditions[@"start"] boolValue];
-                timeValue = self.dataModel.conditions[@"time"];
-                if ([timeValue integerValue] == 0) {
+                if ([self.dataModel.conditions[@"time"] integerValue] == 0) {
                     if (start) {
                         tempIndex = 0;
                     }
                 }else {
                     if (start) {
                         tempIndex = 1;
+                        startValue = self.dataModel.conditions[@"time"];
                     }else {
                         tempIndex = 2;
+                        stopValue = self.dataModel.conditions[@"time"];
                     }
                 }
             }
             self.movesViewModel.index = tempIndex;
-            self.movesViewModel.startValue = timeValue;
-            self.movesViewModel.stopValue = timeValue;
+            self.movesViewModel.startValue = startValue;
+            self.movesViewModel.stopValue = stopValue;
             self.movesView.dataModel = self.movesViewModel;
             return;
         }

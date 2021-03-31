@@ -284,7 +284,7 @@ typedef NS_ENUM(NSInteger, mk_bxp_HTStorageConditions) {
 
  @param dataRate sampling rate
  @param acceleration scale
- @param sensitivity The sensitivity of the device to move, the greater the value, the slower it is. 7~255
+ @param sensitivity The sensitivity of the device to move, the greater the value, the slower it is. 1~255
  @param sucBlock success callback
  @param failedBlock failed callback
  */

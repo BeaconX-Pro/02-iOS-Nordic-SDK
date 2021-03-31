@@ -170,11 +170,11 @@
 }
 
 - (void)loadListDatas {
-    for (NSInteger i = 0; i <= 120; i ++) {
+    for (NSInteger i = 1; i <= 120; i ++) {
         NSString *value = [NSString stringWithFormat:@"%.1f",(i * 0.5)];
         [self.tempList addObject:value];
     }
-    for (NSInteger i = 0; i <= 190; i ++) {
+    for (NSInteger i = 1; i <= 190; i ++) {
         NSString *value = [NSString stringWithFormat:@"%.1f",(i * 0.5)];
         [self.humidityList addObject:value];
     }
@@ -191,7 +191,7 @@
 - (UIButton *)tempButton {
     if (!_tempButton) {
         _tempButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_tempButton setTitle:@"0.0" forState:UIControlStateNormal];
+        [_tempButton setTitle:@"0.5" forState:UIControlStateNormal];
         [_tempButton.titleLabel setFont:MKFont(12.f)];
         [_tempButton setTitleColor:DEFAULT_TEXT_COLOR forState:UIControlStateNormal];
         [_tempButton addTarget:self
@@ -230,7 +230,7 @@
 - (UIButton *)humidityButton {
     if (!_humidityButton) {
         _humidityButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_humidityButton setTitle:@"0.0" forState:UIControlStateNormal];
+        [_humidityButton setTitle:@"0.5" forState:UIControlStateNormal];
         [_humidityButton.titleLabel setFont:MKFont(12.f)];
         [_humidityButton setTitleColor:DEFAULT_TEXT_COLOR forState:UIControlStateNormal];
         [_humidityButton addTarget:self

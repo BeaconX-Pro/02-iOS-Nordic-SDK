@@ -111,13 +111,13 @@
             @"result":@{},
         };
     }
-    NSString *url = [self.typeLabel.text stringByAppendingString:self.textField.text];
+    NSString *url = [self.urlTypeLabel.text stringByAppendingString:self.textField.text];
     //需要对,@"http://"、@"https://这两种情况单独处理
     BOOL legal = [url regularExpressions:isUrl];
     if (legal) {
-        return [self getLegitimateUrl:self.typeLabel.text urlContent:self.textField.text];
+        return [self getLegitimateUrl:self.urlTypeLabel.text urlContent:self.textField.text];
     }
-    return [self suffixIllegal:self.typeLabel.text urlContent:self.textField.text];
+    return [self suffixIllegal:self.urlTypeLabel.text urlContent:self.textField.text];
 }
 
 #pragma mark - event method
