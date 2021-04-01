@@ -152,8 +152,21 @@ mk_textSwitchCellDelegate>
 
 #pragma mark - mk_textSwitchCellDelegate
 - (void)mk_textSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
-    MKTextSwitchCellModel *cellModel = self.section1List[index];
-    cellModel.isOn = isOn;
+    if (index < 3) {
+        MKTextSwitchCellModel *cellModel = self.section1List[index];
+        cellModel.isOn = isOn;
+    }else {
+        //index == 3免密登录
+        if ([MKBXPConnectManager shared].newVersion) {
+            MKTextSwitchCellModel *cellModel = self.section1List[index];
+            cellModel.isOn = isOn;
+        }else {
+            //旧版本免密登录
+            MKTextSwitchCellModel *cellModel = self.section1List[2];
+            cellModel.isOn = isOn;
+        }
+    }
+    
     if (index == 0) {
         //可连接性
         [self configConnectEnable:isOn];

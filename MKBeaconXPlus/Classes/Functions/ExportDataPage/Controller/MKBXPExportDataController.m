@@ -29,8 +29,8 @@
 
 #define textBackViewHeight (kViewHeight - defaultTopInset - 70.f)
 
-static CGFloat timeTextViewWidth = 150.f;
-static CGFloat htTextViewWidth = 60.f;
+static CGFloat timeTextViewWidth = 130.f;
+static CGFloat htTextViewWidth = 80.f;
 
 #define textViewSpace (kViewWidth - 30.f - timeTextViewWidth - 2 * htTextViewWidth) / 4
 
@@ -58,13 +58,7 @@ static CGFloat htTextViewWidth = 60.f;
 
 @property (nonatomic, strong)UILabel *switchLabel;
 
-@property (nonatomic, strong)UIView *textBackView;
-
-@property (nonatomic, strong)UITextView *timeTextView;
-
-@property (nonatomic, strong)UITextView *tempTextView;
-
-@property (nonatomic, strong)UITextView *humidityTextView;
+@property (nonatomic, strong)UITextView *textView;
 
 @property (nonatomic, strong)MKBXPExportDataCurveView *curveView;
 
@@ -77,6 +71,8 @@ static CGFloat htTextViewWidth = 60.f;
 @property (nonatomic, strong)NSMutableArray *temperatureList;
 
 @property (nonatomic, strong)NSMutableArray *humidityList;
+
+@property (nonatomic, strong)UIView *textBackView;
 
 @end
 
@@ -131,8 +127,6 @@ static CGFloat htTextViewWidth = 60.f;
     self.switchButton.enabled = !self.syncButton.selected;
     if (self.syncButton.selected) {
         //开始旋转
-        [self.temperatureList removeAllObjects];
-        [self.humidityList removeAllObjects];
         [[MKBXPCentralManager shared] notifyRecordTHData:YES];
         [self.synIcon.layer addAnimation:[MKCustomUIAdopter refreshAnimation:2.f] forKey:@"synIconAnimationKey"];
         self.syncLabel.text = @"Stop";
@@ -236,33 +230,18 @@ static CGFloat htTextViewWidth = 60.f;
         [self.humidityList addObject:dic[@"humidity"]];
     }
     NSArray *dateList = [dic[@"date"] componentsSeparatedByString:@"-"];
-    NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@    %@:%@:%@",dateList[0],dateList[1],dateList[2],dateList[3],dateList[4],dateList[5]];
-    NSString *timeText = [NSString stringWithFormat:@"\n%@",dateString];
-    NSString *tempText = [NSString stringWithFormat:@"\n%@",temperature];
-    NSString *humidityText = [NSString stringWithFormat:@"\n%@",humidity];
-    
-    self.timeTextView.text = [self.timeTextView.text stringByAppendingString:timeText];
-    [self.timeTextView scrollRangeToVisible:NSMakeRange(self.timeTextView.text.length, 1)];
-    
-    self.tempTextView.text = [self.tempTextView.text stringByAppendingString:tempText];
-    [self.tempTextView scrollRangeToVisible:NSMakeRange(self.tempTextView.text.length, 1)];
-    
-    self.humidityTextView.text = [self.humidityTextView.text stringByAppendingString:humidityText];
-    [self.humidityTextView scrollRangeToVisible:NSMakeRange(self.humidityTextView.text.length, 1)];
-    
-    NSString *saveText = [NSString stringWithFormat:@"\n%@  %@  %@",dateString,temperature,humidity];
-    
-    [MKBLEBaseLogManager saveDataWithFileName:@"T&HDatas" dataList:@[saveText]];
-    
+    NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@ %@:%@:%@",dateList[0],dateList[1],dateList[2],dateList[3],dateList[4],dateList[5]];
+    NSString *text = [NSString stringWithFormat:@"\n%@\t\t%@\t\t%@",dateString,temperature,humidity];
+    [MKBLEBaseLogManager saveDataWithFileName:@"T&HDatas" dataList:@[text]];
+    self.textView.text = [self.textView.text stringByAppendingString:text];
+    [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 1)];
     self.receiveCount = 0;
 }
 
 #pragma mark - interface
 - (void)deleteRecordDatas {
     [MKBLEBaseLogManager deleteLogWithFileName:@"/T&HDatas"];
-    [self.timeTextView setText:@""];
-    [self.tempTextView setText:@""];
-    [self.humidityTextView setText:@""];
+    [self.textView setText:@""];
     self.syncButton.selected = NO;
     [self.synIcon.layer removeAnimationForKey:@"synIconAnimationKey"];
     [[MKBXPCentralManager shared] notifyRecordTHData:self.syncButton.selected];
@@ -398,9 +377,7 @@ static CGFloat htTextViewWidth = 60.f;
     }];
     
     [self.backView addSubview:self.textBackView];
-    [self.textBackView addSubview:self.timeTextView];
-    [self.textBackView addSubview:self.tempTextView];
-    [self.textBackView addSubview:self.humidityTextView];
+    [self.textBackView addSubview:self.textView];
     [self.backView addSubview:self.curveView];
 }
 
@@ -515,18 +492,28 @@ static CGFloat htTextViewWidth = 60.f;
     return _exportLabel;
 }
 
+- (UITextView *)textView {
+    if (!_textView) {
+        _textView = [[UITextView alloc] initWithFrame:CGRectMake(10.f, 3 * 5.f + MKFont(13.f).lineHeight, kViewWidth - 30.f, textBackViewHeight - 15.f - MKFont(13.f).lineHeight)];
+        _textView.font = MKFont(13.f);
+        _textView.layoutManager.allowsNonContiguousLayout = NO;
+        _textView.editable = NO;
+        _textView.textColor = DEFAULT_TEXT_COLOR;
+    }
+    return _textView;
+}
+
 - (UIView *)textBackView {
     if (!_textBackView) {
         _textBackView = [[UIView alloc] initWithFrame:CGRectMake(10.f, 60.f, kViewWidth - 30.f, textBackViewHeight)];
-        
         _textBackView.layer.masksToBounds = YES;
         _textBackView.layer.borderWidth = 0.5f;
         _textBackView.layer.cornerRadius = 2.f;
         _textBackView.layer.borderColor = [UIColor colorWithRed:227.0 / 255 green:227.0 / 255 blue:227.0 / 255 alpha:1].CGColor;
-    
+        
         UILabel *timeLabel = [self loadTextLabel:@"Time"];
-        UILabel *tempLabel = [self loadTextLabel:@"Temperature(℃)"];
-        UILabel *humidityLabel = [self loadTextLabel:@"Humidity(%RH)"];
+        UILabel *tempLabel = [self loadTextLabel:@"Temperature"];
+        UILabel *humidityLabel = [self loadTextLabel:@"Humidity"];
         
         [_textBackView addSubview:timeLabel];
         [_textBackView addSubview:tempLabel];
@@ -537,33 +524,6 @@ static CGFloat htTextViewWidth = 60.f;
         humidityLabel.frame = CGRectMake(3 * textViewSpace + timeTextViewWidth + htTextViewWidth, 5.f, htTextViewWidth, MKFont(13.f).lineHeight);
     }
     return _textBackView;
-}
-
-- (UITextView *)timeTextView {
-    if (!_timeTextView) {
-        _timeTextView = [self loadTextView];
-        _timeTextView.frame = CGRectMake(textViewSpace, 2 * 5.f + MKFont(13.f).lineHeight, timeTextViewWidth, textBackViewHeight - (2 * 5.f + MKFont(13.f).lineHeight));
-        _timeTextView.backgroundColor = [UIColor redColor];
-    }
-    return _timeTextView;
-}
-
-- (UITextView *)tempTextView {
-    if (!_tempTextView) {
-        _tempTextView = [self loadTextView];
-        _tempTextView.frame = CGRectMake(2 * textViewSpace + timeTextViewWidth, 2 * 5.f + MKFont(13.f).lineHeight, htTextViewWidth, textBackViewHeight - (2 * 5.f + MKFont(13.f).lineHeight));
-        _tempTextView.backgroundColor = [UIColor greenColor];
-    }
-    return _tempTextView;
-}
-
-- (UITextView *)humidityTextView {
-    if (!_humidityTextView) {
-        _humidityTextView = [self loadTextView];
-        _humidityTextView.frame = CGRectMake(3 * textViewSpace + timeTextViewWidth + htTextViewWidth, 2 * 5.f + MKFont(13.f).lineHeight, htTextViewWidth, textBackViewHeight - (2 * 5.f + MKFont(13.f).lineHeight));
-        _humidityTextView.backgroundColor = [UIColor yellowColor];
-    }
-    return _humidityTextView;
 }
 
 - (MKBXPExportDataCurveView *)curveView {
@@ -585,16 +545,6 @@ static CGFloat htTextViewWidth = 60.f;
         _humidityList = [NSMutableArray array];
     }
     return _humidityList;
-}
-
-- (UITextView *)loadTextView {
-    UITextView *textView = [[UITextView alloc] init];
-    textView.font = MKFont(13.f);
-    textView.layoutManager.allowsNonContiguousLayout = NO;
-    textView.editable = NO;
-    textView.textColor = DEFAULT_TEXT_COLOR;
-    textView.textAlignment = NSTextAlignmentCenter;
-    return textView;
 }
 
 - (UILabel *)loadTextLabel:(NSString *)text {
