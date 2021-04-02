@@ -37,6 +37,7 @@
 #import "MKSearchButton.h"
 #import "MKSearchConditionsView.h"
 #import "MKSlider.h"
+#import "MKTableSectionLineHeader.h"
 #import "MKTextField.h"
 
 FOUNDATION_EXPORT double MKCustomUIModuleVersionNumber;

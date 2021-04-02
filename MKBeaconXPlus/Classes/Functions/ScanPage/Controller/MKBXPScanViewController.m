@@ -23,6 +23,7 @@
 #import "MKCustomUIAdopter.h"
 #import "MKTrackerAboutController.h"
 #import "MKProgressView.h"
+#import "MKTableSectionLineHeader.h"
 
 #import "MKBXPSDK.h"
 
@@ -218,22 +219,18 @@ MKBXPTabBarControllerDelegate>
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        return 0.f;
+    }
     return 5.f;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(10.f, 0, kViewWidth - 2 * 10.f, 5.f)];
-    view.backgroundColor = RGBCOLOR(237, 243, 250);
-    return view;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 5.f;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(10.f, 0, kViewWidth - 2 * 10.f, 5.f)];
-    return view;
+    MKTableSectionLineHeader *headerView = [MKTableSectionLineHeader initHeaderViewWithTableView:tableView];
+    MKTableSectionLineHeaderModel *sectionData = [[MKTableSectionLineHeaderModel alloc] init];
+    sectionData.contentColor = RGBCOLOR(237, 243, 250);
+    headerView.headerModel = sectionData;
+    return headerView;
 }
 
 #pragma mark - MKBXPSearchButtonDelegate

@@ -18,12 +18,12 @@
 #import "UITableView+MKAdd.h"
 
 #import "MKHudManager.h"
+#import "MKTableSectionLineHeader.h"
 
 #import "MKBXPSlotConfigCellProtocol.h"
 
 #import "MKBXPSlotConfigModel.h"
 
-#import "MKBXPSlotConfigLineHeader.h"
 #import "MKBXPSlotConfigFrameTypeView.h"
 #import "MKBXPSlotConfigAdvParamsCell.h"
 #import "MKBXPSlotConfigBeaconCell.h"
@@ -133,7 +133,7 @@ MKBXPSlotConfigTriggerCellDelegate>
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    MKBXPSlotConfigLineHeader *header = [MKBXPSlotConfigLineHeader initHeaderViewWithTableView:tableView];
+    MKTableSectionLineHeader *header = [MKTableSectionLineHeader initHeaderViewWithTableView:tableView];
     return header;
 }
 
