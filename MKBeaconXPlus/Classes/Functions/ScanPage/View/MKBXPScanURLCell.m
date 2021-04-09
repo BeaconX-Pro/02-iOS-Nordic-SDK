@@ -180,7 +180,7 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)rssiLabel{
     if (!_rssiLabel) {
         _rssiLabel = [self createLabelWithFont:msgFont];
-        _rssiLabel.text = @"RSSI@0m:";
+        _rssiLabel.text = @"RSSI@0m";
     }
     return _rssiLabel;
 }

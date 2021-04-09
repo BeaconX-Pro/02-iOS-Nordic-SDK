@@ -99,25 +99,25 @@ static CGFloat const leftIconHeight = 7.f;
         make.height.mas_equalTo(MKFont(15).lineHeight);
     }];
     [self.rssiLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.typeLabel.mas_right).mas_offset(10.f);
-        make.width.mas_equalTo(msgLabelWidth);
-        make.centerY.mas_equalTo(self.typeLabel.mas_centerY);
-        make.height.mas_equalTo(msgFont.lineHeight);
-    }];
-    [self.rssiValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.rssiLabel.mas_right).mas_offset(5.f);
-        make.right.mas_equalTo(-offset_X);
-        make.centerY.mas_equalTo(self.typeLabel.mas_centerY);
-        make.height.mas_equalTo(msgFont.lineHeight);
-    }];
-    [self.txPowerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.typeLabel.mas_left);
         make.width.mas_equalTo(self.typeLabel.mas_width);
         make.top.mas_equalTo(self.typeLabel.mas_bottom).mas_offset(5.f);
         make.height.mas_equalTo(msgFont.lineHeight);
     }];
+    [self.rssiValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.rssiLabel.mas_right).mas_offset(25.f);
+        make.right.mas_equalTo(-offset_X);
+        make.centerY.mas_equalTo(self.rssiLabel.mas_centerY);
+        make.height.mas_equalTo(msgFont.lineHeight);
+    }];
+    [self.txPowerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.typeLabel.mas_left);
+        make.width.mas_equalTo(self.typeLabel.mas_width);
+        make.top.mas_equalTo(self.rssiLabel.mas_bottom).mas_offset(5.f);
+        make.height.mas_equalTo(msgFont.lineHeight);
+    }];
     [self.txPowerValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.rssiLabel.mas_left);
+        make.left.mas_equalTo(self.rssiValueLabel.mas_left);
         make.right.mas_equalTo(-offset_X);
         make.centerY.mas_equalTo(self.txPowerLabel.mas_centerY);
         make.height.mas_equalTo(msgFont.lineHeight);
@@ -129,7 +129,7 @@ static CGFloat const leftIconHeight = 7.f;
         make.height.mas_equalTo(msgFont.lineHeight);
     }];
     [self.tempValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.rssiLabel.mas_left);
+        make.left.mas_equalTo(self.rssiValueLabel.mas_left);
         make.right.mas_equalTo(-offset_X);
         make.centerY.mas_equalTo(self.tempLabel.mas_centerY);
         make.height.mas_equalTo(msgFont.lineHeight);
@@ -141,7 +141,7 @@ static CGFloat const leftIconHeight = 7.f;
         make.height.mas_equalTo(msgFont.lineHeight);
     }];
     [self.humidityValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.rssiLabel.mas_left);
+        make.left.mas_equalTo(self.rssiValueLabel.mas_left);
         make.right.mas_equalTo(-offset_X);
         make.centerY.mas_equalTo(self.humidityLabel.mas_centerY);
         make.height.mas_equalTo(msgFont.lineHeight);
@@ -157,7 +157,7 @@ static CGFloat const leftIconHeight = 7.f;
     self.rssiValueLabel.text = [NSString stringWithFormat:@"%ld%@",(long)[beacon.rssi0M integerValue],@"dBm"];
     self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld %@",(long)[beacon.txPower integerValue],@"dBm"];
     self.tempValueLabel.text = [beacon.temperature stringByAppendingString:@"℃"];
-    self.humidityValueLabel.text = [beacon.humidity stringByAppendingString:@"%"];
+    self.humidityValueLabel.text = [beacon.humidity stringByAppendingString:@"%RH"];
 }
 
 #pragma mark - getter
@@ -181,7 +181,7 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)rssiLabel{
     if (!_rssiLabel) {
         _rssiLabel = [self createLabelWithFont:msgFont];
-        _rssiLabel.text = @"RSSI@0m:";
+        _rssiLabel.text = @"RSSI@0m";
     }
     return _rssiLabel;
 }

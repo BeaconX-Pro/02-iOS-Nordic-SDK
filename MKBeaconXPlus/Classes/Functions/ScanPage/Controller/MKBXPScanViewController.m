@@ -50,8 +50,8 @@ static CGFloat const headerViewHeight = 90.f;
 static CGFloat const uidCellHeight = 85.f;
 static CGFloat const urlCellHeight = 70.f;
 static CGFloat const tlmCellHeight = 110.f;
-static CGFloat const htCellHeight = 90.f;
-static CGFloat const threeSensorCellHeight = 110.f;
+static CGFloat const htCellHeight = 105.f;
+static CGFloat const threeSensorCellHeight = 125.f;
 
 static NSTimeInterval const kRefreshInterval = 0.5f;
 

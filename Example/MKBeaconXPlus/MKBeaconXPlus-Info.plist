@@ -28,6 +28,11 @@
 	<string>Beacon Pro need to use your mobile phone bluetooth to communicate with devices</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Beacon Pro need to use your mobile phone bluetooth to communicate with devices</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>bluetooth-peripheral</string>
+	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
