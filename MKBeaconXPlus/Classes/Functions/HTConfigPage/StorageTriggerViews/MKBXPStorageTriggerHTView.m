@@ -143,7 +143,7 @@
 
 #pragma mark - private method
 - (void)updateNoteMsg {
-    self.noteLabel.text = [NSString stringWithFormat:@"*The device stores T&H data when the temperature changed ≥ %@ ℃ or humidity changed ≥ %@%RH.",self.tempButton.titleLabel.text,self.humidityButton.titleLabel.text];
+    self.noteLabel.text = [NSString stringWithFormat:@"*The device stores T&H data when the temperature changed ≥ %@ ℃ or humidity changed ≥ %@%@.",self.tempButton.titleLabel.text,self.humidityButton.titleLabel.text,@"%RH"];
     [self setNeedsLayout];
 }
 

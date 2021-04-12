@@ -51,7 +51,7 @@ static CGFloat const uidCellHeight = 85.f;
 static CGFloat const urlCellHeight = 70.f;
 static CGFloat const tlmCellHeight = 110.f;
 static CGFloat const htCellHeight = 105.f;
-static CGFloat const threeSensorCellHeight = 125.f;
+static CGFloat const threeSensorCellHeight = 140.f;
 
 static NSTimeInterval const kRefreshInterval = 0.5f;
 
@@ -128,10 +128,7 @@ MKBXPTabBarControllerDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
-    self.searchButton.dataModel = self.buttonModel;
-    [self runloopObserver];
-    [MKBXPCentralManager shared].delegate = self;
-    [self performSelector:@selector(showCentralStatus) withObject:nil afterDelay:.5f];
+    [self startRefresh];
 }
 
 #pragma mark - super method
@@ -729,6 +726,15 @@ MKBXPTabBarControllerDelegate>
         return;
     }
     self.passwordField.text = (tempInputString.length > 16 ? [tempInputString substringToIndex:16] : tempInputString);
+}
+
+#pragma mark -
+- (void)startRefresh {
+    self.searchButton.dataModel = self.buttonModel;
+    [self runloopObserver];
+    [MKBXPCentralManager shared].delegate = self;
+    //此处延时3.5s，与启动页加载3.5s对应，另外第一次安装的时候有蓝牙弹窗授权，也需要延时用来防止出现获取权限的时候出现蓝牙未打开的情况。
+    [self performSelector:@selector(showCentralStatus) withObject:nil afterDelay:3.5f];
 }
 
 #pragma mark - cell 加载

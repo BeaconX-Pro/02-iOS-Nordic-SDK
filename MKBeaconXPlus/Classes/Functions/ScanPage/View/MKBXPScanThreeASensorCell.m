@@ -55,6 +55,10 @@ static CGFloat const leftIconHeight = 7.f;
 
 @property (nonatomic, strong)UILabel *scaleValueLabel;
 
+@property (nonatomic, strong)UILabel *senLabel;
+
+@property (nonatomic, strong)UILabel *senValueLabel;
+
 @property (nonatomic, strong)UILabel *rawLabel;
 
 @property (nonatomic, strong)UILabel *rawValueLabel;
@@ -83,6 +87,8 @@ static CGFloat const leftIconHeight = 7.f;
         [self.contentView addSubview:self.dateRateValueLabel];
         [self.contentView addSubview:self.scaleLabel];
         [self.contentView addSubview:self.scaleValueLabel];
+        [self.contentView addSubview:self.senLabel];
+        [self.contentView addSubview:self.senValueLabel];
         [self.contentView addSubview:self.rawLabel];
         [self.contentView addSubview:self.rawValueLabel];
     }
@@ -99,13 +105,13 @@ static CGFloat const leftIconHeight = 7.f;
     }];
     [self.typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.leftIcon.mas_right).mas_offset(5.f);
-        make.width.mas_equalTo(100.f);
+        make.right.mas_equalTo(-offset_X);
         make.centerY.mas_equalTo(self.leftIcon.mas_centerY);
         make.height.mas_equalTo(MKFont(15).lineHeight);
     }];
     [self.rssiLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.typeLabel.mas_left);
-        make.width.mas_equalTo(self.typeLabel.mas_width);
+        make.width.mas_equalTo(100.f);
         make.top.mas_equalTo(self.typeLabel.mas_bottom).mas_offset(5.f);
         make.height.mas_equalTo(msgFont.lineHeight);
     }];
@@ -117,7 +123,7 @@ static CGFloat const leftIconHeight = 7.f;
     }];
     [self.txPowerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.typeLabel.mas_left);
-        make.width.mas_equalTo(self.typeLabel.mas_width);
+        make.width.mas_equalTo(self.rssiLabel.mas_width);
         make.top.mas_equalTo(self.rssiLabel.mas_bottom).mas_offset(5.f);
         make.height.mas_equalTo(msgFont.lineHeight);
     }];
@@ -129,7 +135,7 @@ static CGFloat const leftIconHeight = 7.f;
     }];
     [self.dataRateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.typeLabel.mas_left);
-        make.width.mas_equalTo(self.typeLabel.mas_width);
+        make.width.mas_equalTo(self.rssiLabel.mas_width);
         make.top.mas_equalTo(self.txPowerLabel.mas_bottom).mas_offset(5.f);
         make.height.mas_equalTo(msgFont.lineHeight);
     }];
@@ -141,7 +147,7 @@ static CGFloat const leftIconHeight = 7.f;
     }];
     [self.scaleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.typeLabel.mas_left);
-        make.width.mas_equalTo(self.typeLabel.mas_width);
+        make.width.mas_equalTo(self.rssiLabel.mas_width);
         make.top.mas_equalTo(self.dataRateLabel.mas_bottom).mas_offset(5.f);
         make.height.mas_equalTo(msgFont.lineHeight);
     }];
@@ -151,10 +157,22 @@ static CGFloat const leftIconHeight = 7.f;
         make.centerY.mas_equalTo(self.scaleLabel.mas_centerY);
         make.height.mas_equalTo(msgFont.lineHeight);
     }];
+    [self.senLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.typeLabel.mas_left);
+        make.width.mas_equalTo(self.rssiLabel.mas_width);
+        make.top.mas_equalTo(self.scaleLabel.mas_bottom).mas_offset(5.f);
+        make.height.mas_equalTo(msgFont.lineHeight);
+    }];
+    [self.senValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.rssiValueLabel.mas_left);
+        make.right.mas_equalTo(-offset_X);
+        make.centerY.mas_equalTo(self.senLabel.mas_centerY);
+        make.height.mas_equalTo(msgFont.lineHeight);
+    }];
     [self.rawLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.typeLabel.mas_left);
-        make.width.mas_equalTo(self.typeLabel.mas_width);
-        make.top.mas_equalTo(self.scaleLabel.mas_bottom).mas_offset(5.f);
+        make.width.mas_equalTo(self.rssiLabel.mas_width);
+        make.top.mas_equalTo(self.senLabel.mas_bottom).mas_offset(5.f);
         make.height.mas_equalTo(msgFont.lineHeight);
     }];
     [self.rawValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -175,6 +193,7 @@ static CGFloat const leftIconHeight = 7.f;
     self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld %@",(long)[beacon.txPower integerValue],@"dBm"];
     self.dateRateValueLabel.text = [self fetchDataRate:beacon.samplingRate];
     self.scaleValueLabel.text = [self fetchScaleData:beacon.accelerationOfGravity];
+    self.senValueLabel.text = [NSString stringWithFormat:@"%.1f%@",[beacon.sensitivity integerValue] * 0.1,@"g"];
     NSString *rawString = [NSString stringWithFormat:@"X:0x%@ Y:0x%@ Z:0x%@",[beacon.xData uppercaseString],[beacon.yData uppercaseString],[beacon.zData uppercaseString]];
     self.rawValueLabel.text = rawString;
 }
@@ -246,7 +265,7 @@ static CGFloat const leftIconHeight = 7.f;
     if (!_typeLabel) {
         _typeLabel = [self createLabelWithFont:MKFont(15.f)];
         _typeLabel.textColor = DEFAULT_TEXT_COLOR;
-        _typeLabel.text = @"3-axis Sensor";
+        _typeLabel.text = @"3-axis Acceleration";
     }
     return _typeLabel;
 }
@@ -284,7 +303,7 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)dataRateLabel {
     if (!_dataRateLabel) {
         _dataRateLabel = [self createLabelWithFont:msgFont];
-        _dataRateLabel.text = @"Data rate";
+        _dataRateLabel.text = @"Sampling rate";
     }
     return _dataRateLabel;
 }
@@ -311,10 +330,25 @@ static CGFloat const leftIconHeight = 7.f;
     return _scaleValueLabel;
 }
 
+- (UILabel *)senLabel {
+    if (!_senLabel) {
+        _senLabel = [self createLabelWithFont:msgFont];
+        _senLabel.text = @"Sensitivity";
+    }
+    return _senLabel;
+}
+
+- (UILabel *)senValueLabel {
+    if (!_senValueLabel) {
+        _senValueLabel = [self createLabelWithFont:msgFont];
+    }
+    return _senValueLabel;
+}
+
 - (UILabel *)rawLabel {
     if (!_rawLabel) {
         _rawLabel = [self createLabelWithFont:msgFont];
-        _rawLabel.text = @"Raw Data";
+        _rawLabel.text = @"Acceleration";
     }
     return _rawLabel;
 }

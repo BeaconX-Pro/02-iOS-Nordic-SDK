@@ -11,6 +11,8 @@
 #import "MKMacroDefines.h"
 #import "MKBaseNavigationController.h"
 
+#import "MKBLEBaseLogManager.h"
+
 #import "MKBXPSlotController.h"
 #import "MKBXPSettingController.h"
 #import "MKBXPDeviceInfoController.h"
@@ -31,6 +33,7 @@
     NSLog(@"MKBXPTabBarController销毁");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[MKBXPConnectManager shared] clearParams];
+    [MKBLEBaseLogManager deleteLogWithFileName:@"T&HDatas"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{

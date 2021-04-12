@@ -87,7 +87,6 @@ static CGFloat htTextViewWidth = 80.f;
     if (self.receiveTimer) {
         dispatch_cancel(self.receiveTimer);
     }
-    [MKBLEBaseLogManager deleteLogWithFileName:@"T&HDatas"];
 }
 
 - (void)viewDidLoad {
@@ -225,15 +224,14 @@ static CGFloat htTextViewWidth = 80.f;
     if (ValidStr(dic[@"temperature"])) {
         [self.temperatureList addObject:dic[@"temperature"]];
     }
-    NSString *humidity = [NSString stringWithFormat:@"%@%@",dic[@"humidity"],@"%"];
+    NSString *humidity = [NSString stringWithFormat:@"%@%@",dic[@"humidity"],@"%RH"];
     if (ValidStr(dic[@"humidity"])) {
         [self.humidityList addObject:dic[@"humidity"]];
     }
     NSArray *dateList = [dic[@"date"] componentsSeparatedByString:@"-"];
     NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@ %@:%@:%@",dateList[0],dateList[1],dateList[2],dateList[3],dateList[4],dateList[5]];
     NSString *text = [NSString stringWithFormat:@"\n%@\t\t%@\t\t%@",dateString,temperature,humidity];
-    NSString *saveText = [NSString stringWithFormat:@"\n%@  %@  %@",dateString,temperature,humidity];
-    [MKBLEBaseLogManager saveDataWithFileName:@"T&HDatas" dataList:@[saveText]];
+    [self saveDataToLocal:text];
     self.textView.text = [self.textView.text stringByAppendingString:text];
     [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 1)];
     self.receiveCount = 0;
@@ -292,6 +290,40 @@ static CGFloat htTextViewWidth = 80.f;
                              completeBlock:^{
         [[MKHudManager share] hide];
     }];
+}
+
+#pragma mark - 邮件
+- (BOOL)saveDataToLocal:(NSString *)text {
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES)lastObject];
+    NSString *localFileName = [NSString stringWithFormat:@"/%@.txt",@"/T&HDatas"];
+    NSString *filePath = [path stringByAppendingString:localFileName];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+        
+    BOOL directory = NO;
+    BOOL existed = [fileManager fileExistsAtPath:filePath isDirectory:&directory];
+    
+    if (!existed) {
+        
+        NSString *newFilePath = [path stringByAppendingPathComponent:localFileName];
+        BOOL createResult = [fileManager createFileAtPath:newFilePath contents:nil attributes:nil];
+        if (!createResult) {
+            return NO;
+        }
+    }
+    
+    NSError *error = nil;
+    NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:filePath error:&error];
+    if (error || !ValidDict(fileAttributes)) {
+        return NO;
+    }
+    //写数据部分
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForUpdatingAtPath:filePath];
+    [fileHandle seekToEndOfFile];   //将节点跳到文件的末尾
+    NSData *stringData = [text dataUsingEncoding:NSUTF8StringEncoding];
+    [fileHandle writeData:stringData];
+    [fileHandle closeFile];
+    return YES;
 }
 
 #pragma mark - UI
