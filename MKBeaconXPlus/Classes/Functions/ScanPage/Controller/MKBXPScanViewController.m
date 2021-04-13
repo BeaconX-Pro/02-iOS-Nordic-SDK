@@ -734,6 +734,13 @@ MKBXPTabBarControllerDelegate>
     [self runloopObserver];
     [MKBXPCentralManager shared].delegate = self;
     //此处延时3.5s，与启动页加载3.5s对应，另外第一次安装的时候有蓝牙弹窗授权，也需要延时用来防止出现获取权限的时候出现蓝牙未打开的情况。
+    //新的业务需求，第一次安装app的时候，需要用户手动点击左上角开启扫描，后面每次需要自动开启扫描     20210413
+    NSNumber *install = [[NSUserDefaults standardUserDefaults] objectForKey:@"mk_bxp_installedKey"];
+    if (!ValidNum(install) || ![install boolValue]) {
+        //第一次安装
+        [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:@"mk_bxp_installedKey"];
+        return;
+    }
     [self performSelector:@selector(showCentralStatus) withObject:nil afterDelay:3.5f];
 }
 

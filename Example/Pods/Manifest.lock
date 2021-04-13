@@ -48,58 +48,37 @@ PODS:
   - MKBaseModuleLibrary/Tools/MKClassInfo (1.1.0)
   - MKBaseModuleLibrary/Tools/MKDateFormatter (1.1.0)
   - MKBaseModuleLibrary/Tools/MKModuleManager (1.1.0)
-  - MKBeaconXPlus (0.0.1):
+  - MKBeaconXPlus (1.0.0):
     - CTMediator
-    - MKBeaconXPlus/ApplicationModule (= 0.0.1)
-    - MKBeaconXPlus/ConnectManager (= 0.0.1)
-    - MKBeaconXPlus/CTMediator (= 0.0.1)
-    - MKBeaconXPlus/Expand (= 0.0.1)
-    - MKBeaconXPlus/Functions (= 0.0.1)
-    - MKBeaconXPlus/SDK-BXP (= 0.0.1)
-    - MKBeaconXPlus/Target (= 0.0.1)
-  - MKBeaconXPlus/ApplicationModule (0.0.1):
+    - MKBeaconXPlus/ApplicationModule (= 1.0.0)
+    - MKBeaconXPlus/ConnectManager (= 1.0.0)
+    - MKBeaconXPlus/CTMediator (= 1.0.0)
+    - MKBeaconXPlus/Expand (= 1.0.0)
+    - MKBeaconXPlus/Functions (= 1.0.0)
+    - MKBeaconXPlus/SDK-BXP (= 1.0.0)
+    - MKBeaconXPlus/Target (= 1.0.0)
+  - MKBeaconXPlus/ApplicationModule (1.0.0):
     - CTMediator
     - MKBaseModuleLibrary
-  - MKBeaconXPlus/ConnectManager (0.0.1):
+  - MKBeaconXPlus/ConnectManager (1.0.0):
     - CTMediator
     - MKBaseModuleLibrary
     - MKBeaconXPlus/SDK-BXP
-  - MKBeaconXPlus/CTMediator (0.0.1):
+  - MKBeaconXPlus/CTMediator (1.0.0):
     - CTMediator
-  - MKBeaconXPlus/Expand (0.0.1):
+  - MKBeaconXPlus/Expand (1.0.0):
     - CTMediator
     - MKBaseModuleLibrary
-    - MKBeaconXPlus/Expand/Adopter (= 0.0.1)
-    - MKBeaconXPlus/Expand/Defines (= 0.0.1)
-  - MKBeaconXPlus/Expand/Adopter (0.0.1):
+    - MKBeaconXPlus/Expand/Adopter (= 1.0.0)
+    - MKBeaconXPlus/Expand/Defines (= 1.0.0)
+  - MKBeaconXPlus/Expand/Adopter (1.0.0):
     - CTMediator
     - MKBaseModuleLibrary
     - MKBeaconXPlus/Expand/Defines
-  - MKBeaconXPlus/Expand/Defines (0.0.1):
+  - MKBeaconXPlus/Expand/Defines (1.0.0):
     - CTMediator
     - MKBaseModuleLibrary
-  - MKBeaconXPlus/Functions (0.0.1):
-    - CTMediator
-    - HHTransition
-    - iOSDFULibrary (= 4.6.1)
-    - MKBaseModuleLibrary
-    - MKBeaconXPlus/ConnectManager
-    - MKBeaconXPlus/CTMediator
-    - MKBeaconXPlus/Expand
-    - MKBeaconXPlus/Functions/AccelerationPage (= 0.0.1)
-    - MKBeaconXPlus/Functions/DeviceInfoPage (= 0.0.1)
-    - MKBeaconXPlus/Functions/ExportDataPage (= 0.0.1)
-    - MKBeaconXPlus/Functions/HTConfigPage (= 0.0.1)
-    - MKBeaconXPlus/Functions/ScanPage (= 0.0.1)
-    - MKBeaconXPlus/Functions/SettingPage (= 0.0.1)
-    - MKBeaconXPlus/Functions/SlotConfigPage (= 0.0.1)
-    - MKBeaconXPlus/Functions/SlotPage (= 0.0.1)
-    - MKBeaconXPlus/Functions/TabBarPage (= 0.0.1)
-    - MKBeaconXPlus/Functions/UpdatePage (= 0.0.1)
-    - MKBeaconXPlus/SDK-BXP
-    - MKCustomUIModule
-    - MLInputDodger
-  - MKBeaconXPlus/Functions/AccelerationPage (0.0.1):
+  - MKBeaconXPlus/Functions (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -107,13 +86,34 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/Expand
-    - MKBeaconXPlus/Functions/AccelerationPage/Controller (= 0.0.1)
-    - MKBeaconXPlus/Functions/AccelerationPage/Model (= 0.0.1)
-    - MKBeaconXPlus/Functions/AccelerationPage/View (= 0.0.1)
+    - MKBeaconXPlus/Functions/AccelerationPage (= 1.0.0)
+    - MKBeaconXPlus/Functions/DeviceInfoPage (= 1.0.0)
+    - MKBeaconXPlus/Functions/ExportDataPage (= 1.0.0)
+    - MKBeaconXPlus/Functions/HTConfigPage (= 1.0.0)
+    - MKBeaconXPlus/Functions/ScanPage (= 1.0.0)
+    - MKBeaconXPlus/Functions/SettingPage (= 1.0.0)
+    - MKBeaconXPlus/Functions/SlotConfigPage (= 1.0.0)
+    - MKBeaconXPlus/Functions/SlotPage (= 1.0.0)
+    - MKBeaconXPlus/Functions/TabBarPage (= 1.0.0)
+    - MKBeaconXPlus/Functions/UpdatePage (= 1.0.0)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/AccelerationPage/Controller (0.0.1):
+  - MKBeaconXPlus/Functions/AccelerationPage (1.0.0):
+    - CTMediator
+    - HHTransition
+    - iOSDFULibrary (= 4.6.1)
+    - MKBaseModuleLibrary
+    - MKBeaconXPlus/ConnectManager
+    - MKBeaconXPlus/CTMediator
+    - MKBeaconXPlus/Expand
+    - MKBeaconXPlus/Functions/AccelerationPage/Controller (= 1.0.0)
+    - MKBeaconXPlus/Functions/AccelerationPage/Model (= 1.0.0)
+    - MKBeaconXPlus/Functions/AccelerationPage/View (= 1.0.0)
+    - MKBeaconXPlus/SDK-BXP
+    - MKCustomUIModule
+    - MLInputDodger
+  - MKBeaconXPlus/Functions/AccelerationPage/Controller (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -126,7 +126,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/AccelerationPage/Model (0.0.1):
+  - MKBeaconXPlus/Functions/AccelerationPage/Model (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -137,7 +137,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/AccelerationPage/View (0.0.1):
+  - MKBeaconXPlus/Functions/AccelerationPage/View (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -148,7 +148,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/DeviceInfoPage (0.0.1):
+  - MKBeaconXPlus/Functions/DeviceInfoPage (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -156,12 +156,12 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/Expand
-    - MKBeaconXPlus/Functions/DeviceInfoPage/Controller (= 0.0.1)
-    - MKBeaconXPlus/Functions/DeviceInfoPage/Model (= 0.0.1)
+    - MKBeaconXPlus/Functions/DeviceInfoPage/Controller (= 1.0.0)
+    - MKBeaconXPlus/Functions/DeviceInfoPage/Model (= 1.0.0)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/DeviceInfoPage/Controller (0.0.1):
+  - MKBeaconXPlus/Functions/DeviceInfoPage/Controller (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -173,7 +173,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/DeviceInfoPage/Model (0.0.1):
+  - MKBeaconXPlus/Functions/DeviceInfoPage/Model (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -184,7 +184,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/ExportDataPage (0.0.1):
+  - MKBeaconXPlus/Functions/ExportDataPage (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -192,12 +192,12 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/Expand
-    - MKBeaconXPlus/Functions/ExportDataPage/Controller (= 0.0.1)
-    - MKBeaconXPlus/Functions/ExportDataPage/View (= 0.0.1)
+    - MKBeaconXPlus/Functions/ExportDataPage/Controller (= 1.0.0)
+    - MKBeaconXPlus/Functions/ExportDataPage/View (= 1.0.0)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/ExportDataPage/Controller (0.0.1):
+  - MKBeaconXPlus/Functions/ExportDataPage/Controller (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -209,7 +209,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/ExportDataPage/View (0.0.1):
+  - MKBeaconXPlus/Functions/ExportDataPage/View (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -220,7 +220,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/HTConfigPage (0.0.1):
+  - MKBeaconXPlus/Functions/HTConfigPage (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -228,14 +228,14 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/Expand
-    - MKBeaconXPlus/Functions/HTConfigPage/Controller (= 0.0.1)
-    - MKBeaconXPlus/Functions/HTConfigPage/Model (= 0.0.1)
-    - MKBeaconXPlus/Functions/HTConfigPage/StorageTriggerViews (= 0.0.1)
-    - MKBeaconXPlus/Functions/HTConfigPage/View (= 0.0.1)
+    - MKBeaconXPlus/Functions/HTConfigPage/Controller (= 1.0.0)
+    - MKBeaconXPlus/Functions/HTConfigPage/Model (= 1.0.0)
+    - MKBeaconXPlus/Functions/HTConfigPage/StorageTriggerViews (= 1.0.0)
+    - MKBeaconXPlus/Functions/HTConfigPage/View (= 1.0.0)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/HTConfigPage/Controller (0.0.1):
+  - MKBeaconXPlus/Functions/HTConfigPage/Controller (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -249,7 +249,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/HTConfigPage/Model (0.0.1):
+  - MKBeaconXPlus/Functions/HTConfigPage/Model (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -260,7 +260,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/HTConfigPage/StorageTriggerViews (0.0.1):
+  - MKBeaconXPlus/Functions/HTConfigPage/StorageTriggerViews (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -271,7 +271,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/HTConfigPage/View (0.0.1):
+  - MKBeaconXPlus/Functions/HTConfigPage/View (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -283,7 +283,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/ScanPage (0.0.1):
+  - MKBeaconXPlus/Functions/ScanPage (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -291,13 +291,13 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/Expand
-    - MKBeaconXPlus/Functions/ScanPage/Controller (= 0.0.1)
-    - MKBeaconXPlus/Functions/ScanPage/Model (= 0.0.1)
-    - MKBeaconXPlus/Functions/ScanPage/View (= 0.0.1)
+    - MKBeaconXPlus/Functions/ScanPage/Controller (= 1.0.0)
+    - MKBeaconXPlus/Functions/ScanPage/Model (= 1.0.0)
+    - MKBeaconXPlus/Functions/ScanPage/View (= 1.0.0)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/ScanPage/Controller (0.0.1):
+  - MKBeaconXPlus/Functions/ScanPage/Controller (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -311,7 +311,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/ScanPage/Model (0.0.1):
+  - MKBeaconXPlus/Functions/ScanPage/Model (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -322,7 +322,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/ScanPage/View (0.0.1):
+  - MKBeaconXPlus/Functions/ScanPage/View (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -333,7 +333,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SettingPage (0.0.1):
+  - MKBeaconXPlus/Functions/SettingPage (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -341,12 +341,12 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/Expand
-    - MKBeaconXPlus/Functions/SettingPage/Controller (= 0.0.1)
-    - MKBeaconXPlus/Functions/SettingPage/Model (= 0.0.1)
+    - MKBeaconXPlus/Functions/SettingPage/Controller (= 1.0.0)
+    - MKBeaconXPlus/Functions/SettingPage/Model (= 1.0.0)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SettingPage/Controller (0.0.1):
+  - MKBeaconXPlus/Functions/SettingPage/Controller (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -361,7 +361,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SettingPage/Model (0.0.1):
+  - MKBeaconXPlus/Functions/SettingPage/Model (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -372,7 +372,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotConfigPage (0.0.1):
+  - MKBeaconXPlus/Functions/SlotConfigPage (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -380,14 +380,14 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/Expand
-    - MKBeaconXPlus/Functions/SlotConfigPage/Controller (= 0.0.1)
-    - MKBeaconXPlus/Functions/SlotConfigPage/Model (= 0.0.1)
-    - MKBeaconXPlus/Functions/SlotConfigPage/TriggerView (= 0.0.1)
-    - MKBeaconXPlus/Functions/SlotConfigPage/View (= 0.0.1)
+    - MKBeaconXPlus/Functions/SlotConfigPage/Controller (= 1.0.0)
+    - MKBeaconXPlus/Functions/SlotConfigPage/Model (= 1.0.0)
+    - MKBeaconXPlus/Functions/SlotConfigPage/TriggerView (= 1.0.0)
+    - MKBeaconXPlus/Functions/SlotConfigPage/View (= 1.0.0)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotConfigPage/Controller (0.0.1):
+  - MKBeaconXPlus/Functions/SlotConfigPage/Controller (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -400,7 +400,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotConfigPage/Model (0.0.1):
+  - MKBeaconXPlus/Functions/SlotConfigPage/Model (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -411,7 +411,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotConfigPage/TriggerView (0.0.1):
+  - MKBeaconXPlus/Functions/SlotConfigPage/TriggerView (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -422,7 +422,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotConfigPage/View (0.0.1):
+  - MKBeaconXPlus/Functions/SlotConfigPage/View (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -434,7 +434,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotPage (0.0.1):
+  - MKBeaconXPlus/Functions/SlotPage (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -442,12 +442,12 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/Expand
-    - MKBeaconXPlus/Functions/SlotPage/Controller (= 0.0.1)
-    - MKBeaconXPlus/Functions/SlotPage/Model (= 0.0.1)
+    - MKBeaconXPlus/Functions/SlotPage/Controller (= 1.0.0)
+    - MKBeaconXPlus/Functions/SlotPage/Model (= 1.0.0)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotPage/Controller (0.0.1):
+  - MKBeaconXPlus/Functions/SlotPage/Controller (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -460,7 +460,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotPage/Model (0.0.1):
+  - MKBeaconXPlus/Functions/SlotPage/Model (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -471,7 +471,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/TabBarPage (0.0.1):
+  - MKBeaconXPlus/Functions/TabBarPage (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -479,11 +479,11 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/Expand
-    - MKBeaconXPlus/Functions/TabBarPage/Controller (= 0.0.1)
+    - MKBeaconXPlus/Functions/TabBarPage/Controller (= 1.0.0)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/TabBarPage/Controller (0.0.1):
+  - MKBeaconXPlus/Functions/TabBarPage/Controller (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -497,7 +497,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/UpdatePage (0.0.1):
+  - MKBeaconXPlus/Functions/UpdatePage (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -505,12 +505,12 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/Expand
-    - MKBeaconXPlus/Functions/UpdatePage/Controller (= 0.0.1)
-    - MKBeaconXPlus/Functions/UpdatePage/Model (= 0.0.1)
+    - MKBeaconXPlus/Functions/UpdatePage/Controller (= 1.0.0)
+    - MKBeaconXPlus/Functions/UpdatePage/Model (= 1.0.0)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/UpdatePage/Controller (0.0.1):
+  - MKBeaconXPlus/Functions/UpdatePage/Controller (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -522,7 +522,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/UpdatePage/Model (0.0.1):
+  - MKBeaconXPlus/Functions/UpdatePage/Model (1.0.0):
     - CTMediator
     - HHTransition
     - iOSDFULibrary (= 4.6.1)
@@ -533,10 +533,10 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/SDK-BXP (0.0.1):
+  - MKBeaconXPlus/SDK-BXP (1.0.0):
     - CTMediator
     - MKBaseBleModule
-  - MKBeaconXPlus/Target (0.0.1):
+  - MKBeaconXPlus/Target (1.0.0):
     - CTMediator
     - MKBeaconXPlus/Functions
   - MKCustomUIModule (1.1.1):
@@ -832,7 +832,7 @@ SPEC CHECKSUMS:
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   MKBaseBleModule: 2c18242ab1c5267ed7b4ec2e3521ea4f9750e93e
   MKBaseModuleLibrary: 3f6402005cd7aafb0a1564261b3ba798bd6b8ba9
-  MKBeaconXPlus: 6b37849a8018ed06047222ea0fb9d0264a5413d0
+  MKBeaconXPlus: 7771cf426bdb335d46654fc01cc6d8e6aedec6b4
   MKCustomUIModule: c8b5e09c540838a720869821019ce7483606e735
   MLInputDodger: 79a0e420a80d0d3bba122bf2639603cc76609ba8
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
