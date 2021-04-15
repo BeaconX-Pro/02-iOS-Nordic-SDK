@@ -8,11 +8,11 @@
 
 `MKBXPCentralManager`：global manager, check system's bluetooth status, listen status changes, the most important is scan and connect to devices;
 
-`MKBXPBaseBeacon`: instance of devices, MKBXPCentralManager will create an MKBXPBaseBeacon instance while it found a physical device, a device corresponds to an instance.Currently there are *UID broadcast frame*, *URL broadcast frame*, *TLM broadcast frame*, *device information frame*, *iBeacon broadcast frame*, *three-axis acceleration broadcast frame*, *temperature and humidity broadcast frame*
+`MKBXPBaseBeacon`: instance of devices, MKBXPCentralManager will create an MKBXPBaseBeacon instance while it found a physical device, a device corresponds to an instance.Currently there are *UID broadcast frame*, *URL broadcast frame*, *TLM broadcast frame*, *device information frame*, *iBeacon broadcast frame*, *three-axis acceleration broadcast frame*, *temperature and humidity broadcast frame*;
 
-`MKBXPInterface`: When the device is successfully connected, the device data can be read through the interface in `MKBXPInterface`.
+`MKBXPInterface`: When the device is successfully connected, the device data can be read through the interface in `MKBXPInterface`;
 
-`MKBXPInterface+MKBXPConfig.h`: When the device is successfully connected, you can configure the device data through the interface in `MKBXPInterface+MKBXPConfig.h`.
+`MKBXPInterface+MKBXPConfig.h`: When the device is successfully connected, you can configure the device data through the interface in `MKBXPInterface+MKBXPConfig.h`;
 
 
 ## Scanning Stage
@@ -22,7 +22,7 @@ in this stage, `MKBXPCentralManager ` will scan and analyze the advertisement da
 
 ## Connection Stage
 
-Developers can Developers can get the lock state of the current device by calling the `readLockStateWithPeripheral:sucBlock:failedBlock:` interface.If the current lock status is 00, you need to enter the connection password and call `connectPeripheral:password:progressBlock:sucBlock:failedBlock` to connect;If the current lock status is 02, it indicates that the current device can log in without password, call `connectPeripheral:progressBlock:sucBlock:failedBlock:` to connect.
+Developers can get the lock state of the current device by calling the `readLockStateWithPeripheral:sucBlock:failedBlock:` interface.If the current lock status is 00, you need to enter the connection password and call `connectPeripheral:password:progressBlock:sucBlock:failedBlock` to connect;If the current lock status is 02, it indicates that the current device can log in without password, call `connectPeripheral:progressBlock:sucBlock:failedBlock:` to connect.
 
 
 # Get Started
@@ -109,9 +109,23 @@ MKBXPCentralManager *manager = [MKBXPCentralManager shared];
 
 Through the manager, you can get the current Bluetooth status of the mobile phone, the connection status of the device, and the lock status of the device. If you want to monitor the changes of these three states, you can register the following notifications to achieve:
 
-*  When the Bluetooth status of the mobile phone changes，<font color=#FF0000 face="黑体">mk*_*bxp*_*centralManagerStateChangedNotification</font> will be posted.You can get status in this way: `[[MKBXPCentralManager shared] centralStatus];`
-*  When the device connection status changes，<font color=#FF0000 face="黑体"> mk*_*bxp*_*peripheralConnectStateChangedNotification </font> will be posted.You can get the status in this way: `[MKBXPCentralManager shared].connectState`.
-*  When the lock state of the device changes，<font color=#FF0000 face="黑体"> mk*_*bxp*_*peripheralLockStateChangedNotification </font> will be posted.You can get the status in this way: `[MKBXPCentralManager shared].lockState`
+*  When the Bluetooth status of the mobile phone changes，<font color=#FF0000 face="黑体">`mk_bxp_centralManagerStateChangedNotification`</font> will be posted.You can get status in this way:
+
+```
+[[MKBXPCentralManager shared] centralStatus];
+```
+
+*  When the device connection status changes，<font color=#FF0000 face="黑体"> `mk_bxp_peripheralConnectStateChangedNotification` </font> will be posted.You can get the status in this way:
+
+```
+[MKBXPCentralManager shared].connectState;
+```
+
+*  When the lock state of the device changes，<font color=#FF0000 face="黑体"> `mk_bxp_peripheralLockStateChangedNotification` </font> will be posted.You can get the status in this way: 
+
+```
+[MKBXPCentralManager shared].lockState;
+```
 
 
 #### 4.Monitor three-axis data.
@@ -125,7 +139,7 @@ When the device is connected, the developer can monitor the three-axis data of t
 ```
 
 
-*  2.Register for "mk*_*bxp*_*receiveThreeAxisAccelerometerDataNotification" notifications to monitor device three-axis data changes
+*  2.Register for `mk_bxp_receiveThreeAxisAccelerometerDataNotification` notifications to monitor device three-axis data changes.
 
 
 ```
@@ -162,7 +176,7 @@ When the device is connected, the developer can monitor the temperature and humi
 [[MKBXPCentralManager shared] notifyTHData:YES];
 ```
 
-* 2.Register for "mk*_*bxp*_*receiveHTDataNotification" notifications to monitor device H&T data changes.
+* 2.Register for `mk_bxp_receiveHTDataNotification` notifications to monitor device H&T data changes.
 
 ```
 [[NSNotificationCenter defaultCenter] addObserver:self
@@ -195,7 +209,7 @@ When the device is connected, the developer can monitor the temperature and humi
 [[MKBXPCentralManager shared] notifyRecordTHData:YES];
 ```
 
-* 2.Register for "mk*_*bxp*_*receiveRecordHTDataNotification" notifications to monitor data.
+* 2.Register for `mk_bxp_receiveRecordHTDataNotification` notifications to monitor data.
 
 ```
 [[NSNotificationCenter defaultCenter] addObserver:self
@@ -216,7 +230,7 @@ When the device is connected, the developer can monitor the temperature and humi
 
 #### 7.Monitoring device disconnect reason.
 
-Register for "mk*_*bxp*_*deviceDisconnectTypeNotification" notifications to monitor data.
+Register for `mk_bxp_deviceDisconnectTypeNotification` notifications to monitor data.
 
 ```
 [[NSNotificationCenter defaultCenter] addObserver:self
