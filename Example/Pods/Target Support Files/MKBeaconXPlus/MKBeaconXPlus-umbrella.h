@@ -118,6 +118,7 @@
 #import "MKBXPSettingController.h"
 #import "MKBXPSettingModel.h"
 #import "MKBXPSlotConfigController.h"
+#import "MKBXPSlotConfigCellProtocol.h"
 #import "MKBXPSlotConfigModel.h"
 #import "MKBXPTriggerHumidityView.h"
 #import "MKBXPTriggerTapView.h"

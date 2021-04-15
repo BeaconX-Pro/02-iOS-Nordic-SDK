@@ -171,18 +171,29 @@ TODO: Add long description of the pod here.
      ss.subspec 'SlotConfigPage' do |sss|
        sss.subspec 'Controller' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/SlotConfigPage/Controller/**'
+         
          ssss.dependency 'MKBeaconXPlus/Functions/SlotConfigPage/Model'
          ssss.dependency 'MKBeaconXPlus/Functions/SlotConfigPage/View'
+         ssss.dependency 'MKBeaconXPlus/Functions/SlotConfigPage/Header'
        end
        sss.subspec 'Model' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/SlotConfigPage/Model/**'
+         
+         ssss.dependency 'MKBeaconXPlus/Functions/SlotConfigPage/Header'
        end
        sss.subspec 'TriggerView' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/SlotConfigPage/TriggerView/**'
+         
+         ssss.dependency 'MKBeaconXPlus/Functions/SlotConfigPage/Header'
        end
        sss.subspec 'View' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/SlotConfigPage/View/**'
+         
          ssss.dependency 'MKBeaconXPlus/Functions/SlotConfigPage/TriggerView'
+         ssss.dependency 'MKBeaconXPlus/Functions/SlotConfigPage/Header'
+       end
+       sss.subspec 'Header' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/SlotConfigPage/Header/**'
        end
      end
 

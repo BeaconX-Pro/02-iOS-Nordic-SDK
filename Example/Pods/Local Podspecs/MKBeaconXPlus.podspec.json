@@ -1,9 +1,9 @@
 {
   "name": "MKBeaconXPlus",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "summary": "A short description of MKBeaconXPlus.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/aadyx2007@163.com/MKBeaconXPlus",
+  "homepage": "https://github.com/BeaconX-Pro/iOS-SDK",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,8 +12,8 @@
     "aadyx2007@163.com": "aadyx2007@163.com"
   },
   "source": {
-    "git": "https://github.com/aadyx2007@163.com/MKBeaconXPlus.git",
-    "tag": "1.0.0"
+    "git": "https://github.com/BeaconX-Pro/iOS-SDK.git",
+    "tag": "1.0.1"
   },
   "platforms": {
     "ios": "12.0"
@@ -250,7 +250,12 @@
             },
             {
               "name": "View",
-              "source_files": "MKBeaconXPlus/Classes/Functions/ScanPage/View/**"
+              "source_files": "MKBeaconXPlus/Classes/Functions/ScanPage/View/**",
+              "dependencies": {
+                "MKBeaconXPlus/Functions/ScanPage/Model": [
+
+                ]
+              }
             }
           ]
         },
@@ -293,16 +298,29 @@
                 ],
                 "MKBeaconXPlus/Functions/SlotConfigPage/View": [
 
+                ],
+                "MKBeaconXPlus/Functions/SlotConfigPage/Header": [
+
                 ]
               }
             },
             {
               "name": "Model",
-              "source_files": "MKBeaconXPlus/Classes/Functions/SlotConfigPage/Model/**"
+              "source_files": "MKBeaconXPlus/Classes/Functions/SlotConfigPage/Model/**",
+              "dependencies": {
+                "MKBeaconXPlus/Functions/SlotConfigPage/Header": [
+
+                ]
+              }
             },
             {
               "name": "TriggerView",
-              "source_files": "MKBeaconXPlus/Classes/Functions/SlotConfigPage/TriggerView/**"
+              "source_files": "MKBeaconXPlus/Classes/Functions/SlotConfigPage/TriggerView/**",
+              "dependencies": {
+                "MKBeaconXPlus/Functions/SlotConfigPage/Header": [
+
+                ]
+              }
             },
             {
               "name": "View",
@@ -310,8 +328,15 @@
               "dependencies": {
                 "MKBeaconXPlus/Functions/SlotConfigPage/TriggerView": [
 
+                ],
+                "MKBeaconXPlus/Functions/SlotConfigPage/Header": [
+
                 ]
               }
+            },
+            {
+              "name": "Header",
+              "source_files": "MKBeaconXPlus/Classes/Functions/SlotConfigPage/Header/**"
             }
           ]
         },
