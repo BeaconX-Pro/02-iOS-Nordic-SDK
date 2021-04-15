@@ -149,6 +149,8 @@ TODO: Add long description of the pod here.
        end
        sss.subspec 'View' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/ScanPage/View/**'
+         
+         ssss.dependency 'MKBeaconXPlus/Functions/ScanPage/Model'
        end
      end
 
