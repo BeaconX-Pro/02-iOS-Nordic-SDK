@@ -44,12 +44,12 @@ static NSString *const dfuUpdateDomain = @"com.moko.dfuUpdateDomain";
         [self operationFailedBlock:failedBlock msg:@"The url is invalid!"];
         return;
     }
-    NSURL *fileURL = [[NSURL alloc] initWithString:[url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]]];
-    if (!fileURL) {
+    NSData *zipData = [NSData dataWithContentsOfFile:url];
+    if (!ValidData(zipData)) {
         [self operationFailedBlock:failedBlock msg:@"Dfu upgrade failure!"];
         return;
     }
-    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithUrlToZipFile:fileURL];// or
+    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:zipData];// or
     //Use the DFUServiceInitializer to initialize the DFU process.
     if (!selectedFirmware) {
         [self operationFailedBlock:failedBlock msg:@"Dfu upgrade failure!"];

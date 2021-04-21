@@ -134,16 +134,16 @@ NS_ASSUME_NONNULL_BEGIN
  @param sucBlock success callback
  @param failedBlock failed callback
  */
-+ (void)bxp_readAdvTxPowerWithSuccessBlock:(void (^)(id returnData))sucBlock
-                               failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)bxp_readAdvTxPowerWithSucBlock:(void (^)(id returnData))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
 /**
  Read the advertising interval of the current SLOT
 
  @param sucBlock success callback
  @param failedBlock failed callback
  */
-+ (void)bxp_readAdvIntervalWithSuccessBlock:(void (^)(id returnData))sucBlock
-                                failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)bxp_readAdvIntervalWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
  Read the sampling rate, scale and sensitivity of the 3-axis accelerometer sensor
@@ -157,8 +157,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param sucBlock success callback
  @param failedBlock failed callback
  */
-+ (void)bxp_readThreeAxisDataParamsWithSuccessBlock:(void (^)(id returnData))sucBlock
-                                        failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)bxp_readThreeAxisDataParamsWithSucBlock:(void (^)(id returnData))sucBlock
+                                    failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
  Read temperature and humidity sampling rate
@@ -166,8 +166,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param sucBlock success callback
  @param failedBlock failed callback
  */
-+ (void)bxp_readHTSamplingRateWithSuccessBlock:(void (^)(id returnData))sucBlock
-                                   failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)bxp_readHTSamplingRateWithSucBlock:(void (^)(id returnData))sucBlock
+                               failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
  Read temperature and humidity storage conditions
@@ -188,8 +188,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param sucBlock success callback
  @param failedBlock failed callback
  */
-+ (void)bxp_readHTStorageConditionsWithSuccessBlock:(void (^)(id returnData))sucBlock
-                                        failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)bxp_readHTStorageConditionsWithSucBlock:(void (^)(id returnData))sucBlock
+                                    failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
  Read device current time
@@ -197,8 +197,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param sucBlock success callback
  @param failedBlock failed callback
  */
-+ (void)bxp_readDeviceTimeWithSuccessBlock:(void (^)(id returnData))sucBlock
-                               failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)bxp_readDeviceTimeWithSucBlock:(void (^)(id returnData))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
  Read device current trigger condition
@@ -206,15 +206,15 @@ NS_ASSUME_NONNULL_BEGIN
  @param sucBlock success callback
  @param failedBlock failed callback
  */
-+ (void)bxp_readTriggerConditionsWithSuccessBlock:(void (^)(id returnData))sucBlock
-                                      failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)bxp_readTriggerConditionsWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock;
 
 /// Read whether the device can be shut down using the button.
 /// note:The device whose production date must be after 2021.01.01 can support this instruction.
 /// @param sucBlock success callback
 /// @param failedBlock failed callback
-+ (void)bxp_readButtonPowerStatusWithSuccessBlock:(void (^)(id returnData))sucBlock
-                                      failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)bxp_readButtonPowerStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

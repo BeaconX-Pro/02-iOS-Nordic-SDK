@@ -18,8 +18,6 @@
 #import "MKBXPService.h"
 #import "MKBXPBaseBeacon.h"
 
-NSString *const mk_bxp_communicationDataNum = @"mk_bxp_communicationDataNum";
-
 @implementation MKBXPTaskAdopter
 
 + (NSDictionary *)parseReadDataWithCharacteristic:(CBCharacteristic *)characteristic {

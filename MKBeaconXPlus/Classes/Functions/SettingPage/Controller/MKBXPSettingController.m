@@ -368,7 +368,7 @@ mk_textSwitchCellDelegate>
                                      inView:self.view
                               isPenetration:NO];
     @weakify(self);
-    [MKBXPInterface bxp_configPowerOffWithSucBlockWithSucBlock:^(id returnData) {
+    [MKBXPInterface bxp_configPowerOffWithSucBlock:^(id returnData) {
         [[MKHudManager share] hide];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"mk_bxp_powerOffNotification" object:nil];
     } failedBlock:^(NSError *error) {

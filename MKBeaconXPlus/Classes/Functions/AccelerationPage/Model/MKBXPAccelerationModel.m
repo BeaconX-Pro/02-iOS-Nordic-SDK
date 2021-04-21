@@ -55,7 +55,7 @@
 
 - (BOOL)readParams {
     __block BOOL success = NO;
-    [MKBXPInterface bxp_readThreeAxisDataParamsWithSuccessBlock:^(id  _Nonnull returnData) {
+    [MKBXPInterface bxp_readThreeAxisDataParamsWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.scale = [returnData[@"result"][@"gravityReference"] integerValue];
         self.samplingRate = [returnData[@"result"][@"samplingRate"] integerValue];

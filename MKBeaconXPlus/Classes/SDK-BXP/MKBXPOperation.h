@@ -14,10 +14,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString *const mk_bxp_additionalInformation;
-extern NSString *const mk_bxp_dataInformation;
-extern NSString *const mk_bxp_dataStatusLev;
-
 @interface MKBXPOperation : NSOperation<MKBLEBaseOperationProtocol>
 
 /**
@@ -30,9 +26,8 @@ extern NSString *const mk_bxp_dataStatusLev;
  @return operation
  */
 - (instancetype)initOperationWithID:(mk_bxp_taskOperationID)operationID
-                           resetNum:(BOOL)resetNum
                        commandBlock:(void (^)(void))commandBlock
-                      completeBlock:(void (^)(NSError *error, mk_bxp_taskOperationID operationID, id returnData))completeBlock;
+                      completeBlock:(void (^)(NSError *error, id returnData))completeBlock;
 
 @end
 

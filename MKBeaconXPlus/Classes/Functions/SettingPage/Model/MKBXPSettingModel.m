@@ -66,7 +66,7 @@
 
 - (BOOL)readButtonPowerStatus {
     __block BOOL success = NO;
-    [MKBXPInterface bxp_readButtonPowerStatusWithSuccessBlock:^(id  _Nonnull returnData) {
+    [MKBXPInterface bxp_readButtonPowerStatusWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.buttonPowerOff = [returnData[@"result"][@"isOn"] boolValue];
         dispatch_semaphore_signal(self.semaphore);

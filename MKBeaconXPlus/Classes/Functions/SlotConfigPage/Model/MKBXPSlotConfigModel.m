@@ -188,7 +188,7 @@
 
 - (BOOL)readRssi {
     __block BOOL success = NO;
-    [MKBXPInterface bxp_readAdvTxPowerWithSuccessBlock:^(id  _Nonnull returnData) {
+    [MKBXPInterface bxp_readAdvTxPowerWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.rssi0M = [returnData[@"result"][@"advTxPower"] integerValue];
         dispatch_semaphore_signal(self.semaphore);
@@ -213,7 +213,7 @@
 
 - (BOOL)readAdvInterval {
     __block BOOL success = NO;
-    [MKBXPInterface bxp_readAdvIntervalWithSuccessBlock:^(id  _Nonnull returnData) {
+    [MKBXPInterface bxp_readAdvIntervalWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         NSInteger tempInterval = [returnData[@"result"][@"advertisingInterval"] integerValue] / 100;
         self.advInterval = [NSString stringWithFormat:@"%ld",(long)tempInterval];
@@ -253,7 +253,7 @@
 
 - (BOOL)readTriggerConditions {
     __block BOOL success = NO;
-    [MKBXPInterface bxp_readTriggerConditionsWithSuccessBlock:^(id  _Nonnull returnData) {
+    [MKBXPInterface bxp_readTriggerConditionsWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.triggerConditions = returnData[@"result"];
         self.triggerIsOn = ![returnData[@"result"][@"type"] isEqualToString:@"00"];
@@ -411,7 +411,7 @@
 
 - (BOOL)closeTrigger {
     __block BOOL success = NO;
-    [MKBXPInterface bxp_configTriggerConditionsNoneWithSuccessBlock:^(id  _Nonnull returnData) {
+    [MKBXPInterface bxp_configTriggerConditionsNoneWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

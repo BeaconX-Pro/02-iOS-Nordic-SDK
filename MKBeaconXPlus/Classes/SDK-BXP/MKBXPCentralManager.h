@@ -148,26 +148,26 @@ typedef NS_ENUM(NSInteger, mk_bxp_lockState) {
  @param operationID operationID
  @param commandData Communication data
  @param characteristic characteristic
- @param successBlock Communication succeed callback
- @param failureBlock Communication failed callback
+ @param sucBlock Communication succeed callback
+ @param failedBlock Communication failed callback
  */
 - (void)addTaskWithTaskID:(mk_bxp_taskOperationID)operationID
               commandData:(NSString *)commandData
            characteristic:(CBCharacteristic *)characteristic
-             successBlock:(void (^)(id returnData))successBlock
-             failureBlock:(void (^)(NSError *error))failureBlock;
+                 sucBlock:(void (^)(id returnData))sucBlock
+              failedBlock:(void (^)(NSError *error))failedBlock;
 /**
  Add a reading task (app - > peripheral) to the queue
  
  @param operationID operationID
  @param characteristic characteristic
- @param successBlock Communication succeed callback
- @param failureBlock Communication failed callback
+ @param sucBlock Communication succeed callback
+ @param failedBlock Communication failed callback
  */
 - (void)addReadTaskWithTaskID:(mk_bxp_taskOperationID)operationID
                characteristic:(CBCharacteristic *)characteristic
-                 successBlock:(void (^)(id returnData))successBlock
-                 failureBlock:(void (^)(NSError *error))failureBlock;
+                     sucBlock:(void (^)(id returnData))sucBlock
+                  failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
  Whether to monitor 3-axis accelerometer sensor data

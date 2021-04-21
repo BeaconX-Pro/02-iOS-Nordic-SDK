@@ -17,6 +17,7 @@
 #import "MKBXPAdopter.h"
 
 #define centralManager [MKBXPCentralManager shared]
+#define peripheral [MKBXPCentralManager shared].peripheral
 
 @implementation MKBXPInterface (MKBXPConfig)
 
@@ -64,18 +65,18 @@
     [commandData appendData:encryptData];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigLockStateOperation
                           commandData:[MKBLEBaseSDKAdopter hexStringFromData:commandData]
-                       characteristic:centralManager.peripheral.bxp_lockState
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_lockState
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_factoryDataResetWithSucBlock:(void (^)(id returnData))sucBlock
                              failedBlock:(void (^)(NSError *error))failedBlock {
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigFactoryResetOperation
                           commandData:@"0b"
-                       characteristic:centralManager.peripheral.bxp_factoryReset
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_factoryReset
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configLockState:(mk_bxp_lockState)lockState
@@ -89,18 +90,18 @@
     }
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigLockStateOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_lockState
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_lockState
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
-+ (void)bxp_configPowerOffWithSucBlockWithSucBlock:(void (^)(id returnData))sucBlock
-                                       failedBlock:(void (^)(NSError *error))failedBlock {
++ (void)bxp_configPowerOffWithSucBlock:(void (^)(id returnData))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock {
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigPowerOffOperation
                           commandData:@"ea260000"
-                       characteristic:centralManager.peripheral.bxp_customWrite
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configConnectStatus:(BOOL)connectEnable
@@ -108,9 +109,9 @@
                     failedBlock:(void (^)(NSError *error))failedBlock {
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigConnectEnableOperation
                           commandData:(connectEnable ? @"01" : @"00")
-                       characteristic:centralManager.peripheral.bxp_remainConnectable
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_remainConnectable
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configActiveSlot:(mk_bxp_activeSlotNo)slotNo
@@ -119,9 +120,9 @@
     NSString *slotNumber = [self fetchSlotNumber:slotNo];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigActiveSlotOperation
                           commandData:slotNumber
-                       characteristic:centralManager.peripheral.bxp_activeSlot
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_activeSlot
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configAdvTxPower:(NSInteger)advTxPower
@@ -134,9 +135,9 @@
     NSString *advPower = [MKBLEBaseSDKAdopter hexStringFromSignedNumber:advTxPower];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigAdvTxPowerOperation
                           commandData:advPower
-                       characteristic:centralManager.peripheral.bxp_advertisedTxPower
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_advertisedTxPower
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configRadioTxPower:(mk_bxp_slotRadioTxPower )power
@@ -145,9 +146,9 @@
     NSString *commandString = [self fetchTxPower:power];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigRadioTxPowerOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_radioTxPower
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_radioTxPower
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configAdvInterval:(NSInteger)interval
@@ -165,18 +166,18 @@
     }
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigAdvertisingIntervalOperation
                           commandData:advInterval
-                       characteristic:centralManager.peripheral.bxp_advertisingInterval
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_advertisingInterval
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configTLMAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
                              failedBlock:(void (^)(NSError *error))failedBlock {
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigAdvSlotDataOperation
                           commandData:@"20"
-                       characteristic:centralManager.peripheral.bxp_advSlotData
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_advSlotData
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configUIDAdvDataWithNameSpace:(NSString *)nameSpace
@@ -190,9 +191,9 @@
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"00",nameSpace,instanceID];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigAdvSlotDataOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_advSlotData
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_advSlotData
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configURLAdvData:(mk_bxp_urlHeaderType )urlHeader
@@ -222,9 +223,9 @@
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"10",header,urlString];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigAdvSlotDataOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_advSlotData
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_advSlotData
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configiBeaconAdvDataWithMajor:(NSInteger)major
@@ -254,21 +255,21 @@
     }
     uuid = [uuid stringByReplacingOccurrencesOfString:@"-" withString:@""];
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"50",uuid,majorHex,minorHex];
-    [centralManager addTaskWithTaskID:mk_bxp_taskConfigAdvSlotDataOperation commandData:commandString characteristic:centralManager.peripheral.bxp_advSlotData successBlock:^(id  _Nonnull returnData) {
+    [centralManager addTaskWithTaskID:mk_bxp_taskConfigAdvSlotDataOperation commandData:commandString characteristic:peripheral.bxp_advSlotData sucBlock:^(id  _Nonnull returnData) {
         [NSThread sleepForTimeInterval:0.1f];
         if (sucBlock) {
             sucBlock(returnData);
         }
-    } failureBlock:failedBlock];
+    } failedBlock:failedBlock];
 }
 
 + (void)bxp_configNODATAAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
                                 failedBlock:(void (^)(NSError *error))failedBlock {
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigAdvSlotDataOperation
                           commandData:@"ff"
-                       characteristic:centralManager.peripheral.bxp_advSlotData
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_advSlotData
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configDeviceInfoAdvDataWithDeviceName:(NSString *)deviceName
@@ -286,31 +287,31 @@
     NSString *commandString = [@"40" stringByAppendingString:tempString];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigAdvSlotDataOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_advSlotData
-                         successBlock:^(id  _Nonnull returnData) {
+                       characteristic:peripheral.bxp_advSlotData
+                         sucBlock:^(id  _Nonnull returnData) {
                              [NSThread sleepForTimeInterval:0.1f];
                              if (sucBlock) {
                                  sucBlock(returnData);
                              }
-                         } failureBlock:failedBlock];
+                         } failedBlock:failedBlock];
 }
 
 + (void)bxp_configThreeAxisAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
                                    failedBlock:(void (^)(NSError *error))failedBlock {
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigAdvSlotDataOperation
                           commandData:@"60"
-                       characteristic:centralManager.peripheral.bxp_advSlotData
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_advSlotData
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configHTAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
                             failedBlock:(void (^)(NSError *error))failedBlock {
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigAdvSlotDataOperation
                           commandData:@"70"
-                       characteristic:centralManager.peripheral.bxp_advSlotData
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_advSlotData
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configThreeAxisDataParams:(mk_bxp_threeAxisDataRate)dataRate
@@ -331,9 +332,9 @@
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ea310003",rate,ag,sen];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigThreeAxisParamsOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_customWrite
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configDeviceTime:(id <MKBXPDeviceTimeProtocol>)protocol
@@ -351,9 +352,9 @@
     NSString *commandString = [@"ea350006" stringByAppendingString:hexTime];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigDeviceTimeOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_customWrite
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configHTStorageConditions:(id <MKBXPHTStorageConditionsProtocol>)protocol
@@ -370,9 +371,9 @@
     }
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigHTStorageConditionsOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_customWrite
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configHTSamplingRate:(NSInteger)rate
@@ -393,19 +394,19 @@
     NSString *commandString = [@"ea330002" stringByAppendingString:rateString];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigHTSamplingRateOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_customWrite
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
-+ (void)bxp_configTriggerConditionsNoneWithSuccessBlock:(void (^)(id returnData))sucBlock
-                                            failedBlock:(void (^)(NSError *error))failedBlock {
++ (void)bxp_configTriggerConditionsNoneWithSucBlock:(void (^)(id returnData))sucBlock
+                                        failedBlock:(void (^)(NSError *error))failedBlock {
     NSString *commandString = @"ea39000100";
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigTriggerConditionsOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_customWrite
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configTriggerConditionsWithTemperature:(BOOL)above
@@ -432,9 +433,9 @@
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ea39000501",aboveString,tempString,advertising];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigTriggerConditionsOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_customWrite
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configTriggerConditionsWithHudimity:(BOOL)above
@@ -461,9 +462,9 @@
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ea39000502",aboveString,tempString,advertising];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigTriggerConditionsOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_customWrite
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configTriggerConditionsWithDoubleTap:(NSInteger)time
@@ -485,9 +486,9 @@
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ea39000403",timeString,(start ? @"01" : @"02")];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigTriggerConditionsOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_customWrite
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configTriggerConditionsWithTripleTap:(NSInteger)time
@@ -509,9 +510,9 @@
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ea39000404",timeString,(start ? @"01" : @"02")];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigTriggerConditionsOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_customWrite
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configTriggerConditionsWithMoves:(NSInteger)time
@@ -533,18 +534,18 @@
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ea39000405",timeString,(start ? @"01" : @"02")];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigTriggerConditionsOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_customWrite
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_deleteBXPRecordHTDatasWithSucBlock:(void (^)(id returnData))sucBlock
                                    failedBlock:(void (^)(NSError *error))failedBlock {
     [centralManager addTaskWithTaskID:mk_bxp_taskDeleteRecordHTDataOperation
                           commandData:@"ea240000"
-                       characteristic:centralManager.peripheral.bxp_customWrite
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 + (void)bxp_configButtonPowerStatus:(BOOL)isOn
@@ -553,9 +554,9 @@
     NSString *commandString = (isOn ? @"ea38000101" : @"ea38000100");
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigButtonPowerStatusOperation
                           commandData:commandString
-                       characteristic:centralManager.peripheral.bxp_customWrite
-                         successBlock:sucBlock
-                         failureBlock:failedBlock];
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
 }
 
 #pragma mark - private method

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MKBeaconXPlus'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'A short description of MKBeaconXPlus.'
 
 # This description is used to generate tags and improve search results.
@@ -238,6 +238,6 @@ TODO: Add long description of the pod here.
      ss.dependency 'MKCustomUIModule'
      ss.dependency 'HHTransition'
      ss.dependency 'MLInputDodger'
-     ss.dependency 'iOSDFULibrary','4.6.1'
+     ss.dependency 'iOSDFULibrary'
    end
 end

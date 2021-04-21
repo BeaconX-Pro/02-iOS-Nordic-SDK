@@ -142,8 +142,8 @@ typedef NS_ENUM(NSInteger, mk_bxp_HTStorageConditions) {
  @param sucBlock success callback
  @param failedBlock failed callback
  */
-+ (void)bxp_configPowerOffWithSucBlockWithSucBlock:(void (^)(id returnData))sucBlock
-                                       failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)bxp_configPowerOffWithSucBlock:(void (^)(id returnData))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
 /**
  Setting device’s connection status.
  NOTE: Be careful to set device’s connection statue .Once the device is set to not connectable, it may not be connected, and other parameters cannot be configured.
@@ -333,8 +333,8 @@ typedef NS_ENUM(NSInteger, mk_bxp_HTStorageConditions) {
  @param sucBlock success callback
  @param failedBlock failed callback
  */
-+ (void)bxp_configTriggerConditionsNoneWithSuccessBlock:(void (^)(id returnData))sucBlock
-                                            failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)bxp_configTriggerConditionsNoneWithSucBlock:(void (^)(id returnData))sucBlock
+                                        failedBlock:(void (^)(NSError *error))failedBlock;
 
 /**
  Setting the current active SLOT temperature trigger condition

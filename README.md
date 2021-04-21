@@ -535,7 +535,7 @@ The developer can modify advertisement and parameters of every slot freely via o
 * RSSI@0/m(dBm)
 
 ```
-[MKBXPInterface bxp_readAdvTxPowerWithSuccessBlock:^(id  _Nonnull returnData) {
+[MKBXPInterface bxp_readAdvTxPowerWithSucBlock:^(id  _Nonnull returnData) {
         //Success
     } failedBlock:^(NSError * _Nonnull error) {
         //Failure
@@ -555,7 +555,7 @@ The developer can modify advertisement and parameters of every slot freely via o
 * Advertisement interval
 
 ```
-[MKBXPInterface bxp_readAdvIntervalWithSuccessBlock:^(id  _Nonnull returnData) {
+[MKBXPInterface bxp_readAdvIntervalWithSucBlock:^(id  _Nonnull returnData) {
         //Success
     } failedBlock:^(NSError * _Nonnull error) {
         //Failure
@@ -565,7 +565,7 @@ The developer can modify advertisement and parameters of every slot freely via o
 * Triggering conditions
 
 ```
-[MKBXPInterface bxp_readTriggerConditionsWithSuccessBlock:^(id  _Nonnull returnData) {
+[MKBXPInterface bxp_readTriggerConditionsWithSucBlock:^(id  _Nonnull returnData) {
         //Success
     } failedBlock:^(NSError * _Nonnull error) {
         //Failure
@@ -693,7 +693,7 @@ mk_bxp_slotRadioTxPower power = mk_bxp_slotRadioTxPowerNeg40dBm;
 
 1、close(The Beacon will always broadcast.)
 
-[MKBXPInterface bxp_configTriggerConditionsNoneWithSuccessBlock:^(id  _Nonnull returnData) {
+[MKBXPInterface bxp_configTriggerConditionsNoneWithSucBlock:^(id  _Nonnull returnData) {
         //Success
     } failedBlock:^(NSError * _Nonnull error) {
         //Failure
@@ -828,8 +828,8 @@ Please refer to the code example below.
  @param sucBlock success callback
  @param failedBlock failed callback
  */
-+ (void)bxp_configPowerOffWithSucBlockWithSucBlock:(void (^)(id returnData))sucBlock
-                                       failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)bxp_configPowerOffWithSucBlock:(void (^)(id returnData))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
 /**
  Setting device’s connection status.
  NOTE: Be careful to set device’s connection statue .Once the device is set to not connectable, it may not be connected, and other parameters cannot be configured.

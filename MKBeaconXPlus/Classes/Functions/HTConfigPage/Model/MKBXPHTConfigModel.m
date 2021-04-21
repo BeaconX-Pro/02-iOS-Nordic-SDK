@@ -114,7 +114,7 @@
 #pragma mark - interface
 - (BOOL)readSamplingRate {
     __block BOOL success = NO;
-    [MKBXPInterface bxp_readHTSamplingRateWithSuccessBlock:^(id  _Nonnull returnData) {
+    [MKBXPInterface bxp_readHTSamplingRateWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.samplingInterval = returnData[@"result"][@"samplingRate"];
         dispatch_semaphore_signal(self.semaphore);
@@ -139,7 +139,7 @@
 
 - (BOOL)readHTStorageConditions {
     __block BOOL success = NO;
-    [MKBXPInterface bxp_readHTStorageConditionsWithSuccessBlock:^(id  _Nonnull returnData) {
+    [MKBXPInterface bxp_readHTStorageConditionsWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.triggerType = [returnData[@"result"][@"functionType"] integerValue];
         self.temperature = returnData[@"result"][@"temperature"];
@@ -168,7 +168,7 @@
 
 - (BOOL)readDeviceTime {
     __block BOOL success = NO;
-    [MKBXPInterface bxp_readDeviceTimeWithSuccessBlock:^(id  _Nonnull returnData) {
+    [MKBXPInterface bxp_readDeviceTimeWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         NSString *deviceTime = returnData[@"result"][@"deviceTime"];
         NSArray *dateList = [deviceTime componentsSeparatedByString:@"-"];

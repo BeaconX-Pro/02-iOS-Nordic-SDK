@@ -363,24 +363,24 @@ static dispatch_once_t onceToken;
 - (void)addTaskWithTaskID:(mk_bxp_taskOperationID)operationID
               commandData:(NSString *)commandData
            characteristic:(CBCharacteristic *)characteristic
-             successBlock:(void (^)(id returnData))successBlock
-             failureBlock:(void (^)(NSError *error))failureBlock {
+                 sucBlock:(void (^)(id returnData))sucBlock
+              failedBlock:(void (^)(NSError *error))failedBlock {
     MKBXPOperation *operation = [self generateOperationWithOperationID:operationID
                                                            commandData:commandData
                                                         characteristic:characteristic
-                                                          successBlock:successBlock
-                                                          failureBlock:failureBlock];
+                                                              sucBlock:sucBlock
+                                                           failedBlock:failedBlock];
     [[MKBLEBaseCentralManager shared] addOperation:operation];
 }
 
 - (void)addReadTaskWithTaskID:(mk_bxp_taskOperationID)operationID
                characteristic:(CBCharacteristic *)characteristic
-                 successBlock:(void (^)(id returnData))successBlock
-                 failureBlock:(void (^)(NSError *error))failureBlock {
+                     sucBlock:(void (^)(id returnData))sucBlock
+                  failedBlock:(void (^)(NSError *error))failedBlock {
     MKBXPOperation *operation = [self generateReadOperationWithID:operationID
                                                    characteristic:characteristic
-                                                     successBlock:successBlock
-                                                     failureBlock:failureBlock];
+                                                         sucBlock:sucBlock
+                                                      failedBlock:failedBlock];
     [[MKBLEBaseCentralManager shared] addOperation:operation];
 }
 
@@ -501,14 +501,12 @@ static dispatch_once_t onceToken;
     __block mk_bxp_lockState lockState = mk_bxp_lockStateUnknow;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     __weak typeof(self) weakSelf = self;
-    MKBXPOperation *operation = [[MKBXPOperation alloc] initOperationWithID:mk_bxp_taskReadLockStateOperation resetNum:NO commandBlock:^{
+    MKBXPOperation *operation = [[MKBXPOperation alloc] initOperationWithID:mk_bxp_taskReadLockStateOperation commandBlock:^{
         __strong typeof(self) sself = weakSelf;
         [sself.peripheral readValueForCharacteristic:sself.peripheral.bxp_lockState];
-    } completeBlock:^(NSError *error, mk_bxp_taskOperationID operationID, id returnData) {
+    } completeBlock:^(NSError *error, id returnData) {
         if (!error) {
-            NSArray *dataList = (NSArray *)returnData[mk_bxp_dataInformation];
-            NSDictionary *resultDic = dataList[0];
-            NSString *state = resultDic[@"lockState"];
+            NSString *state = returnData[@"lockState"];
             if ([state isEqualToString:@"00"]) {
                 //锁定状态
                 lockState = mk_bxp_lockStateLock;
@@ -531,14 +529,12 @@ static dispatch_once_t onceToken;
     __block NSData *RAND_DATA_ARRAY = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     __weak typeof(self) weakSelf = self;
-    MKBXPOperation *operation = [[MKBXPOperation alloc] initOperationWithID:mk_bxp_taskReadUnlockOperation resetNum:NO commandBlock:^{
+    MKBXPOperation *operation = [[MKBXPOperation alloc] initOperationWithID:mk_bxp_taskReadUnlockOperation commandBlock:^{
         __strong typeof(self) sself = weakSelf;
         [sself.peripheral readValueForCharacteristic:sself.peripheral.bxp_unlock];
-    } completeBlock:^(NSError *error, mk_bxp_taskOperationID operationID, id returnData) {
+    } completeBlock:^(NSError *error, id returnData) {
         if (!error) {
-            NSArray *dataList = (NSArray *)returnData[mk_bxp_dataInformation];
-            NSDictionary *resultDic = dataList[0];
-            RAND_DATA_ARRAY = resultDic[@"RAND_DATA_ARRAY"];
+            RAND_DATA_ARRAY = returnData[@"RAND_DATA_ARRAY"];
         }
         dispatch_semaphore_signal(semaphore);
     }];
@@ -557,10 +553,10 @@ static dispatch_once_t onceToken;
     __block BOOL success = NO;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     __weak typeof(self) weakSelf = self;
-    MKBXPOperation *operation = [[MKBXPOperation alloc] initOperationWithID:mk_bxp_taskConfigUnlockOperation resetNum:NO commandBlock:^{
+    MKBXPOperation *operation = [[MKBXPOperation alloc] initOperationWithID:mk_bxp_taskConfigUnlockOperation commandBlock:^{
         __strong typeof(self) sself = weakSelf;
         [sself.peripheral writeValue:keyData forCharacteristic:sself.peripheral.bxp_unlock type:CBCharacteristicWriteWithResponse];
-    } completeBlock:^(NSError *error, mk_bxp_taskOperationID operationID, id returnData) {
+    } completeBlock:^(NSError *error, id returnData) {
         if (!error) {
             success = YES;
         }
@@ -575,95 +571,75 @@ static dispatch_once_t onceToken;
 - (MKBXPOperation *)generateOperationWithOperationID:(mk_bxp_taskOperationID)operationID
                                          commandData:(NSString *)commandData
                                       characteristic:(CBCharacteristic *)characteristic
-                                        successBlock:(void (^)(id returnData))successBlock
-                                        failureBlock:(void (^)(NSError *error))failureBlock{
+                                            sucBlock:(void (^)(id returnData))sucBlock
+                                         failedBlock:(void (^)(NSError *error))failedBlock {
     if (![[MKBLEBaseCentralManager shared] readyToCommunication]) {
-        [self operationFailedBlockWithMsg:@"The current connection device is in disconnect" failedBlock:failureBlock];
+        [self operationFailedBlockWithMsg:@"The current connection device is in disconnect" failedBlock:failedBlock];
         return nil;
     }
     if (!MKValidStr(commandData)) {
-        [self operationFailedBlockWithMsg:@"Input parameter error" failedBlock:failureBlock];
+        [self operationFailedBlockWithMsg:@"Input parameter error" failedBlock:failedBlock];
         return nil;
     }
     if (!characteristic) {
-        [self operationFailedBlockWithMsg:@"Characteristic error" failedBlock:failureBlock];
+        [self operationFailedBlockWithMsg:@"Characteristic error" failedBlock:failedBlock];
         return nil;
     }
     __weak typeof(self) weakSelf = self;
-    MKBXPOperation *operation = [[MKBXPOperation alloc] initOperationWithID:operationID resetNum:NO commandBlock:^{
+    MKBXPOperation *operation = [[MKBXPOperation alloc] initOperationWithID:operationID commandBlock:^{
         [[MKBLEBaseCentralManager shared] sendDataToPeripheral:commandData characteristic:characteristic type:CBCharacteristicWriteWithResponse];
-    } completeBlock:^(NSError *error, mk_bxp_taskOperationID operationID, id returnData) {
+    } completeBlock:^(NSError *error, id returnData) {
         __strong typeof(self) sself = weakSelf;
-        [sself parseTaskResult:error returnData:returnData successBlock:successBlock failureBlock:failureBlock];
+        [sself parseTaskResult:error returnData:returnData sucBlock:sucBlock failedBlock:failedBlock];
     }];
     return operation;
 }
 
 - (MKBXPOperation *)generateReadOperationWithID:(mk_bxp_taskOperationID)operationID
                                  characteristic:(CBCharacteristic *)characteristic
-                                   successBlock:(void (^)(id returnData))successBlock
-                                   failureBlock:(void (^)(NSError *error))failureBlock{
+                                       sucBlock:(void (^)(id returnData))sucBlock
+                                    failedBlock:(void (^)(NSError *error))failedBlock {
     if (![[MKBLEBaseCentralManager shared] readyToCommunication]) {
-        [self operationFailedBlockWithMsg:@"The current connection device is in disconnect" failedBlock:failureBlock];
+        [self operationFailedBlockWithMsg:@"The current connection device is in disconnect" failedBlock:failedBlock];
         return nil;
     }
     if (!characteristic) {
-        [self operationFailedBlockWithMsg:@"Characteristic error" failedBlock:failureBlock];
+        [self operationFailedBlockWithMsg:@"Characteristic error" failedBlock:failedBlock];
         return nil;
     }
     __weak typeof(self) weakSelf = self;
-    MKBXPOperation *operation = [[MKBXPOperation alloc] initOperationWithID:operationID resetNum:NO commandBlock:^{
+    MKBXPOperation *operation = [[MKBXPOperation alloc] initOperationWithID:operationID commandBlock:^{
         [[MKBLEBaseCentralManager shared].peripheral readValueForCharacteristic:characteristic];
-    } completeBlock:^(NSError *error, mk_bxp_taskOperationID operationID, id returnData) {
+    } completeBlock:^(NSError *error, id returnData) {
         __strong typeof(self) sself = weakSelf;
-        [sself parseTaskResult:error returnData:returnData successBlock:successBlock failureBlock:failureBlock];
+        [sself parseTaskResult:error returnData:returnData sucBlock:sucBlock failedBlock:failedBlock];
     }];
     return operation;
 }
 
 - (void)parseTaskResult:(NSError *)error
              returnData:(id)returnData
-           successBlock:(void (^)(id returnData))successBlock
-           failureBlock:(void (^)(NSError *error))failureBlock{
+               sucBlock:(void (^)(id returnData))sucBlock
+            failedBlock:(void (^)(NSError *error))failedBlock {
     if (error) {
         MKBLEBase_main_safe(^{
-            if (failureBlock) {
-                failureBlock(error);
+            if (failedBlock) {
+                failedBlock(error);
             }
         });
         return ;
     }
     if (!returnData) {
-        [self operationFailedBlockWithMsg:@"Request data error" failedBlock:failureBlock];
+        [self operationFailedBlockWithMsg:@"Request data error" failedBlock:failedBlock];
         return ;
     }
-    NSString *lev = returnData[mk_bxp_dataStatusLev];
-    if ([lev isEqualToString:@"1"]) {
-        //通用无附加信息的
-        NSArray *dataList = (NSArray *)returnData[mk_bxp_dataInformation];
-        if (!MKValidArray(dataList)) {
-            [self operationFailedBlockWithMsg:@"request data error" failedBlock:failureBlock];
-            return ;
-        }
-        NSDictionary *resultDic = @{@"msg":@"success",
-                                    @"code":@"1",
-                                    @"result":dataList[0],
-                                    };
-        MKBLEBase_main_safe(^{
-            if (successBlock) {
-                successBlock(resultDic);
-            }
-        });
-        return;
-    }
-    //对于有附加信息的
     NSDictionary *resultDic = @{@"msg":@"success",
                                 @"code":@"1",
-                                @"result":returnData[mk_bxp_dataInformation],
+                                @"result":returnData,
                                 };
     MKBLEBase_main_safe(^{
-        if (successBlock) {
-            successBlock(resultDic);
+        if (sucBlock) {
+            sucBlock(resultDic);
         }
     });
 }
