@@ -102,9 +102,6 @@ MKBXPTabBarControllerDelegate>
 
 @property (nonatomic, strong)dispatch_source_t scanTimer;
 
-/// 当左侧按钮停止扫描的时候,currentScanStatus = NO,开始扫描的时候currentScanStatus=YES
-@property (nonatomic, assign)BOOL currentScanStatus;
-
 /// 定时刷新
 @property (nonatomic, assign)CFRunLoopObserverRef observerRef;
 //扫描到新的设备不能立即刷新列表，降低刷新频率
@@ -138,7 +135,6 @@ MKBXPTabBarControllerDelegate>
         return;
     }
     self.leftButton.selected = !self.leftButton.selected;
-    self.currentScanStatus = self.leftButton.selected;
     [self.refreshIcon.layer removeAnimationForKey:@"mk_refreshAnimationKey"];
     if (!self.leftButton.isSelected) {
         //停止扫描
@@ -242,7 +238,6 @@ MKBXPTabBarControllerDelegate>
         self.searchButton.dataModel = self.buttonModel;
         
         self.leftButton.selected = NO;
-        self.currentScanStatus = NO;
         [self leftButtonMethod];
     }];
 }
@@ -252,7 +247,6 @@ MKBXPTabBarControllerDelegate>
     self.buttonModel.searchMac = @"";
     self.buttonModel.searchName = @"";
     self.leftButton.selected = NO;
-    self.currentScanStatus = NO;
     [self leftButtonMethod];
 }
 
@@ -303,7 +297,6 @@ MKBXPTabBarControllerDelegate>
 #pragma mark - 刷新
 - (void)startScanDevice {
     self.leftButton.selected = NO;
-    self.currentScanStatus = NO;
     [self leftButtonMethod];
 }
 
@@ -672,7 +665,6 @@ MKBXPTabBarControllerDelegate>
 
 - (void)connectFailed {
     self.leftButton.selected = NO;
-    self.currentScanStatus = NO;
     [self leftButtonMethod];
 }
 

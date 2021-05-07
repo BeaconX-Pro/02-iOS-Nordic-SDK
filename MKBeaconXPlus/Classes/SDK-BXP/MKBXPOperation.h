@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)initOperationWithID:(mk_bxp_taskOperationID)operationID
                        commandBlock:(void (^)(void))commandBlock
-                      completeBlock:(void (^)(NSError *error, id returnData))completeBlock;
+                      completeBlock:(void (^)(NSError * _Nullable error, id _Nullable returnData))completeBlock;
 
 @end
 

@@ -52,12 +52,12 @@
 #pragma mark - life circle
 
 - (void)dealloc{
-//    NSLog(@"BXP任务销毁");
+    NSLog(@"BXP任务销毁");
 }
 
 - (instancetype)initOperationWithID:(mk_bxp_taskOperationID)operationID
                        commandBlock:(void (^)(void))commandBlock
-                      completeBlock:(void (^)(NSError *error, id returnData))completeBlock{
+                      completeBlock:(void (^)(NSError * _Nullable error, id _Nullable returnData))completeBlock {
     if (self = [super init]) {
         _executing = NO;
         _finished = NO;
