@@ -256,8 +256,7 @@ MKBXPSlotConfigTriggerCellDelegate>
 
 - (void)loadSection1Datas {
     MKBXPSlotConfigAdvParamsCellModel *cellModel = [[MKBXPSlotConfigAdvParamsCellModel alloc] init];
-    cellModel.isBeacon = (self.slotType == mk_bxp_slotFrameTypeBeacon);
-    cellModel.isTLM = (self.slotType == mk_bxp_slotFrameTypeTLM);
+    cellModel.slotType = self.slotType;
     if (self.slotType == self.dataModel.slotType) {
         cellModel.txPower = self.dataModel.txPower;
         cellModel.rssiValue = self.dataModel.rssi0M;

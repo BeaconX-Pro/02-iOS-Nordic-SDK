@@ -47,6 +47,22 @@
     return self;
 }
 
+#pragma mark - super method
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (action == @selector(paste:) || action == @selector(copy:)
+        || action == @selector(cut:) || action == @selector(select:)
+        || action == @selector(selectAll:)){
+        //允许粘贴、拷贝、剪切、选中、全部选中
+        return YES;
+    }
+    return NO;
+}
+
+- (void)delete:(id)sender {
+    //长按出现UIMenuController菜单，如果用户点击了删除，textField必须实现该方法，否则闪退
+    NSLog(@"%@",sender);
+}
+
 #pragma mark - Notification Methods
 - (void)textFieldDidBeginEditingNotifiction:(NSNotification *)f{
     

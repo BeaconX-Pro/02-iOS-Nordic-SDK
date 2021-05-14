@@ -1,10 +1,6 @@
-//
-//  MKTextField.h
-//  MKBaseModuleLibrary_Example
-//
-//  Created by aa on 2020/12/28.
-//  Copyright © 2020 aadyx2007@163.com. All rights reserved.
-//
+/*
+ 输入框UIMenuController菜单目前只支持粘贴、拷贝、剪切、选中、全部选中
+ */
 
 #import <UIKit/UIKit.h>
 

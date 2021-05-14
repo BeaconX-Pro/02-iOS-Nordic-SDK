@@ -121,19 +121,19 @@
             return;
         }
         if (![self configTxPower:[params[bxp_slotConfig_advParamType][@"txPower"] integerValue]]) {
-            [self operationFailedBlockWithMsg:@"Config Tx Power Error" block:failedBlock];
-            return;
+//            [self operationFailedBlockWithMsg:@"Config Tx Power Error" block:failedBlock];
+//            return;
         }
         if (self.slotType != mk_bxp_slotFrameTypeTLM) {
             if (![self configRssi:[params[bxp_slotConfig_advParamType][@"rssi"] integerValue]]) {
-                [self operationFailedBlockWithMsg:@"Config Rssi Error" block:failedBlock];
-                return;
+//                [self operationFailedBlockWithMsg:@"Config Rssi Error" block:failedBlock];
+//                return;
             }
         }
         if (![self.originAdvInterval isEqualToString:params[bxp_slotConfig_advParamType][@"interval"]]) {
             if (![self configAdvInterval:[params[bxp_slotConfig_advParamType][@"interval"] integerValue]]) {
-                [self operationFailedBlockWithMsg:@"Config Interval Error" block:failedBlock];
-                return;
+//                [self operationFailedBlockWithMsg:@"Config Interval Error" block:failedBlock];
+//                return;
             }
         }
         if (![self configTriggerConditions:params[bxp_slotConfig_advTriggerType]]) {

@@ -8,6 +8,8 @@
 
 #import <MKBaseModuleLibrary/MKBaseCell.h>
 
+#import "MKBXPEnumerateDefine.h"
+
 #import "MKBXPSlotConfigCellProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,11 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign)NSInteger txPower;
 
-/// 对于beacon，rssi@1m,其他的都是rssi@0m.
-@property (nonatomic, assign)BOOL isBeacon;
-
-/// TLM隐藏RSSI@0M
-@property (nonatomic, assign)BOOL isTLM;
+@property (nonatomic, assign)mk_bxp_slotFrameType slotType;
 
 @end
 

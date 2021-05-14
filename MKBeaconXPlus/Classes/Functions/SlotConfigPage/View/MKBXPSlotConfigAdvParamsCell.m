@@ -112,7 +112,7 @@
     
     NSString *txPowerValue = [NSString stringWithFormat:@"%.f",self.txPowerSlider.value];
     NSString *rssiValue = @"";
-    if (!self.dataModel.isTLM) {
+    if (!self.dataModel.slotType == mk_bxp_slotFrameTypeTLM) {
         rssiValue = [NSString stringWithFormat:@"%.f",self.rssiSlider.value];
         if ([rssiValue isEqualToString:@"-0"]) {
             rssiValue = @"0";
@@ -167,7 +167,7 @@
         [self.rssiValueLabel removeFromSuperview];
     }
     
-    if (_dataModel.isTLM) {
+    if (self.dataModel.slotType == mk_bxp_slotFrameTypeTLM) {
         [self setupTLMUI];
         return;
     }
@@ -209,7 +209,12 @@
     [self.backView addSubview:self.rssiValueLabel];
     self.rssiSlider.value = self.dataModel.rssiValue;
     self.rssiValueLabel.text = [NSString stringWithFormat:@"%lddBm",(long)self.dataModel.rssiValue];
-    NSString *tempMsg = (_dataModel.isBeacon ? @"RSSI@1m" : @"RSSI@0m");
+    NSString *tempMsg = @"RSSI@0m";
+    if (_dataModel.slotType == mk_bxp_slotFrameTypeBeacon) {
+        tempMsg = @"RSSI@1m";
+    }else if (_dataModel.slotType == mk_bxp_slotFrameTypeInfo || _dataModel.slotType == mk_bxp_slotFrameTypeThreeASensor || _dataModel.slotType == mk_bxp_slotFrameTypeTHSensor) {
+        tempMsg = @"Measured RSSI";
+    }
     self.rssiMsgLabel.attributedText = [MKCustomUIAdopter attributedString:@[tempMsg,@"   (-100dBm ~ 0dBm)"] fonts:@[MKFont(13.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
     
     [self.advIntervalLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
