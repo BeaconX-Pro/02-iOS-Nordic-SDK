@@ -151,9 +151,10 @@ static CGFloat const switchButtonHeight = 30.f;
 - (void)setDataModel:(MKRawAdvDataOperationCellModel *)dataModel {
     _dataModel = nil;
     _dataModel = dataModel;
-    if (!_dataModel) {
+    if (!_dataModel || ![_dataModel isKindOfClass:MKRawAdvDataOperationCellModel.class]) {
         return;
     }
+    self.contentView.backgroundColor = (_dataModel.contentColor ? _dataModel.contentColor : COLOR_WHITE_MACROS);
     self.msgLabel.text = SafeStr(_dataModel.msg);
     self.switchButton.enabled = _dataModel.switchEnable;
     self.switchButton.selected = _dataModel.isOn;

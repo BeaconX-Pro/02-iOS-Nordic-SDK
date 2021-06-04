@@ -32,6 +32,9 @@ typedef NS_ENUM(NSInteger, mk_filterDataCellType) {
 /// 当前cell的类型，mk_filterDataCellType_normal默认是有一个输入框，mk_filterDataCellType_double有两个输入框，且显示From和To标签
 @property (nonatomic, assign)mk_filterDataCellType cellType;
 
+/// 背景颜色，默认白色
+@property (nonatomic, strong)UIColor *contentColor;
+
 /**************************************************顶部信息设置*********************************************************/
 
 /// 顶部msg

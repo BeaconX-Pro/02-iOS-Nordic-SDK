@@ -183,9 +183,10 @@
 - (void)setDataModel:(MKFilterRawAdvDataCellModel *)dataModel {
     _dataModel = nil;
     _dataModel = dataModel;
-    if (!_dataModel) {
+    if (!_dataModel || ![_dataModel isKindOfClass:MKFilterRawAdvDataCellModel.class]) {
         return;
     }
+    self.contentView.backgroundColor = (_dataModel.contentColor ? _dataModel.contentColor : COLOR_WHITE_MACROS);
     self.typeTextField.text = SafeStr(_dataModel.dataType);
     self.typeTextField.placeholder = SafeStr(_dataModel.dataTypePlaceHolder);
     self.minTextField.text = SafeStr(_dataModel.minIndex);

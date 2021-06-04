@@ -154,9 +154,10 @@ static CGFloat const functionButtonHeight = 45.f;
 - (void)setDataModel:(MKLoraDeviceTypeCellModel *)dataModel {
     _dataModel = nil;
     _dataModel = dataModel;
-    if (!_dataModel) {
+    if (!_dataModel || ![_dataModel isKindOfClass:MKLoraDeviceTypeCellModel.class]) {
         return;
     }
+    self.contentView.backgroundColor = (_dataModel.contentColor ? _dataModel.contentColor : COLOR_WHITE_MACROS);
     self.msgLabel.text = SafeStr(_dataModel.msg);
     self.classButton1.msgLabel.text = SafeStr(_dataModel.buttonTitle1);
     self.classButton2.msgLabel.text = SafeStr(_dataModel.buttonTitle2);

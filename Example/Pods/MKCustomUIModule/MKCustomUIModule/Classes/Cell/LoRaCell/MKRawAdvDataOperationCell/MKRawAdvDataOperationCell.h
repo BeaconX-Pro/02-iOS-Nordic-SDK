@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 标签msg
 @property (nonatomic, copy)NSString *msg;
 
+/// 背景颜色，默认白色
+@property (nonatomic, strong)UIColor *contentColor;
+
 @end
 
 @protocol MKRawAdvDataOperationCellDelegate <NSObject>

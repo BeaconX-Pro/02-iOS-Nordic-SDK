@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 顶部msg必须用富文本字符串显示
 @property (nonatomic, copy)NSAttributedString *msg;
 
+/// 背景颜色，默认白色
+@property (nonatomic, strong)UIColor *contentColor;
+
 #pragma mark ------------------------- 右侧单位label配置 ---------------------------------
 
 /// 滑竿滑动的时候显示的单位,默认dBm

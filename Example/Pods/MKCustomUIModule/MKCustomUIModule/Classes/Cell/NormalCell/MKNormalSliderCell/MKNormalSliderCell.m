@@ -141,9 +141,10 @@ static CGFloat const offset_Y = 10.f;
 - (void)setDataModel:(MKNormalSliderCellModel *)dataModel {
     _dataModel = nil;
     _dataModel = dataModel;
-    if (!_dataModel) {
+    if (!_dataModel || ![_dataModel isKindOfClass:MKNormalSliderCellModel.class]) {
         return;
     }
+    self.contentView.backgroundColor = (_dataModel.contentColor ? _dataModel.contentColor : COLOR_WHITE_MACROS);
     if ([_dataModel.msg isKindOfClass:[NSString class]]) {
         self.msgLabel.attributedText = [MKCustomUIAdopter attributedString:@[_dataModel.msg]
                                                                      fonts:@[MKFont(15.f)]

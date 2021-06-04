@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 点击cell之后触发的方法，选填
 @property (nonatomic, copy)NSString *methodName;
 
+/// 背景颜色，默认白色
+@property (nonatomic, strong)UIColor *contentColor;
+
 #pragma mark ------------------------- 左侧label和icon配置 ---------------------------------
 
 /// 左侧的icon，如果不写则左侧不显示

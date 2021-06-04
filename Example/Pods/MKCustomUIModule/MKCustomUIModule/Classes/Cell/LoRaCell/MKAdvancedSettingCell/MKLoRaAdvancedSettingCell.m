@@ -89,9 +89,10 @@
 - (void)setDataModel:(MKLoRaAdvancedSettingCellModel *)dataModel {
     _dataModel = nil;
     _dataModel = dataModel;
-    if (!_dataModel) {
+    if (!_dataModel || ![_dataModel isKindOfClass:MKLoRaAdvancedSettingCellModel.class]) {
         return;
     }
+    self.contentView.backgroundColor = (_dataModel.contentColor ? _dataModel.contentColor : COLOR_WHITE_MACROS);
     [self.switchButton setEnabled:_dataModel.switchEnable];
     [self.switchButton setSelected:_dataModel.isOn];
     UIImage *buttonImage = (self.switchButton.isSelected ? LOADICON(@"MKCustomUIModule", @"MKLoRaAdvancedSettingCell", @"mk_customUI_switchSelectedIcon.png") : LOADICON(@"MKCustomUIModule", @"MKLoRaAdvancedSettingCell", @"mk_customUI_switchUnselectedIcon.png"));

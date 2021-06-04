@@ -295,8 +295,7 @@ MKBXPTriggerTapViewDelegate>
     NSArray *dataList = [self triggerTypeList];
     NSInteger index = [self pickViewIndex:dataList];
     MKPickerView *pickView = [[MKPickerView alloc] init];
-    pickView.dataList = dataList;
-    [pickView showPickViewWithIndex:index block:^(NSInteger currentRow) {
+    [pickView showPickViewWithDataList:dataList selectedRow:index block:^(NSInteger currentRow) {
         self.triggerLabel.text = dataList[currentRow];
         self.index = currentRow;
         [self setupUI];

@@ -17,6 +17,9 @@ typedef NS_ENUM(NSInteger, mk_loraDeviceType) {
 
 @interface MKLoraDeviceTypeCellModel : NSObject
 
+/// 背景颜色，默认白色
+@property (nonatomic, strong)UIColor *contentColor;
+
 /// 左侧msg
 @property (nonatomic, copy)NSString *msg;
 

@@ -134,9 +134,10 @@
 - (void)setDataModel:(MKMeasureTxPowerCellModel *)dataModel {
     _dataModel = nil;
     _dataModel = dataModel;
-    if (!_dataModel) {
+    if (!_dataModel || ![_dataModel isKindOfClass:MKMeasureTxPowerCellModel.class]) {
         return;
     }
+    self.contentView.backgroundColor = (_dataModel.contentColor ? _dataModel.contentColor : COLOR_WHITE_MACROS);
     self.rssiSlider.value = _dataModel.measurePower;
     self.rssiValueLabel.text = [NSString stringWithFormat:@"%.fdBm",_dataModel.measurePower];
     self.txPowerSlider.value = _dataModel.txPower;

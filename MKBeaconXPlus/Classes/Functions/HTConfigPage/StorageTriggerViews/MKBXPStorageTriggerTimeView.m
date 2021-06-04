@@ -67,8 +67,7 @@
 #pragma mark - event method
 - (void)valueButtonPressed {
     MKPickerView *pickView = [[MKPickerView alloc] init];
-    pickView.dataList = self.dataList;
-    [pickView showPickViewWithIndex:[self getCurrentIndex] block:^(NSInteger currentRow) {
+    [pickView showPickViewWithDataList:self.dataList selectedRow:[self getCurrentIndex] block:^(NSInteger currentRow) {
         [self.valueButton setTitle:self.dataList[currentRow] forState:UIControlStateNormal];
         [self processSelectMethod:currentRow];
     }];

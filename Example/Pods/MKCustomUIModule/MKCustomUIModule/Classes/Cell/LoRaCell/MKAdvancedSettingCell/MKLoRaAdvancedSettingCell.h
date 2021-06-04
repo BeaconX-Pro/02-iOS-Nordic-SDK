@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 开关是否可改变状态,默认YES
 @property (nonatomic, assign)BOOL switchEnable;
 
+/// 背景颜色，默认白色
+@property (nonatomic, strong)UIColor *contentColor;
+
 @end
 
 @protocol MKLoRaAdvancedSettingCellDelegate <NSObject>

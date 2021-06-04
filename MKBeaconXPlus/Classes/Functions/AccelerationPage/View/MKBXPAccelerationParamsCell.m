@@ -137,8 +137,7 @@
         }
     }
     MKPickerView *pickView = [[MKPickerView alloc] init];
-    pickView.dataList = self.scaleList;
-    [pickView showPickViewWithIndex:index block:^(NSInteger currentRow) {
+    [pickView showPickViewWithDataList:self.scaleList selectedRow:index block:^(NSInteger currentRow) {
         [self scaleChanged:currentRow];
     }];
 }
@@ -152,8 +151,7 @@
         }
     }
     MKPickerView *pickView = [[MKPickerView alloc] init];
-    pickView.dataList = self.sampleRateList;
-    [pickView showPickViewWithIndex:index block:^(NSInteger currentRow) {
+    [pickView showPickViewWithDataList:self.sampleRateList selectedRow:index block:^(NSInteger currentRow) {
         [self.sampleRateButton setTitle:self.sampleRateList[currentRow] forState:UIControlStateNormal];
         if ([self.delegate respondsToSelector:@selector(bxp_accelerationParamsSamplingRateChanged:)]) {
             [self.delegate bxp_accelerationParamsSamplingRateChanged:currentRow];

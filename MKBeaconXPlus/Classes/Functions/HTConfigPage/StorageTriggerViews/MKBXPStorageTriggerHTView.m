@@ -107,8 +107,7 @@
 #pragma mark - event method
 - (void)tempButtonPressed {
     MKPickerView *pickView = [[MKPickerView alloc] init];
-    pickView.dataList = self.tempList;
-    [pickView showPickViewWithIndex:[self getCurrentTempIndex] block:^(NSInteger currentRow) {
+    [pickView showPickViewWithDataList:self.tempList selectedRow:[self getCurrentTempIndex] block:^(NSInteger currentRow) {
         [self.tempButton setTitle:self.tempList[currentRow] forState:UIControlStateNormal];
         [self updateNoteMsg];
     }];
@@ -116,8 +115,7 @@
 
 - (void)humidityButtonPressed {
     MKPickerView *pickView = [[MKPickerView alloc] init];
-    pickView.dataList = self.humidityList;
-    [pickView showPickViewWithIndex:[self getCurrentHumidityIndex] block:^(NSInteger currentRow) {
+    [pickView showPickViewWithDataList:self.humidityList selectedRow:[self getCurrentHumidityIndex] block:^(NSInteger currentRow) {
         [self.humidityButton setTitle:self.humidityList[currentRow] forState:UIControlStateNormal];
         [self updateNoteMsg];
     }];

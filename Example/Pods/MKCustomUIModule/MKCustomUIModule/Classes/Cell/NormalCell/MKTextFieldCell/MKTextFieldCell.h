@@ -29,6 +29,9 @@ typedef NS_ENUM(NSInteger, mk_textFieldCellType) {
 /// 当前index，textField内容发生改变的时候，会连同textField值和该index一起回调，可以用来标示当前是哪个cell的回调事件
 @property (nonatomic, assign)NSInteger index;
 
+/// 背景颜色，默认白色
+@property (nonatomic, strong)UIColor *contentColor;
+
 #pragma mark ------------------------- 左侧label配置 ---------------------------------
 
 /// 左侧msg

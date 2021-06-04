@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 当前cell所在的index
 @property (nonatomic, assign)NSInteger index;
 
+/// 背景颜色，默认白色
+@property (nonatomic, strong)UIColor *contentColor;
+
 #pragma mark ------------------------- 左侧label配置 ---------------------------------
 
 /// 左侧显示的msg

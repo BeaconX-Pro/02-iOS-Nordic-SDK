@@ -15,11 +15,11 @@
 
 #import "MKPickerView.h"
 
-static CGFloat const buttonWidth = 80.f;
+static CGFloat const buttonWidth = 60.f;
 static CGFloat const buttonHeight = 30.f;
 static CGFloat const offset_X = 15.f;
 static CGFloat const offset_Y = 10.f;
-static CGFloat const msgLabelWidth = 100.f;
+static CGFloat const msgLabelWidth = 200.f;
 
 @implementation MKLoRaSettingCHCellModel
 
@@ -88,12 +88,12 @@ static CGFloat const msgLabelWidth = 100.f;
     CGFloat msgLabelHeight = [self msgLabelHeight];
     [self.msgLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(offset_X);
-        make.width.mas_equalTo(100.f);
+        make.width.mas_equalTo(msgLabelWidth);
         make.top.mas_equalTo(offset_Y);
         make.height.mas_equalTo(msgLabelHeight);
     }];
     [self.chLowButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.msgLabel.mas_right).mas_offset(30.f);
+        make.right.mas_equalTo(self.chHighButton.mas_left).mas_offset(-10.f);
         make.width.mas_equalTo(buttonWidth);
         make.centerY.mas_equalTo(self.msgLabel.mas_centerY);
         make.height.mas_equalTo(buttonHeight);
@@ -126,8 +126,7 @@ static CGFloat const msgLabelWidth = 100.f;
         }
     }
     MKPickerView *pickView = [[MKPickerView alloc] init];
-    pickView.dataList = self.dataModel.chLowValueList;
-    [pickView showPickViewWithIndex:index block:^(NSInteger currentRow) {
+    [pickView showPickViewWithDataList:self.dataModel.chLowValueList selectedRow:index block:^(NSInteger currentRow) {
         [self.chLowButton setTitle:self.dataModel.chLowValueList[currentRow] forState:UIControlStateNormal];
         self.dataModel.chLowIndex = currentRow;
         if ([self.delegate respondsToSelector:@selector(mk_loraSetting_chLowValueChanged:chLowIndex:cellIndex:)]) {
@@ -150,8 +149,7 @@ static CGFloat const msgLabelWidth = 100.f;
         }
     }
     MKPickerView *pickView = [[MKPickerView alloc] init];
-    pickView.dataList = self.dataModel.chHighValueList;
-    [pickView showPickViewWithIndex:index block:^(NSInteger currentRow) {
+    [pickView showPickViewWithDataList:self.dataModel.chHighValueList selectedRow:index block:^(NSInteger currentRow) {
         [self.chHighButton setTitle:self.dataModel.chHighValueList[currentRow] forState:UIControlStateNormal];
         self.dataModel.chHighIndex = currentRow;
         if ([self.delegate respondsToSelector:@selector(mk_loraSetting_chHighValueChanged:chHighIndex:cellIndex:)]) {
@@ -166,11 +164,12 @@ static CGFloat const msgLabelWidth = 100.f;
 - (void)setDataModel:(MKLoRaSettingCHCellModel *)dataModel {
     _dataModel = nil;
     _dataModel = dataModel;
-    self.chLowButton.enabled = _dataModel.chLowButtonEnable;
-    self.chHighButton.enabled = _dataModel.chHighButtonEnable;
-    if (!_dataModel || !ValidArray(_dataModel.chHighValueList) || !ValidArray(_dataModel.chLowValueList) || _dataModel.chHighIndex >= _dataModel.chHighValueList.count || _dataModel.chLowIndex >= _dataModel.chLowValueList.count) {
+    if (!_dataModel || ![_dataModel isKindOfClass:MKLoRaSettingCHCellModel.class] || !ValidArray(_dataModel.chHighValueList) || !ValidArray(_dataModel.chLowValueList) || _dataModel.chHighIndex >= _dataModel.chHighValueList.count || _dataModel.chLowIndex >= _dataModel.chLowValueList.count) {
         return;
     }
+    self.chLowButton.enabled = _dataModel.chLowButtonEnable;
+    self.chHighButton.enabled = _dataModel.chHighButtonEnable;
+    self.contentView.backgroundColor = (_dataModel.contentColor ? _dataModel.contentColor : COLOR_WHITE_MACROS);
     self.msgLabel.text = SafeStr(_dataModel.msg);
     self.msgLabel.font = (_dataModel.msgFont ? _dataModel.msgFont : MKFont(15.f));
     self.msgLabel.textColor = (_dataModel.msgColor ? _dataModel.msgColor : DEFAULT_TEXT_COLOR);

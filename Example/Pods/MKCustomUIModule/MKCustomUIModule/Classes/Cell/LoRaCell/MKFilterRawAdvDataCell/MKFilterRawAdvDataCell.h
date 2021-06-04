@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 当前cell所在index
 @property (nonatomic, assign)NSInteger index;
 
+/// 背景颜色，默认白色
+@property (nonatomic, strong)UIColor *contentColor;
+
 /// 当前过滤的数据类型，参考国际蓝牙组织对不同蓝牙数据类型的定义，1Byte
 @property (nonatomic, copy)NSString *dataType;
 

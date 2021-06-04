@@ -28,6 +28,9 @@ typedef NS_ENUM(NSInteger, mk_deviceTxPower) {
 
 @property (nonatomic, assign)mk_deviceTxPower txPower;
 
+/// 背景颜色，默认白色
+@property (nonatomic, strong)UIColor *contentColor;
+
 @end
 
 @protocol MKMeasureTxPowerCellDelegate <NSObject>

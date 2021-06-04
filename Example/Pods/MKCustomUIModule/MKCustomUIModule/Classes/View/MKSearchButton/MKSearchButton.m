@@ -108,7 +108,7 @@
 - (void)setDataModel:(MKSearchButtonDataModel *)dataModel {
     _dataModel = nil;
     _dataModel = dataModel;
-    if (!_dataModel) {
+    if (!_dataModel || ![_dataModel isKindOfClass:MKSearchButtonDataModel.class]) {
         return;
     }
     self.titleLabel.text = (ValidStr(_dataModel.placeholder) ? _dataModel.placeholder : @"Edit Filter");

@@ -52,6 +52,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 左侧的icon，如果不写则左侧不显示
 @property (nonatomic, strong)UIImage *leftIcon;
 
+/// 背景颜色，默认白色
+@property (nonatomic, strong)UIColor *contentColor;
+
+#pragma mark - ------------------------ cell左侧msg配置 --------------------------------
+
 /// 左侧显示的msg
 @property (nonatomic, copy)NSString *msg;
 

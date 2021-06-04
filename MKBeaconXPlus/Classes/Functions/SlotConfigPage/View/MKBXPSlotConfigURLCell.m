@@ -133,8 +133,7 @@
     }
     
     MKPickerView *pickView = [[MKPickerView alloc] init];
-    pickView.dataList = headerList;
-    [pickView showPickViewWithIndex:index block:^(NSInteger currentRow) {
+    [pickView showPickViewWithDataList:headerList selectedRow:index block:^(NSInteger currentRow) {
         self.urlTypeLabel.text = headerList[currentRow];
     }];
 }

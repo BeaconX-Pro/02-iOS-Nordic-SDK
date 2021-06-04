@@ -57,7 +57,7 @@
 - (void)setHeaderModel:(MKTableSectionLineHeaderModel *)headerModel {
     _headerModel = nil;
     _headerModel = headerModel;
-    if (!_headerModel) {
+    if (!_headerModel || ![_headerModel isKindOfClass:MKTableSectionLineHeaderModel.class]) {
         return;
     }
     self.contentView.backgroundColor = (_headerModel.contentColor ? _headerModel.contentColor : RGBCOLOR(242, 242, 242));
