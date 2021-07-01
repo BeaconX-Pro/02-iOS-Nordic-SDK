@@ -24,6 +24,7 @@
 #import "MKTrackerAboutController.h"
 #import "MKProgressView.h"
 #import "MKTableSectionLineHeader.h"
+#import "MKAlertController.h"
 
 #import "MKBXPSDK.h"
 
@@ -282,7 +283,7 @@ MKBXPTabBarControllerDelegate>
 - (void)showCentralStatus{
     if ([MKBXPCentralManager shared].centralStatus != mk_bxp_centralManagerStatusEnable) {
         NSString *msg = @"The current system of bluetooth is not available!";
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Dismiss"
+        MKAlertController *alertController = [MKAlertController alertControllerWithTitle:@"Dismiss"
                                                                                  message:msg
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
@@ -670,7 +671,7 @@ MKBXPTabBarControllerDelegate>
 
 - (void)showDeviceTypeErrorAlert {
     NSString *msg = @"Oops! Something went wrong. Please check the device version or contact MOKO.";
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@""
+    MKAlertController *alertController = [MKAlertController alertControllerWithTitle:@""
                                                                              message:msg
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -681,7 +682,7 @@ MKBXPTabBarControllerDelegate>
 
 - (void)showPasswordAlert:(CBPeripheral *)peripheral{
     NSString *msg = @"Please enter connection password.";
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter password"
+    MKAlertController *alertController = [MKAlertController alertControllerWithTitle:@"Enter password"
                                                                              message:msg
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     @weakify(self);

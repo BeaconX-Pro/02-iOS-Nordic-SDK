@@ -18,6 +18,7 @@
 #import "MKHudManager.h"
 #import "MKNormalTextCell.h"
 #import "MKTextSwitchCell.h"
+#import "MKAlertController.h"
 
 #import "MKBXPConnectManager.h"
 
@@ -48,9 +49,6 @@ mk_textSwitchCellDelegate>
 @property (nonatomic, strong)UITextField *passwordTextField;
 
 @property (nonatomic, strong)UITextField *confirmTextField;
-
-/// 当前present的alert
-@property (nonatomic, strong)UIAlertController *currentAlert;
 
 @property (nonatomic, assign)BOOL dfuModule;
 
@@ -194,12 +192,6 @@ mk_textSwitchCellDelegate>
     self.dfuModule = YES;
 }
 
-- (void)dismissAlert {
-    if (self.currentAlert && (self.presentedViewController == self.currentAlert)) {
-        [self.currentAlert dismissViewControllerAnimated:NO completion:nil];
-    }
-}
-
 #pragma mark - loadSectionDatas
 - (void)loadSectionDatas {
     [self loadSection0Datas];
@@ -304,9 +296,10 @@ mk_textSwitchCellDelegate>
     }
     //设置设备为不可连接状态
     NSString *msg = @"Are you sure to set the device non-connectable?";
-    self.currentAlert = [UIAlertController alertControllerWithTitle:@"Warning!"
-                                                            message:msg
-                                                     preferredStyle:UIAlertControllerStyleAlert];
+    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Warning!"
+                                                                       message:msg
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+    alertView.notificationName = @"mk_bxp_needDismissAlert";
     @weakify(self);
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         @strongify(self);
@@ -314,14 +307,14 @@ mk_textSwitchCellDelegate>
         model.isOn = YES;
         [self.tableView mk_reloadRow:0 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
     }];
-    [self.currentAlert addAction:cancelAction];
+    [alertView addAction:cancelAction];
     UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         @strongify(self);
         [self setConnectStatusToDevice:connect];
     }];
-    [self.currentAlert addAction:moreAction];
+    [alertView addAction:moreAction];
     
-    [self presentViewController:self.currentAlert animated:YES completion:nil];
+    [self presentViewController:alertView animated:YES completion:nil];
 }
 
 - (void)setConnectStatusToDevice:(BOOL)connect{
@@ -343,9 +336,10 @@ mk_textSwitchCellDelegate>
 #pragma mark - App命令关机设备
 - (void)powerOff{
     NSString *msg = @"Are you sure to turn off the device?Please make sure the device has a button to turn on!";
-    self.currentAlert = [UIAlertController alertControllerWithTitle:@"Warning!"
-                                                            message:msg
-                                                     preferredStyle:UIAlertControllerStyleAlert];
+    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Warning!"
+                                                                       message:msg
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+    alertView.notificationName = @"mk_bxp_needDismissAlert";
     @weakify(self);
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         @strongify(self);
@@ -353,14 +347,14 @@ mk_textSwitchCellDelegate>
         model.isOn = NO;
         [self.tableView mk_reloadRow:1 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
     }];
-    [self.currentAlert addAction:cancelAction];
+    [alertView addAction:cancelAction];
     UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         @strongify(self);
         [self commandPowerOff];
     }];
-    [self.currentAlert addAction:moreAction];
+    [alertView addAction:moreAction];
     
-    [self presentViewController:self.currentAlert animated:YES completion:nil];
+    [self presentViewController:alertView animated:YES completion:nil];
 }
 
 - (void)commandPowerOff{
@@ -389,9 +383,10 @@ mk_textSwitchCellDelegate>
     }
     //禁用按键关机
     NSString *msg = @"If disable Button Power OFF, then it  cannot power off beacon by press button operation.";
-    self.currentAlert = [UIAlertController alertControllerWithTitle:@"Warning!"
-                                                            message:msg
-                                                     preferredStyle:UIAlertControllerStyleAlert];
+    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Warning!"
+                                                                       message:msg
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+    alertView.notificationName = @"mk_bxp_needDismissAlert";
     @weakify(self);
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         @strongify(self);
@@ -399,14 +394,14 @@ mk_textSwitchCellDelegate>
         model.isOn = YES;
         [self.tableView mk_reloadRow:2 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
     }];
-    [self.currentAlert addAction:cancelAction];
+    [alertView addAction:cancelAction];
     UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         @strongify(self);
         [self setButtonPowerOffToDevice:isOn];
     }];
-    [self.currentAlert addAction:moreAction];
+    [alertView addAction:moreAction];
     
-    [self presentViewController:self.currentAlert animated:YES completion:nil];
+    [self presentViewController:alertView animated:YES completion:nil];
 }
 
 - (void)setButtonPowerOffToDevice:(BOOL)isOn {
@@ -432,9 +427,10 @@ mk_textSwitchCellDelegate>
         return;
     }
     NSString *msg = @"Are you sure to disable password verification?";
-    self.currentAlert = [UIAlertController alertControllerWithTitle:@""
-                                                            message:msg
-                                                     preferredStyle:UIAlertControllerStyleAlert];
+    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@""
+                                                                       message:msg
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+    alertView.notificationName = @"mk_bxp_needDismissAlert";
     @weakify(self);
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         @strongify(self);
@@ -443,14 +439,14 @@ mk_textSwitchCellDelegate>
         model.isOn = !isOn;
         [self.tableView mk_reloadRow:index inSection:1 withRowAnimation:UITableViewRowAnimationNone];
     }];
-    [self.currentAlert addAction:cancelAction];
+    [alertView addAction:cancelAction];
     UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         @strongify(self);
         [self commandForLockState:isOn];
     }];
-    [self.currentAlert addAction:moreAction];
+    [alertView addAction:moreAction];
     
-    [self presentViewController:self.currentAlert animated:YES completion:nil];
+    [self presentViewController:alertView animated:YES completion:nil];
 }
 
 - (void)commandForLockState:(BOOL)isOn{
@@ -499,12 +495,12 @@ mk_textSwitchCellDelegate>
 #pragma mark - 设置密码
 - (void)configPassword{
     @weakify(self);
-    self.currentAlert = nil;
     NSString *msg = @"Note:The password should not be exceed 16 characters in length.";
-    self.currentAlert = [UIAlertController alertControllerWithTitle:@"Change Password"
+    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Change Password"
                                                             message:msg
                                                      preferredStyle:UIAlertControllerStyleAlert];
-    [self.currentAlert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+    alertView.notificationName = @"mk_bxp_needDismissAlert";
+    [alertView addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         @strongify(self);
         self.passwordTextField = nil;
         self.passwordTextField = textField;
@@ -513,7 +509,7 @@ mk_textSwitchCellDelegate>
                                    action:@selector(passwordTextFieldValueChanged:)
                          forControlEvents:UIControlEventEditingChanged];
     }];
-    [self.currentAlert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+    [alertView addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         @strongify(self);
         self.confirmTextField = nil;
         self.confirmTextField = textField;
@@ -523,14 +519,14 @@ mk_textSwitchCellDelegate>
                         forControlEvents:UIControlEventEditingChanged];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-    [self.currentAlert addAction:cancelAction];
+    [alertView addAction:cancelAction];
     UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         @strongify(self);
         [self setPasswordToDevice];
     }];
-    [self.currentAlert addAction:moreAction];
+    [alertView addAction:moreAction];
     
-    [self presentViewController:self.currentAlert animated:YES completion:nil];
+    [self presentViewController:alertView animated:YES completion:nil];
 }
 
 - (void)passwordTextFieldValueChanged:(UITextField *)textField{
@@ -570,19 +566,20 @@ mk_textSwitchCellDelegate>
 
 - (void)factoryReset{
     NSString *msg = @"Are you sure to reset the device?";
-    self.currentAlert = [UIAlertController alertControllerWithTitle:@"Warning!"
-                                                            message:msg
-                                                     preferredStyle:UIAlertControllerStyleAlert];
+    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Warning!"
+                                                                       message:msg
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+    alertView.notificationName = @"mk_bxp_needDismissAlert";
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-    [self.currentAlert addAction:cancelAction];
+    [alertView addAction:cancelAction];
     @weakify(self);
     UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         @strongify(self);
         [self sendResetCommandToDevice];
     }];
-    [self.currentAlert addAction:moreAction];
+    [alertView addAction:moreAction];
     
-    [self presentViewController:self.currentAlert animated:YES completion:nil];
+    [self presentViewController:alertView animated:YES completion:nil];
 }
 
 - (void)sendResetCommandToDevice{
@@ -608,10 +605,6 @@ mk_textSwitchCellDelegate>
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(dfuModuleStart)
                                                  name:@"mk_bxp_startDfuProcessNotification"
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(dismissAlert)
-                                                 name:@"mk_bxp_settingPageNeedDismissAlert"
                                                object:nil];
 }
 

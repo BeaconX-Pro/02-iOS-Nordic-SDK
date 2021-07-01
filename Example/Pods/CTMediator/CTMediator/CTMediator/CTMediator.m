@@ -41,17 +41,18 @@ NSString * const kCTMediatorParamsKeySwiftTargetModuleName = @"kCTMediatorParams
 
 - (id)performActionWithUrl:(NSURL *)url completion:(void (^)(NSDictionary *))completion
 {
-    if (url == nil) {
+    if (url == nil||![url isKindOfClass:[NSURL class]]) {
         return nil;
     }
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *urlString = [url query];
-    for (NSString *param in [urlString componentsSeparatedByString:@"&"]) {
-        NSArray *elts = [param componentsSeparatedByString:@"="];
-        if([elts count] < 2) continue;
-        [params setObject:[elts lastObject] forKey:[elts firstObject]];
-    }
+    NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:url.absoluteString];
+    // 遍历所有参数
+    [urlComponents.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.value&&obj.name) {
+            [params setObject:obj.value forKey:obj.name];
+        }
+    }];
     
     // 这里这么写主要是出于安全考虑，防止黑客通过远程方式调用本地模块。这里的做法足以应对绝大多数场景，如果要求更加严苛，也可以做更加复杂的安全逻辑。
     NSString *actionName = [url.path stringByReplacingOccurrencesOfString:@"/" withString:@""];

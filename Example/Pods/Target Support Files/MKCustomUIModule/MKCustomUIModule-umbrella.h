@@ -23,6 +23,7 @@
 #import "MKTextButtonCell.h"
 #import "MKTextFieldCell.h"
 #import "MKTextSwitchCell.h"
+#import "MKAlertController.h"
 #import "MKTrackerAboutController.h"
 #import "MKTrackerLogController.h"
 #import "MKCustomUIAdopter.h"

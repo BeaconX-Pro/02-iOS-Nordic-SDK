@@ -158,12 +158,7 @@
         [self operationParamsErrorBlock:failedBlock];
         return;
     }
-    NSString *advInterval = [NSString stringWithFormat:@"%1lx",(unsigned long)(interval * 100)];
-    if (advInterval.length == 2) {
-        advInterval = [@"00" stringByAppendingString:advInterval];
-    }else if (advInterval.length == 3) {
-        advInterval = [@"0" stringByAppendingString:advInterval];
-    }
+    NSString *advInterval = [MKBLEBaseSDKAdopter fetchHexValue:(interval * 100) byteLen:2];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigAdvertisingIntervalOperation
                           commandData:advInterval
                        characteristic:peripheral.bxp_advertisingInterval
@@ -237,22 +232,8 @@
         [self operationParamsErrorBlock:failedBlock];
         return;
     }
-    NSString *majorHex = [NSString stringWithFormat:@"%1lx",(unsigned long)major];
-    if (majorHex.length == 1) {
-        majorHex = [@"000" stringByAppendingString:majorHex];
-    }else if (majorHex.length == 2){
-        majorHex = [@"00" stringByAppendingString:majorHex];
-    }else if (majorHex.length == 3){
-        majorHex = [@"0" stringByAppendingString:majorHex];
-    }
-    NSString *minorHex = [NSString stringWithFormat:@"%1lx",(unsigned long)minor];
-    if (minorHex.length == 1) {
-        minorHex = [@"000" stringByAppendingString:minorHex];
-    }else if (minorHex.length == 2){
-        minorHex = [@"00" stringByAppendingString:minorHex];
-    }else if (minorHex.length == 3){
-        minorHex = [@"0" stringByAppendingString:minorHex];
-    }
+    NSString *majorHex = [MKBLEBaseSDKAdopter fetchHexValue:major byteLen:2];
+    NSString *minorHex = [MKBLEBaseSDKAdopter fetchHexValue:minor byteLen:2];
     uuid = [uuid stringByReplacingOccurrencesOfString:@"-" withString:@""];
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"50",uuid,majorHex,minorHex];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigAdvSlotDataOperation commandData:commandString characteristic:peripheral.bxp_advSlotData sucBlock:^(id  _Nonnull returnData) {
@@ -325,10 +306,7 @@
     }
     NSString *rate = [self fetchThreeAxisDataRate:dataRate];
     NSString *ag = [self fetchThreeAxisDataAG:acceleration];
-    NSString *sen = [NSString stringWithFormat:@"%1lx",(unsigned long)sensitivity];
-    if (sen.length == 1) {
-        sen = [@"0" stringByAppendingString:sen];
-    }
+    NSString *sen = [MKBLEBaseSDKAdopter fetchHexValue:sensitivity byteLen:1];
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ea310003",rate,ag,sen];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigThreeAxisParamsOperation
                           commandData:commandString
@@ -383,14 +361,7 @@
         [self operationParamsErrorBlock:failedBlock];
         return;
     }
-    NSString *rateString = [NSString stringWithFormat:@"%1lx",(unsigned long)rate];
-    if (rateString.length == 1) {
-        rateString = [@"000" stringByAppendingString:rateString];
-    }else if (rateString.length == 2) {
-        rateString = [@"00" stringByAppendingString:rateString];
-    }else if (rateString.length == 3) {
-        rateString = [@"0" stringByAppendingString:rateString];
-    }
+    NSString *rateString = [MKBLEBaseSDKAdopter fetchHexValue:rate byteLen:2];
     NSString *commandString = [@"ea330002" stringByAppendingString:rateString];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigHTSamplingRateOperation
                           commandData:commandString
@@ -475,14 +446,7 @@
         [self operationParamsErrorBlock:failedBlock];
         return;
     }
-    NSString *timeString = [NSString stringWithFormat:@"%1lx",(unsigned long)time];
-    if (timeString.length == 1) {
-        timeString = [@"000" stringByAppendingString:timeString];
-    }else if (timeString.length == 2) {
-        timeString = [@"00" stringByAppendingString:timeString];
-    }else if (timeString.length == 3) {
-        timeString = [@"0" stringByAppendingString:timeString];
-    }
+    NSString *timeString = [MKBLEBaseSDKAdopter fetchHexValue:time byteLen:2];
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ea39000403",timeString,(start ? @"01" : @"02")];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigTriggerConditionsOperation
                           commandData:commandString
@@ -499,14 +463,7 @@
         [self operationParamsErrorBlock:failedBlock];
         return;
     }
-    NSString *timeString = [NSString stringWithFormat:@"%1lx",(unsigned long)time];
-    if (timeString.length == 1) {
-        timeString = [@"000" stringByAppendingString:timeString];
-    }else if (timeString.length == 2) {
-        timeString = [@"00" stringByAppendingString:timeString];
-    }else if (timeString.length == 3) {
-        timeString = [@"0" stringByAppendingString:timeString];
-    }
+    NSString *timeString = [MKBLEBaseSDKAdopter fetchHexValue:time byteLen:2];
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ea39000404",timeString,(start ? @"01" : @"02")];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigTriggerConditionsOperation
                           commandData:commandString
@@ -523,14 +480,7 @@
         [self operationParamsErrorBlock:failedBlock];
         return;
     }
-    NSString *timeString = [NSString stringWithFormat:@"%1lx",(unsigned long)time];
-    if (timeString.length == 1) {
-        timeString = [@"000" stringByAppendingString:timeString];
-    }else if (timeString.length == 2) {
-        timeString = [@"00" stringByAppendingString:timeString];
-    }else if (timeString.length == 3) {
-        timeString = [@"0" stringByAppendingString:timeString];
-    }
+    NSString *timeString = [MKBLEBaseSDKAdopter fetchHexValue:time byteLen:2];
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ea39000405",timeString,(start ? @"01" : @"02")];
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigTriggerConditionsOperation
                           commandData:commandString
@@ -663,34 +613,16 @@
 
 + (NSString *)getTimeString:(id <MKBXPDeviceTimeProtocol>)protocol{
     if (!protocol) {
-        return nil;
+        return @"";
     }
     
     unsigned long yearValue = protocol.year - 2000;
-    NSString *yearString = [NSString stringWithFormat:@"%1lx",yearValue];
-    if (yearString.length == 1) {
-        yearString = [@"0" stringByAppendingString:yearString];
-    }
-    NSString *monthString = [NSString stringWithFormat:@"%1lx",(long)protocol.month];
-    if (monthString.length == 1) {
-        monthString = [@"0" stringByAppendingString:monthString];
-    }
-    NSString *dayString = [NSString stringWithFormat:@"%1lx",(long)protocol.day];
-    if (dayString.length == 1) {
-        dayString = [@"0" stringByAppendingString:dayString];
-    }
-    NSString *hourString = [NSString stringWithFormat:@"%1lx",(long)protocol.hour];
-    if (hourString.length == 1) {
-        hourString = [@"0" stringByAppendingString:hourString];
-    }
-    NSString *minString = [NSString stringWithFormat:@"%1lx",(long)protocol.minutes];
-    if (minString.length == 1) {
-        minString = [@"0" stringByAppendingString:minString];
-    }
-    NSString *secString = [NSString stringWithFormat:@"%1lx",(long)protocol.seconds];
-    if (secString.length == 1) {
-        secString = [@"0" stringByAppendingString:secString];
-    }
+    NSString *yearString = [MKBLEBaseSDKAdopter fetchHexValue:yearValue byteLen:1];
+    NSString *monthString = [MKBLEBaseSDKAdopter fetchHexValue:protocol.month byteLen:1];
+    NSString *dayString = [MKBLEBaseSDKAdopter fetchHexValue:protocol.day byteLen:1];
+    NSString *hourString = [MKBLEBaseSDKAdopter fetchHexValue:protocol.hour byteLen:1];
+    NSString *minString = [MKBLEBaseSDKAdopter fetchHexValue:protocol.minutes byteLen:1];
+    NSString *secString = [MKBLEBaseSDKAdopter fetchHexValue:protocol.seconds byteLen:1];
     return [NSString stringWithFormat:@"%@%@%@%@%@%@",yearString,monthString,dayString,hourString,minString,secString];
 }
 
@@ -726,51 +658,20 @@
 
 + (NSString *)fetchHTStorageConditionsCommand:(id<MKBXPHTStorageConditionsProtocol>)protocol {
     if (protocol.condition == mk_bxp_HTStorageConditionsT) {
-        NSString *temper = [NSString stringWithFormat:@"%1lx",(long)(protocol.temperature)];
-        if (temper.length == 1) {
-            temper = [@"000" stringByAppendingString:temper];
-        }else if (temper.length == 2) {
-            temper = [@"00" stringByAppendingString:temper];
-        }else if (temper.length == 3) {
-            temper = [@"0" stringByAppendingString:temper];
-        }
+        NSString *temper = [MKBLEBaseSDKAdopter fetchHexValue:protocol.temperature byteLen:2];
         return [@"ea32000300" stringByAppendingString:temper];
     }
     if (protocol.condition == mk_bxp_HTStorageConditionsH) {
-        NSString *humi = [NSString stringWithFormat:@"%1lx",(long)(protocol.humidity)];
-        if (humi.length == 1) {
-            humi = [@"000" stringByAppendingString:humi];
-        }else if (humi.length == 2) {
-            humi = [@"00" stringByAppendingString:humi];
-        }else if (humi.length == 3) {
-            humi = [@"0" stringByAppendingString:humi];
-        }
+        NSString *humi = [MKBLEBaseSDKAdopter fetchHexValue:protocol.humidity byteLen:2];
         return [@"ea32000301" stringByAppendingString:humi];
     }
     if (protocol.condition == mk_bxp_HTStorageConditionsTH) {
-        NSString *temper = [NSString stringWithFormat:@"%1lx",(long)(protocol.temperature)];
-        if (temper.length == 1) {
-            temper = [@"000" stringByAppendingString:temper];
-        }else if (temper.length == 2) {
-            temper = [@"00" stringByAppendingString:temper];
-        }else if (temper.length == 3) {
-            temper = [@"0" stringByAppendingString:temper];
-        }
-        NSString *humi = [NSString stringWithFormat:@"%1lx",(long)(protocol.humidity)];
-        if (humi.length == 1) {
-            humi = [@"000" stringByAppendingString:humi];
-        }else if (humi.length == 2) {
-            humi = [@"00" stringByAppendingString:humi];
-        }else if (humi.length == 3) {
-            humi = [@"0" stringByAppendingString:humi];
-        }
+        NSString *temper = [MKBLEBaseSDKAdopter fetchHexValue:protocol.temperature byteLen:2];
+        NSString *humi = [MKBLEBaseSDKAdopter fetchHexValue:protocol.humidity byteLen:2];
         return [NSString stringWithFormat:@"%@%@%@",@"ea32000502",temper,humi];
     }
     if (protocol.condition == mk_bxp_HTStorageConditionsTime) {
-        NSString *time = [NSString stringWithFormat:@"%1lx",(long)protocol.time];
-        if (time.length == 1) {
-            time = [@"0" stringByAppendingString:time];
-        }
+        NSString *time = [MKBLEBaseSDKAdopter fetchHexValue:protocol.time byteLen:1];
         return [@"ea32000203" stringByAppendingString:time];
     }
     return @"";

@@ -19,6 +19,7 @@
 
 #import "MKHudManager.h"
 #import "MKCustomUIAdopter.h"
+#import "MKAlertController.h"
 
 #import "MKBLEBaseLogManager.h"
 
@@ -145,9 +146,10 @@ static CGFloat htTextViewWidth = 80.f;
 
 - (void)deleteButtonPressed {
     NSString *msg = @"Are you sure to empty the saved T&H datas？";
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning!"
+    MKAlertController *alertController = [MKAlertController alertControllerWithTitle:@"Warning!"
                                                                              message:msg
                                                                       preferredStyle:UIAlertControllerStyleAlert];
+    alertController.notificationName = @"mk_bxp_needDismissAlert";
     @weakify(self);
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];

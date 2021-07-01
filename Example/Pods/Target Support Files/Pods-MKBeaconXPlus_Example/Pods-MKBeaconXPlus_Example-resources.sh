@@ -99,6 +99,9 @@ EOM
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/MKBeaconXPlus/MKBeaconXPlus.bundle"
 fi
+if [[ "$CONFIGURATION" == "adhoc" ]]; then
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/MKBeaconXPlus/MKBeaconXPlus.bundle"
+fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/MKBeaconXPlus/MKBeaconXPlus.bundle"
 fi

@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)operationConnectFailedBlock:(void (^)(NSError *error))block;
 + (void)operationConnectingErrorBlock:(void (^)(NSError *error))block;
 + (void)operationProtocolErrorBlock:(void (^)(NSError *error))block;
++ (void)operationParamsErrorBlock:(void (^)(NSError *error))block;
++ (void)operationSetParamsErrorBlock:(void (^)(NSError *error))block;
 
 /// 将16进制字符串content指定位置的字符串转换成10进制数字
 /// @param content 16进制字符串
@@ -70,6 +72,23 @@ NS_ASSUME_NONNULL_BEGIN
 /// 判断某个字符串是不是uuid
 /// @param uuid [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
 + (BOOL)isUUIDString:(NSString *)uuid;
+
+/**
+ 二进制转换成一个字节的十六进制
+ 
+ @param binary 二进制数
+ @return 十六进制数
+ */
++ (NSString *)getHexByBinary:(NSString *)binary;
+
+/// 将一个十进制的数据转换成对应byteLen字节长度的十六进制数据，
+/*
+ [MKBGSDKDataAdopter fetchHexValue:10 byteLen:4] ==>@"0000000a"
+ [MKBGSDKDataAdopter fetchHexValue:10 byteLen:1] ==>@"0a"
+ */
+/// @param value 十进制
+/// @param byteLen 字节长度
++ (NSString *)fetchHexValue:(unsigned long)value byteLen:(NSInteger)len;
 
 @end
 

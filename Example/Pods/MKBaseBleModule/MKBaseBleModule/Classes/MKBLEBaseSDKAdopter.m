@@ -53,6 +53,24 @@
     });
 }
 
++ (void)operationParamsErrorBlock:(void (^)(NSError *error))block {
+    MKBLEBase_main_safe(^{
+        if (block) {
+            NSError *error = [self getErrorWithCode:10001 message:@"Params error"];
+            block(error);
+        }
+    });
+}
+
++ (void)operationSetParamsErrorBlock:(void (^)(NSError *error))block {
+    MKBLEBase_main_safe(^{
+        if (block) {
+            NSError *error = [self getErrorWithCode:-10001 message:@"Set parameter error"];
+            block(error);
+        }
+    });
+}
+
 + (NSInteger)getDecimalWithHex:(NSString *)content range:(NSRange)range{
     if (!MKValidStr(content)) {
         return 0;
@@ -83,8 +101,8 @@
 }
 
 + (NSNumber *)signedHexTurnString:(NSString *)content{
-    if (!content) {
-        return nil;
+    if (!MKValidStr(content)) {
+        return @(0);
     }
     NSData *tempData = [self stringToData:content];
     NSInteger lenth = [tempData length];
@@ -100,7 +118,7 @@
 
 + (NSData *)getCrc16VerifyCode:(NSData *)data{
     if (!MKValidData(data)) {
-        return nil;
+        return [NSData data];
     }
     NSInteger crcWord = 0xffff;
     Byte *dataArray = (Byte *)[data bytes];
@@ -126,7 +144,7 @@
 
 + (NSString *)hexStringFromData:(NSData *)sourceData{
     if (!MKValidData(sourceData)) {
-        return nil;
+        return @"";
     }
     Byte *bytes = (Byte *)[sourceData bytes];
     //下面是Byte 转换为16进制。
@@ -142,16 +160,12 @@
 }
 
 + (NSData *)stringToData:(NSString *)dataString{
-    if (!MKValidStr(dataString)) {
-        return nil;
-    }
-    if (!(dataString.length % 2 == 0)) {
-        //必须是偶数个字符才是合法的
-        return nil;
+    if (!MKValidStr(dataString) || !(dataString.length % 2 == 0)) {
+        return [NSData data];
     }
     for (NSInteger i = 0; i < dataString.length; i ++) {
         if (![self checkHexCharacter:[dataString substringWithRange:NSMakeRange(i, 1)]]) {
-            return nil;
+            return [NSData data];
         }
     }
     Byte bytes[255] = {0};
@@ -222,6 +236,59 @@
                                                        options:kNilOptions
                                                          range:NSMakeRange(0, uuid.length)];
     return (numberOfMatches > 0);
+}
+
++ (NSString *)getHexByBinary:(NSString *)binary {
+    NSMutableDictionary *binaryDic = [[NSMutableDictionary alloc] initWithCapacity:16];
+    [binaryDic setObject:@"0" forKey:@"0000"];
+    [binaryDic setObject:@"1" forKey:@"0001"];
+    [binaryDic setObject:@"2" forKey:@"0010"];
+    [binaryDic setObject:@"3" forKey:@"0011"];
+    [binaryDic setObject:@"4" forKey:@"0100"];
+    [binaryDic setObject:@"5" forKey:@"0101"];
+    [binaryDic setObject:@"6" forKey:@"0110"];
+    [binaryDic setObject:@"7" forKey:@"0111"];
+    [binaryDic setObject:@"8" forKey:@"1000"];
+    [binaryDic setObject:@"9" forKey:@"1001"];
+    [binaryDic setObject:@"A" forKey:@"1010"];
+    [binaryDic setObject:@"B" forKey:@"1011"];
+    [binaryDic setObject:@"C" forKey:@"1100"];
+    [binaryDic setObject:@"D" forKey:@"1101"];
+    [binaryDic setObject:@"E" forKey:@"1110"];
+    [binaryDic setObject:@"F" forKey:@"1111"];
+    
+    if (binary.length % 4 != 0) {
+        
+        NSMutableString *mStr = [[NSMutableString alloc]init];;
+        for (int i = 0; i < 4 - binary.length % 4; i++) {
+            
+            [mStr appendString:@"0"];
+        }
+        binary = [mStr stringByAppendingString:binary];
+    }
+    NSString *hex = @"";
+    for (int i=0; i<binary.length; i+=4) {
+        
+        NSString *key = [binary substringWithRange:NSMakeRange(i, 4)];
+        NSString *value = [binaryDic objectForKey:key];
+        if (value) {
+            
+            hex = [hex stringByAppendingString:value];
+        }
+    }
+    return hex;
+}
+
++ (NSString *)fetchHexValue:(unsigned long)value byteLen:(NSInteger)len {
+    if (len <= 0) {
+        return @"";
+    }
+    NSString *valueString = [NSString stringWithFormat:@"%1lx",(unsigned long)value];
+    NSInteger needLen = 2 * len - valueString.length;
+    for (NSInteger i = 0; i < needLen; i ++) {
+        valueString = [@"0" stringByAppendingString:valueString];
+    }
+    return valueString;
 }
 
 #pragma mark - private method
