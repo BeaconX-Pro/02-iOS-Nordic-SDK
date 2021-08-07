@@ -61,6 +61,15 @@
     return (numberOfMatches > 0);
 }
 
+- (BOOL)isAsciiString {
+    NSInteger strlen = self.length;
+    NSInteger datalen = [[self dataUsingEncoding:NSUTF8StringEncoding] length];
+    if (strlen != datalen) {
+        return NO;
+    }
+    return YES;
+}
+
 - (BOOL)isMobileNumber
 {
     /**

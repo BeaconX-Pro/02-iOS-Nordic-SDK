@@ -11,6 +11,7 @@
 #endif
 
 #import "MKLoRaAdvancedSettingCell.h"
+#import "MKFilterConditionCell.h"
 #import "MKFilterDataCell.h"
 #import "MKFilterRawAdvDataCell.h"
 #import "MKLoRaSettingCHCell.h"
@@ -20,6 +21,7 @@
 #import "MKRawAdvDataOperationCell.h"
 #import "MKNormalSliderCell.h"
 #import "MKNormalTextCell.h"
+#import "MKSettingTextCell.h"
 #import "MKTextButtonCell.h"
 #import "MKTextFieldCell.h"
 #import "MKTextSwitchCell.h"

@@ -48,8 +48,15 @@ static NSString *const isUrl = @"[a-zA-z]+://[^\\s]*";      //是否是Url
  @return YES:符合要求，NO:不符合要求
  */
 - (BOOL)regularExpressions:(NSString *)regex;
+
+/// 是否是电话号码
 - (BOOL)isMobileNumber;
+
+/// 是否是UUID
 - (BOOL)isUUIDNumber;
+
+/// 是否是ascii字符
+- (BOOL)isAsciiString;
 
 #pragma mark - Hash
 ///=============================================================================

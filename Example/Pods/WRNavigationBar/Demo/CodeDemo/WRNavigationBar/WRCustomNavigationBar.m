@@ -69,11 +69,7 @@
 @implementation WRCustomNavigationBar
 
 + (instancetype)CustomNavigationBar {
-    CGFloat height = [[UIApplication sharedApplication] statusBarFrame].size.height + 44.f;
-    WRCustomNavigationBar *navigationBar = [[self alloc] initWithFrame:CGRectMake(0,
-                                                                                  0,
-                                                                                  kWRScreenWidth,
-                                                                                  height)];
+    WRCustomNavigationBar *navigationBar = [[self alloc] initWithFrame:CGRectMake(0, 0, kWRScreenWidth, [WRCustomNavigationBar navBarBottom])];
     return navigationBar;
 }
 - (instancetype)init {
@@ -103,7 +99,7 @@
 
 // TODO:这边结合 WRCellView 会不会更好呢？
 -(void)updateFrame {
-    NSInteger top = [[UIApplication sharedApplication] statusBarFrame].size.height;
+    NSInteger top = ([WRCustomNavigationBar isIphoneX]) ? 44 : 20;
     NSInteger margin = 0;
     NSInteger buttonHeight = 44;
     NSInteger buttonWidth = 44;
@@ -266,6 +262,17 @@
         _backgroundImageView.hidden = YES;
     }
     return _backgroundImageView;
+}
+
++ (int)navBarBottom {
+    return 44 + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+}
++ (BOOL)isIphoneX {
+    BOOL isIPhoneX = NO;
+    if (@available(iOS 11.0, *)) {
+       isIPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;
+    }
+    return isIPhoneX;
 }
 
 @end

@@ -32,6 +32,18 @@ NSString *const mk_bxp_peripheralLockStateChangedNotification = @"mk_bxp_periphe
 static MKBXPCentralManager *manager = nil;
 static dispatch_once_t onceToken;
 
+@interface NSObject (MKBXPCentralManager)
+
+@end
+
+@implementation NSObject (MKBXPCentralManager)
+
++ (void)load{
+    [MKBXPCentralManager shared];
+}
+
+@end
+
 @interface MKBXPCentralManager ()
 
 @property (nonatomic, assign)mk_bxp_centralConnectStatus connectState;

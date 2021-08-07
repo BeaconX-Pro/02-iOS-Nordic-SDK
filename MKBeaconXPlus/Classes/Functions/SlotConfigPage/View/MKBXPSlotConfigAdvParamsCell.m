@@ -111,12 +111,9 @@
     }
     
     NSString *txPowerValue = [NSString stringWithFormat:@"%.f",self.txPowerSlider.value];
-    NSString *rssiValue = @"";
-    if (!self.dataModel.slotType == mk_bxp_slotFrameTypeTLM) {
-        rssiValue = [NSString stringWithFormat:@"%.f",self.rssiSlider.value];
-        if ([rssiValue isEqualToString:@"-0"]) {
-            rssiValue = @"0";
-        }
+    NSString *rssiValue = [NSString stringWithFormat:@"%.f",self.rssiSlider.value];
+    if ([rssiValue isEqualToString:@"-0"]) {
+        rssiValue = @"0";
     }
     return @{
         @"msg":@"",

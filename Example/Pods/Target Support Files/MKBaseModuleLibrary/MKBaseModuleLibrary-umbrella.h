@@ -16,8 +16,6 @@
 #import "MKBaseNavigationController.h"
 #import "MKBaseCollectionView.h"
 #import "MKBaseTableView.h"
-#import "WRCustomNavigationBar.h"
-#import "WRNavigationBar.h"
 #import "MKAddsHeader.h"
 #import "NSArray+MKAdd.h"
 #import "NSData+MKAdd.h"
