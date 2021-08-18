@@ -22,12 +22,6 @@
     return YES;
 }
 
-+ (BOOL)checkDeviceName:(NSString *)deviceName{
-    NSString *regex = @"^[a-zA-Z0-9_]{8}$$";
-    NSPredicate *namePre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
-    return [namePre evaluateWithObject:deviceName];
-}
-
 + (BOOL)checkUrl:(NSString *)url{
     NSString *regex =@"[a-zA-z]+://[^\\s]*";
     NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];

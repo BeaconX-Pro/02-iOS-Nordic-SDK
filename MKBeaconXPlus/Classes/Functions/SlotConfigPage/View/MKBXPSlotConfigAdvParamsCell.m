@@ -101,8 +101,8 @@
     }];
 }
 
-#pragma mark - MKBXPSlotConfigCellProtocol
-- (NSDictionary *)bxp_slotConfigCell_paramValue {
+#pragma mark - MKBXSlotConfigCellProtocol
+- (NSDictionary *)mk_bx_slotConfigCell_params {
     if (!ValidStr(self.intervalTextField.text) || [self.intervalTextField.text integerValue] < 1 || [self.intervalTextField.text integerValue] > 100) {
         return @{
             @"msg":@"Adv interval Error",
@@ -118,7 +118,7 @@
     return @{
         @"msg":@"",
         @"result":@{
-                @"dataType":bxp_slotConfig_advParamType,
+                @"dataType":mk_bx_slotConfig_advParamType,
                 @"params":@{
                         @"txPower":txPowerValue,
                         @"rssi":rssiValue,
@@ -164,7 +164,7 @@
         [self.rssiValueLabel removeFromSuperview];
     }
     
-    if (self.dataModel.slotType == mk_bxp_slotFrameTypeTLM) {
+    if (self.dataModel.slotType == mk_bx_slotFrameTypeTLM) {
         [self setupTLMUI];
         return;
     }
@@ -207,9 +207,9 @@
     self.rssiSlider.value = self.dataModel.rssiValue;
     self.rssiValueLabel.text = [NSString stringWithFormat:@"%lddBm",(long)self.dataModel.rssiValue];
     NSString *tempMsg = @"RSSI@0m";
-    if (_dataModel.slotType == mk_bxp_slotFrameTypeBeacon) {
+    if (_dataModel.slotType == mk_bx_slotFrameTypeBeacon) {
         tempMsg = @"RSSI@1m";
-    }else if (_dataModel.slotType == mk_bxp_slotFrameTypeInfo || _dataModel.slotType == mk_bxp_slotFrameTypeThreeASensor || _dataModel.slotType == mk_bxp_slotFrameTypeTHSensor) {
+    }else if (_dataModel.slotType == mk_bx_slotFrameTypeInfo || _dataModel.slotType == mk_bx_slotFrameTypeThreeASensor || _dataModel.slotType == mk_bx_slotFrameTypeTHSensor) {
         tempMsg = @"Measured RSSI";
     }
     self.rssiMsgLabel.attributedText = [MKCustomUIAdopter attributedString:@[tempMsg,@"   (-100dBm ~ 0dBm)"] fonts:@[MKFont(13.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];

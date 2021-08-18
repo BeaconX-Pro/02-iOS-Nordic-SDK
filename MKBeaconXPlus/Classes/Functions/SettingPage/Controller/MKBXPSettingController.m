@@ -17,8 +17,9 @@
 
 #import "MKHudManager.h"
 #import "MKNormalTextCell.h"
-#import "MKTextSwitchCell.h"
 #import "MKAlertController.h"
+
+#import "MKBXUpdateController.h"
 
 #import "MKBXPConnectManager.h"
 
@@ -26,15 +27,12 @@
 #import "MKBXPInterface+MKBXPConfig.h"
 #import "MKBXPInterface.h"
 
-#import "MKBXPSettingModel.h"
+#import "MKBXPDFUModel.h"
 
-#import "MKBXPUpdateController.h"
-#import "MKBXPAccelerationController.h"
-#import "MKBXPHTConfigController.h"
+#import "MKBXPSensorConfigController.h"
+#import "MKBXPQuickSwitchController.h"
 
-@interface MKBXPSettingController ()<UITableViewDelegate,
-UITableViewDataSource,
-mk_textSwitchCellDelegate>
+@interface MKBXPSettingController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
 
@@ -43,8 +41,6 @@ mk_textSwitchCellDelegate>
 @property (nonatomic, strong)NSMutableArray *section1List;
 
 @property (nonatomic, strong)NSMutableArray *section2List;
-
-@property (nonatomic, strong)MKBXPSettingModel *dataModel;
 
 @property (nonatomic, strong)UITextField *passwordTextField;
 
@@ -58,7 +54,6 @@ mk_textSwitchCellDelegate>
 
 - (void)dealloc {
     NSLog(@"MKBXPSettingController销毁");
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -66,24 +61,15 @@ mk_textSwitchCellDelegate>
     if (self.dfuModule) {
         return;
     }
-    [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
-    @weakify(self);
-    [self.dataModel readWithSucBlock:^{
-        @strongify(self);
-        [[MKHudManager share] hide];
-        [self processTableDatas];
-    } failedBlock:^(NSError * _Nonnull error) {
-        @strongify(self);
-        [[MKHudManager share] hide];
-        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-    }];
+    [self loadSection1Datas];
+    [self.tableView reloadData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
-    [self loadSectionDatas];
-    [self addNotifications];
+    [self loadSection0Datas];
+    [self loadSection2Datas];
 }
 
 #pragma mark - super method
@@ -97,19 +83,17 @@ mk_textSwitchCellDelegate>
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MKNormalTextCellModel *cellModel = nil;
+    
     if (indexPath.section == 0) {
-        MKNormalTextCellModel *cellModel = self.section0List[indexPath.row];
-        if (ValidStr(cellModel.methodName) && [self respondsToSelector:NSSelectorFromString(cellModel.methodName)]) {
-            [self performSelector:NSSelectorFromString(cellModel.methodName) withObject:nil];
-        }
-        return;
+        cellModel = self.section0List[indexPath.row];
+    }else if (indexPath.section == 1) {
+        cellModel = self.section1List[indexPath.row];
+    }else if (indexPath.section == 2) {
+        cellModel = self.section2List[indexPath.row];
     }
-    if (indexPath.section == 2) {
-        MKNormalTextCellModel *cellModel = self.section2List[indexPath.row];
-        if (ValidStr(cellModel.methodName) && [self respondsToSelector:NSSelectorFromString(cellModel.methodName)]) {
-            [self performSelector:NSSelectorFromString(cellModel.methodName) withObject:nil];
-        }
-        return;
+    if (ValidStr(cellModel.methodName) && [self respondsToSelector:NSSelectorFromString(cellModel.methodName)]) {
+        [self performSelector:NSSelectorFromString(cellModel.methodName) withObject:nil];
     }
 }
 
@@ -138,9 +122,8 @@ mk_textSwitchCellDelegate>
         return cell;
     }
     if (indexPath.section == 1) {
-        MKTextSwitchCell *cell = [MKTextSwitchCell initCellWithTableView:tableView];
+        MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
         cell.dataModel = self.section1List[indexPath.row];
-        cell.delegate = self;
         return cell;
     }
     MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
@@ -148,204 +131,51 @@ mk_textSwitchCellDelegate>
     return cell;
 }
 
-#pragma mark - mk_textSwitchCellDelegate
-- (void)mk_textSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
-    if (index < 3) {
-        MKTextSwitchCellModel *cellModel = self.section1List[index];
-        cellModel.isOn = isOn;
-    }else {
-        //index == 3免密登录
-        if ([MKBXPConnectManager shared].newVersion) {
-            MKTextSwitchCellModel *cellModel = self.section1List[index];
-            cellModel.isOn = isOn;
-        }else {
-            //旧版本免密登录
-            MKTextSwitchCellModel *cellModel = self.section1List[2];
-            cellModel.isOn = isOn;
-        }
-    }
-    
-    if (index == 0) {
-        //可连接性
-        [self configConnectEnable:isOn];
-        return;
-    }
-    if (index == 1) {
-        //关机
-        [self powerOff];
-        return;
-    }
-    if (index == 2) {
-        //按键关机
-        [self configButtonPowerOff:isOn];
-        return;
-    }
-    if (index == 3) {
-        //免密登录
-        [self configPasswordVerification:isOn];
-        return;
-    }
-}
-
-#pragma mark - 注册的通知方法
-- (void)dfuModuleStart {
-    self.dfuModule = YES;
-}
-
-#pragma mark - loadSectionDatas
-- (void)loadSectionDatas {
-    [self loadSection0Datas];
-    [self loadSection1Datas];
-    [self loadSection2Datas];
-    
-    [self.tableView reloadData];
-}
-
-- (void)processTableDatas {
-    MKTextSwitchCellModel *connectModel = self.section1List[0];
-    connectModel.isOn = self.dataModel.connectable;
-    
-    if ([MKBXPConnectManager shared].newVersion) {
-        MKTextSwitchCellModel *buttonModel = self.section1List[2];
-        buttonModel.isOn = self.dataModel.buttonPowerOff;
-    }
-    [self.tableView mk_reloadSection:1 withRowAnimation:UITableViewRowAnimationNone];
-}
-
 #pragma mark - section0
-
 - (void)loadSection0Datas {
-    if ([[MKBXPConnectManager shared].deviceType isEqualToString:@"01"]) {
-        //带三轴加速度
-        MKNormalTextCellModel *axisModel = [[MKNormalTextCellModel alloc] init];
-        axisModel.showRightIcon = YES;
-        axisModel.leftMsg = @"Acceleration";
-        axisModel.methodName = @"pushAccelerationPage";
-        [self.section0List addObject:axisModel];
-        return;
+    if (![[MKBXPConnectManager shared].deviceType isEqualToString:@"00"]) {
+        //00为不带传感器
+        MKNormalTextCellModel *cellModel1 = [[MKNormalTextCellModel alloc] init];
+        cellModel1.showRightIcon = YES;
+        cellModel1.leftMsg = @"Sensor configurations";
+        cellModel1.methodName = @"pushSensorConfigPage";
+        [self.section0List addObject:cellModel1];
     }
-    if ([[MKBXPConnectManager shared].deviceType isEqualToString:@"02"]) {
-        //带温湿度传感器
-        MKNormalTextCellModel *thModel = [[MKNormalTextCellModel alloc] init];
-        thModel.showRightIcon = YES;
-        thModel.leftMsg = @"Temperature & Humidity";
-        thModel.methodName = @"pushTemperatureHumidityPage";
-        [self.section0List addObject:thModel];
-        return;
-    }
-    if ([[MKBXPConnectManager shared].deviceType isEqualToString:@"03"]) {
-        //带温湿度传感器和三轴加速度计
-        MKNormalTextCellModel *axisModel = [[MKNormalTextCellModel alloc] init];
-        axisModel.showRightIcon = YES;
-        axisModel.leftMsg = @"Acceleration";
-        axisModel.methodName = @"pushAccelerationPage";
-        [self.section0List addObject:axisModel];
-        
-        MKNormalTextCellModel *thModel = [[MKNormalTextCellModel alloc] init];
-        thModel.showRightIcon = YES;
-        thModel.leftMsg = @"Temperature & Humidity";
-        thModel.methodName = @"pushTemperatureHumidityPage";
-        [self.section0List addObject:thModel];
-        return;
-    }
+    
+    MKNormalTextCellModel *cellModel2 = [[MKNormalTextCellModel alloc] init];
+    cellModel2.showRightIcon = YES;
+    cellModel2.leftMsg = @"Quick switch";
+    cellModel2.methodName = @"pushQuickSwitchPage";
+    [self.section0List addObject:cellModel2];
+    
+    MKNormalTextCellModel *cellModel3 = [[MKNormalTextCellModel alloc] init];
+    cellModel3.showRightIcon = YES;
+    cellModel3.leftMsg = @"Turn off Beacon";
+    cellModel3.methodName = @"powerOff";
+    [self.section0List addObject:cellModel3];
 }
 
-- (void)pushAccelerationPage {
-    MKBXPAccelerationController *vc = [[MKBXPAccelerationController alloc] init];
+#pragma mark - 传感器设置
+- (void)pushSensorConfigPage {
+    MKBXPSensorConfigController *vc = [[MKBXPSensorConfigController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)pushTemperatureHumidityPage {
-    MKBXPHTConfigController *vc = [[MKBXPHTConfigController alloc] init];
+#pragma mark - 开关状态设置
+- (void)pushQuickSwitchPage {
+    MKBXPQuickSwitchController *vc = [[MKBXPQuickSwitchController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
-}
-
-#pragma mark - section1
-
-- (void)loadSection1Datas {
-    MKTextSwitchCellModel *connectModel = [[MKTextSwitchCellModel alloc] init];
-    connectModel.msg = @"Connectable";
-    connectModel.index = 0;
-    [self.section1List addObject:connectModel];
-    
-    MKTextSwitchCellModel *remoteModel = [[MKTextSwitchCellModel alloc] init];
-    remoteModel.msg = @"Remote Power OFF";
-    remoteModel.index = 1;
-    [self.section1List addObject:remoteModel];
-    
-    if ([MKBXPConnectManager shared].newVersion) {
-        //新版本固件支持固件关机功能
-        MKTextSwitchCellModel *buttonModel = [[MKTextSwitchCellModel alloc] init];
-        buttonModel.msg = @"Button Power OFF";
-        buttonModel.index = 2;
-        [self.section1List addObject:buttonModel];
-    }
-    
-    MKTextSwitchCellModel *verificationModel = [[MKTextSwitchCellModel alloc] init];
-    verificationModel.msg = @"Password Verification";
-    verificationModel.index = 3;
-    verificationModel.isOn = ([MKBXPCentralManager shared].lockState == mk_bxp_lockStateOpen);
-    [self.section1List addObject:verificationModel];
-}
-
-#pragma mark - 配置可连接状态
-- (void)configConnectEnable:(BOOL)connect{
-    if (connect) {
-        [self setConnectStatusToDevice:connect];
-        return;
-    }
-    //设置设备为不可连接状态
-    NSString *msg = @"Are you sure to set the device non-connectable?";
-    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Warning!"
-                                                                       message:msg
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-    alertView.notificationName = @"mk_bxp_needDismissAlert";
-    @weakify(self);
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self);
-        MKTextSwitchCellModel *model = self.section1List[0];
-        model.isOn = YES;
-        [self.tableView mk_reloadRow:0 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
-    }];
-    [alertView addAction:cancelAction];
-    UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self);
-        [self setConnectStatusToDevice:connect];
-    }];
-    [alertView addAction:moreAction];
-    
-    [self presentViewController:alertView animated:YES completion:nil];
-}
-
-- (void)setConnectStatusToDevice:(BOOL)connect{
-    [[MKHudManager share] showHUDWithTitle:@"Setting..."
-                                     inView:self.view
-                              isPenetration:NO];
-    [MKBXPInterface bxp_configConnectStatus:connect sucBlock:^(id returnData) {
-        [[MKHudManager share] hide];
-        [self.view showCentralToast:@"Success!"];
-    } failedBlock:^(NSError *error) {
-        [[MKHudManager share] hide];
-        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-        MKTextSwitchCellModel *model = self.section1List[0];
-        model.isOn = !connect;
-        [self.tableView mk_reloadRow:0 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
-    }];
 }
 
 #pragma mark - App命令关机设备
 - (void)powerOff{
-    NSString *msg = @"Are you sure to turn off the device?Please make sure the device has a button to turn on!";
+    NSString *msg = @"Are you sure to turn off the Beacon?Please make sure the Beacon has a button to turn on!";
     MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Warning!"
                                                                        message:msg
                                                                 preferredStyle:UIAlertControllerStyleAlert];
     alertView.notificationName = @"mk_bxp_needDismissAlert";
     @weakify(self);
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self);
-        MKTextSwitchCellModel *model = self.section1List[1];
-        model.isOn = NO;
-        [self.tableView mk_reloadRow:1 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
     }];
     [alertView addAction:cancelAction];
     UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -369,127 +199,27 @@ mk_textSwitchCellDelegate>
         @strongify(self);
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-        MKTextSwitchCellModel *model = self.section1List[1];
-        model.isOn = NO;
-        [self.tableView mk_reloadRow:1 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
     }];
 }
 
-#pragma mark - 配置按键关机状态
-- (void)configButtonPowerOff:(BOOL)isOn {
-    if (isOn) {
-        [self setButtonPowerOffToDevice:isOn];
-        return;
-    }
-    //禁用按键关机
-    NSString *msg = @"If disable Button Power OFF, then it  cannot power off beacon by press button operation.";
-    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Warning!"
-                                                                       message:msg
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-    alertView.notificationName = @"mk_bxp_needDismissAlert";
-    @weakify(self);
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self);
-        MKTextSwitchCellModel *model = self.section1List[2];
-        model.isOn = YES;
-        [self.tableView mk_reloadRow:2 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
-    }];
-    [alertView addAction:cancelAction];
-    UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self);
-        [self setButtonPowerOffToDevice:isOn];
-    }];
-    [alertView addAction:moreAction];
-    
-    [self presentViewController:alertView animated:YES completion:nil];
-}
-
-- (void)setButtonPowerOffToDevice:(BOOL)isOn {
-    [[MKHudManager share] showHUDWithTitle:@"Setting..."
-                                     inView:self.view
-                              isPenetration:NO];
-    [MKBXPInterface bxp_configButtonPowerStatus:isOn sucBlock:^(id returnData) {
-        [[MKHudManager share] hide];
-        [self.view showCentralToast:@"Success!"];
-    } failedBlock:^(NSError *error) {
-        [[MKHudManager share] hide];
-        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-        MKTextSwitchCellModel *model = self.section1List[2];
-        model.isOn = !isOn;
-        [self.tableView mk_reloadRow:2 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
-    }];
-}
-
-#pragma mark - 设置设备是否免密码登录
-- (void)configPasswordVerification:(BOOL)isOn {
-    if (isOn) {
-        [self commandForLockState:isOn];
-        return;
-    }
-    NSString *msg = @"Are you sure to disable password verification?";
-    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@""
-                                                                       message:msg
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-    alertView.notificationName = @"mk_bxp_needDismissAlert";
-    @weakify(self);
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self);
-        NSInteger index = ([MKBXPConnectManager shared].newVersion ? 3 : 2);
-        MKTextSwitchCellModel *model = self.section1List[index];
-        model.isOn = !isOn;
-        [self.tableView mk_reloadRow:index inSection:1 withRowAnimation:UITableViewRowAnimationNone];
-    }];
-    [alertView addAction:cancelAction];
-    UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self);
-        [self commandForLockState:isOn];
-    }];
-    [alertView addAction:moreAction];
-    
-    [self presentViewController:alertView animated:YES completion:nil];
-}
-
-- (void)commandForLockState:(BOOL)isOn{
-    [[MKHudManager share] showHUDWithTitle:@"Setting..." inView:self.view isPenetration:NO];
-    [MKBXPInterface bxp_configLockState:(isOn ? mk_bxp_lockStateOpen : mk_bxp_lockStateUnlockAutoMaticRelockDisabled) sucBlock:^(id  _Nonnull returnData) {
-        [[MKHudManager share] hide];
-        [self loadSection2Datas];
-        [self.tableView mk_reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
-    } failedBlock:^(NSError * _Nonnull error) {
-        [[MKHudManager share] hide];
-        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-        NSInteger index = ([MKBXPConnectManager shared].newVersion ? 3 : 2);
-        MKTextSwitchCellModel *model = self.section1List[index];
-        model.isOn = !isOn;
-        [self.tableView mk_reloadRow:index inSection:1 withRowAnimation:UITableViewRowAnimationNone];
-    }];
-}
-
-#pragma mark - section2
-
-- (void)loadSection2Datas {
-    [self.section2List removeAllObjects];
+#pragma mark - section1
+- (void)loadSection1Datas {
+    [self.section1List removeAllObjects];
     if (ValidStr([MKBXPConnectManager shared].password)) {
         //是否能够修改密码取决于用户是否是输入密码这种情况进来的
         MKNormalTextCellModel *passwordModel = [[MKNormalTextCellModel alloc] init];
         passwordModel.leftMsg = @"Modify Password";
         passwordModel.showRightIcon = YES;
         passwordModel.methodName = @"configPassword";
-        [self.section2List addObject:passwordModel];
+        [self.section1List addObject:passwordModel];
     }
-    MKTextSwitchCellModel *verificationModel = [self.section1List lastObject];
-    if (verificationModel.isOn) {
+    if ([MKBXPConnectManager shared].passwordVerification) {
         MKNormalTextCellModel *resetModel = [[MKNormalTextCellModel alloc] init];
         resetModel.leftMsg = @"Remote Reset";
         resetModel.showRightIcon = YES;
         resetModel.methodName = @"factoryReset";
-        [self.section2List addObject:resetModel];
+        [self.section1List addObject:resetModel];
     }
-    MKNormalTextCellModel *dfuModel = [[MKNormalTextCellModel alloc] init];
-    dfuModel.leftMsg = @"OTA DFU";
-    dfuModel.showRightIcon = YES;
-    dfuModel.methodName = @"pushDFUPage";
-    [self.section2List addObject:dfuModel];
 }
 
 #pragma mark - 设置密码
@@ -563,9 +293,8 @@ mk_textSwitchCellDelegate>
 }
 
 #pragma mark - 恢复出厂设置
-
 - (void)factoryReset{
-    NSString *msg = @"Are you sure to reset the device?";
+    NSString *msg = @"Are you sure to reset the Beacon?";
     MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Warning!"
                                                                        message:msg
                                                                 preferredStyle:UIAlertControllerStyleAlert];
@@ -595,17 +324,28 @@ mk_textSwitchCellDelegate>
     }];
 }
 
-- (void)pushDFUPage {
-    MKBXPUpdateController *vc = [[MKBXPUpdateController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+#pragma mark - section2
+- (void)loadSection2Datas {
+    MKNormalTextCellModel *dfuModel = [[MKNormalTextCellModel alloc] init];
+    dfuModel.leftMsg = @"OTA DFU";
+    dfuModel.showRightIcon = YES;
+    dfuModel.methodName = @"pushDFUPage";
+    [self.section2List addObject:dfuModel];
 }
 
-#pragma mark - private method
-- (void)addNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(dfuModuleStart)
-                                                 name:@"mk_bxp_startDfuProcessNotification"
-                                               object:nil];
+- (void)pushDFUPage {
+    MKBXPDFUModel *dfuModel = [[MKBXPDFUModel alloc] init];
+    @weakify(self);
+    dfuModel.DFUCompleteBlock = ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"mk_bxp_centralDeallocNotification" object:nil];
+    };
+    dfuModel.startDFUBlock = ^{
+        @strongify(self);
+        self.dfuModule = YES;
+    };
+    MKBXUpdateController *vc = [[MKBXUpdateController alloc] init];
+    vc.protocol = dfuModel;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UI
@@ -651,13 +391,6 @@ mk_textSwitchCellDelegate>
         _section2List = [NSMutableArray array];
     }
     return _section2List;
-}
-
-- (MKBXPSettingModel *)dataModel {
-    if (!_dataModel) {
-        _dataModel = [[MKBXPSettingModel alloc] init];
-    }
-    return _dataModel;
 }
 
 @end

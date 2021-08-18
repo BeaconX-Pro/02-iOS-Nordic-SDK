@@ -44,6 +44,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MKBeaconXCustomUI-MKBeaconXCustomUI.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MKBeaconXCustomUI.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MKBeaconXPlus-MKBeaconXPlus.xcscheme</key>
 		<dict>
 			<key>isShown</key>

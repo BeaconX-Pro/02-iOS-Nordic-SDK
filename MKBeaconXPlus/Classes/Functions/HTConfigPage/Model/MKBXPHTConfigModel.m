@@ -172,7 +172,7 @@
         success = YES;
         NSString *deviceTime = returnData[@"result"][@"deviceTime"];
         NSArray *dateList = [deviceTime componentsSeparatedByString:@"-"];
-        self.date = [NSString stringWithFormat:@"%@/%@/%@",dateList[0],dateList[1],dateList[2]];
+        self.date = [NSString stringWithFormat:@"%@/%@/%@",dateList[2],dateList[1],dateList[0]];
         self.time = [NSString stringWithFormat:@"%@:%@:%@",dateList[3],dateList[4],dateList[5]];
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

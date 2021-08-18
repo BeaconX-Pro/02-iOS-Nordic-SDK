@@ -231,7 +231,7 @@ static CGFloat htTextViewWidth = 80.f;
         [self.humidityList addObject:dic[@"humidity"]];
     }
     NSArray *dateList = [dic[@"date"] componentsSeparatedByString:@"-"];
-    NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@ %@:%@:%@",dateList[0],dateList[1],dateList[2],dateList[3],dateList[4],dateList[5]];
+    NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@ %@:%@:%@",dateList[2],dateList[1],dateList[0],dateList[3],dateList[4],dateList[5]];
     NSString *text = [NSString stringWithFormat:@"\n%@\t\t%@\t\t%@",dateString,temperature,humidity];
     [self saveDataToLocal:text];
     self.textView.text = [self.textView.text stringByAppendingString:text];
@@ -387,14 +387,14 @@ static CGFloat htTextViewWidth = 80.f;
         make.height.mas_equalTo(MKFont(10.f).lineHeight);
     }];
     [self.deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.exportButton.mas_left).mas_offset(-15.f);
+        make.right.mas_equalTo(self.exportButton.mas_left).mas_offset(-35.f);
         make.width.mas_equalTo(40.f);
         make.centerY.mas_equalTo(self.syncButton.mas_centerY);
         make.height.mas_equalTo(30.f);
     }];
     [self.deleteLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.deleteButton.mas_left);
-        make.right.mas_equalTo(self.deleteButton.mas_right);
+        make.centerX.mas_equalTo(self.deleteButton.mas_centerX);
+        make.width.mas_equalTo(60.f);
         make.top.mas_equalTo(self.deleteButton.mas_bottom).mas_offset(2.f);
         make.height.mas_equalTo(MKFont(10.f).lineHeight);
     }];
@@ -502,7 +502,7 @@ static CGFloat htTextViewWidth = 80.f;
         _deleteLabel.textColor = DEFAULT_TEXT_COLOR;
         _deleteLabel.textAlignment = NSTextAlignmentCenter;
         _deleteLabel.font = MKFont(10.f);
-        _deleteLabel.text = @"Empty";
+        _deleteLabel.text = @"Erase all";
     }
     return _deleteLabel;
 }

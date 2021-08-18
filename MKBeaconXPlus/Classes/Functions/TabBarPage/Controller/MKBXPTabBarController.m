@@ -15,13 +15,16 @@
 
 #import "MKBLEBaseLogManager.h"
 
+#import "MKBXDeviceInfoController.h"
+
 #import "MKBXPSlotController.h"
 #import "MKBXPSettingController.h"
-#import "MKBXPDeviceInfoController.h"
 
 #import "MKBXPCentralManager.h"
 
 #import "MKBXPConnectManager.h"
+
+#import "MKBXPDeviceInfoModel.h"
 
 @interface MKBXPTabBarController ()
 
@@ -196,10 +199,16 @@
     settingPage.tabBarItem.selectedImage = LOADICON(@"MKBeaconXPlus", @"MKBXPTabBarController", @"bxp_settingTabBarItemSelected.png");
     MKBaseNavigationController *settingNav = [[MKBaseNavigationController alloc] initWithRootViewController:settingPage];
 
-    MKBXPDeviceInfoController *devicePage = [[MKBXPDeviceInfoController alloc] init];
+    MKBXDeviceInfoController *devicePage = [[MKBXDeviceInfoController alloc] init];
     devicePage.tabBarItem.title = @"DEVICE";
     devicePage.tabBarItem.image = LOADICON(@"MKBeaconXPlus", @"MKBXPTabBarController", @"bxp_deviceTabBarItemUnselected.png");
     devicePage.tabBarItem.selectedImage = LOADICON(@"MKBeaconXPlus", @"MKBXPTabBarController", @"bxp_deviceTabBarItemSelected.png");
+    devicePage.dataModel = [[MKBXPDeviceInfoModel alloc] init];
+    @weakify(self);
+    devicePage.leftButtonActionBlock = ^{
+        @strongify(self);
+        [self gotoScanPage];
+    };
     MKBaseNavigationController *deviceNav = [[MKBaseNavigationController alloc] initWithRootViewController:devicePage];
     
     self.viewControllers = @[slotNav,settingNav,deviceNav];

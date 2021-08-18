@@ -228,9 +228,20 @@
                                      uuid:(NSString *)uuid
                                  sucBlock:(void (^)(id returnData))sucBlock
                               failedBlock:(void (^)(NSError *error))failedBlock {
-    if (major < 0 || major > 65535 || minor < 0 || minor > 65535 || ![MKBLEBaseSDKAdopter isUUIDString:uuid]) {
+    if (major < 0 || major > 65535 || minor < 0 || minor > 65535) {
         [self operationParamsErrorBlock:failedBlock];
         return;
+    }
+    if (!MKValidStr(uuid) || uuid.length != 32) {
+        [self operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    for (NSInteger i = 0; i < 16; i ++) {
+        NSString *tempHex = [uuid substringWithRange:NSMakeRange(i * 2, 2)];
+        if (![MKBLEBaseSDKAdopter checkHexCharacter:tempHex]) {
+            [self operationParamsErrorBlock:failedBlock];
+            return;
+        }
     }
     NSString *majorHex = [MKBLEBaseSDKAdopter fetchHexValue:major byteLen:2];
     NSString *minorHex = [MKBLEBaseSDKAdopter fetchHexValue:minor byteLen:2];

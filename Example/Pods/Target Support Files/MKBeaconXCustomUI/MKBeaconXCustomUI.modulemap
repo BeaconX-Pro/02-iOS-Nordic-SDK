@@ -1,0 +1,6 @@
+framework module MKBeaconXCustomUI {
+  umbrella header "MKBeaconXCustomUI-umbrella.h"
+
+  export *
+  module * { export * }
+}

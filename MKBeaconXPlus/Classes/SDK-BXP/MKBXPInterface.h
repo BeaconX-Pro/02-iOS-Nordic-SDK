@@ -113,7 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bxp_readSlotDataTypeWithSucBlock:(void (^)(id returnData))sucBlock
                              failedBlock:(void (^)(NSError *error))failedBlock;
 /**
- Reading Radio Tx Power.Radio Tx Power is different for each SLOT. Before reading the target SLOT’s Radio Tx Power, you should switch the SLOT to target SLOT(Please refer to ，setBXPActiveSlot:sucBlock:failedBlock:); otherwise the Radio Tx Power read is only for the currently active SLOT.
+ Reading Radio Tx Power.Radio Tx Power is different for each SLOT. Before reading the target SLOT’s Radio Tx Power, you should switch the SLOT to target SLOT(Please refer to ，bxp_configActiveSlot:sucBlock:failedBlock:); otherwise the Radio Tx Power read is only for the currently active SLOT.
 
  @param sucBlock success callback
  @param failedBlock failed callback
@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bxp_readRadioTxPowerWithSucBlock:(void (^)(id returnData))sucBlock
                              failedBlock:(void (^)(NSError *error))failedBlock;
 /**
- Reading the advertisement data set in the active SLOT.The advertisement data is different for each SLOT. Before reading the advertisement data, you should switch the SLOT to target SLOT(Please refer to setBXPActiveSlot:sucBlock:failedBlock:); otherwise the advertisement data read is only for the currently active SLOT.
+ Reading the advertisement data set in the active SLOT.The advertisement data is different for each SLOT. Before reading the advertisement data, you should switch the SLOT to target SLOT(Please refer to bxp_configActiveSlot:sucBlock:failedBlock:); otherwise the advertisement data read is only for the currently active SLOT.
  
  @param sucBlock success callback
  @param failedBlock failed callback
@@ -129,7 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bxp_readAdvDataWithSucBlock:(void (^)(id returnData))sucBlock
                         failedBlock:(void (^)(NSError *error))failedBlock;
 /**
- Reading Advertised Tx Power(RSSI@0m, only for eddystone frame).Advertised Tx Power is different for each SLOT. Before reading the target SLOT’s Advertised Tx Power, you should switch the SLOT to target SLOT(Please refer to ，setBXPActiveSlot:sucBlock:failedBlock:); otherwise the Advertised Tx Power read is only for the currently active SLOT.
+ Reading Advertised Tx Power(RSSI@0m, only for eddystone frame).Advertised Tx Power is different for each SLOT. Before reading the target SLOT’s Advertised Tx Power, you should switch the SLOT to target SLOT(Please refer to ，bxp_configActiveSlot:sucBlock:failedBlock:); otherwise the Advertised Tx Power read is only for the currently active SLOT.
 
  @param sucBlock success callback
  @param failedBlock failed callback

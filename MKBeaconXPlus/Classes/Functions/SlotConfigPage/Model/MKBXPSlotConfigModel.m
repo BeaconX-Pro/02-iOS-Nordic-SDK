@@ -13,7 +13,7 @@
 #import "MKBXPInterface.h"
 #import "MKBXPInterface+MKBXPConfig.h"
 
-#import "MKBXPSlotConfigCellProtocol.h"
+#import "MKBXSlotConfigCellProtocol.h"
 
 @interface MKBXPSlotConfigModel ()
 
@@ -35,7 +35,7 @@
             [self operationFailedBlockWithMsg:@"Config Active Slot Error" block:failedBlock];
             return;
         }
-        if (self.slotType == mk_bxp_slotFrameTypeNull) {
+        if (self.slotType == mk_bx_slotFrameTypeNull) {
             //当前通道为NO DATA
             moko_dispatch_main_safe(^{
                 if (sucBlock) {
@@ -80,7 +80,7 @@
             [self operationFailedBlockWithMsg:@"Config Active Slot Error" block:failedBlock];
             return;
         }
-        if (self.slotType == mk_bxp_slotFrameTypeNull) {
+        if (self.slotType == mk_bx_slotFrameTypeNull) {
             //NO DATA
             if (![self configAdvNoDatas]) {
                 [self operationFailedBlockWithMsg:@"Config Adv Data Error" block:failedBlock];
@@ -94,25 +94,25 @@
             return;
         }
         BOOL advResult = NO;
-        if (self.slotType == mk_bxp_slotFrameTypeBeacon) {
+        if (self.slotType == mk_bx_slotFrameTypeBeacon) {
             //当前广播通道设置为iBeacon
-            advResult = [self configBeacon:params[bxp_slotConfig_advContentType]];
-        }else if (self.slotType == mk_bxp_slotFrameTypeUID) {
+            advResult = [self configBeacon:params[mk_bx_slotConfig_advContentType]];
+        }else if (self.slotType == mk_bx_slotFrameTypeUID) {
             //当前广播通道设置为UID
-            advResult = [self configUID:params[bxp_slotConfig_advContentType]];
-        }else if (self.slotType == mk_bxp_slotFrameTypeURL) {
+            advResult = [self configUID:params[mk_bx_slotConfig_advContentType]];
+        }else if (self.slotType == mk_bx_slotFrameTypeURL) {
             //当前广播通道设置为URL
-            advResult = [self configURL:params[bxp_slotConfig_advContentType]];
-        }else if (self.slotType == mk_bxp_slotFrameTypeTLM) {
+            advResult = [self configURL:params[mk_bx_slotConfig_advContentType]];
+        }else if (self.slotType == mk_bx_slotFrameTypeTLM) {
             //当前广播通道设置为TLM
             advResult = [self configTLM];
-        }else if (self.slotType == mk_bxp_slotFrameTypeInfo) {
+        }else if (self.slotType == mk_bx_slotFrameTypeInfo) {
             //当前广播通道设置为Info
-            advResult = [self configDeviceInfo:params[bxp_slotConfig_advContentType]];
-        }else if (self.slotType == mk_bxp_slotFrameTypeThreeASensor) {
+            advResult = [self configDeviceInfo:params[mk_bx_slotConfig_advContentType]];
+        }else if (self.slotType == mk_bx_slotFrameTypeThreeASensor) {
             //当前广播通道设置为三轴
             advResult = [self configThressAxis];
-        }else if (self.slotType == mk_bxp_slotFrameTypeTHSensor) {
+        }else if (self.slotType == mk_bx_slotFrameTypeTHSensor) {
             //当前广播通道设置为温湿度
             advResult = [self configHTAdvData];
         }
@@ -120,23 +120,23 @@
             [self operationFailedBlockWithMsg:@"Config Adv Data Error" block:failedBlock];
             return;
         }
-        if (![self configTxPower:[params[bxp_slotConfig_advParamType][@"txPower"] integerValue]]) {
+        if (![self configTxPower:[params[mk_bx_slotConfig_advParamType][@"txPower"] integerValue]]) {
 //            [self operationFailedBlockWithMsg:@"Config Tx Power Error" block:failedBlock];
 //            return;
         }
-        if (self.slotType != mk_bxp_slotFrameTypeTLM) {
-            if (![self configRssi:[params[bxp_slotConfig_advParamType][@"rssi"] integerValue]]) {
+        if (self.slotType != mk_bx_slotFrameTypeTLM) {
+            if (![self configRssi:[params[mk_bx_slotConfig_advParamType][@"rssi"] integerValue]]) {
 //                [self operationFailedBlockWithMsg:@"Config Rssi Error" block:failedBlock];
 //                return;
             }
         }
-        if (![self.originAdvInterval isEqualToString:params[bxp_slotConfig_advParamType][@"interval"]]) {
-            if (![self configAdvInterval:[params[bxp_slotConfig_advParamType][@"interval"] integerValue]]) {
+        if (![self.originAdvInterval isEqualToString:params[mk_bx_slotConfig_advParamType][@"interval"]]) {
+            if (![self configAdvInterval:[params[mk_bx_slotConfig_advParamType][@"interval"] integerValue]]) {
 //                [self operationFailedBlockWithMsg:@"Config Interval Error" block:failedBlock];
 //                return;
             }
         }
-        if (![self configTriggerConditions:params[bxp_slotConfig_advTriggerType]]) {
+        if (![self configTriggerConditions:params[mk_bx_slotConfig_advTriggerType]]) {
             [self operationFailedBlockWithMsg:@"Config Adv Trigger Error" block:failedBlock];
             return;
         }

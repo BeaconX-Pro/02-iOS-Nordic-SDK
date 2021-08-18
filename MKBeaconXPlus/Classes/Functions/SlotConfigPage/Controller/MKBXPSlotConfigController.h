@@ -8,14 +8,14 @@
 
 #import <MKBaseModuleLibrary/MKBaseViewController.h>
 
-#import "MKBXPEnumerateDefine.h"
+#import "MKBXEnumerateDefine.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MKBXPSlotConfigController : MKBaseViewController
 
 /// 数据通道类型
-@property (nonatomic, assign)mk_bxp_slotFrameType slotType;
+@property (nonatomic, assign)mk_bx_slotFrameType slotType;
 
 /// 通道index
 @property (nonatomic, assign)NSInteger slotIndex;

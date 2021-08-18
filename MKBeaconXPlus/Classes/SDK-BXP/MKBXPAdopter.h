@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MKBXPAdopter : NSObject
 
 + (BOOL)isPassword:(NSString *)password;
-+ (BOOL)checkDeviceName:(NSString *)deviceName;
 + (BOOL)isNameSpace:(NSString *)nameSpace;
 + (BOOL)isInstanceID:(NSString *)instanceID;
 + (BOOL)checkUrlContent:(NSString *)urlContent;

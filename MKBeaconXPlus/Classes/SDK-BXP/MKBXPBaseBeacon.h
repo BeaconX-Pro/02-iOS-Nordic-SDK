@@ -106,8 +106,7 @@ typedef NS_ENUM(NSInteger, MKBXPDataFrameType) {
 
 @interface MKBXPDeviceInfoBeacon : MKBXPBaseBeacon
 
-//RSSI@0m
-@property (nonatomic, strong) NSNumber *rssi0M;
+@property (nonatomic, strong) NSNumber *rangingData;
 @property (nonatomic, strong) NSNumber *txPower;
 //Broadcast interval,Unit:100ms
 @property (nonatomic, copy) NSString *interval;

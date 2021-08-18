@@ -17,8 +17,8 @@
 #import "MKHudManager.h"
 #import "MKNormalTextCell.h"
 
-#import "MKBXPSlotDataAdopter.h"
-#import "MKBXPEnumerateDefine.h"
+#import "MKBXSlotDataAdopter.h"
+#import "MKBXEnumerateDefine.h"
 
 #import "MKBXPInterface.h"
 
@@ -100,7 +100,7 @@
     NSArray *slotList = returnData[@"slotTypeList"];
     for (NSInteger i = 0; i < slotList.count; i ++) {
         MKBXPSlotDataModel *slotModel = [[MKBXPSlotDataModel alloc] init];
-        slotModel.slotType = [MKBXPSlotDataAdopter fetchSlotFrameType:slotList[i]];
+        slotModel.slotType = [MKBXSlotDataAdopter fetchSlotFrameType:slotList[i]];
         slotModel.slotIndex = i;
         slotModel.leftMsg = [@"SLOT" stringByAppendingString:[NSString stringWithFormat:@"%ld",(long)(i + 1)]];
         slotModel.showRightIcon = YES;
@@ -112,23 +112,23 @@
 }
 
 #pragma mark - private method
-- (NSString *)fetchSlotCellRightMsg:(mk_bxp_slotFrameType)type {
+- (NSString *)fetchSlotCellRightMsg:(mk_bx_slotFrameType)type {
     switch (type) {
-        case mk_bxp_slotFrameTypeBeacon:
+        case mk_bx_slotFrameTypeBeacon:
             return @"iBeacon";
-        case mk_bxp_slotFrameTypeUID:
+        case mk_bx_slotFrameTypeUID:
             return @"UID";
-        case mk_bxp_slotFrameTypeURL:
+        case mk_bx_slotFrameTypeURL:
             return @"URL";
-        case mk_bxp_slotFrameTypeTLM:
+        case mk_bx_slotFrameTypeTLM:
             return @"TLM";
-        case mk_bxp_slotFrameTypeNull:
+        case mk_bx_slotFrameTypeNull:
             return @"NO DATA";
-        case mk_bxp_slotFrameTypeInfo:
+        case mk_bx_slotFrameTypeInfo:
             return @"Device info";
-        case mk_bxp_slotFrameTypeThreeASensor:
+        case mk_bx_slotFrameTypeThreeASensor:
             return @"Accel";
-        case mk_bxp_slotFrameTypeTHSensor:
+        case mk_bx_slotFrameTypeTHSensor:
             return @"T&H";
     }
 }

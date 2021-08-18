@@ -331,10 +331,10 @@
         }
         unsigned char txPowerChar = *(data+1);
         if (txPowerChar & 0x80) {
-            self.rssi0M = [NSNumber numberWithInt:(- 0x100 + txPowerChar)];
+            self.rangingData = [NSNumber numberWithInt:(- 0x100 + txPowerChar)];
         }
         else {
-            self.rssi0M = [NSNumber numberWithInt:txPowerChar];
+            self.rangingData = [NSNumber numberWithInt:txPowerChar];
         }
         NSString *tempContent = [MKBLEBaseSDKAdopter hexStringFromData:advData];
         

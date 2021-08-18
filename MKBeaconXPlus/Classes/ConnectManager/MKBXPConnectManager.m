@@ -8,11 +8,7 @@
 
 #import "MKBXPConnectManager.h"
 
-#import <CoreBluetooth/CoreBluetooth.h>
-
 #import "MKMacroDefines.h"
-
-#import "MKBXPCentralManager.h"
 
 @interface MKBXPConnectManager ()
 

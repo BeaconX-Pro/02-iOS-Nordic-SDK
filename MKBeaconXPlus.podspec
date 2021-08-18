@@ -53,18 +53,6 @@ TODO: Add long description of the pod here.
      s.dependency 'CTMediator'
    end
    
-   s.subspec 'Expand' do |ss|
-     ss.subspec 'Adopter' do |sss|
-       sss.source_files = 'MKBeaconXPlus/Classes/Expand/Adopter/**'
-       sss.dependency 'MKBeaconXPlus/Expand/Defines'
-     end
-     ss.subspec 'Defines' do |sss|
-       sss.source_files = 'MKBeaconXPlus/Classes/Expand/Defines/**'
-     end
-     
-     ss.dependency 'MKBaseModuleLibrary'
-   end
-   
    s.subspec 'SDK-BXP' do |ss|
      ss.source_files = 'MKBeaconXPlus/Classes/SDK-BXP/**'
      ss.dependency 'MKBaseBleModule'
@@ -89,17 +77,6 @@ TODO: Add long description of the pod here.
        end
        sss.subspec 'View' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/AccelerationPage/View/**'
-       end
-     end
-
-     ss.subspec 'DeviceInfoPage' do |sss|
-       sss.subspec 'Controller' do |ssss|
-         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/DeviceInfoPage/Controller/**'
-         ssss.dependency 'MKBeaconXPlus/Functions/DeviceInfoPage/Model'
-
-       end
-       sss.subspec 'Model' do |ssss|
-         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/DeviceInfoPage/Model/**'
        end
      end
 
@@ -137,16 +114,17 @@ TODO: Add long description of the pod here.
      ss.subspec 'ScanPage' do |sss|
        sss.subspec 'Controller' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/ScanPage/Controller/**'
+         
          ssss.dependency 'MKBeaconXPlus/Functions/ScanPage/Model'
-         ssss.dependency 'MKBeaconXPlus/Functions/ScanPage/View'
+         ssss.dependency 'MKBeaconXPlus/Functions/ScanPage/Adopter'
 
          ssss.dependency 'MKBeaconXPlus/Functions/TabBarPage/Controller'
        end
        sss.subspec 'Model' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/ScanPage/Model/**'
        end
-       sss.subspec 'View' do |ssss|
-         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/ScanPage/View/**'
+       sss.subspec 'Adopter' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/ScanPage/Adopter/**'
          
          ssss.dependency 'MKBeaconXPlus/Functions/ScanPage/Model'
        end
@@ -157,9 +135,8 @@ TODO: Add long description of the pod here.
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/SettingPage/Controller/**'
          ssss.dependency 'MKBeaconXPlus/Functions/SettingPage/Model'
 
-         ssss.dependency 'MKBeaconXPlus/Functions/UpdatePage/Controller'
-         ssss.dependency 'MKBeaconXPlus/Functions/AccelerationPage/Controller'
-         ssss.dependency 'MKBeaconXPlus/Functions/HTConfigPage/Controller'
+         ssss.dependency 'MKBeaconXPlus/Functions/SensorConfigPage/Controller'
+         ssss.dependency 'MKBeaconXPlus/Functions/QuickSwitchPage/Controller'
        end
        sss.subspec 'Model' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/SettingPage/Model/**'
@@ -172,26 +149,12 @@ TODO: Add long description of the pod here.
          
          ssss.dependency 'MKBeaconXPlus/Functions/SlotConfigPage/Model'
          ssss.dependency 'MKBeaconXPlus/Functions/SlotConfigPage/View'
-         ssss.dependency 'MKBeaconXPlus/Functions/SlotConfigPage/Header'
        end
        sss.subspec 'Model' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/SlotConfigPage/Model/**'
-         
-         ssss.dependency 'MKBeaconXPlus/Functions/SlotConfigPage/Header'
-       end
-       sss.subspec 'TriggerView' do |ssss|
-         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/SlotConfigPage/TriggerView/**'
-         
-         ssss.dependency 'MKBeaconXPlus/Functions/SlotConfigPage/Header'
        end
        sss.subspec 'View' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/SlotConfigPage/View/**'
-         
-         ssss.dependency 'MKBeaconXPlus/Functions/SlotConfigPage/TriggerView'
-         ssss.dependency 'MKBeaconXPlus/Functions/SlotConfigPage/Header'
-       end
-       sss.subspec 'Header' do |ssss|
-         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/SlotConfigPage/Header/**'
        end
      end
 
@@ -210,30 +173,44 @@ TODO: Add long description of the pod here.
      ss.subspec 'TabBarPage' do |sss|
        sss.subspec 'Controller' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/TabBarPage/Controller/**'
+         
+         ssss.dependency 'MKBeaconXPlus/Functions/TabBarPage/Model'
 
          ssss.dependency 'MKBeaconXPlus/Functions/SlotPage/Controller'
          ssss.dependency 'MKBeaconXPlus/Functions/SettingPage/Controller'
-         ssss.dependency 'MKBeaconXPlus/Functions/DeviceInfoPage/Controller'
-       end
-     end
-
-     ss.subspec 'UpdatePage' do |sss|
-       sss.subspec 'Controller' do |ssss|
-         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/UpdatePage/Controller/**'
-         ssss.dependency 'MKBeaconXPlus/Functions/UpdatePage/Model'
        end
        sss.subspec 'Model' do |ssss|
-         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/UpdatePage/Model/**'
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/TabBarPage/Model/**'
+       end
+     end
+     
+     ss.subspec 'SensorConfigPage' do |sss|
+       sss.subspec 'Controller' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/SensorConfigPage/Controller/**'
+         
+         ssss.dependency 'MKBeaconXPlus/Functions/AccelerationPage'
+         ssss.dependency 'MKBeaconXPlus/Functions/HTConfigPage'
+       end
+     end
+     
+     ss.subspec 'QuickSwitchPage' do |sss|
+       sss.subspec 'Controller' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/QuickSwitchPage/Controller/**'
+         
+         ssss.dependency 'MKBeaconXPlus/Functions/QuickSwitchPage/Model'
+       end
+       sss.subspec 'Model' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/QuickSwitchPage/Model/**'
        end
      end
 
      ss.dependency 'MKBeaconXPlus/ConnectManager'
-     ss.dependency 'MKBeaconXPlus/Expand'
      ss.dependency 'MKBeaconXPlus/SDK-BXP'
      ss.dependency 'MKBeaconXPlus/CTMediator'
      
      ss.dependency 'MKBaseModuleLibrary'
      ss.dependency 'MKCustomUIModule'
+     ss.dependency 'MKBeaconXCustomUI'
      ss.dependency 'HHTransition'
      ss.dependency 'MLInputDodger'
      ss.dependency 'iOSDFULibrary'

@@ -1,6 +1,6 @@
 {
   "name": "MKBeaconXPlus",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "summary": "A short description of MKBeaconXPlus.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/BeaconX-Pro/iOS-SDK",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/BeaconX-Pro/iOS-SDK.git",
-    "tag": "1.0.4"
+    "tag": "1.0.5"
   },
   "platforms": {
     "ios": "12.0"
@@ -55,29 +55,6 @@
       "source_files": "MKBeaconXPlus/Classes/CTMediator/**"
     },
     {
-      "name": "Expand",
-      "dependencies": {
-        "MKBaseModuleLibrary": [
-
-        ]
-      },
-      "subspecs": [
-        {
-          "name": "Adopter",
-          "source_files": "MKBeaconXPlus/Classes/Expand/Adopter/**",
-          "dependencies": {
-            "MKBeaconXPlus/Expand/Defines": [
-
-            ]
-          }
-        },
-        {
-          "name": "Defines",
-          "source_files": "MKBeaconXPlus/Classes/Expand/Defines/**"
-        }
-      ]
-    },
-    {
       "name": "SDK-BXP",
       "source_files": "MKBeaconXPlus/Classes/SDK-BXP/**",
       "dependencies": {
@@ -101,9 +78,6 @@
         "MKBeaconXPlus/ConnectManager": [
 
         ],
-        "MKBeaconXPlus/Expand": [
-
-        ],
         "MKBeaconXPlus/SDK-BXP": [
 
         ],
@@ -114,6 +88,9 @@
 
         ],
         "MKCustomUIModule": [
+
+        ],
+        "MKBeaconXCustomUI": [
 
         ],
         "HHTransition": [
@@ -149,24 +126,6 @@
             {
               "name": "View",
               "source_files": "MKBeaconXPlus/Classes/Functions/AccelerationPage/View/**"
-            }
-          ]
-        },
-        {
-          "name": "DeviceInfoPage",
-          "subspecs": [
-            {
-              "name": "Controller",
-              "source_files": "MKBeaconXPlus/Classes/Functions/DeviceInfoPage/Controller/**",
-              "dependencies": {
-                "MKBeaconXPlus/Functions/DeviceInfoPage/Model": [
-
-                ]
-              }
-            },
-            {
-              "name": "Model",
-              "source_files": "MKBeaconXPlus/Classes/Functions/DeviceInfoPage/Model/**"
             }
           ]
         },
@@ -235,7 +194,7 @@
                 "MKBeaconXPlus/Functions/ScanPage/Model": [
 
                 ],
-                "MKBeaconXPlus/Functions/ScanPage/View": [
+                "MKBeaconXPlus/Functions/ScanPage/Adopter": [
 
                 ],
                 "MKBeaconXPlus/Functions/TabBarPage/Controller": [
@@ -248,8 +207,8 @@
               "source_files": "MKBeaconXPlus/Classes/Functions/ScanPage/Model/**"
             },
             {
-              "name": "View",
-              "source_files": "MKBeaconXPlus/Classes/Functions/ScanPage/View/**",
+              "name": "Adopter",
+              "source_files": "MKBeaconXPlus/Classes/Functions/ScanPage/Adopter/**",
               "dependencies": {
                 "MKBeaconXPlus/Functions/ScanPage/Model": [
 
@@ -268,13 +227,10 @@
                 "MKBeaconXPlus/Functions/SettingPage/Model": [
 
                 ],
-                "MKBeaconXPlus/Functions/UpdatePage/Controller": [
+                "MKBeaconXPlus/Functions/SensorConfigPage/Controller": [
 
                 ],
-                "MKBeaconXPlus/Functions/AccelerationPage/Controller": [
-
-                ],
-                "MKBeaconXPlus/Functions/HTConfigPage/Controller": [
+                "MKBeaconXPlus/Functions/QuickSwitchPage/Controller": [
 
                 ]
               }
@@ -297,45 +253,16 @@
                 ],
                 "MKBeaconXPlus/Functions/SlotConfigPage/View": [
 
-                ],
-                "MKBeaconXPlus/Functions/SlotConfigPage/Header": [
-
                 ]
               }
             },
             {
               "name": "Model",
-              "source_files": "MKBeaconXPlus/Classes/Functions/SlotConfigPage/Model/**",
-              "dependencies": {
-                "MKBeaconXPlus/Functions/SlotConfigPage/Header": [
-
-                ]
-              }
-            },
-            {
-              "name": "TriggerView",
-              "source_files": "MKBeaconXPlus/Classes/Functions/SlotConfigPage/TriggerView/**",
-              "dependencies": {
-                "MKBeaconXPlus/Functions/SlotConfigPage/Header": [
-
-                ]
-              }
+              "source_files": "MKBeaconXPlus/Classes/Functions/SlotConfigPage/Model/**"
             },
             {
               "name": "View",
-              "source_files": "MKBeaconXPlus/Classes/Functions/SlotConfigPage/View/**",
-              "dependencies": {
-                "MKBeaconXPlus/Functions/SlotConfigPage/TriggerView": [
-
-                ],
-                "MKBeaconXPlus/Functions/SlotConfigPage/Header": [
-
-                ]
-              }
-            },
-            {
-              "name": "Header",
-              "source_files": "MKBeaconXPlus/Classes/Functions/SlotConfigPage/Header/**"
+              "source_files": "MKBeaconXPlus/Classes/Functions/SlotConfigPage/View/**"
             }
           ]
         },
@@ -367,13 +294,34 @@
               "name": "Controller",
               "source_files": "MKBeaconXPlus/Classes/Functions/TabBarPage/Controller/**",
               "dependencies": {
+                "MKBeaconXPlus/Functions/TabBarPage/Model": [
+
+                ],
                 "MKBeaconXPlus/Functions/SlotPage/Controller": [
 
                 ],
                 "MKBeaconXPlus/Functions/SettingPage/Controller": [
 
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKBeaconXPlus/Classes/Functions/TabBarPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "SensorConfigPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKBeaconXPlus/Classes/Functions/SensorConfigPage/Controller/**",
+              "dependencies": {
+                "MKBeaconXPlus/Functions/AccelerationPage": [
+
                 ],
-                "MKBeaconXPlus/Functions/DeviceInfoPage/Controller": [
+                "MKBeaconXPlus/Functions/HTConfigPage": [
 
                 ]
               }
@@ -381,20 +329,20 @@
           ]
         },
         {
-          "name": "UpdatePage",
+          "name": "QuickSwitchPage",
           "subspecs": [
             {
               "name": "Controller",
-              "source_files": "MKBeaconXPlus/Classes/Functions/UpdatePage/Controller/**",
+              "source_files": "MKBeaconXPlus/Classes/Functions/QuickSwitchPage/Controller/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/UpdatePage/Model": [
+                "MKBeaconXPlus/Functions/QuickSwitchPage/Model": [
 
                 ]
               }
             },
             {
               "name": "Model",
-              "source_files": "MKBeaconXPlus/Classes/Functions/UpdatePage/Model/**"
+              "source_files": "MKBeaconXPlus/Classes/Functions/QuickSwitchPage/Model/**"
             }
           ]
         }

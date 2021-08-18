@@ -8,9 +8,9 @@
 
 #import <MKBaseModuleLibrary/MKBaseCell.h>
 
-#import "MKBXPEnumerateDefine.h"
+#import "MKBXEnumerateDefine.h"
 
-#import "MKBXPSlotConfigCellProtocol.h"
+#import "MKBXSlotConfigCellProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,11 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign)NSInteger txPower;
 
-@property (nonatomic, assign)mk_bxp_slotFrameType slotType;
+@property (nonatomic, assign)mk_bx_slotFrameType slotType;
 
 @end
 
-@interface MKBXPSlotConfigAdvParamsCell : MKBaseCell<MKBXPSlotConfigCellProtocol>
+@interface MKBXPSlotConfigAdvParamsCell : MKBaseCell<MKBXSlotConfigCellProtocol>
 
 @property (nonatomic, strong)MKBXPSlotConfigAdvParamsCellModel *dataModel;
 

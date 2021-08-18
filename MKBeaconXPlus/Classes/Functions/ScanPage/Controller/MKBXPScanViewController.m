@@ -8,6 +8,8 @@
 
 #import "MKBXPScanViewController.h"
 
+#import <objc/runtime.h>
+
 #import <CoreBluetooth/CoreBluetooth.h>
 
 #import "Masonry.h"
@@ -26,33 +28,27 @@
 #import "MKTableSectionLineHeader.h"
 #import "MKAlertController.h"
 
+#import "MKBXScanFilterView.h"
+#import "MKBXScanSearchButton.h"
+
+#import "MKBXScanInfoCellProtocol.h"
+#import "MKBXScanInfoCell.h"
+
+#import "MKBXScanPageAdopter.h"
+
 #import "MKBXPSDK.h"
 
 #import "MKBXPConnectManager.h"
 
-#import "MKBXPScanInfoCell.h"
-#import "MKBXPScanBeaconCell.h"
-#import "MKBXPScanHTCell.h"
-#import "MKBXPScanThreeASensorCell.h"
-#import "MKBXPScanTLMCell.h"
-#import "MKBXPScanUIDCell.h"
-#import "MKBXPScanURLCell.h"
-#import "MKBXPScanFilterView.h"
-#import "MKBXPScanSearchButton.h"
+#import "MKBXPScanPageAdopter.h"
 
-#import "MKBXPScanBeaconModel.h"
-#import "MKBXPBaseBeacon+MKBXPAdd.h"
+#import "MKBXPScanInfoCellModel.h"
 
 #import "MKBXPTabBarController.h"
 
 static CGFloat const offset_X = 15.f;
 static CGFloat const searchButtonHeight = 40.f;
 static CGFloat const headerViewHeight = 90.f;
-static CGFloat const uidCellHeight = 85.f;
-static CGFloat const urlCellHeight = 70.f;
-static CGFloat const tlmCellHeight = 110.f;
-static CGFloat const htCellHeight = 105.f;
-static CGFloat const threeSensorCellHeight = 140.f;
 
 static NSTimeInterval const kRefreshInterval = 0.5f;
 
@@ -86,20 +82,22 @@ static NSTimeInterval const kRefreshInterval = 0.5f;
 
 @interface MKBXPScanViewController ()<UITableViewDelegate,
 UITableViewDataSource,
-MKBXPSearchButtonDelegate,
+MKBXScanSearchButtonDelegate,
 mk_bxp_centralManagerScanDelegate,
-MKBXPScanInfoCellDelegate,
+MKBXScanInfoCellDelegate,
 MKBXPTabBarControllerDelegate>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
 
 @property (nonatomic, strong)NSMutableArray *dataList;
 
-@property (nonatomic, strong)MKBXPSearchButtonModel *buttonModel;
+@property (nonatomic, strong)MKBXScanSearchButtonModel *buttonModel;
 
-@property (nonatomic, strong)MKBXPScanSearchButton *searchButton;
+@property (nonatomic, strong)MKBXScanSearchButton *searchButton;
 
 @property (nonatomic, strong)UIImageView *refreshIcon;
+
+@property (nonatomic, strong)UIButton *refreshButton;
 
 @property (nonatomic, strong)dispatch_source_t scanTimer;
 
@@ -130,29 +128,6 @@ MKBXPTabBarControllerDelegate>
 }
 
 #pragma mark - super method
-- (void)leftButtonMethod {
-    if ([MKBXPCentralManager shared].centralStatus != mk_bxp_centralManagerStatusEnable) {
-        [self.view showCentralToast:@"The current system of bluetooth is not available!"];
-        return;
-    }
-    self.leftButton.selected = !self.leftButton.selected;
-    [self.refreshIcon.layer removeAnimationForKey:@"mk_refreshAnimationKey"];
-    if (!self.leftButton.isSelected) {
-        //停止扫描
-        [[MKBXPCentralManager shared] stopScan];
-        if (self.scanTimer) {
-            dispatch_cancel(self.scanTimer);
-        }
-        return;
-    }
-    [self.dataList removeAllObjects];
-    [self.tableView reloadData];
-    //刷新顶部设备数量
-    [self.titleLabel setText:[NSString stringWithFormat:@"DEVICE(%@)",[NSString stringWithFormat:@"%ld",(long)self.dataList.count]]];
-    [self.refreshIcon.layer addAnimation:[MKCustomUIAdopter refreshAnimation:2.f] forKey:@"mk_refreshAnimationKey"];
-    [self scanTimerRun];
-}
-
 - (void)rightButtonMethod {
     MKBXPAboutPageModel *model = [[MKBXPAboutPageModel alloc] init];
     model.aboutIcon = LOADICON(@"MKBeaconXPlus", @"MKBXPScanViewController", @"bxp_aboutIcon.png");
@@ -167,23 +142,20 @@ MKBXPTabBarControllerDelegate>
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section < self.dataList.count) {
-        MKBXPScanBeaconModel *model = self.dataList[section];
-        return (model.dataArray.count + 1);
-    }
-    return 0;
+    MKBXPScanInfoCellModel *model = self.dataList[section];
+    return (model.advertiseList.count + 1);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         //第一个row固定为设备信息帧
-        MKBXPScanInfoCell *cell = [MKBXPScanInfoCell initCellWithTableView:tableView];
-        cell.beacon = self.dataList[indexPath.section];
+        MKBXScanInfoCell *cell = [MKBXScanInfoCell initCellWithTableView:tableView];
+        cell.dataModel = self.dataList[indexPath.section];
         cell.delegate = self;
         return cell;
     }
-    MKBaseCell *cell = [self loadCellDataWithIndexPath:indexPath];
-    return cell;
+    MKBXPScanInfoCellModel *model = self.dataList[indexPath.section];
+    return [MKBXScanPageAdopter loadCellWithTableView:tableView dataModel:model.advertiseList[indexPath.row - 1]];
 }
 
 #pragma mark - UITableViewDelegate
@@ -192,24 +164,8 @@ MKBXPTabBarControllerDelegate>
     if (indexPath.row == 0) {
         return headerViewHeight;
     }
-    MKBXPScanBeaconModel *model = self.dataList[indexPath.section];
-    MKBXPBaseBeacon *beacon = model.dataArray[indexPath.row - 1];
-    switch (beacon.frameType) {
-        case MKBXPUIDFrameType:
-            return uidCellHeight;
-        case MKBXPURLFrameType:
-            return urlCellHeight;
-        case MKBXPTLMFrameType:
-            return tlmCellHeight;
-        case MKBXPBeaconFrameType:
-            return [self getiBeaconCellHeightWithBeacon:beacon];
-        case MKBXPTHSensorFrameType:
-            return htCellHeight;
-        case MKBXPThreeASensorFrameType:
-            return threeSensorCellHeight;
-        default:
-            return 0.f;
-    }
+    MKBXPScanInfoCellModel *model = self.dataList[indexPath.section];
+    return [MKBXScanPageAdopter loadCellHeightWithDataModel:model.advertiseList[indexPath.row - 1]];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -227,28 +183,28 @@ MKBXPTabBarControllerDelegate>
     return headerView;
 }
 
-#pragma mark - MKBXPSearchButtonDelegate
-- (void)bxp_scanSearchButtonMethod {
-    [MKBXPScanFilterView showSearchName:self.buttonModel.searchName
-                             macAddress:self.buttonModel.searchMac
-                                   rssi:self.buttonModel.searchRssi
-                            searchBlock:^(NSString * _Nonnull searchName, NSString * _Nonnull searchMacAddress, NSInteger searchRssi) {
+#pragma mark - MKBXScanSearchButtonDelegate
+- (void)mk_bx_scanSearchButtonMethod {
+    [MKBXScanFilterView showSearchName:self.buttonModel.searchName
+                            macAddress:self.buttonModel.searchMac
+                                  rssi:self.buttonModel.searchRssi
+                           searchBlock:^(NSString * _Nonnull searchName, NSString * _Nonnull searchMacAddress, NSInteger searchRssi) {
         self.buttonModel.searchRssi = searchRssi;
         self.buttonModel.searchName = searchName;
         self.buttonModel.searchMac = searchMacAddress;
         self.searchButton.dataModel = self.buttonModel;
         
-        self.leftButton.selected = NO;
-        [self leftButtonMethod];
+        self.refreshButton.selected = NO;
+        [self refreshButtonPressed];
     }];
 }
 
-- (void)bxp_scanSearchButtonClearMethod {
+- (void)mk_bx_scanSearchButtonClearMethod {
     self.buttonModel.searchRssi = -100;
     self.buttonModel.searchMac = @"";
     self.buttonModel.searchName = @"";
-    self.leftButton.selected = NO;
-    [self leftButtonMethod];
+    self.refreshButton.selected = NO;
+    [self refreshButtonPressed];
 }
 
 #pragma mark - mk_bxp_centralManagerScanDelegate
@@ -260,15 +216,15 @@ MKBXPTabBarControllerDelegate>
 
 - (void)mk_bxp_stopScan {
     //如果是左上角在动画，则停止动画
-    if (self.leftButton.isSelected) {
+    if (self.refreshButton.isSelected) {
         [self.refreshIcon.layer removeAnimationForKey:@"mk_refreshAnimationKey"];
-        [self.leftButton setSelected:NO];
+        [self.refreshButton setSelected:NO];
     }
 }
 
-#pragma mark - MKBXPScanInfoCellDelegate
-- (void)connectPeripheralWithIndex:(NSInteger)index {
-    [self connectPeripheral:index];
+#pragma mark - MKBXScanInfoCellDelegate
+- (void)mk_bx_connectPeripheral:(CBPeripheral *)peripheral {
+    [self connectPeripheral:peripheral];
 }
 
 #pragma mark - MKBXPTabBarControllerDelegate
@@ -277,6 +233,27 @@ MKBXPTabBarControllerDelegate>
         [MKBXPCentralManager shared].delegate = self;
     }
     [self performSelector:@selector(startScanDevice) withObject:nil afterDelay:(need ? 1.f : 0.1f)];
+}
+
+#pragma mark - event method
+- (void)refreshButtonPressed {
+    if ([MKBXPCentralManager shared].centralStatus != mk_bxp_centralManagerStatusEnable) {
+        [self.view showCentralToast:@"The current system of bluetooth is not available!"];
+        return;
+    }
+    self.refreshButton.selected = !self.refreshButton.selected;
+    [self.refreshIcon.layer removeAnimationForKey:@"mk_refreshAnimationKey"];
+    if (!self.refreshButton.isSelected) {
+        //停止扫描
+        [[MKBXPCentralManager shared] stopScan];
+        return;
+    }
+    [self.dataList removeAllObjects];
+    [self.tableView reloadData];
+    //刷新顶部设备数量
+    [self.titleLabel setText:[NSString stringWithFormat:@"DEVICE(%@)",[NSString stringWithFormat:@"%ld",(long)self.dataList.count]]];
+    [self.refreshIcon.layer addAnimation:[MKCustomUIAdopter refreshAnimation:2.f] forKey:@"mk_refreshAnimationKey"];
+    [[MKBXPCentralManager shared] startScan];
 }
 
 #pragma mark - notice method
@@ -292,33 +269,13 @@ MKBXPTabBarControllerDelegate>
         [self presentViewController:alertController animated:YES completion:nil];
         return;
     }
-    [self leftButtonMethod];
+    [self refreshButtonPressed];
 }
 
 #pragma mark - 刷新
 - (void)startScanDevice {
-    self.leftButton.selected = NO;
-    [self leftButtonMethod];
-}
-
-- (void)scanTimerRun{
-    if (self.scanTimer) {
-        dispatch_cancel(self.scanTimer);
-    }
-    [[MKBXPCentralManager shared] startScan];
-    self.scanTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,dispatch_get_global_queue(0, 0));
-    //开始时间
-    dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, 60 * NSEC_PER_SEC);
-    //间隔时间
-    uint64_t interval = 60 * NSEC_PER_SEC;
-    dispatch_source_set_timer(self.scanTimer, start, interval, 0);
-    @weakify(self);
-    dispatch_source_set_event_handler(self.scanTimer, ^{
-        @strongify(self);
-        [[MKBXPCentralManager shared] stopScan];
-        [self needRefreshList];
-    });
-    dispatch_resume(self.scanTimer);
+    self.refreshButton.selected = NO;
+    [self refreshButtonPressed];
 }
 
 - (void)needRefreshList {
@@ -355,7 +312,6 @@ MKBXPTabBarControllerDelegate>
     if (!beacon || beacon.frameType == MKBXPUnknownFrameType) {
         return;
     }
-    
     if (ValidStr(self.buttonModel.searchMac) || ValidStr(self.buttonModel.searchName)) {
         //如果打开了过滤，先看是否需要过滤设备名字和mac地址
         //如果是设备信息帧,判断mac和名字是否符合要求
@@ -398,8 +354,8 @@ MKBXPTabBarControllerDelegate>
     if (!contain) {
         return;
     }
-    MKBXPScanBeaconModel *exsitModel = array[0];
-    [self beaconExistDataSource:exsitModel beacon:beacon];
+    [MKBXPScanPageAdopter updateInfoCellModel:array[0] beaconData:beacon];
+    [self needRefreshList];
 }
 
 - (void)processBeacon:(MKBXPBaseBeacon *)beacon{
@@ -410,165 +366,22 @@ MKBXPTabBarControllerDelegate>
     BOOL contain = ValidArray(array);
     if (contain) {
         //如果是已经存在了，如果是设备信息帧和TLM帧，直接替换，如果是URL、iBeacon、UID中的一种，则判断数据内容是否和已经存在的信息一致，如果一致，不处理，如果不一致，则直接加入到MKBXPScanBeaconModel的dataArray里面去
-        MKBXPScanBeaconModel *exsitModel = array[0];
-        [self beaconExistDataSource:exsitModel beacon:beacon];
-        return;
-    }
-    //不存在，则加入
-    [self beaconNoExistDataSource:beacon];
-}
-
-/**
- 将扫描到的设备加入到数据源
- 
- @param beacon 扫描到的设备
- */
-- (void)beaconNoExistDataSource:(MKBXPBaseBeacon *)beacon{
-    MKBXPScanBeaconModel *newModel = [[MKBXPScanBeaconModel alloc] init];
-    [self.dataList addObject:newModel];
-    newModel.index = self.dataList.count - 1;
-    newModel.identifier = beacon.peripheral.identifier.UUIDString;
-    newModel.rssi = beacon.rssi;
-    newModel.deviceName = (ValidStr(beacon.deviceName) ? beacon.deviceName : @"");
-    newModel.displayTime = @"N/A";
-    newModel.lastScanDate = kSystemTimeStamp;
-    newModel.connectable = beacon.connectEnable;
-    if (beacon.frameType == MKBXPDeviceInfoFrameType) {
-        //如果是设备信息帧
-        newModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
-        [self needRefreshList];
-    }else{
-        //如果是URL、TLM、UID、iBeacon中的一种，直接加入到newModel中的数据帧数组里面
-        [newModel.dataArray addObject:beacon];
-        beacon.index = 0;
-        
-        if (beacon.frameType == MKBXPThreeASensorFrameType) {
-            //如果是三轴的数据，并且新版本包含电压、传感器类型、Mac地址，则需要创建一个新的设备信息帧附加到当前model
-            MKBXPThreeASensorBeacon *tempBeacon = (MKBXPThreeASensorBeacon *)beacon;
-            if (ValidStr(tempBeacon.battery) && ValidStr(tempBeacon.macAddress)) {
-                MKBXPDeviceInfoBeacon *infoBeacon = [[MKBXPDeviceInfoBeacon alloc] init];
-                infoBeacon.macAddress = tempBeacon.macAddress;
-                infoBeacon.battery = tempBeacon.battery;
-                infoBeacon.rssi0M = tempBeacon.rssi0M;
-                infoBeacon.peripheral = tempBeacon.peripheral;
-                newModel.infoBeacon = infoBeacon;
-            }
-        }else if (beacon.frameType == MKBXPTHSensorFrameType) {
-            //如果是温湿度传感器的数据，并且新版本包含电压、传感器类型、Mac地址，则需要创建一个新的设备信息帧附加到当前model
-            MKBXPTHSensorBeacon *tempBeacon = (MKBXPTHSensorBeacon *)beacon;
-            if (ValidStr(tempBeacon.battery) && ValidStr(tempBeacon.macAddress)) {
-                MKBXPDeviceInfoBeacon *infoBeacon = [[MKBXPDeviceInfoBeacon alloc] init];
-                infoBeacon.macAddress = tempBeacon.macAddress;
-                infoBeacon.battery = tempBeacon.battery;
-                infoBeacon.rssi0M = tempBeacon.rssi0M;
-                infoBeacon.peripheral = tempBeacon.peripheral;
-                newModel.infoBeacon = infoBeacon;
-            }
-        }
-        
-        [self needRefreshList];
-    }
-}
-
-/**
- 如果是已经存在了，如果是设备信息帧和TLM帧，直接替换，如果是URL、iBeacon、UID中的一种，则判断数据内容是否和已经存在的信息一致，如果一致，不处理，如果不一致，则直接加入到MKBXPScanBeaconModel的dataArray里面去
- 
- @param exsitModel 位于哪个MKBXPScanBeaconModel下面
- @param beacon  新扫描到的数据帧
- */
-- (void)beaconExistDataSource:(MKBXPScanBeaconModel *)exsitModel beacon:(MKBXPBaseBeacon *)beacon{
-    exsitModel.connectable = beacon.connectEnable;
-    if (ValidStr(beacon.deviceName)) {
-        exsitModel.deviceName = beacon.deviceName;
-    }
-    if (ValidStr(exsitModel.lastScanDate)) {
-        exsitModel.displayTime = [NSString stringWithFormat:@"%@%ld%@",@"<->",(long)([kSystemTimeStamp integerValue] - [exsitModel.lastScanDate integerValue]) * 1000,@"ms"];
-        exsitModel.lastScanDate = kSystemTimeStamp;
-    }
-    if (beacon.frameType == MKBXPDeviceInfoFrameType) {
-        //设备信息帧
-        exsitModel.infoBeacon = (MKBXPDeviceInfoBeacon *)beacon;
+        [MKBXPScanPageAdopter updateInfoCellModel:array[0] beaconData:beacon];
         [self needRefreshList];
         return;
     }
-    if (beacon.frameType == MKBXPThreeASensorFrameType && !exsitModel.infoBeacon) {
-        //如果是三轴的数据并且当前model没有包含设备信息帧，新版本三轴数据包含电压、传感器类型、Mac地址,则需要创建一个新的设备信息帧附加到当前model
-        MKBXPThreeASensorBeacon *tempBeacon = (MKBXPThreeASensorBeacon *)beacon;
-        if (ValidStr(tempBeacon.battery) && ValidStr(tempBeacon.macAddress)) {
-            MKBXPDeviceInfoBeacon *infoBeacon = [[MKBXPDeviceInfoBeacon alloc] init];
-            infoBeacon.macAddress = tempBeacon.macAddress;
-            infoBeacon.battery = tempBeacon.battery;
-            infoBeacon.rssi0M = tempBeacon.rssi0M;
-            infoBeacon.peripheral = tempBeacon.peripheral;
-            exsitModel.infoBeacon = infoBeacon;
-        }
-    }else if (beacon.frameType == MKBXPTHSensorFrameType && !exsitModel.infoBeacon) {
-        //如果是温湿度的数据并且当前model没有包含设备信息帧，新版本三轴数据包含电压、传感器类型、Mac地址,则需要创建一个新的设备信息帧附加到当前model
-        MKBXPTHSensorBeacon *tempBeacon = (MKBXPTHSensorBeacon *)beacon;
-        if (ValidStr(tempBeacon.battery) && ValidStr(tempBeacon.macAddress)) {
-            MKBXPDeviceInfoBeacon *infoBeacon = [[MKBXPDeviceInfoBeacon alloc] init];
-            infoBeacon.macAddress = tempBeacon.macAddress;
-            infoBeacon.battery = tempBeacon.battery;
-            infoBeacon.rssi0M = tempBeacon.rssi0M;
-            infoBeacon.peripheral = tempBeacon.peripheral;
-            exsitModel.infoBeacon = infoBeacon;
-        }
-    }
-    //如果是URL、TLM、UID、iBeacon中的一种，
-    //如果eddStone帧数组里面已经包含该类型数据，则判断是否是TLM，如果是TLM直接替换数组中的数据，如果不是，则判断广播内容是否一样，如果一样，则不处理，如果不一样，直接加入到帧数组
-    for (MKBXPBaseBeacon *model in exsitModel.dataArray) {
-        if ([model.advertiseData isEqualToData:beacon.advertiseData]) {
-            //如果广播内容一样，直接舍弃数据
-            return;
-        }
-        if (model.frameType == beacon.frameType && (beacon.frameType == MKBXPTLMFrameType || beacon.frameType == MKBXPTHSensorFrameType || beacon.frameType == MKBXPThreeASensorFrameType)) {
-            //TLM信息帧需要替换
-            beacon.index = model.index;
-            [exsitModel.dataArray replaceObjectAtIndex:model.index withObject:beacon];
-            [self needRefreshList];
-            return;
-        }
-    }
-    //如果eddStone帧数组里面不包含该数据，直接添加
-    [exsitModel.dataArray addObject:beacon];
-    beacon.index = exsitModel.dataArray.count - 1;
-    NSArray *tempArray = [NSArray arrayWithArray:exsitModel.dataArray];
-    NSArray *sortedArray = [tempArray sortedArrayUsingComparator:^NSComparisonResult(MKBXPBaseBeacon *p1, MKBXPBaseBeacon *p2){
-        if (p1.frameType > p2.frameType) {
-            return NSOrderedDescending;
-        }else{
-            return NSOrderedAscending;
-        }
-    }];
-    [exsitModel.dataArray removeAllObjects];
-    for (NSInteger i = 0; i < sortedArray.count; i ++) {
-        MKBXPBaseBeacon *tempModel = sortedArray[i];
-        tempModel.index = i;
-        [exsitModel.dataArray addObject:tempModel];
-    }
+    //不存在，则加入到dataList里面去
+    MKBXPScanInfoCellModel *deviceModel = [MKBXPScanPageAdopter parseBaseBeaconToInfoModel:beacon];
+    [self.dataList addObject:deviceModel];
     [self needRefreshList];
 }
 
 #pragma mark - 连接设备
 
-- (void)connectPeripheral:(NSInteger )section{
-    if (section >= self.dataList.count) {
-        return;
-    }
-    MKBXPScanBeaconModel *model = self.dataList[section];
-    CBPeripheral *peripheral;
-    if (model.infoBeacon) {
-        peripheral = model.infoBeacon.peripheral;
-    }else if (ValidArray(model.dataArray)){
-        MKBXPBaseBeacon *beacon = model.dataArray[0];
-        peripheral = beacon.peripheral;
-    }
+- (void)connectPeripheral:(CBPeripheral *)peripheral{
     //停止扫描
     [self.refreshIcon.layer removeAnimationForKey:@"mk_refreshAnimationKey"];
     [[MKBXPCentralManager shared] stopScan];
-    if (self.scanTimer) {
-        dispatch_cancel(self.scanTimer);
-    }
     [[MKHudManager share] showHUDWithTitle:@"Loading..." inView:self.view isPenetration:NO];
     [[MKBXPCentralManager shared] readLockStateWithPeripheral:peripheral sucBlock:^(NSString *lockState) {
         [[MKHudManager share] hide];
@@ -631,6 +444,7 @@ MKBXPTabBarControllerDelegate>
     [MKBXPInterface bxp_readDeviceTypeWithSucBlock:^(id  _Nonnull returnData) {
         [[MKHudManager share] hide];
         [MKBXPConnectManager shared].deviceType = returnData[@"result"][@"deviceType"];
+        [MKBXPConnectManager shared].passwordVerification = ([MKBXPCentralManager shared].lockState == mk_bxp_lockStateOpen);
         [self readManuDate];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
@@ -665,8 +479,8 @@ MKBXPTabBarControllerDelegate>
 }
 
 - (void)connectFailed {
-    self.leftButton.selected = NO;
-    [self leftButtonMethod];
+    self.refreshButton.selected = NO;
+    [self refreshButtonPressed];
 }
 
 - (void)showDeviceTypeErrorAlert {
@@ -737,67 +551,39 @@ MKBXPTabBarControllerDelegate>
     [self performSelector:@selector(showCentralStatus) withObject:nil afterDelay:3.5f];
 }
 
-#pragma mark - cell 加载
-
-- (MKBaseCell *)loadCellDataWithIndexPath:(NSIndexPath *)indexPath{
-    MKBXPScanBeaconModel *model = self.dataList[indexPath.section];
-    MKBXPBaseBeacon *beacon = model.dataArray[indexPath.row - 1];
-    MKBaseCell *cell;
-    if (beacon.frameType == MKBXPUIDFrameType) {
-        //UID
-        cell = [MKBXPScanUIDCell initCellWithTableView:self.tableView];
-    }else if (beacon.frameType == MKBXPURLFrameType){
-        //URL
-        cell = [MKBXPScanURLCell initCellWithTableView:self.tableView];
-    }else if (beacon.frameType == MKBXPTLMFrameType){
-        //TLM
-        cell = [MKBXPScanTLMCell initCellWithTableView:self.tableView];
-    }else if (beacon.frameType == MKBXPBeaconFrameType){
-        cell = [MKBXPScanBeaconCell initCellWithTableView:self.tableView];
-    }else if (beacon.frameType == MKBXPTHSensorFrameType) {
-        cell = [MKBXPScanHTCell initCellWithTable:self.tableView];
-    }else if (beacon.frameType == MKBXPThreeASensorFrameType) {
-        cell = [MKBXPScanThreeASensorCell initCellWithTable:self.tableView];
-    }
-    if ([cell respondsToSelector:@selector(setBeacon:)]) {
-        [cell performSelector:@selector(setBeacon:) withObject:beacon];
-    }
-    return cell;
-}
-
-- (CGFloat )getiBeaconCellHeightWithBeacon:(MKBXPBaseBeacon *)beacon{
-    MKBXPiBeacon *iBeaconModel = (MKBXPiBeacon *)beacon;
-    return [MKBXPScanBeaconCell getCellHeightWithUUID:iBeaconModel.uuid];
-}
-
 #pragma mark - UI
 - (void)loadSubViews {
     [self.view setBackgroundColor:RGBCOLOR(237, 243, 250)];
     [self.rightButton setImage:LOADICON(@"MKBeaconXPlus", @"MKBXPScanViewController", @"bxp_scanRightAboutIcon.png") forState:UIControlStateNormal];
     self.titleLabel.text = @"DEVICE(0)";
-    [self.leftButton setImage:nil forState:UIControlStateNormal];
-    [self.leftButton addSubview:self.refreshIcon];
-    [self.refreshIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(self.leftButton.mas_centerX);
-        make.width.mas_equalTo(22.f);
-        make.centerY.mas_equalTo(self.leftButton.mas_centerY);
-        make.height.mas_equalTo(22.f);
-    }];
-    UIView *headerView = [[UIView alloc] init];
-    
-    [self.view addSubview:headerView];
-    [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(offset_X);
-        make.right.mas_equalTo(-offset_X);
-        make.top.mas_equalTo(defaultTopInset);
-        make.height.mas_equalTo(searchButtonHeight + 2 * offset_X);
-    }];
-    
-    [headerView addSubview:self.searchButton];
-    [self.searchButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIView *topView = [[UIView alloc] init];
+    topView.backgroundColor = RGBCOLOR(237, 243, 250);
+    [self.view addSubview:topView];
+    [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
         make.right.mas_equalTo(0);
-        make.top.mas_equalTo(offset_X);
+        make.top.mas_equalTo(defaultTopInset);
+        make.height.mas_equalTo(searchButtonHeight + 2 * 15.f);
+    }];
+    [self.refreshButton addSubview:self.refreshIcon];
+    [topView addSubview:self.refreshButton];
+    [self.refreshIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.refreshButton.mas_centerX);
+        make.centerY.mas_equalTo(self.refreshButton.mas_centerY);
+        make.width.mas_equalTo(22.f);
+        make.height.mas_equalTo(22.f);
+    }];
+    [self.refreshButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-15.f);
+        make.width.mas_equalTo(40.f);
+        make.top.mas_equalTo(15.f);
+        make.height.mas_equalTo(40.f);
+    }];
+    [topView addSubview:self.searchButton];
+    [self.searchButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15.f);
+        make.right.mas_equalTo(self.refreshButton.mas_left).mas_offset(-10.f);
+        make.top.mas_equalTo(15.f);
         make.height.mas_equalTo(searchButtonHeight);
     }];
     
@@ -805,8 +591,8 @@ MKBXPTabBarControllerDelegate>
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10.f);
         make.right.mas_equalTo(-10.f);
-        make.top.mas_equalTo(headerView.mas_bottom);
-        make.bottom.mas_equalTo(-VirtualHomeHeight);
+        make.top.mas_equalTo(topView.mas_bottom);
+        make.bottom.mas_equalTo(-VirtualHomeHeight - 5.f);
     }];
 }
 
@@ -824,22 +610,22 @@ MKBXPTabBarControllerDelegate>
 - (UIImageView *)refreshIcon {
     if (!_refreshIcon) {
         _refreshIcon = [[UIImageView alloc] init];
-        _refreshIcon.image = LOADICON(@"MKBeaconXPlus", @"MKBXPScanViewController", @"bxp_scanRefresh.png");
+        _refreshIcon.image = LOADICON(@"MKBeaconXPlus", @"MKBXPScanViewController", @"bxp_scan_refreshIcon.png");
     }
     return _refreshIcon;
 }
 
-- (MKBXPScanSearchButton *)searchButton {
+- (MKBXScanSearchButton *)searchButton {
     if (!_searchButton) {
-        _searchButton = [[MKBXPScanSearchButton alloc] init];
+        _searchButton = [[MKBXScanSearchButton alloc] init];
         _searchButton.delegate = self;
     }
     return _searchButton;
 }
 
-- (MKBXPSearchButtonModel *)buttonModel {
+- (MKBXScanSearchButtonModel *)buttonModel {
     if (!_buttonModel) {
-        _buttonModel = [[MKBXPSearchButtonModel alloc] init];
+        _buttonModel = [[MKBXScanSearchButtonModel alloc] init];
         _buttonModel.placeholder = @"Edit Filter";
         _buttonModel.minSearchRssi = -100;
         _buttonModel.searchRssi = -100;
@@ -852,6 +638,16 @@ MKBXPTabBarControllerDelegate>
         _dataList = [NSMutableArray array];
     }
     return _dataList;
+}
+
+- (UIButton *)refreshButton {
+    if (!_refreshButton) {
+        _refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_refreshButton addTarget:self
+                           action:@selector(refreshButtonPressed)
+                 forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _refreshButton;
 }
 
 @end

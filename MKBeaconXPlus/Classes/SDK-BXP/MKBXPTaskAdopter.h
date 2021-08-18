@@ -11,7 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class CBCharacteristic;
-
 @interface MKBXPTaskAdopter : NSObject
 
 + (NSDictionary *)parseReadDataWithCharacteristic:(CBCharacteristic *)characteristic;
