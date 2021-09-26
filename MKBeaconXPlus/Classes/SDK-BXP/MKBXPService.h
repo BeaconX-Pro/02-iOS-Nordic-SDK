@@ -42,5 +42,6 @@ static NSString *const bxp_temperatureHumidityUUID = @"e62a0009-1362-4f28-9327-f
 static NSString *const bxp_recordTHUUID = @"e62a000A-1362-4f28-9327-f5b74e970801";
 static NSString *const bxp_writeUUID = @"e62a0002-1362-4f28-9327-f5b74e970801";
 static NSString *const bxp_notifyUUID = @"e62a0003-1362-4f28-9327-f5b74e970801";
-
+static NSString *const bxp_lightSensorUUID = @"e62a000b-1362-4f28-9327-f5b74e970801";
+static NSString *const bxp_lightStatusUUID = @"e62a000c-1362-4f28-9327-f5b74e970801";
 

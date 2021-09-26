@@ -80,6 +80,25 @@ static NSTimeInterval const kRefreshInterval = 0.5f;
 @implementation MKBXPAboutPageModel
 @end
 
+@interface MKBXPDeviceTimeDataModel : NSObject<MKBXPDeviceTimeProtocol>
+
+@property (nonatomic, assign)NSInteger year;
+
+@property (nonatomic, assign)NSInteger month;
+
+@property (nonatomic, assign)NSInteger day;
+
+@property (nonatomic, assign)NSInteger hour;
+
+@property (nonatomic, assign)NSInteger minutes;
+
+@property (nonatomic, assign)NSInteger seconds;
+
+@end
+
+@implementation MKBXPDeviceTimeDataModel
+@end
+
 @interface MKBXPScanViewController ()<UITableViewDelegate,
 UITableViewDataSource,
 MKBXScanSearchButtonDelegate,
@@ -460,6 +479,45 @@ MKBXPTabBarControllerDelegate>
         [[MKHudManager share] hide];
         NSString *date = [returnData[@"result"][@"productionDate"] stringByReplacingOccurrencesOfString:@"/" withString:@""];
         [MKBXPConnectManager shared].newVersion = ([date integerValue] >= 20210101);
+        if ([[MKBXPConnectManager shared].deviceType isEqualToString:@"02"]
+            || [[MKBXPConnectManager shared].deviceType isEqualToString:@"03"]
+            || [[MKBXPConnectManager shared].deviceType isEqualToString:@"04"]
+            || [[MKBXPConnectManager shared].deviceType isEqualToString:@"05"]) {
+            //温湿度和光感需要同步时间
+            [self syncTimeToDevice];
+            return;
+        }
+        [self performSelector:@selector(pushTabBarPage) withObject:nil afterDelay:0.3f];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self connectFailed];
+    }];
+}
+
+- (void)syncTimeToDevice {
+    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *toTimeZone = [NSTimeZone localTimeZone];
+    //转换后源日期与世界标准时间的偏移量
+    NSInteger toGMTOffset = [toTimeZone secondsFromGMTForDate:[NSDate date]];
+    formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
+    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:toGMTOffset];
+    NSString *date = [formatter stringFromDate:[NSDate date]];
+    NSArray *dateList = [date componentsSeparatedByString:@"-"];
+    
+    MKBXPDeviceTimeDataModel *dateModel = [[MKBXPDeviceTimeDataModel alloc] init];
+    dateModel.year = [dateList[0] integerValue];
+    dateModel.month = [dateList[1] integerValue];
+    dateModel.day = [dateList[2] integerValue];
+    dateModel.hour = [dateList[3] integerValue];
+    dateModel.minutes = [dateList[4] integerValue];
+    dateModel.seconds = [dateList[5] integerValue];
+    
+    [MKBXPInterface bxp_configDeviceTime:dateModel sucBlock:^(id  _Nonnull returnData) {
+        [[MKHudManager share] hide];
         [self performSelector:@selector(pushTabBarPage) withObject:nil afterDelay:0.3f];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];

@@ -216,6 +216,18 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bxp_readButtonPowerStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                   failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Read the status of light sensor.
+/// @param sucBlock success callback
+/// @param failedBlock failed callback
++ (void)bxp_readLightSensorStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock;
+
++ (void)bxp_readLEDTriggerStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                 failedBlock:(void (^)(NSError *error))failedBlock;
+
++ (void)bxp_readResetBeaconByButtonStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                          failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

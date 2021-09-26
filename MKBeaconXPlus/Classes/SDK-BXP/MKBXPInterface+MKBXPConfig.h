@@ -403,6 +403,16 @@ typedef NS_ENUM(NSInteger, mk_bxp_HTStorageConditions) {
                                     sucBlock:(void (^)(id returnData))sucBlock
                                  failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Setting the current active SLOT ambient light detected trigger condition
+/// @param time duration, unit s,0~65535
+/// @param start YES: Start advertising, NO: stop advertising
+/// @param sucBlock success callback
+/// @param failedBlock failed callback
++ (void)bxp_configTriggerConditionsWithAmbientLightDetected:(NSInteger)time
+                                                      start:(BOOL)start
+                                                   sucBlock:(void (^)(id returnData))sucBlock
+                                                failedBlock:(void (^)(NSError *error))failedBlock;
+
 /**
  Delete the temperature and humidity data stored in the device
 
@@ -420,6 +430,23 @@ typedef NS_ENUM(NSInteger, mk_bxp_HTStorageConditions) {
 + (void)bxp_configButtonPowerStatus:(BOOL)isOn
                            sucBlock:(void (^)(id returnData))sucBlock
                         failedBlock:(void (^)(NSError *error))failedBlock;
+
+/**
+ Delete the light sensor data stored in the device
+
+ @param sucBlock success callback
+ @param failedBlock failed callback
+ */
++ (void)bxp_clearLightSensorDatasWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock;
+
++ (void)bxp_configLEDTriggerStatus:(BOOL)isOn
+                          sucBlock:(void (^)(id returnData))sucBlock
+                       failedBlock:(void (^)(NSError *error))failedBlock;
+
++ (void)bxp_configResetBeaconByButtonStatus:(BOOL)isOn
+                                   sucBlock:(void (^)(id returnData))sucBlock
+                                failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

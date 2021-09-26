@@ -60,7 +60,9 @@
                                          [CBUUID UUIDWithString:bxp_disconnectListenUUID],
                                          [CBUUID UUIDWithString:bxp_threeSensorUUID],
                                          [CBUUID UUIDWithString:bxp_temperatureHumidityUUID],
-                                         [CBUUID UUIDWithString:bxp_recordTHUUID]];
+                                         [CBUUID UUIDWithString:bxp_recordTHUUID],
+                                         [CBUUID UUIDWithString:bxp_lightSensorUUID],
+                                         [CBUUID UUIDWithString:bxp_lightStatusUUID]];
             [self.peripheral discoverCharacteristics:characteristics forService:service];
         }else if ([service.UUID isEqual:[CBUUID UUIDWithString:bxp_deviceServiceUUID]]) {
             NSArray *characteristics = @[[CBUUID UUIDWithString:bxp_modeIDUUID],

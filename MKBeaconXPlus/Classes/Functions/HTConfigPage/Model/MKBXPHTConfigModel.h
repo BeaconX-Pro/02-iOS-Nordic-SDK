@@ -53,23 +53,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// triggerType=3才有值
 @property (nonatomic, copy)NSString *storageTime;
 
-/// 2020/03/04
-@property (nonatomic, copy)NSString *date;
-
-/// 15:01:35
-@property (nonatomic, copy)NSString *time;
-
 /// 读取数据
 /// @param sucBlock 成功回调
 /// @param failedBlock 失败回调
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock
                  failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// 配置设备时间，包含了配置完时间之后从新读取设备时间，并更新date和time属性
-/// @param sucBlock 成功回调
-/// @param failedBlock 失败回调
-- (void)configDeviceTimeWithSucBlock:(void (^)(void))sucBlock
-                         failedBlock:(void (^)(NSError *error))failedBlock;
 
 /// 配置参数
 /// @param interval Sampling Interval

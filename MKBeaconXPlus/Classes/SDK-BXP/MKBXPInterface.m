@@ -199,4 +199,30 @@
                           failedBlock:failedBlock];
 }
 
++ (void)bxp_readLightSensorStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addReadTaskWithTaskID:mk_bxp_taskReadLightSensorStatusOperation
+                           characteristic:peripheral.bxp_lightStatus
+                                 sucBlock:sucBlock
+                              failedBlock:failedBlock];
+}
+
++ (void)bxp_readLEDTriggerStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                 failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:mk_bxp_taskReadLEDTriggerStatusOperation
+                          commandData:@"ea470000"
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
++ (void)bxp_readResetBeaconByButtonStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                          failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:mk_bxp_taskReadResetBeaconByButtonStatusOperation
+                          commandData:@"ea480000"
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
 @end

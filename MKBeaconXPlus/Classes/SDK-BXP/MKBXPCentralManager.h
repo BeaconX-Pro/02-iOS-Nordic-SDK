@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString *const mk_bxp_receiveThreeAxisAccelerometerDataNotification;
 extern NSString *const mk_bxp_receiveHTDataNotification;
 extern NSString *const mk_bxp_receiveRecordHTDataNotification;
+extern NSString *const mk_bxp_receiveLightSensorDataNotification;
+extern NSString *const mk_bxp_receiveLightSensorStatusDataNotification;
 
 /*
  After connecting the device, if no password is entered within one minute, it returns 0x00. After successful password change, it returns 0x01. Factory reset of the device,it returns 0x02.
@@ -102,15 +104,12 @@ typedef NS_ENUM(NSInteger, mk_bxp_lockState) {
 /// Bluetooth center stops scanning
 - (void)stopScan;
 
-/**
- Interface of connection
- 
- @param peripheral peripheral
- @param password password,ascii
- @param progressBlock progress callback
- @param sucBlock Connection succeed callback
- @param failedBlock Connection failed callback
- */
+/// Interface of connection
+/// @param peripheral peripheral
+/// @param password password,16 characters.
+/// @param progressBlock progress callback
+/// @param sucBlock succeed callback
+/// @param failedBlock failed callback
 - (void)connectPeripheral:(nonnull CBPeripheral *)peripheral
                  password:(nonnull NSString *)password
             progressBlock:(void (^)(float progress))progressBlock
@@ -192,6 +191,22 @@ typedef NS_ENUM(NSInteger, mk_bxp_lockState) {
  @return result
  */
 - (BOOL)notifyRecordTHData:(BOOL)notify;
+
+/**
+ Whether to monitor the light sensor data.
+
+ @param notify BOOL
+ @return result
+ */
+- (BOOL)notifyLightSensorData:(BOOL)notify;
+
+/**
+ Whether to monitor the light sensor status data.
+
+ @param notify BOOL
+ @return result
+ */
+- (BOOL)notifyLightStatusData:(BOOL)notify;
 
 @end
 

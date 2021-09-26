@@ -501,8 +501,12 @@ MKBXSlotConfigTriggerCellDelegate>
         //同时带有LIS3DH及SHT3X传感器
         return @[tlmModel,uidModel,urlModel,iBeaconModel,deviceInfoModel,thModel,axisModel,noDataModel];
     }
-    //不带传感器
-    return @[tlmModel,uidModel,urlModel,iBeaconModel,deviceInfoModel,noDataModel];
+    if ([[MKBXPConnectManager shared].deviceType isEqualToString:@"04"]) {
+        //光感
+        return @[tlmModel,uidModel,urlModel,iBeaconModel,deviceInfoModel,noDataModel];
+    }
+    //带LIS3DH3轴加速度计和光感
+    return @[tlmModel,uidModel,urlModel,iBeaconModel,deviceInfoModel,axisModel,noDataModel];
 }
 
 @end

@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "MKBXDFUProtocol.h"
+#import "MKDFUProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MKBXPDFUModel : NSObject<MKBXDFUProtocol>
+@interface MKBXPDFUModel : NSObject<MKDFUProtocol>
 
 /// 当前连接的设备
 @property (nonatomic, strong)CBPeripheral *peripheral;

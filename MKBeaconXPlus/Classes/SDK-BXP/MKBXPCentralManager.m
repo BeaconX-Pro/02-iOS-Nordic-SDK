@@ -28,6 +28,9 @@ NSString *const mk_bxp_deviceDisconnectTypeNotification = @"mk_bxp_deviceDisconn
 NSString *const mk_bxp_peripheralConnectStateChangedNotification = @"mk_bxp_peripheralConnectStateChangedNotification";
 NSString *const mk_bxp_centralManagerStateChangedNotification = @"mk_bxp_centralManagerStateChangedNotification";
 NSString *const mk_bxp_peripheralLockStateChangedNotification = @"mk_bxp_peripheralLockStateChangedNotification";
+NSString *const mk_bxp_receiveLightSensorDataNotification = @"mk_bxp_receiveLightSensorDataNotification";
+NSString *const mk_bxp_receiveLightSensorStatusDataNotification = @"mk_bxp_receiveLightSensorStatusDataNotification";
+
 
 static MKBXPCentralManager *manager = nil;
 static dispatch_once_t onceToken;
@@ -98,6 +101,7 @@ static dispatch_once_t onceToken;
 - (void)MKBLEBaseCentralManagerDiscoverPeripheral:(CBPeripheral *)peripheral
                                 advertisementData:(NSDictionary<NSString *,id> *)advertisementData
                                              RSSI:(NSNumber *)RSSI {
+    NSLog(@"%@-%@-%@",peripheral,RSSI,advertisementData);
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSArray *beaconList = [MKBXPBaseBeacon parseAdvData:advertisementData];
         for (NSInteger i = 0; i < beaconList.count; i ++) {
@@ -252,6 +256,35 @@ static dispatch_once_t onceToken;
                                                                   userInfo:@{@"dataList":dataList}];
             });
         }
+        return;
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_lightSensorUUID]]) {
+        //光感数据
+        NSString *content = [MKBLEBaseSDKAdopter hexStringFromData:characteristic.value];
+        if (content.length == 14) {
+            NSString *date = [MKBXPAdopter deviceTime:[content substringWithRange:NSMakeRange(0, 12)]];
+            NSString *state = [content substringWithRange:NSMakeRange(12, 2)];
+            NSDictionary *lightData = @{
+                @"date":date,
+                @"state":state,
+            };
+            MKBLEBase_main_safe(^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:mk_bxp_receiveLightSensorDataNotification
+                                                                    object:nil
+                                                                  userInfo:lightData];
+            });
+            return;
+        }
+        return;
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_lightStatusUUID]]) {
+        //光感状态数据
+        NSString *content = [MKBLEBaseSDKAdopter hexStringFromData:characteristic.value];
+        MKBLEBase_main_safe(^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:mk_bxp_receiveLightSensorStatusDataNotification
+                                                                object:nil
+                                                              userInfo:@{@"status":content}];
+        });
         return;
     }
 }
@@ -417,6 +450,22 @@ static dispatch_once_t onceToken;
         return NO;
     }
     [self.peripheral setNotifyValue:notify forCharacteristic:self.peripheral.bxp_recordTH];
+    return YES;
+}
+
+- (BOOL)notifyLightSensorData:(BOOL)notify {
+    if (self.connectState != mk_bxp_centralConnectStatusConnected || self.peripheral == nil || self.peripheral.bxp_lightSensor == nil) {
+        return NO;
+    }
+    [self.peripheral setNotifyValue:notify forCharacteristic:self.peripheral.bxp_lightSensor];
+    return YES;
+}
+
+- (BOOL)notifyLightStatusData:(BOOL)notify {
+    if (self.connectState != mk_bxp_centralConnectStatusConnected || self.peripheral == nil || self.peripheral.bxp_lightStatus == nil) {
+        return NO;
+    }
+    [self.peripheral setNotifyValue:notify forCharacteristic:self.peripheral.bxp_lightStatus];
     return YES;
 }
 

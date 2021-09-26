@@ -33,6 +33,7 @@
 #import "UIImage+MKAdd.h"
 #import "UINavigationItem+MKAdd.h"
 #import "UIScrollView+MKAdd.h"
+#import "UISegmentedControl+MKAdd.h"
 #import "UITableView+MKAdd.h"
 #import "UITextField+MKAdd.h"
 #import "UIView+MKAdd.h"

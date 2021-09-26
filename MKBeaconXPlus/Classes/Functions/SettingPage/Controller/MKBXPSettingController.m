@@ -18,8 +18,7 @@
 #import "MKHudManager.h"
 #import "MKNormalTextCell.h"
 #import "MKAlertController.h"
-
-#import "MKBXUpdateController.h"
+#import "MKUpdateController.h"
 
 #import "MKBXPConnectManager.h"
 
@@ -205,6 +204,13 @@
 #pragma mark - section1
 - (void)loadSection1Datas {
     [self.section1List removeAllObjects];
+    if ([MKBXPConnectManager shared].passwordVerification) {
+        MKNormalTextCellModel *resetModel = [[MKNormalTextCellModel alloc] init];
+        resetModel.leftMsg = @"Reset Beacon";
+        resetModel.showRightIcon = YES;
+        resetModel.methodName = @"factoryReset";
+        [self.section1List addObject:resetModel];
+    }
     if (ValidStr([MKBXPConnectManager shared].password)) {
         //是否能够修改密码取决于用户是否是输入密码这种情况进来的
         MKNormalTextCellModel *passwordModel = [[MKNormalTextCellModel alloc] init];
@@ -212,13 +218,6 @@
         passwordModel.showRightIcon = YES;
         passwordModel.methodName = @"configPassword";
         [self.section1List addObject:passwordModel];
-    }
-    if ([MKBXPConnectManager shared].passwordVerification) {
-        MKNormalTextCellModel *resetModel = [[MKNormalTextCellModel alloc] init];
-        resetModel.leftMsg = @"Remote Reset";
-        resetModel.showRightIcon = YES;
-        resetModel.methodName = @"factoryReset";
-        [self.section1List addObject:resetModel];
     }
 }
 
@@ -327,7 +326,7 @@
 #pragma mark - section2
 - (void)loadSection2Datas {
     MKNormalTextCellModel *dfuModel = [[MKNormalTextCellModel alloc] init];
-    dfuModel.leftMsg = @"OTA DFU";
+    dfuModel.leftMsg = @"DFU";
     dfuModel.showRightIcon = YES;
     dfuModel.methodName = @"pushDFUPage";
     [self.section2List addObject:dfuModel];
@@ -343,7 +342,7 @@
         @strongify(self);
         self.dfuModule = YES;
     };
-    MKBXUpdateController *vc = [[MKBXUpdateController alloc] init];
+    MKUpdateController *vc = [[MKUpdateController alloc] init];
     vc.protocol = dfuModel;
     [self.navigationController pushViewController:vc animated:YES];
 }

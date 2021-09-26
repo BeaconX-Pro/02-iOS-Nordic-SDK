@@ -23,7 +23,6 @@
 
 #import "MKBXPHTConfigHeaderView.h"
 #import "MKBXPStorageTriggerCell.h"
-#import "MKBXPSyncBeaconTimeCell.h"
 #import "MKBXPHTConfigNormalCell.h"
 
 #import "MKBXPHTConfigModel.h"
@@ -31,8 +30,7 @@
 #import "MKBXPExportDataController.h"
 
 @interface MKBXPHTConfigController ()<UITableViewDelegate,
-UITableViewDataSource,
-MKBXPSyncBeaconTimeCellDelegate>
+UITableViewDataSource>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
 
@@ -41,8 +39,6 @@ MKBXPSyncBeaconTimeCellDelegate>
 @property (nonatomic, strong)NSMutableArray *section0List;
 
 @property (nonatomic, strong)NSMutableArray *section1List;
-
-@property (nonatomic, strong)NSMutableArray *section2List;
 
 @property (nonatomic, strong)MKBXPHTConfigModel *dataModel;
 
@@ -116,14 +112,11 @@ MKBXPSyncBeaconTimeCellDelegate>
     if (indexPath.section == 0) {
         return 190.f;
     }
-    if (indexPath.section == 1) {
-        return 90.f;
-    }
     return 55.f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2 && indexPath.row == 0) {
+    if (indexPath.section == 1 && indexPath.row == 0) {
         //导出页面
         MKBXPExportDataController *vc = [[MKBXPExportDataController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
@@ -133,7 +126,7 @@ MKBXPSyncBeaconTimeCellDelegate>
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -143,42 +136,21 @@ MKBXPSyncBeaconTimeCellDelegate>
     if (section == 1) {
         return self.section1List.count;
     }
-    return self.section2List.count;
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return self.triggerCell;
     }
-    if (indexPath.section == 1) {
-        MKBXPSyncBeaconTimeCell *cell = [MKBXPSyncBeaconTimeCell initCellWithTableView:tableView];
-        cell.dataModel = self.section1List[indexPath.row];
-        cell.delegate = self;
-        return cell;
-    }
     MKBXPHTConfigNormalCell *cell = [MKBXPHTConfigNormalCell initCellWithTableView:tableView];
-    cell.dataModel = self.section2List[indexPath.row];
+    cell.dataModel = self.section1List[indexPath.row];
     return cell;
 }
 
 #pragma mark - MKBXPHTConfigHeaderViewDelegate
 - (void)bxp_samplingIntervalChanged:(NSString *)interval {
     self.dataModel.samplingInterval = interval;
-}
-
-#pragma mark - MKBXPSyncBeaconTimeCellDelegate
-- (void)bxp_needUpdateDate {
-    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-    @weakify(self);
-    [self.dataModel configDeviceTimeWithSucBlock:^{
-        @strongify(self);
-        [[MKHudManager share] hide];
-        [self reloadDeviceTime];
-    } failedBlock:^(NSError * _Nonnull error) {
-        @strongify(self);
-        [[MKHudManager share] hide];
-        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-    }];
 }
 
 #pragma mark - notes
@@ -205,14 +177,6 @@ MKBXPSyncBeaconTimeCellDelegate>
     }];
 }
 
-- (void)reloadDeviceTime {
-    MKBXPSyncBeaconTimeCellModel *timeModel = self.section1List[0];
-    timeModel.date = self.dataModel.date;
-    timeModel.time = self.dataModel.time;
-    
-    [self.tableView mk_reloadSection:1 withRowAnimation:UITableViewRowAnimationNone];
-}
-
 #pragma mark - 列表加载数据
 - (void)loadSectionDatas {
     [self.headerView updateSamplingInterval:self.dataModel.samplingInterval];
@@ -225,14 +189,9 @@ MKBXPSyncBeaconTimeCellDelegate>
     
     [self.section0List addObject:triggerModel];
     
-    MKBXPSyncBeaconTimeCellModel *timeModel = [[MKBXPSyncBeaconTimeCellModel alloc] init];
-    timeModel.date = self.dataModel.date;
-    timeModel.time = self.dataModel.time;
-    [self.section1List addObject:timeModel];
-    
     MKBXPHTConfigNormalCellModel *textModel = [[MKBXPHTConfigNormalCellModel alloc] init];
     textModel.msg = @"Export T&H data";
-    [self.section2List addObject:textModel];
+    [self.section1List addObject:textModel];
     
     [self.tableView reloadData];
 }
@@ -283,13 +242,6 @@ MKBXPSyncBeaconTimeCellDelegate>
         _section1List = [NSMutableArray array];
     }
     return _section1List;
-}
-
-- (NSMutableArray *)section2List {
-    if (!_section2List) {
-        _section2List = [NSMutableArray array];
-    }
-    return _section2List;
 }
 
 - (MKBXPHTConfigModel *)dataModel {

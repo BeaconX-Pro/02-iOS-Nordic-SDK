@@ -500,6 +500,23 @@
                           failedBlock:failedBlock];
 }
 
++ (void)bxp_configTriggerConditionsWithAmbientLightDetected:(NSInteger)time
+                                                      start:(BOOL)start
+                                                   sucBlock:(void (^)(id returnData))sucBlock
+                                                failedBlock:(void (^)(NSError *error))failedBlock {
+    if (time < 0 || time > 65535) {
+        [self operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *timeString = [MKBLEBaseSDKAdopter fetchHexValue:time byteLen:2];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ea39000506",timeString,(time == 0) ? @"00" : @"01",(start ? @"01" : @"02")];
+    [centralManager addTaskWithTaskID:mk_bxp_taskConfigTriggerConditionsOperation
+                          commandData:commandString
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
 + (void)bxp_deleteBXPRecordHTDatasWithSucBlock:(void (^)(id returnData))sucBlock
                                    failedBlock:(void (^)(NSError *error))failedBlock {
     [centralManager addTaskWithTaskID:mk_bxp_taskDeleteRecordHTDataOperation
@@ -514,6 +531,37 @@
                         failedBlock:(void (^)(NSError *error))failedBlock {
     NSString *commandString = (isOn ? @"ea38000101" : @"ea38000100");
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigButtonPowerStatusOperation
+                          commandData:commandString
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
++ (void)bxp_clearLightSensorDatasWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:mk_bxp_taskDeleteRecordLightSensorDataOperation
+                          commandData:@"ea460000"
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
++ (void)bxp_configLEDTriggerStatus:(BOOL)isOn
+                          sucBlock:(void (^)(id returnData))sucBlock
+                       failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = (isOn ? @"ea57000101" : @"ea57000100");
+    [centralManager addTaskWithTaskID:mk_bxp_taskConfigLEDTriggerStatusOperation
+                          commandData:commandString
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
++ (void)bxp_configResetBeaconByButtonStatus:(BOOL)isOn
+                                   sucBlock:(void (^)(id returnData))sucBlock
+                                failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = (isOn ? @"ea58000101" : @"ea58000100");
+    [centralManager addTaskWithTaskID:mk_bxp_taskConfigResetBeaconByButtonStatusOperation
                           commandData:commandString
                        characteristic:peripheral.bxp_customWrite
                              sucBlock:sucBlock

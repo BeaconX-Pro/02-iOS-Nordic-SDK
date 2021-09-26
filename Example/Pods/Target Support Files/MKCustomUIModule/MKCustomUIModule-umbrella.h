@@ -25,9 +25,19 @@
 #import "MKTextButtonCell.h"
 #import "MKTextFieldCell.h"
 #import "MKTextSwitchCell.h"
+#import "MKCAFileSelectController.h"
+#import "MKUpdateController.h"
+#import "MKDFUModule.h"
+#import "MKDFUProtocol.h"
+#import "MKAboutController.h"
+#import "MKAboutCellModel.h"
+#import "MKAboutPageCell.h"
 #import "MKAlertController.h"
 #import "MKTrackerAboutController.h"
 #import "MKTrackerLogController.h"
+#import "MKMQTTGeneralParamsView.h"
+#import "MKMQTTSSLCertificateView.h"
+#import "MKMQTTUserCredentialsView.h"
 #import "MKCustomUIAdopter.h"
 #import "MKHaveRefreshCollectionView.h"
 #import "MKHaveRefreshTableView.h"
@@ -42,6 +52,8 @@
 #import "MKSlider.h"
 #import "MKTableSectionLineHeader.h"
 #import "MKTextField.h"
+#import "NirKxMenu.h"
+#import "MKWifiAlertView.h"
 
 FOUNDATION_EXPORT double MKCustomUIModuleVersionNumber;
 FOUNDATION_EXPORT const unsigned char MKCustomUIModuleVersionString[];

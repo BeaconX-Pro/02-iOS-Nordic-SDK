@@ -28,56 +28,82 @@
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_modeIDUUID]]){
         //产品型号信息
         return [self modeIDData:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_productionDateUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_productionDateUUID]]){
         //生产日期
         return [self productionDate:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_firmwareUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_firmwareUUID]]){
         //固件信息
         return [self firmwareData:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_hardwareUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_hardwareUUID]]){
         //硬件信息
         return [self hardwareData:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_softwareUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_softwareUUID]]){
         //软件版本
         return [self softwareData:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_vendorUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_vendorUUID]]){
         //厂商信息
         return [self vendorData:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_capabilitiesUUID]]){
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_activeSlotUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_capabilitiesUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_activeSlotUUID]]){
         //获取当前活跃的通道
         return [self activeSlot:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_advertisingIntervalUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_advertisingIntervalUUID]]){
         //获取当前活跃通道的广播间隔
         return [self slotAdvertisingInterval:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_radioTxPowerUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_radioTxPowerUUID]]){
         //获取当前活跃通道的发射功率
         return [self radioTxPower:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_advertisedTxPowerUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_advertisedTxPowerUUID]]){
         //获取当前活跃通道的广播功率
         return [self advTxPower:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_lockStateUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_lockStateUUID]]){
         return [self lockState:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_unlockUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_unlockUUID]]){
         return [self unlockData:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_publicECDHKeyUUID]]){
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_eidIdentityKeyUUID]]){
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_advSlotDataUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_publicECDHKeyUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_eidIdentityKeyUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_advSlotDataUUID]]){
         //获取当前活跃通道的广播信息
         return [self advDataWithOriData:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_factoryResetUUID]]){
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_notifyUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_factoryResetUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_notifyUUID]]){
         return [self customData:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_batteryUUID]]){
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_batteryUUID]]){
         //电池服务
         return [self batteryData:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_deviceTypeUUID]]) {
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_deviceTypeUUID]]) {
         //读取设备类型
         return [self parseDeviceType:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_slotTypeUUID]]) {
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_slotTypeUUID]]) {
         //读取通道类型
         return [self parseSlotType:readData];
-    }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_remainConnectableUUID]]) {
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_lightStatusUUID]]) {
+        //读取光感状态
+        NSString *content = [MKBLEBaseSDKAdopter hexStringFromData:readData];
+        return [self dataParserGetDataSuccess:@{@"status":content} operationID:mk_bxp_taskReadLightSensorStatusOperation];
+    }
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_remainConnectableUUID]]) {
         //可连接状态
         return [self parseConnectStatus:readData];
     }
@@ -437,6 +463,32 @@
         //删除已储存的温湿度数据
         operationID = mk_bxp_taskDeleteRecordHTDataOperation;
         returnDic = @{@"success":@(YES)};
+    }else if ([function isEqualToString:@"46"] && content.length == 8){
+        //删除已储存的光感数据
+        operationID = mk_bxp_taskDeleteRecordLightSensorDataOperation;
+        returnDic = @{@"success":@(YES)};
+    }else if ([function isEqualToString:@"47"] && content.length == 10) {
+        //读取LED触发提醒
+        BOOL isOn = [[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"];
+        returnDic = @{
+            @"isOn":@(isOn),
+        };
+        operationID = mk_bxp_taskReadLEDTriggerStatusOperation;
+    }else if ([function isEqualToString:@"57"] && content.length == 8) {
+        //设置LED触发提醒
+        operationID = mk_bxp_taskConfigLEDTriggerStatusOperation;
+        returnDic = @{@"success":@(YES)};
+    }else if ([function isEqualToString:@"48"] && content.length == 10) {
+        //读取设备是否可以按键开关机
+        BOOL isOn = [[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"];
+        returnDic = @{
+            @"isOn":@(isOn),
+        };
+        operationID = mk_bxp_taskReadResetBeaconByButtonStatusOperation;
+    }else if ([function isEqualToString:@"58"] && content.length == 8) {
+        //设置设备是否可以按键开关机
+        operationID = mk_bxp_taskConfigResetBeaconByButtonStatusOperation;
+        returnDic = @{@"success":@(YES)};
     }
     return [self dataParserGetDataSuccess:returnDic operationID:operationID];
 }
@@ -504,6 +556,14 @@
                       @"conditions":@{
                               @"time":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)],
                               @"start":@([[content substringWithRange:NSMakeRange(6, 2)] isEqualToString:@"01"])
+                              }
+                      };
+    }else if ([type isEqualToString:@"06"] && content.length == 10) {
+        resultDic = @{
+                      @"type":type,
+                      @"conditions":@{
+                              @"time":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)],
+                              @"start":@([[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"])
                               }
                       };
     }

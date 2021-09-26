@@ -1,6 +1,6 @@
 //
 //  MKBXQuickSwitchCell.m
-//  MKBeaconXProTLA_Example
+//  MKBeaconXCustomUI_Example
 //
 //  Created by aa on 2021/8/16.
 //  Copyright © 2021 aadyx2007@163.com. All rights reserved.
@@ -130,7 +130,7 @@ static CGFloat const switchButtonHeight = 30.f;
 
 #pragma mark - private method
 - (void)updateSwitchButtonIcon {
-    UIImage *image = (self.switchButton.selected ? LOADICON(@"MKBeaconXProTLA", @"MKBXQuickSwitchCell", @"mk_bx_switchSelectedIcon.png") : LOADICON(@"MKBeaconXProTLA", @"MKBXQuickSwitchCell", @"mk_bx_switchUnselectedIcon.png"));
+    UIImage *image = (self.switchButton.selected ? LOADICON(@"MKBeaconXCustomUI", @"MKBXQuickSwitchCell", @"mk_bx_switchSelectedIcon.png") : LOADICON(@"MKBeaconXCustomUI", @"MKBXQuickSwitchCell", @"mk_bx_switchUnselectedIcon.png"));
     [self.switchButton setImage:image forState:UIControlStateNormal];
     UIColor *statusColor = (self.switchButton.selected ? NAVBAR_COLOR_MACROS : UIColorFromRGB(0xcccccc));
     self.switchStatusLabel.textColor = statusColor;

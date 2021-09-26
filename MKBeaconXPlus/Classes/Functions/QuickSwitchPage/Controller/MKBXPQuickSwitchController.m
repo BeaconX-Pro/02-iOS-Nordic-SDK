@@ -80,13 +80,13 @@ MKBXQuickSwitchCellDelegate>
         return;
     }
     if (index == 1) {
-        //设置LED触发
-        [self configTriggerLEDNotification:isOn];
+        //按键关机
+        [self configButtonPowerOff:isOn];
         return;
     }
     if (index == 2) {
-        //按键关机
-        [self configButtonPowerOff:isOn];
+        //密码验证
+        [self configPasswordVerification:isOn];
         return;
     }
     if (index == 3) {
@@ -95,8 +95,8 @@ MKBXQuickSwitchCellDelegate>
         return;
     }
     if (index == 4) {
-        //密码验证
-        [self configPasswordVerification:isOn];
+        //设置LED触发
+        [self configTriggerLEDNotification:isOn];
         return;
     }
 }
@@ -151,16 +151,16 @@ MKBXQuickSwitchCellDelegate>
     [[MKHudManager share] showHUDWithTitle:@"Setting..."
                                      inView:self.view
                               isPenetration:NO];
-//    [MKBXPInterface bxp_configLEDTriggerStatus:isOn sucBlock:^(id returnData) {
-//        [[MKHudManager share] hide];
-//        MKBXQuickSwitchCellModel *cellModel = self.dataList[1];
-//        cellModel.isOn = isOn;
-//        [self.view showCentralToast:@"Success!"];
-//    } failedBlock:^(NSError *error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        [self.collectionView reloadData];
-//    }];
+    [MKBXPInterface bxp_configLEDTriggerStatus:isOn sucBlock:^(id returnData) {
+        [[MKHudManager share] hide];
+        MKBXQuickSwitchCellModel *cellModel = self.dataList[1];
+        cellModel.isOn = isOn;
+        [self.view showCentralToast:@"Success!"];
+    } failedBlock:^(NSError *error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.collectionView reloadData];
+    }];
 }
 
 #pragma mark - 配置按键关机状态
@@ -237,16 +237,16 @@ MKBXQuickSwitchCellDelegate>
     [[MKHudManager share] showHUDWithTitle:@"Setting..."
                                      inView:self.view
                               isPenetration:NO];
-//    [MKBXPInterface bxp_configButtonResetStatus:isOn sucBlock:^(id returnData) {
-//        [[MKHudManager share] hide];
-//        MKBXQuickSwitchCellModel *cellModel = self.dataList[3];
-//        cellModel.isOn = isOn;
-//        [self.view showCentralToast:@"Success!"];
-//    } failedBlock:^(NSError *error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        [self.collectionView reloadData];
-//    }];
+    [MKBXPInterface bxp_configResetBeaconByButtonStatus:isOn sucBlock:^(id returnData) {
+        [[MKHudManager share] hide];
+        MKBXQuickSwitchCellModel *cellModel = self.dataList[3];
+        cellModel.isOn = isOn;
+        [self.view showCentralToast:@"Success!"];
+    } failedBlock:^(NSError *error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.collectionView reloadData];
+    }];
 }
 
 #pragma mark - 设置设备是否免密码登录
@@ -315,28 +315,32 @@ MKBXQuickSwitchCellDelegate>
     
     MKBXQuickSwitchCellModel *cellModel2 = [[MKBXQuickSwitchCellModel alloc] init];
     cellModel2.index = 1;
-    cellModel2.titleMsg = @"Trigger LED notification";
-    cellModel2.isOn = self.dataModel.triggerLED;
+    cellModel2.titleMsg = @"Turn off Beacon by button";
+    cellModel2.isOn = self.dataModel.turnOffByButton;
     [self.dataList addObject:cellModel2];
     
     MKBXQuickSwitchCellModel *cellModel3 = [[MKBXQuickSwitchCellModel alloc] init];
     cellModel3.index = 2;
-    cellModel3.titleMsg = @"Turn off Beacon by button";
-    cellModel3.isOn = self.dataModel.turnOffByButton;
+    cellModel3.titleMsg = @"Password verification";
+    cellModel3.isOn = self.dataModel.passwordVerification;
     [self.dataList addObject:cellModel3];
     
-    MKBXQuickSwitchCellModel *cellModel4 = [[MKBXQuickSwitchCellModel alloc] init];
-    cellModel4.index = 3;
-    cellModel4.titleMsg = @"Reset Beacon by button";
-    cellModel4.isOn = self.dataModel.resetByButton;
-    [self.dataList addObject:cellModel4];
+    if (self.dataModel.supportResetByButton) {
+        MKBXQuickSwitchCellModel *cellModel4 = [[MKBXQuickSwitchCellModel alloc] init];
+        cellModel4.index = 3;
+        cellModel4.titleMsg = @"Reset Beacon by button";
+        cellModel4.isOn = self.dataModel.resetByButton;
+        [self.dataList addObject:cellModel4];
+    }
     
-    MKBXQuickSwitchCellModel *cellModel5 = [[MKBXQuickSwitchCellModel alloc] init];
-    cellModel5.index = 4;
-    cellModel5.titleMsg = @"Password verification";
-    cellModel5.isOn = self.dataModel.passwordVerification;
-    [self.dataList addObject:cellModel5];
-    
+    if (self.dataModel.supportLED) {
+        MKBXQuickSwitchCellModel *cellModel5 = [[MKBXQuickSwitchCellModel alloc] init];
+        cellModel5.index = 4;
+        cellModel5.titleMsg = @"Trigger LED indicator";
+        cellModel5.isOn = self.dataModel.triggerLED;
+        [self.dataList addObject:cellModel5];
+    }
+        
     [self.collectionView reloadData];
 }
 

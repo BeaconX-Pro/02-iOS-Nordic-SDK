@@ -66,17 +66,17 @@
 }
 
 - (BOOL)readTriggerLED {
-//    __block BOOL success = NO;
-//    [MKBXPInterface bxp_readLEDTriggerStatusWithSucBlock:^(id  _Nonnull returnData) {
-//        success = YES;
-//        self.triggerLED = [returnData[@"result"][@"isOn"] boolValue];
-//        dispatch_semaphore_signal(self.semaphore);
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        dispatch_semaphore_signal(self.semaphore);
-//    }];
-//    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-//    return success;
-    return YES;
+    __block BOOL success = NO;
+    [MKBXPInterface bxp_readLEDTriggerStatusWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        self.triggerLED = [returnData[@"result"][@"isOn"] boolValue];
+        self.supportLED = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
 }
 
 - (BOOL)readTurnOffByButton {
@@ -93,17 +93,17 @@
 }
 
 - (BOOL)readResetByButton {
-//    __block BOOL success = NO;
-//    [MKBXPInterface bxp_readButtonResetStatusWithSucBlock:^(id  _Nonnull returnData) {
-//        success = YES;
-//        self.resetByButton = [returnData[@"result"][@"isOn"] boolValue];
-//        dispatch_semaphore_signal(self.semaphore);
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        dispatch_semaphore_signal(self.semaphore);
-//    }];
-//    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-//    return success;
-    return YES;
+    __block BOOL success = NO;
+    [MKBXPInterface bxp_readResetBeaconByButtonStatusWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        self.resetByButton = [returnData[@"result"][@"isOn"] boolValue];
+        self.supportResetByButton = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
 }
 
 #pragma mark - private method

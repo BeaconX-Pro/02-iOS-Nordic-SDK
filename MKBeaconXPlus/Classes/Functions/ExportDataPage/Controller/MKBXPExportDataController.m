@@ -14,7 +14,6 @@
 #import "Masonry.h"
 
 #import "MKMacroDefines.h"
-#import "MKBaseTableView.h"
 #import "UIView+MKAdd.h"
 
 #import "MKHudManager.h"
@@ -97,7 +96,6 @@ static CGFloat htTextViewWidth = 80.f;
                                              selector:@selector(receiveRecordHTData:)
                                                  name:mk_bxp_receiveRecordHTDataNotification
                                                object:nil];
-    // Do any additional setup after loading the view.
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate
@@ -145,7 +143,7 @@ static CGFloat htTextViewWidth = 80.f;
 }
 
 - (void)deleteButtonPressed {
-    NSString *msg = @"Are you sure to empty the saved T&H datas？";
+    NSString *msg = @"Are you sure to erase all the saved T&H datas？";
     MKAlertController *alertController = [MKAlertController alertControllerWithTitle:@"Warning!"
                                                                              message:msg
                                                                       preferredStyle:UIAlertControllerStyleAlert];

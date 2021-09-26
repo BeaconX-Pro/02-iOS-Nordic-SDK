@@ -323,6 +323,9 @@
                 ],
                 "MKBeaconXPlus/Functions/HTConfigPage": [
 
+                ],
+                "MKBeaconXPlus/Functions/LightSensorPage": [
+
                 ]
               }
             }
@@ -343,6 +346,24 @@
             {
               "name": "Model",
               "source_files": "MKBeaconXPlus/Classes/Functions/QuickSwitchPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "LightSensorPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKBeaconXPlus/Classes/Functions/LightSensorPage/Controller/**",
+              "dependencies": {
+                "MKBeaconXPlus/Functions/LightSensorPage/View": [
+
+                ]
+              }
+            },
+            {
+              "name": "View",
+              "source_files": "MKBeaconXPlus/Classes/Functions/LightSensorPage/View/**"
             }
           ]
         }

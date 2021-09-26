@@ -20,6 +20,7 @@
 
 #import "MKBXPAccelerationController.h"
 #import "MKBXPHTConfigController.h"
+#import "MKBXPLightSensorController.h"
 
 @interface MKBXPSensorConfigController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -71,6 +72,11 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)pushLightSensorPage {
+    MKBXPLightSensorController *vc = [[MKBXPLightSensorController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - loadSectionDatas
 - (void)loadSectionDatas {
     //00:无传感器,01:带LIS3DH3轴加速度计,02:带SHT3X温湿度传感器,03:同时带有LIS3DH及SHT3X传感器
@@ -110,7 +116,7 @@
         MKNormalTextCellModel *cellModel1 = [[MKNormalTextCellModel alloc] init];
         cellModel1.showRightIcon = YES;
         cellModel1.leftMsg = @"Light sensor";
-        cellModel1.methodName = @"";
+        cellModel1.methodName = @"pushLightSensorPage";
         [self.dataList addObject:cellModel1];
     }
     if ([[MKBXPConnectManager shared].deviceType isEqualToString:@"05"]) {
@@ -124,7 +130,7 @@
         MKNormalTextCellModel *cellModel2 = [[MKNormalTextCellModel alloc] init];
         cellModel2.showRightIcon = YES;
         cellModel2.leftMsg = @"Light sensor";
-        cellModel2.methodName = @"";
+        cellModel2.methodName = @"pushLightSensorPage";
         [self.dataList addObject:cellModel2];
     }
     

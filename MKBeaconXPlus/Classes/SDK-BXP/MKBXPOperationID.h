@@ -50,4 +50,12 @@ typedef NS_ENUM(NSInteger, mk_bxp_taskOperationID) {
     mk_bxp_taskConfigButtonPowerStatusOperation,    //设置按键关机状态
     
     mk_bxp_taskDeleteRecordHTDataOperation,           //删除已存储的温湿度数据
+    
+    mk_bxp_taskReadLightSensorStatusOperation,          //读取光感状态
+    mk_bxp_taskDeleteRecordLightSensorDataOperation,    //删除已存储的光感数据
+    
+    mk_bxp_taskReadLEDTriggerStatusOperation,           //读取LED触发提醒状态
+    mk_bxp_taskConfigLEDTriggerStatusOperation,         //设置LED触发提醒状态
+    mk_bxp_taskReadResetBeaconByButtonStatusOperation,  //读取设备是否可以按键开关机
+    mk_bxp_taskConfigResetBeaconByButtonStatusOperation,    //设置设备是否可以按键开关机
 };

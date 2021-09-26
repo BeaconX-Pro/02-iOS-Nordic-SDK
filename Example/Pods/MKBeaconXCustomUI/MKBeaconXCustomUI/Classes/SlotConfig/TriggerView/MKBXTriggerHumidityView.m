@@ -162,7 +162,7 @@
 #pragma mark - private method
 
 - (void)updateNoteMsg {
-    NSString *msg = [NSString stringWithFormat:@"*The Beacon will %@ when the humidity is %@ %@",(self.start ? @"start to broadcast" : @"stop broadcasting"),(self.dataModel.above ? @"above" : @"below"),self.sliderValueLabel.text];
+    NSString *msg = [NSString stringWithFormat:@"*The Beacon will %@ advertising when the humidity is %@ %@",(self.start ? @"start" : @"stop"),(self.dataModel.above ? @"above" : @"below"),self.sliderValueLabel.text];
     self.noteMsgLabel.text = msg;
 }
 

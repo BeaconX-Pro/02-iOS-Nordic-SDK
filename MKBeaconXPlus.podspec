@@ -190,6 +190,7 @@ TODO: Add long description of the pod here.
          
          ssss.dependency 'MKBeaconXPlus/Functions/AccelerationPage'
          ssss.dependency 'MKBeaconXPlus/Functions/HTConfigPage'
+         ssss.dependency 'MKBeaconXPlus/Functions/LightSensorPage'
        end
      end
      
@@ -201,6 +202,17 @@ TODO: Add long description of the pod here.
        end
        sss.subspec 'Model' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/QuickSwitchPage/Model/**'
+       end
+     end
+     
+     ss.subspec 'LightSensorPage' do |sss|
+       sss.subspec 'Controller' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/LightSensorPage/Controller/**'
+         
+         ssss.dependency 'MKBeaconXPlus/Functions/LightSensorPage/View'
+       end
+       sss.subspec 'View' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/LightSensorPage/View/**'
        end
      end
 

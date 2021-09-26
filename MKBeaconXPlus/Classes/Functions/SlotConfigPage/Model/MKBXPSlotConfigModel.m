@@ -404,9 +404,17 @@
         return [self configTriggerConditionsWithTripleTap:[triggerParams[@"conditions"][@"time"] integerValue]
                                                     start:[triggerParams[@"conditions"][@"start"] boolValue]];
     }
-    //移动触发
-    return [self configTriggerConditionsWithMoves:[triggerParams[@"conditions"][@"time"] integerValue]
-                                            start:[triggerParams[@"conditions"][@"start"] boolValue]];
+    if ([triggerParams[@"triggerType"] isEqualToString:@"05"]) {
+        //移动触发
+        return [self configTriggerConditionsWithMoves:[triggerParams[@"conditions"][@"time"] integerValue]
+                                                start:[triggerParams[@"conditions"][@"start"] boolValue]];
+    }
+    if ([triggerParams[@"triggerType"] isEqualToString:@"06"]) {
+        //光感触发
+        return [self configTriggerConditionsWithLight:[triggerParams[@"conditions"][@"time"] integerValue]
+                                                start:[triggerParams[@"conditions"][@"start"] boolValue]];
+    }
+    return NO;
 }
 
 - (BOOL)closeTrigger {
@@ -449,8 +457,7 @@
     return success;
 }
 
-- (BOOL)configTriggerConditionsWithDoubleTap:(NSInteger)time
-                                       start:(BOOL)start {
+- (BOOL)configTriggerConditionsWithDoubleTap:(NSInteger)time start:(BOOL)start {
     __block BOOL success = NO;
     [MKBXPInterface bxp_configTriggerConditionsWithDoubleTap:time start:start sucBlock:^(id  _Nonnull returnData) {
         success = YES;
@@ -462,8 +469,7 @@
     return success;
 }
 
-- (BOOL)configTriggerConditionsWithTripleTap:(NSInteger)time
-                                       start:(BOOL)start {
+- (BOOL)configTriggerConditionsWithTripleTap:(NSInteger)time start:(BOOL)start {
     __block BOOL success = NO;
     [MKBXPInterface bxp_configTriggerConditionsWithTripleTap:time start:start sucBlock:^(id  _Nonnull returnData) {
         success = YES;
@@ -475,10 +481,21 @@
     return success;
 }
 
-- (BOOL)configTriggerConditionsWithMoves:(NSInteger)time
-                                   start:(BOOL)start {
+- (BOOL)configTriggerConditionsWithMoves:(NSInteger)time start:(BOOL)start {
     __block BOOL success = NO;
     [MKBXPInterface bxp_configTriggerConditionsWithMoves:time start:start sucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configTriggerConditionsWithLight:(NSInteger)time start:(BOOL)start {
+    __block BOOL success = NO;
+    [MKBXPInterface bxp_configTriggerConditionsWithAmbientLightDetected:time start:start sucBlock:^(id  _Nonnull returnData) {
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

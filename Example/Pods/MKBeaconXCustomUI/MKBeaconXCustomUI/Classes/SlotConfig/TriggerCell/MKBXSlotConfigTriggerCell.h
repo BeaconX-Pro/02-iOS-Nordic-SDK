@@ -23,12 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 是否打开触发条件
 @property (nonatomic, assign)BOOL isOn;
 
-/// 00:无触发,01:温度触发,02:湿度触发.03:双击触发.04:三击触发.05:移动触发.06:静止触发
+/// 00:无触发,01:温度触发,02:湿度触发.03:双击触发.04:三击触发.05:移动触发.06:光感触发
 @property (nonatomic, copy)NSString *type;
 
 /// 当前设备的传感器类型.
 /*
- 00:无传感器,01:带LIS3DH3轴加速度计,02:带SHT3X温湿度传感器,03:同时带有LIS3DH及SHT3X传感器
+ 00:无传感器,01:带LIS3DH3轴加速度计,02:带SHT3X温湿度传感器,03:同时带有LIS3DH及SHT3X传感器,04:带光感,05:同时带有LIS3DH3轴加速度计和光感
  默认为00
  */
 @property (nonatomic, copy)NSString *deviceType;
@@ -70,6 +70,11 @@ NS_ASSUME_NONNULL_BEGIN
  @"start":@(YES),       //YES:开始广播，NO:停止广播
  }
  
+ //光感触发
+ type=06,conditions = @{
+ @"time":@"3",          //持续时长
+ @"start":@(YES),       //YES:开始广播，NO:停止广播
+ }
  */
 @property (nonatomic, strong)NSDictionary *conditions;
 
