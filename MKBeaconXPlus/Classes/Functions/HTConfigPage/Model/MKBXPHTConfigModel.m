@@ -32,6 +32,10 @@
             [self operationFailedBlockWithMsg:@"Read Sampling Rate Error" block:failedBlock];
             return;
         }
+        if (![self readDeviceTime]) {
+            [self operationFailedBlockWithMsg:@"Config Device Time Error" block:failedBlock];
+            return;
+        }
         if (![self readHTStorageConditions]) {
             [self operationFailedBlockWithMsg:@"Read Storage Conditions Error" block:failedBlock];
             return;
@@ -83,6 +87,21 @@
     __block BOOL success = NO;
     [MKBXPInterface bxp_configHTSamplingRate:interval sucBlock:^(id  _Nonnull returnData) {
         success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)readDeviceTime {
+    __block BOOL success = NO;
+    [MKBXPInterface bxp_readDeviceTimeWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        NSArray *dateList = [returnData[@"result"][@"deviceTime"] componentsSeparatedByString:@"-"];
+        self.date = [NSString stringWithFormat:@"%@/%@/%@",dateList[2],dateList[1],dateList[0]];
+        self.time = [NSString stringWithFormat:@"%@:%@:%@",dateList[3],dateList[4],dateList[5]];
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);

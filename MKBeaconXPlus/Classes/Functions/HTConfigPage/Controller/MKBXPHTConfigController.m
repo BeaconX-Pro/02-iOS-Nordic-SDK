@@ -20,17 +20,22 @@
 #import "MKHudManager.h"
 
 #import "MKBXPCentralManager.h"
+#import "MKBXPInterface+MKBXPConfig.h"
+
+#import "MKBXPDeviceTimeDataModel.h"
 
 #import "MKBXPHTConfigHeaderView.h"
 #import "MKBXPStorageTriggerCell.h"
 #import "MKBXPHTConfigNormalCell.h"
+#import "MKBXPSyncBeaconTimeCell.h"
 
 #import "MKBXPHTConfigModel.h"
 
 #import "MKBXPExportDataController.h"
 
 @interface MKBXPHTConfigController ()<UITableViewDelegate,
-UITableViewDataSource>
+UITableViewDataSource,
+MKBXPSyncBeaconTimeCellDelegate>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
 
@@ -39,6 +44,8 @@ UITableViewDataSource>
 @property (nonatomic, strong)NSMutableArray *section0List;
 
 @property (nonatomic, strong)NSMutableArray *section1List;
+
+@property (nonatomic, strong)NSMutableArray *section2List;
 
 @property (nonatomic, strong)MKBXPHTConfigModel *dataModel;
 
@@ -112,11 +119,14 @@ UITableViewDataSource>
     if (indexPath.section == 0) {
         return 190.f;
     }
+    if (indexPath.section == 1) {
+        return 100.f;
+    }
     return 55.f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1 && indexPath.row == 0) {
+    if (indexPath.section == 2 && indexPath.row == 0) {
         //导出页面
         MKBXPExportDataController *vc = [[MKBXPExportDataController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
@@ -126,7 +136,7 @@ UITableViewDataSource>
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -136,6 +146,9 @@ UITableViewDataSource>
     if (section == 1) {
         return self.section1List.count;
     }
+    if (section == 2) {
+        return self.section2List.count;
+    }
     return 0;
 }
 
@@ -143,14 +156,53 @@ UITableViewDataSource>
     if (indexPath.section == 0) {
         return self.triggerCell;
     }
+    if (indexPath.section == 1) {
+        MKBXPSyncBeaconTimeCell *cell = [MKBXPSyncBeaconTimeCell initCellWithTableView:tableView];
+        cell.dataModel = self.section1List[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
     MKBXPHTConfigNormalCell *cell = [MKBXPHTConfigNormalCell initCellWithTableView:tableView];
-    cell.dataModel = self.section1List[indexPath.row];
+    cell.dataModel = self.section2List[indexPath.row];
     return cell;
 }
 
 #pragma mark - MKBXPHTConfigHeaderViewDelegate
 - (void)bxp_samplingIntervalChanged:(NSString *)interval {
     self.dataModel.samplingInterval = interval;
+}
+
+#pragma mark - MKBXPSyncBeaconTimeCellDelegate
+- (void)bxp_needUpdateDate {
+    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *toTimeZone = [NSTimeZone localTimeZone];
+    //转换后源日期与世界标准时间的偏移量
+    NSInteger toGMTOffset = [toTimeZone secondsFromGMTForDate:[NSDate date]];
+    formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
+    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:toGMTOffset];
+    NSString *date = [formatter stringFromDate:[NSDate date]];
+    NSArray *dateList = [date componentsSeparatedByString:@"-"];
+    
+    MKBXPDeviceTimeDataModel *dateModel = [[MKBXPDeviceTimeDataModel alloc] init];
+    dateModel.year = [dateList[0] integerValue];
+    dateModel.month = [dateList[1] integerValue];
+    dateModel.day = [dateList[2] integerValue];
+    dateModel.hour = [dateList[3] integerValue];
+    dateModel.minutes = [dateList[4] integerValue];
+    dateModel.seconds = [dateList[5] integerValue];
+    
+    [MKBXPInterface bxp_configDeviceTime:dateModel sucBlock:^(id  _Nonnull returnData) {
+        [[MKHudManager share] hide];
+        MKBXPSyncBeaconTimeCellModel *cellModel = self.section1List[0];
+        cellModel.date = [NSString stringWithFormat:@"%@/%@/%@",dateList[2],dateList[1],dateList[0]];
+        cellModel.time = [NSString stringWithFormat:@"%@:%@:%@",dateList[3],dateList[4],dateList[5]];
+        [self.tableView mk_reloadSection:1 withRowAnimation:UITableViewRowAnimationNone];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 #pragma mark - notes
@@ -189,9 +241,14 @@ UITableViewDataSource>
     
     [self.section0List addObject:triggerModel];
     
+    MKBXPSyncBeaconTimeCellModel *timeModel = [[MKBXPSyncBeaconTimeCellModel alloc] init];
+    timeModel.date = self.dataModel.date;
+    timeModel.time = self.dataModel.time;
+    [self.section1List addObject:timeModel];
+    
     MKBXPHTConfigNormalCellModel *textModel = [[MKBXPHTConfigNormalCellModel alloc] init];
     textModel.msg = @"Export T&H data";
-    [self.section1List addObject:textModel];
+    [self.section2List addObject:textModel];
     
     [self.tableView reloadData];
 }
@@ -242,6 +299,13 @@ UITableViewDataSource>
         _section1List = [NSMutableArray array];
     }
     return _section1List;
+}
+
+- (NSMutableArray *)section2List {
+    if (!_section2List) {
+        _section2List = [NSMutableArray array];
+    }
+    return _section2List;
 }
 
 - (MKBXPHTConfigModel *)dataModel {

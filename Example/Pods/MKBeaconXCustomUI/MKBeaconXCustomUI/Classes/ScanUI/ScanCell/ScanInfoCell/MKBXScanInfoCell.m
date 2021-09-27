@@ -161,9 +161,15 @@ static CGFloat const batteryIconHeight = 25.f;
     }];
     [self.macLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.nameLabel.mas_left);
-        make.right.mas_equalTo(-100.f);
+        make.right.mas_equalTo(self.timeLabel.mas_left).mas_offset(-5.f);
         make.centerY.mas_equalTo(self.centerBackView.mas_centerY);
         make.height.mas_equalTo(MKFont(13.f).lineHeight);
+    }];
+    [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-15.f);
+        make.width.mas_equalTo(70.f);
+        make.centerY.mas_equalTo(self.macLabel.mas_centerY);
+        make.height.mas_equalTo(MKFont(10.f).lineHeight);
     }];
     
     [self.bottomBackView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -193,13 +199,7 @@ static CGFloat const batteryIconHeight = 25.f;
     }];
     [self.rangingDataLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.txPowerValueLabel.mas_right).mas_offset(5.f);
-        make.right.mas_equalTo(self.timeLabel.mas_left).mas_offset(-5.f);
-        make.centerY.mas_equalTo(self.txPowerLabel.mas_centerY);
-        make.height.mas_equalTo(MKFont(10.f).lineHeight);
-    }];
-    [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-15.f);
-        make.width.mas_equalTo(70.f);
         make.centerY.mas_equalTo(self.txPowerLabel.mas_centerY);
         make.height.mas_equalTo(MKFont(10.f).lineHeight);
     }];
@@ -225,7 +225,13 @@ static CGFloat const batteryIconHeight = 25.f;
     self.connectButton.hidden = !_dataModel.connectable;
     self.txPowerLabel.text = (ValidStr(_dataModel.txPower) ? @"Tx Power:" : @"");
     self.txPowerValueLabel.text = (ValidStr(_dataModel.txPower) ? [_dataModel.txPower stringByAppendingString:@"dBm"] : @"");
-    self.rangingDataLabel.text = (ValidStr(_dataModel.rangingData) ? [NSString stringWithFormat:@"Ranging data:%@%@",SafeStr(_dataModel.rangingData),@"dBm"] : @"");
+    
+    if (_dataModel.lightSensor) {
+        self.rangingDataLabel.text = (_dataModel.lightSensorStatus ? @"Ambient light detected" : @"Ambient light NOT detected");
+    }else {
+        self.rangingDataLabel.text = (ValidStr(_dataModel.rangingData) ? [NSString stringWithFormat:@"Ranging data:%@%@",SafeStr(_dataModel.rangingData),@"dBm"] : @"");
+    }
+    
     self.timeLabel.text = _dataModel.displayTime;
     self.rssiLabel.text = SafeStr(_dataModel.rssi);
     self.nameLabel.text = (ValidStr(_dataModel.deviceName) ? _dataModel.deviceName : @"N/A");

@@ -10,9 +10,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol MKBXPLightSensorHeaderViewDelegate <NSObject>
+
+- (void)bxp_lightSensorSyncTime;
+
+@end
+
 @interface MKBXPLightSensorHeaderView : UIView
 
+@property (nonatomic, weak)id <MKBXPLightSensorHeaderViewDelegate>delegate;
+
 - (void)updateSensorStatus:(BOOL)detected;
+
+- (void)updateCurrentTime:(NSString *)time;
 
 @end
 

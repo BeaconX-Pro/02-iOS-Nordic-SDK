@@ -39,6 +39,7 @@
 #import "MKBXPSDK.h"
 
 #import "MKBXPConnectManager.h"
+#import "MKBXPDeviceTimeDataModel.h"
 
 #import "MKBXPScanPageAdopter.h"
 
@@ -78,25 +79,6 @@ static NSTimeInterval const kRefreshInterval = 0.5f;
 @end
 
 @implementation MKBXPAboutPageModel
-@end
-
-@interface MKBXPDeviceTimeDataModel : NSObject<MKBXPDeviceTimeProtocol>
-
-@property (nonatomic, assign)NSInteger year;
-
-@property (nonatomic, assign)NSInteger month;
-
-@property (nonatomic, assign)NSInteger day;
-
-@property (nonatomic, assign)NSInteger hour;
-
-@property (nonatomic, assign)NSInteger minutes;
-
-@property (nonatomic, assign)NSInteger seconds;
-
-@end
-
-@implementation MKBXPDeviceTimeDataModel
 @end
 
 @interface MKBXPScanViewController ()<UITableViewDelegate,
@@ -150,7 +132,7 @@ MKBXPTabBarControllerDelegate>
 - (void)rightButtonMethod {
     MKBXPAboutPageModel *model = [[MKBXPAboutPageModel alloc] init];
     model.aboutIcon = LOADICON(@"MKBeaconXPlus", @"MKBXPScanViewController", @"bxp_aboutIcon.png");
-    model.appName = @"BeaconX Pro";
+    model.appName = @"BXP-Nordic";
     MKTrackerAboutController *vc = [[MKTrackerAboutController alloc] initWithProtocol:model];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -606,7 +588,7 @@ MKBXPTabBarControllerDelegate>
         [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:@"mk_bxp_installedKey"];
         return;
     }
-    [self performSelector:@selector(showCentralStatus) withObject:nil afterDelay:3.5f];
+    [self performSelector:@selector(showCentralStatus) withObject:nil afterDelay:.5f];
 }
 
 #pragma mark - UI

@@ -47,10 +47,10 @@
         [self.topView addSubview:self.sensorLabel];
         [self.topView addSubview:self.sensorStatusLabel];
         
-//        [self addSubview:self.bottomView];
-//        [self.bottomView addSubview:self.syncLabel];
-//        [self.bottomView addSubview:self.syncButton];
-//        [self.bottomView addSubview:self.dateLabel];
+        [self addSubview:self.bottomView];
+        [self.bottomView addSubview:self.syncLabel];
+        [self.bottomView addSubview:self.syncButton];
+        [self.bottomView addSubview:self.dateLabel];
     }
     return self;
 }
@@ -83,40 +83,46 @@
         make.height.mas_equalTo(MKFont(13.f).lineHeight);
     }];
     
-//    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(10.f);
-//        make.right.mas_equalTo(-10.f);
-//        make.top.mas_equalTo(self.topView.mas_bottom).mas_offset(15.f);
-//        make.height.mas_equalTo(90.f);
-//    }];
-//    [self.syncButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.mas_equalTo(-5.f);
-//        make.width.mas_equalTo(45.f);
-//        make.top.mas_equalTo(10.f);
-//        make.height.mas_equalTo(30.f);
-//    }];
-//    [self.syncLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(5.f);
-//        make.right.mas_equalTo(self.syncButton.mas_left).mas_offset(-10.f);
-//        make.centerY.mas_equalTo(self.syncButton.mas_centerY);
-//        make.height.mas_equalTo(MKFont(15.f).lineHeight);
-//    }];
-//    [self.dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(15.f);
-//        make.right.mas_equalTo(-15.f);
-//        make.top.mas_equalTo(self.syncButton.mas_bottom).mas_offset(10.f);
-//        make.height.mas_equalTo(MKFont(15.f).lineHeight);
-//    }];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(10.f);
+        make.right.mas_equalTo(-10.f);
+        make.top.mas_equalTo(self.topView.mas_bottom).mas_offset(15.f);
+        make.height.mas_equalTo(90.f);
+    }];
+    [self.syncButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-5.f);
+        make.width.mas_equalTo(45.f);
+        make.top.mas_equalTo(10.f);
+        make.height.mas_equalTo(30.f);
+    }];
+    [self.syncLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(5.f);
+        make.right.mas_equalTo(self.syncButton.mas_left).mas_offset(-10.f);
+        make.centerY.mas_equalTo(self.syncButton.mas_centerY);
+        make.height.mas_equalTo(MKFont(15.f).lineHeight);
+    }];
+    [self.dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15.f);
+        make.right.mas_equalTo(-15.f);
+        make.top.mas_equalTo(self.syncButton.mas_bottom).mas_offset(10.f);
+        make.height.mas_equalTo(MKFont(15.f).lineHeight);
+    }];
 }
 
 #pragma mark - event method
 - (void)syncButtonPressed {
-    
+    if ([self.delegate respondsToSelector:@selector(bxp_lightSensorSyncTime)]) {
+        [self.delegate bxp_lightSensorSyncTime];
+    }
 }
 
 #pragma mark - public method
 - (void)updateSensorStatus:(BOOL)detected {
     self.sensorStatusLabel.text = (detected ? @"Ambient light detected" : @"Ambient light NOT detected");
+}
+
+- (void)updateCurrentTime:(NSString *)time {
+    self.dateLabel.text = SafeStr(time);
 }
 
 #pragma mark - getter

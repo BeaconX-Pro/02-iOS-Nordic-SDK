@@ -358,12 +358,19 @@
               "dependencies": {
                 "MKBeaconXPlus/Functions/LightSensorPage/View": [
 
+                ],
+                "MKBeaconXPlus/Functions/LightSensorPage/Model": [
+
                 ]
               }
             },
             {
               "name": "View",
               "source_files": "MKBeaconXPlus/Classes/Functions/LightSensorPage/View/**"
+            },
+            {
+              "name": "Model",
+              "source_files": "MKBeaconXPlus/Classes/Functions/LightSensorPage/Model/**"
             }
           ]
         }

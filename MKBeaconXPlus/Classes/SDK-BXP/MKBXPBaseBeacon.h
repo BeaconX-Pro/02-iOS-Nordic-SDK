@@ -113,7 +113,14 @@ typedef NS_ENUM(NSInteger, MKBXPDataFrameType) {
 //Battery Voltage
 @property (nonatomic, copy) NSString *battery;
 
+/// 00:need password     02:Password-free connection
 @property (nonatomic, copy) NSString *lockState;
+
+/// Whether the device has light sensor.
+@property (nonatomic, assign)BOOL lightSensor;
+
+/// lightSensor must be YES.
+@property (nonatomic, assign)BOOL lightSensorStatus;
 
 @property (nonatomic, copy) NSString *macAddress;
 

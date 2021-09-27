@@ -337,15 +337,19 @@
             self.rangingData = [NSNumber numberWithInt:txPowerChar];
         }
         NSString *tempContent = [MKBLEBaseSDKAdopter hexStringFromData:advData];
-        
         self.interval = [MKBLEBaseSDKAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(4, 2)];
         self.battery = [MKBLEBaseSDKAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(6, 4)];
-        self.lockState = [tempContent substringWithRange:NSMakeRange(10, 2)];
-        if (![[tempContent substringWithRange:NSMakeRange(12, 2)] isEqualToString:@"00"]) {
-            self.connectEnable = YES;
+        NSString *binary1 = [MKBLEBaseSDKAdopter binaryByhex:[tempContent substringWithRange:NSMakeRange(10, 2)]];
+        self.lockState = @"00";
+        if ([[binary1 substringWithRange:NSMakeRange(6, 2)] isEqualToString:@"10"]) {
+            self.lockState = @"02";
         }
+        self.lightSensor = [[binary1 substringWithRange:NSMakeRange(5, 1)] isEqualToString:@"1"];
+        NSString *binary2 = [MKBLEBaseSDKAdopter binaryByhex:[tempContent substringWithRange:NSMakeRange(12, 2)]];
+        self.lightSensorStatus = [[binary2 substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"1"];
         NSString *tempMac = [[tempContent substringWithRange:NSMakeRange(14, 12)] uppercaseString];
         self.macAddress = [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",[tempMac substringWithRange:NSMakeRange(0, 2)],[tempMac substringWithRange:NSMakeRange(2, 2)],[tempMac substringWithRange:NSMakeRange(4, 2)],[tempMac substringWithRange:NSMakeRange(6, 2)],[tempMac substringWithRange:NSMakeRange(8, 2)],[tempMac substringWithRange:NSMakeRange(10, 2)]];
+        NSLog(@"%@---%@",self.macAddress,[tempContent substringWithRange:NSMakeRange(10, 2)]);
         self.softVersion = [NSString stringWithFormat:@"%@.%@",[MKBLEBaseSDKAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(26, 2)],[MKBLEBaseSDKAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(28, 2)]];
         free(data);
     }

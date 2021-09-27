@@ -38,6 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy)NSString *samplingInterval;
 
+@property (nonatomic, copy)NSString *date;
+
+@property (nonatomic, copy)NSString *time;
+
 /// 当前存储的触发条件
 /*
  0:温度，1:湿度，2:温湿度，3:时间

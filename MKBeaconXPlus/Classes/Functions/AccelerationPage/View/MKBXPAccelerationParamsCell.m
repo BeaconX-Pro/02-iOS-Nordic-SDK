@@ -267,7 +267,7 @@
         _scaleLabel.textColor = DEFAULT_TEXT_COLOR;
         _scaleLabel.textAlignment = NSTextAlignmentLeft;
         _scaleLabel.font = MKFont(13.f);
-        _scaleLabel.text = @"Scale";
+        _scaleLabel.text = @"Full-scale";
     }
     return _scaleLabel;
 }
@@ -337,7 +337,7 @@
         _sensitivityLabel.textAlignment = NSTextAlignmentLeft;
         _sensitivityLabel.textColor = DEFAULT_TEXT_COLOR;
         _sensitivityLabel.font = MKFont(13.f);
-        _sensitivityLabel.text = @"Motion sensitivity";
+        _sensitivityLabel.text = @"Motion threshold";
     }
     return _sensitivityLabel;
 }

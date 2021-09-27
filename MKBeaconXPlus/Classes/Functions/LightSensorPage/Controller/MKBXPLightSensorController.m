@@ -22,13 +22,17 @@
 
 #import "MKBLEBaseLogManager.h"
 
+#import "MKBXPDeviceTimeDataModel.h"
+
 #import "MKBXPCentralManager.h"
 #import "MKBXPInterface+MKBXPConfig.h"
 
 #import "MKBXPLightSensorHeaderView.h"
 #import "MKBXPLightSensorButtonView.h"
 
-@interface MKBXPLightSensorController ()
+#import "MKBXPLightSensorDataModel.h"
+
+@interface MKBXPLightSensorController ()<MKBXPLightSensorHeaderViewDelegate>
 
 @property (nonatomic, strong)MKBXPLightSensorHeaderView *headerView;
 
@@ -45,6 +49,8 @@
 @property (nonatomic, strong)MKBXPLightSensorButtonView *exportButton;
 
 @property (nonatomic, strong)UITextView *textView;
+
+@property (nonatomic, strong)MKBXPLightSensorDataModel *dataModel;
 
 @end
 
@@ -82,6 +88,37 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - MKBXPLightSensorHeaderViewDelegate
+- (void)bxp_lightSensorSyncTime {
+    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *toTimeZone = [NSTimeZone localTimeZone];
+    //转换后源日期与世界标准时间的偏移量
+    NSInteger toGMTOffset = [toTimeZone secondsFromGMTForDate:[NSDate date]];
+    formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
+    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:toGMTOffset];
+    NSString *date = [formatter stringFromDate:[NSDate date]];
+    NSArray *dateList = [date componentsSeparatedByString:@"-"];
+    
+    MKBXPDeviceTimeDataModel *dateModel = [[MKBXPDeviceTimeDataModel alloc] init];
+    dateModel.year = [dateList[0] integerValue];
+    dateModel.month = [dateList[1] integerValue];
+    dateModel.day = [dateList[2] integerValue];
+    dateModel.hour = [dateList[3] integerValue];
+    dateModel.minutes = [dateList[4] integerValue];
+    dateModel.seconds = [dateList[5] integerValue];
+    
+    [MKBXPInterface bxp_configDeviceTime:dateModel sucBlock:^(id  _Nonnull returnData) {
+        [[MKHudManager share] hide];
+        NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@ %@:%@:%@",dateList[2],dateList[1],dateList[0],dateList[3],dateList[4],dateList[5]];
+        [self.headerView updateCurrentTime:dateString];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
+}
+
 #pragma mark - note
 - (void)receiveLightSensorDatas:(NSNotification *)note {
     NSDictionary *dic = note.userInfo;
@@ -101,7 +138,7 @@
 }
 
 - (void)receiveLightSensorStatus:(NSNotification *)note {
-    [self updateLightStatus:note.userInfo[@"status"]];
+    [self.headerView updateSensorStatus:[note.userInfo[@"status"] isEqualToString:@"01"]];
 }
 
 #pragma mark - event method
@@ -174,9 +211,12 @@
 #pragma mark - interface
 - (void)readDatasFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
-    [MKBXPInterface bxp_readLightSensorStatusWithSucBlock:^(id  _Nonnull returnData) {
+    @weakify(self);
+    [self.dataModel readWithSucBlock:^{
+        @strongify(self);
         [[MKHudManager share] hide];
-        [self updateLightStatus:returnData[@"result"][@"status"]];
+        [self.headerView updateSensorStatus:self.dataModel.detected];
+        [self.headerView updateCurrentTime:self.dataModel.date];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
@@ -201,9 +241,6 @@
 }
 
 #pragma mark - private method
-- (void)updateLightStatus:(NSString *)status {
-    [self.headerView updateSensorStatus:[status isEqualToString:@"01"]];
-}
 
 - (BOOL)saveDataToLocal:(NSString *)text {
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES)lastObject];
@@ -258,7 +295,7 @@
         make.left.mas_equalTo(0.f);
         make.right.mas_equalTo(0.f);
         make.top.mas_equalTo(defaultTopInset);
-        make.height.mas_equalTo(70.f);
+        make.height.mas_equalTo(200.f);
     }];
     [self.view addSubview:self.bottomView];
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -334,7 +371,7 @@
 - (MKBXPLightSensorHeaderView *)headerView {
     if (!_headerView) {
         _headerView = [[MKBXPLightSensorHeaderView alloc] init];
-//        _headerView.delegate = self;
+        _headerView.delegate = self;
     }
     return _headerView;
 }
@@ -414,6 +451,13 @@
         _textView.textColor = DEFAULT_TEXT_COLOR;
     }
     return _textView;
+}
+
+- (MKBXPLightSensorDataModel *)dataModel {
+    if (!_dataModel) {
+        _dataModel = [[MKBXPLightSensorDataModel alloc] init];
+    }
+    return _dataModel;
 }
 
 - (UILabel *)loadTextLabel:(NSString *)text {

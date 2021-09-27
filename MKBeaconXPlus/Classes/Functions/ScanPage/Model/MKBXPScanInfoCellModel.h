@@ -47,13 +47,19 @@ NS_ASSUME_NONNULL_BEGIN
 /// 用于记录本次扫到该设备距离上次扫到该设备的时间差，单位ms.
 @property (nonatomic, copy)NSString *displayTime;
 
+/// Whether the device has light sensor.
+@property (nonatomic, assign)BOOL lightSensor;
+
+/// lightSensor must be YES.
+@property (nonatomic, assign)BOOL lightSensorStatus;
+
 /*
  当扫描到TLM、UID、URL、iBeacon、温湿度、三轴的时候需要一个空的设备信息model用来展示设备广播内容，这个时候生成的该model没有如下的属性。
  当扫描到了设备信息帧的时候，才会有下面的这些属性
  对于2021年之后生产的设备和TLA系列设备，在温湿度、三轴广播帧里面加入了mac地址、电池电压、传感器版本，也会有如下的(rangingData、battery、macAddress)属性
  */
 
-//dBm
+//dBm,当lightSensor=YES，则显示lightSensorStatus，当lightSensor=NO才会显示rangingData
 @property (nonatomic, copy)NSString *rangingData;
 @property (nonatomic, copy)NSString *txPower;
 @property (nonatomic, copy) NSString *macAddress;

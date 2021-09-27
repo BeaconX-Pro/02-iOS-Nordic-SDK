@@ -101,7 +101,6 @@ static dispatch_once_t onceToken;
 - (void)MKBLEBaseCentralManagerDiscoverPeripheral:(CBPeripheral *)peripheral
                                 advertisementData:(NSDictionary<NSString *,id> *)advertisementData
                                              RSSI:(NSNumber *)RSSI {
-    NSLog(@"%@-%@-%@",peripheral,RSSI,advertisementData);
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSArray *beaconList = [MKBXPBaseBeacon parseAdvData:advertisementData];
         for (NSInteger i = 0; i < beaconList.count; i ++) {

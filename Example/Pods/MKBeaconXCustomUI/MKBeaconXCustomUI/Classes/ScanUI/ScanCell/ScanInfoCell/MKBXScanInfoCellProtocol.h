@@ -23,7 +23,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 用于记录本次扫到该设备距离上次扫到该设备的时间差，单位ms.
 @property (nonatomic, copy)NSString *displayTime;
 
-//dBm
+/// Whether the device has light sensor.
+@property (nonatomic, assign)BOOL lightSensor;
+
+/// lightSensor must be YES.
+@property (nonatomic, assign)BOOL lightSensorStatus;
+
+//dBm,当lightSensor=YES，则显示lightSensorStatus，当lightSensor=NO才会显示rangingData
 @property (nonatomic, copy)NSString *rangingData;
 
 @property (nonatomic, copy)NSString *txPower;

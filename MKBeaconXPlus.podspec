@@ -210,9 +210,13 @@ TODO: Add long description of the pod here.
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/LightSensorPage/Controller/**'
          
          ssss.dependency 'MKBeaconXPlus/Functions/LightSensorPage/View'
+         ssss.dependency 'MKBeaconXPlus/Functions/LightSensorPage/Model'
        end
        sss.subspec 'View' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/LightSensorPage/View/**'
+       end
+       sss.subspec 'Model' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/LightSensorPage/Model/**'
        end
      end
 
