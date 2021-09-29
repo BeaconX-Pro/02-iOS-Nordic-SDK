@@ -474,11 +474,11 @@ MKBXSlotConfigTriggerCellDelegate>
     iBeaconModel.frameType = mk_bx_slotFrameTypeBeacon;
     
     MKBXSlotFrameTypePickViewCellModel *deviceInfoModel = [[MKBXSlotFrameTypePickViewCellModel alloc] init];
-    deviceInfoModel.frameName = @"Device Info";
+    deviceInfoModel.frameName = @"Device info";
     deviceInfoModel.frameType = mk_bx_slotFrameTypeInfo;
     
     MKBXSlotFrameTypePickViewCellModel *noDataModel = [[MKBXSlotFrameTypePickViewCellModel alloc] init];
-    noDataModel.frameName = @"No Data";
+    noDataModel.frameName = @"No data";
     noDataModel.frameType = mk_bx_slotFrameTypeNull;
     
     MKBXSlotFrameTypePickViewCellModel *axisModel = [[MKBXSlotFrameTypePickViewCellModel alloc] init];

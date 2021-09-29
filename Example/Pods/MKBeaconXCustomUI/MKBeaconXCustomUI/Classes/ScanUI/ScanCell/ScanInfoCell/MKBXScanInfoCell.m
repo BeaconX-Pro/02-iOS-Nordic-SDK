@@ -120,15 +120,15 @@ static CGFloat const batteryIconHeight = 25.f;
         make.height.mas_equalTo(40.f);
     }];
     [self.rssiIcon mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(offset_X);
+        make.left.mas_equalTo(20.f);
+        make.top.mas_equalTo(10.f);
         make.width.mas_equalTo(rssiIconWidth);
-        make.top.mas_equalTo(15.f);
         make.height.mas_equalTo(rssiIconHeight);
     }];
     [self.rssiLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(offset_X);
-        make.width.mas_equalTo(rssiIconWidth);
-        make.top.mas_equalTo(self.rssiIcon.mas_bottom).mas_offset(2.f);
+        make.centerX.mas_equalTo(self.rssiIcon.mas_centerX);
+        make.width.mas_equalTo(40.f);
+        make.top.mas_equalTo(self.rssiIcon.mas_bottom).mas_offset(5.f);
         make.height.mas_equalTo(MKFont(10.f).lineHeight);
     }];
     CGFloat nameWidth = (self.contentView.frame.size.width - 2 * offset_X - rssiIconWidth - 10.f - 8.f - connectButtonWidth);
@@ -233,7 +233,7 @@ static CGFloat const batteryIconHeight = 25.f;
     }
     
     self.timeLabel.text = _dataModel.displayTime;
-    self.rssiLabel.text = SafeStr(_dataModel.rssi);
+    self.rssiLabel.text = [SafeStr(_dataModel.rssi) stringByAppendingString:@"dBm"];
     self.nameLabel.text = (ValidStr(_dataModel.deviceName) ? _dataModel.deviceName : @"N/A");
     NSString *macAddress = (ValidStr(_dataModel.macAddress) ? _dataModel.macAddress : @"N/A");
     self.macLabel.text = [NSString stringWithFormat:@"MAC:%@",macAddress];

@@ -146,7 +146,7 @@
     [self.dataList addObject:manuDateModel];
     
     MKNormalTextCellModel *manufactureModel = [[MKNormalTextCellModel alloc] init];
-    manufactureModel.leftMsg = @"Manufacture";
+    manufactureModel.leftMsg = @"Manufacturer";
     [self.dataList addObject:manufactureModel];
     
     [self.tableView reloadData];

@@ -135,11 +135,11 @@ static const char *frameTypeKey = "frameTypeKey";
         //TLM
         MKBXPTLMBeacon *tempModel = (MKBXPTLMBeacon *)beacon;
         MKBXScanTLMCellModel *cellModel = [[MKBXScanTLMCellModel alloc] init];
-        cellModel.version = tempModel.version;
-        cellModel.mvPerbit = tempModel.mvPerbit;
-        cellModel.temperature = tempModel.temperature;
-        cellModel.advertiseCount = tempModel.advertiseCount;
-        cellModel.deciSecondsSinceBoot = tempModel.deciSecondsSinceBoot;
+        cellModel.version = [NSString stringWithFormat:@"%@",tempModel.version];
+        cellModel.mvPerbit = [NSString stringWithFormat:@"%@",tempModel.mvPerbit];
+        cellModel.temperature = [NSString stringWithFormat:@"%@",tempModel.temperature];
+        cellModel.advertiseCount = [NSString stringWithFormat:@"%@",tempModel.advertiseCount];
+        cellModel.deciSecondsSinceBoot = [NSString stringWithFormat:@"%@",tempModel.deciSecondsSinceBoot];
         return cellModel;
     }
     if ([beacon isKindOfClass:MKBXPUIDBeacon.class]) {

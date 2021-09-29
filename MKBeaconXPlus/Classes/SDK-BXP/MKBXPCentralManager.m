@@ -326,7 +326,7 @@ static dispatch_once_t onceToken;
                  sucBlock:(void (^)(CBPeripheral *peripheral))sucBlock
               failedBlock:(void (^)(NSError *error))failedBlock {
     if (![MKBLEBaseSDKAdopter asciiString:password] || password.length > 16) {
-        [self operationFailedBlockWithMsg:@"Password Error" failedBlock:failedBlock];
+        [self operationFailedBlockWithMsg:@"Password incorrect!" failedBlock:failedBlock];
         return;
     }
     self.password = nil;
@@ -500,6 +500,7 @@ static dispatch_once_t onceToken;
         if (lockState == mk_bxp_lockStateUnknow) {
             [MKBLEBaseSDKAdopter operationConnectFailedBlock:self.failedBlock];
             self.readingLockState = NO;
+            [[MKBLEBaseCentralManager shared] disconnect];
             return;
         }
         if (lockState == mk_bxp_lockStateLock) {
@@ -510,12 +511,14 @@ static dispatch_once_t onceToken;
             if (!MKValidData(randKey) || randKey.length != 16) {
                 [MKBLEBaseSDKAdopter operationConnectFailedBlock:self.failedBlock];
                 self.readingLockState = NO;
+                [[MKBLEBaseCentralManager shared] disconnect];
                 return;
             }
             NSData *keyToUnlock = [MKBXPAdopter fetchKeyToUnlockWithPassword:self.password randKey:randKey];
             if (!MKValidData(keyToUnlock)) {
                 [MKBLEBaseSDKAdopter operationConnectFailedBlock:self.failedBlock];
                 self.readingLockState = NO;
+                [[MKBLEBaseCentralManager shared] disconnect];
                 return;
             }
             //当前密码与unlock返回的16位key进行aes128加密之后生成对应的解锁码，发送给设备的unlock特征进行解锁
@@ -524,6 +527,7 @@ static dispatch_once_t onceToken;
             if (!sendToUnlockSuccess) {
                 [MKBLEBaseSDKAdopter operationConnectFailedBlock:self.failedBlock];
                 self.readingLockState = NO;
+                [[MKBLEBaseCentralManager shared] disconnect];
                 return;
             }
             //解锁码发送给设备之后，再次获取设备的锁定状态，看看是否解锁成功
@@ -531,8 +535,9 @@ static dispatch_once_t onceToken;
             [self updateLockState:newLockState];
             [self updateConnectProgress:100.f];
             if (newLockState == mk_bxp_lockStateUnknow || newLockState == mk_bxp_lockStateLock) {
-                [self operationFailedBlockWithMsg:@"Password Error" failedBlock:self.failedBlock];
+                [self operationFailedBlockWithMsg:@"Password incorrect!" failedBlock:self.failedBlock];
                 self.readingLockState = NO;
+                [[MKBLEBaseCentralManager shared] disconnect];
                 return;
             }
             self.readingLockState = NO;

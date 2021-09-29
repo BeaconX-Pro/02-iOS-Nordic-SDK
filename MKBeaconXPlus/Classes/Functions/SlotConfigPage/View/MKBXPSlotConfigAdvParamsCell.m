@@ -335,7 +335,7 @@
         _typeLabel.textColor = DEFAULT_TEXT_COLOR;
         _typeLabel.textAlignment = NSTextAlignmentLeft;
         _typeLabel.font = MKFont(15.f);
-        _typeLabel.text = @"Adv parameters";
+        _typeLabel.text = @"Parameters";
     }
     return _typeLabel;
 }
@@ -344,7 +344,7 @@
     if (!_advIntervalLabel) {
         _advIntervalLabel = [[UILabel alloc] init];
         _advIntervalLabel.textAlignment = NSTextAlignmentLeft;
-        _advIntervalLabel.attributedText = [MKCustomUIAdopter attributedString:@[@"Adv Interval",@" (1 ~ 100)"] fonts:@[MKFont(13.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
+        _advIntervalLabel.attributedText = [MKCustomUIAdopter attributedString:@[@"Adv interval",@" (1 ~ 100)"] fonts:@[MKFont(13.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
     }
     return _advIntervalLabel;
 }
@@ -421,7 +421,7 @@
     if (!_txPowerMsgLabel) {
         _txPowerMsgLabel = [[UILabel alloc] init];
         _txPowerMsgLabel.textAlignment = NSTextAlignmentLeft;
-        _txPowerMsgLabel.attributedText = [MKCustomUIAdopter attributedString:@[@"Tx Power",@"   (-40,-20,-16,-12,-8,-4,0,+3,+4)"] fonts:@[MKFont(13.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
+        _txPowerMsgLabel.attributedText = [MKCustomUIAdopter attributedString:@[@"Tx power",@"   (-40,-20,-16,-12,-8,-4,0,+3,+4)"] fonts:@[MKFont(13.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
     }
     return _txPowerMsgLabel;
 }

@@ -317,7 +317,7 @@ static CGFloat const leftIconHeight = 7.f;
     if (!_typeLabel) {
         _typeLabel = [self createLabelWithFont:MKFont(15.f)];
         _typeLabel.textColor = DEFAULT_TEXT_COLOR;
-        _typeLabel.text = @"3-axis acceleration";
+        _typeLabel.text = @"3-axis accelerometer";
     }
     return _typeLabel;
 }

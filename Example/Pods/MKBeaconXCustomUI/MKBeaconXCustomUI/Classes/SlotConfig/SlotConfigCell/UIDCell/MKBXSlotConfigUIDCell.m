@@ -196,7 +196,7 @@
         _nameLabel.textColor = DEFAULT_TEXT_COLOR;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.font = MKFont(15.f);
-        _nameLabel.text = @"NameSpace ID";
+        _nameLabel.text = @"Namespace ID";
     }
     return _nameLabel;
 }

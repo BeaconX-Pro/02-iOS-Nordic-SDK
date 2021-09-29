@@ -211,10 +211,10 @@
         resetModel.methodName = @"factoryReset";
         [self.section1List addObject:resetModel];
     }
-    if (ValidStr([MKBXPConnectManager shared].password)) {
+    if (ValidStr([MKBXPConnectManager shared].password) && [MKBXPConnectManager shared].passwordVerification) {
         //是否能够修改密码取决于用户是否是输入密码这种情况进来的
         MKNormalTextCellModel *passwordModel = [[MKNormalTextCellModel alloc] init];
-        passwordModel.leftMsg = @"Modify Password";
+        passwordModel.leftMsg = @"Modify password";
         passwordModel.showRightIcon = YES;
         passwordModel.methodName = @"configPassword";
         [self.section1List addObject:passwordModel];

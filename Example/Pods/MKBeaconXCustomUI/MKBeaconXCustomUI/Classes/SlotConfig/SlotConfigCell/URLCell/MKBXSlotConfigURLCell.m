@@ -107,7 +107,7 @@
 - (NSDictionary *)mk_bx_slotConfigCell_params {
     if (!ValidStr(self.textField.text)) {
         return @{
-            @"msg":@"URL cannot be empty",
+            @"msg":@"Data format incorrect!",
             @"result":@{},
         };
     }
@@ -179,7 +179,7 @@
     NSArray *urlList = [urlContent componentsSeparatedByString:@"."];
     if (!ValidArray(urlList)) {
         return @{
-            @"msg":@"URL Error",
+            @"msg":@"Data format incorrect!",
             @"result":@{},
         };
     }
@@ -195,14 +195,14 @@
     }
     if (!ValidStr(content)) {
         return @{
-            @"msg":@"URL Error",
+            @"msg":@"Data format incorrect!",
             @"result":@{},
         };
     }
     content = [content substringFromIndex:1];
     if (content.length > 16) {
         return @{
-            @"msg":@"The url a maximum length of 16",
+            @"msg":@"Data format incorrect!",
             @"result":@{},
         };
     }
@@ -225,13 +225,13 @@
     //如果url不合法，则最大输入长度是17个字节
     if (urlContent.length < 2) {
         return @{
-            @"msg":@"The url a minimum length of 2",
+            @"msg":@"Data format incorrect!",
             @"result":@{},
         };
     }
     if (urlContent.length > 17) {
         return @{
-            @"msg":@"The url a maximum length of 17",
+            @"msg":@"Data format incorrect!",
             @"result":@{},
         };
     }

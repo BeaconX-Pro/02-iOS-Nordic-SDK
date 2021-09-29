@@ -349,7 +349,6 @@
         self.lightSensorStatus = [[binary2 substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"1"];
         NSString *tempMac = [[tempContent substringWithRange:NSMakeRange(14, 12)] uppercaseString];
         self.macAddress = [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",[tempMac substringWithRange:NSMakeRange(0, 2)],[tempMac substringWithRange:NSMakeRange(2, 2)],[tempMac substringWithRange:NSMakeRange(4, 2)],[tempMac substringWithRange:NSMakeRange(6, 2)],[tempMac substringWithRange:NSMakeRange(8, 2)],[tempMac substringWithRange:NSMakeRange(10, 2)]];
-        NSLog(@"%@---%@",self.macAddress,[tempContent substringWithRange:NSMakeRange(10, 2)]);
         self.softVersion = [NSString stringWithFormat:@"%@.%@",[MKBLEBaseSDKAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(26, 2)],[MKBLEBaseSDKAdopter getDecimalStringWithHex:tempContent range:NSMakeRange(28, 2)]];
         free(data);
     }

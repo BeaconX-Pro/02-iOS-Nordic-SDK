@@ -23,7 +23,6 @@
 
 #import "MKHudManager.h"
 #import "MKCustomUIAdopter.h"
-#import "MKTrackerAboutController.h"
 #import "MKProgressView.h"
 #import "MKTableSectionLineHeader.h"
 #import "MKAlertController.h"
@@ -46,40 +45,13 @@
 #import "MKBXPScanInfoCellModel.h"
 
 #import "MKBXPTabBarController.h"
+#import "MKBXPAboutController.h"
 
 static CGFloat const offset_X = 15.f;
 static CGFloat const searchButtonHeight = 40.f;
 static CGFloat const headerViewHeight = 90.f;
 
 static NSTimeInterval const kRefreshInterval = 0.5f;
-
-@interface MKBXPAboutPageModel : NSObject<MKTrackerAboutParamsProtocol>
-
-/// 导航栏标题,默认@"ABOUT"
-@property (nonatomic, copy)NSString *title;
-
-/// 导航栏title颜色，默认白色
-@property (nonatomic, strong)UIColor *titleColor;
-
-/// 顶部导航栏背景颜色，默认蓝色
-@property (nonatomic, strong)UIColor *titleBarColor;
-
-/// 最上面那个关于的icon
-@property (nonatomic, strong)UIImage *aboutIcon;
-
-/// 底部背景图片
-@property (nonatomic, strong)UIImage *bottomBackIcon;
-
-/// 要显示的app名字，如果不填，则默认显示当前工程的app名称
-@property (nonatomic, copy)NSString *appName;
-
-/// app当前版本，如果不填，则默认取当前工程的版本号
-@property (nonatomic, copy)NSString *appVersion;
-
-@end
-
-@implementation MKBXPAboutPageModel
-@end
 
 @interface MKBXPScanViewController ()<UITableViewDelegate,
 UITableViewDataSource,
@@ -130,10 +102,7 @@ MKBXPTabBarControllerDelegate>
 
 #pragma mark - super method
 - (void)rightButtonMethod {
-    MKBXPAboutPageModel *model = [[MKBXPAboutPageModel alloc] init];
-    model.aboutIcon = LOADICON(@"MKBeaconXPlus", @"MKBXPScanViewController", @"bxp_aboutIcon.png");
-    model.appName = @"BXP-Nordic";
-    MKTrackerAboutController *vc = [[MKTrackerAboutController alloc] initWithProtocol:model];
+    MKBXPAboutController *vc = [[MKBXPAboutController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -421,7 +390,7 @@ MKBXPTabBarControllerDelegate>
 - (void)connectDeviceWithPassword:(CBPeripheral *)peripheral{
     NSString *password = self.passwordField.text;
     if (!ValidStr(password) || password.length > 16) {
-        [self.view showCentralToast:@"Password error"];
+        [self.view showCentralToast:@"Password incorrect!"];
         return;
     }
     MKProgressView *progressView = [[MKProgressView alloc] initWithTitle:@"Connecting..." message:@"Make sure your phone and device are as close as possible."];
@@ -535,9 +504,9 @@ MKBXPTabBarControllerDelegate>
 }
 
 - (void)showPasswordAlert:(CBPeripheral *)peripheral{
-    NSString *msg = @"Please enter connection password.";
-    MKAlertController *alertController = [MKAlertController alertControllerWithTitle:@"Enter password"
-                                                                             message:msg
+    NSString *alertTitle = @"Please enter the password.";
+    MKAlertController *alertController = [MKAlertController alertControllerWithTitle:alertTitle
+                                                                             message:@""
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     @weakify(self);
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
@@ -547,7 +516,7 @@ MKBXPTabBarControllerDelegate>
         if (ValidStr([[NSUserDefaults standardUserDefaults] objectForKey:@"mk_bxp_localPasswordKey"])) {
             textField.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"mk_bxp_localPasswordKey"];
         }
-        self.passwordField.placeholder = @"1~16 characters";
+        self.passwordField.placeholder = @"No more than 16 characters.";
         [textField addTarget:self action:@selector(passwordInput) forControlEvents:UIControlEventEditingChanged];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -580,14 +549,6 @@ MKBXPTabBarControllerDelegate>
     self.searchButton.dataModel = self.buttonModel;
     [self runloopObserver];
     [MKBXPCentralManager shared].delegate = self;
-    //此处延时3.5s，与启动页加载3.5s对应，另外第一次安装的时候有蓝牙弹窗授权，也需要延时用来防止出现获取权限的时候出现蓝牙未打开的情况。
-    //新的业务需求，第一次安装app的时候，需要用户手动点击左上角开启扫描，后面每次需要自动开启扫描     20210413
-    NSNumber *install = [[NSUserDefaults standardUserDefaults] objectForKey:@"mk_bxp_installedKey"];
-    if (!ValidNum(install) || ![install boolValue]) {
-        //第一次安装
-        [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:@"mk_bxp_installedKey"];
-        return;
-    }
     [self performSelector:@selector(showCentralStatus) withObject:nil afterDelay:.5f];
 }
 

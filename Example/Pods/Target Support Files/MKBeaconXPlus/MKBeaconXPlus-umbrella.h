@@ -14,6 +14,7 @@
 #import "CTMediator+MKBXPAdd.h"
 #import "MKBXPConnectManager.h"
 #import "MKBXPDeviceTimeDataModel.h"
+#import "MKBXPAboutController.h"
 #import "MKBXPAccelerationController.h"
 #import "MKBXPAccelerationModel.h"
 #import "MKBXPAccelerationHeaderView.h"

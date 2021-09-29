@@ -105,6 +105,15 @@
       },
       "subspecs": [
         {
+          "name": "AboutPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKBeaconXPlus/Classes/Functions/AboutPage/Controller/**"
+            }
+          ]
+        },
+        {
           "name": "AccelerationPage",
           "subspecs": [
             {
@@ -198,6 +207,9 @@
 
                 ],
                 "MKBeaconXPlus/Functions/TabBarPage/Controller": [
+
+                ],
+                "MKBeaconXPlus/Functions/AboutPage/Controller": [
 
                 ]
               }

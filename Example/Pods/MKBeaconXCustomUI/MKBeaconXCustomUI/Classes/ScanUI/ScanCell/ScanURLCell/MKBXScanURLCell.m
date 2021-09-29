@@ -193,7 +193,7 @@ static CGFloat const leftIconHeight = 7.f;
 - (UILabel *)linkLabel{
     if (!_linkLabel) {
         _linkLabel = [self createLabelWithFont:msgFont];
-        _linkLabel.text = @"URL Link";
+        _linkLabel.text = @"URL link";
     }
     return _linkLabel;
 }

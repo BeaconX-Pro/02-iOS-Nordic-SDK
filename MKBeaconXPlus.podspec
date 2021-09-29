@@ -64,6 +64,12 @@ TODO: Add long description of the pod here.
    end
    
    s.subspec 'Functions' do |ss|
+     
+     ss.subspec 'AboutPage' do |sss|
+       sss.subspec 'Controller' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/AboutPage/Controller/**'
+       end
+     end
 
      ss.subspec 'AccelerationPage' do |sss|
        sss.subspec 'Controller' do |ssss|
@@ -119,6 +125,7 @@ TODO: Add long description of the pod here.
          ssss.dependency 'MKBeaconXPlus/Functions/ScanPage/Adopter'
 
          ssss.dependency 'MKBeaconXPlus/Functions/TabBarPage/Controller'
+         ssss.dependency 'MKBeaconXPlus/Functions/AboutPage/Controller'
        end
        sss.subspec 'Model' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/ScanPage/Model/**'

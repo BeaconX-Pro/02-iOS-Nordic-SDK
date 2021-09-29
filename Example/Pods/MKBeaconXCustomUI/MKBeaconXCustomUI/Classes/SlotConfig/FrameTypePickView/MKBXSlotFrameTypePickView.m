@@ -180,7 +180,7 @@
         _typeLabel.textColor = DEFAULT_TEXT_COLOR;
         _typeLabel.textAlignment = NSTextAlignmentLeft;
         _typeLabel.font = MKFont(15.f);
-        _typeLabel.text = @"Frame Type";
+        _typeLabel.text = @"Frame type";
     }
     return _typeLabel;
 }
