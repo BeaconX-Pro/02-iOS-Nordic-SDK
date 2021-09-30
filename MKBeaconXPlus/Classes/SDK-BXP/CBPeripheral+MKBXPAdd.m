@@ -53,17 +53,17 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
 - (void)bxp_updateCharacterWithService:(CBService *)service {
     if ([service.UUID isEqual:[CBUUID UUIDWithString:bxp_configServiceUUID]]) {
         //eddyStone通用配置服务
-        [self updateBXPCharacteristic:service];
+        [self bxp_updateEddystoneCharacteristic:service];
         return;
     }
     if ([service.UUID isEqual:[CBUUID UUIDWithString:bxp_customServiceUUID]]){
         //自定义配置服务
-        [self updateCustomCharacteristic:service];
+        [self bxp_updateCustomCharacteristic:service];
         return;
     }
     if ([service.UUID isEqual:[CBUUID UUIDWithString:bxp_deviceServiceUUID]]){
         //系统信息(软件版本、硬件版本等)
-        [self updateDeviceInfoCharacteristic:service];
+        [self bxp_updateDeviceInfoCharacteristic:service];
         return;
     }
 }
@@ -80,7 +80,7 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
 }
 
 - (BOOL)bxp_connectSuccess {
-    if (![self bxpServiceSuccess] || ![self customServiceSuccess] || ![self deviceInfoServiceSuccess]) {
+    if (![self bxp_serviceSuccess] || ![self bxp_customServiceSuccess] || ![self bxp_deviceInfoServiceSuccess]) {
         return NO;
     }
     return YES;
@@ -241,7 +241,7 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
 }
 
 #pragma mark - private method
-- (void)updateBXPCharacteristic:(CBService *)service{
+- (void)bxp_updateEddystoneCharacteristic:(CBService *)service{
     if (!service) {
         return;
     }
@@ -275,7 +275,7 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
     }
 }
 
-- (void)updateCustomCharacteristic:(CBService *)service{
+- (void)bxp_updateCustomCharacteristic:(CBService *)service{
     if (!service) {
         return;
     }
@@ -309,7 +309,7 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
     }
 }
 
-- (void)updateDeviceInfoCharacteristic:(CBService *)service{
+- (void)bxp_updateDeviceInfoCharacteristic:(CBService *)service{
     if (!service) {
         return;
     }
@@ -337,7 +337,7 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
     }
 }
 
-- (BOOL)bxpServiceSuccess{
+- (BOOL)bxp_serviceSuccess{
     if (!self.bxp_activeSlot || !self.bxp_advertisingInterval
         || !self.bxp_radioTxPower || !self.bxp_advertisedTxPower || !self.bxp_lockState
         || !self.bxp_unlock || !self.bxp_advSlotData || !self.bxp_factoryReset) {
@@ -346,14 +346,14 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
     return YES;
 }
 
-- (BOOL)customServiceSuccess{
+- (BOOL)bxp_customServiceSuccess{
     if (!self.bxp_customNotify || !self.bxp_customWrite || !self.bxp_deviceType || !self.bxp_slotType || !self.bxp_disconnectListen || !self.bxp_battery) {
         return NO;
     }
     return YES;
 }
 
-- (BOOL)deviceInfoServiceSuccess{
+- (BOOL)bxp_deviceInfoServiceSuccess{
     if (!self.bxp_vendor || !self.bxp_modeID || !self.bxp_hardware || !self.bxp_firmware || !self.bxp_software
         || !self.bxp_productionDate) {
         return NO;
