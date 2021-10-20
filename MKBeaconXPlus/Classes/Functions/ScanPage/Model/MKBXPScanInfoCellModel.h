@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  上一次扫描到的时间
  */
-@property (nonatomic, copy)NSString *lastScanDate;
+@property (nonatomic, assign)NSTimeInterval lastScanDate;
 
 
 #pragma mark - **************************MKBXScanInfoCellProtocol*********************

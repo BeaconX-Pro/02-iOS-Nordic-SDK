@@ -256,7 +256,7 @@ MKBXQuickSwitchCellDelegate>
         return;
     }
     NSString *msg = @"If Password verification is disabled, it will not need password to connect the Beacon.";
-    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@""
+    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Warning!"
                                                                        message:msg
                                                                 preferredStyle:UIAlertControllerStyleAlert];
     alertView.notificationName = @"mk_bxp_needDismissAlert";

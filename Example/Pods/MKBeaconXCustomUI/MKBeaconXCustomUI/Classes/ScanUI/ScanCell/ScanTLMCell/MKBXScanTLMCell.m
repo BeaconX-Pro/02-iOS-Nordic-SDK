@@ -187,7 +187,7 @@ static CGFloat const leftIconHeight = 7.f;
     minutes = minutes - hours1 * 60;
     NSInteger day = floor(hours1 / 24);
     hours1 = hours1 - 24 * day;
-    NSString *time = [NSString stringWithFormat:@"%@D%@h%@m%@s",[NSString stringWithFormat:@"%ld",(long)day],[NSString stringWithFormat:@"%ld",(long)hours1],[NSString stringWithFormat:@"%ld",(long)minutes],[NSString stringWithFormat:@"%.1f",sec]];
+    NSString *time = [NSString stringWithFormat:@"%@d%@h%@m%@s",[NSString stringWithFormat:@"%ld",(long)day],[NSString stringWithFormat:@"%ld",(long)hours1],[NSString stringWithFormat:@"%ld",(long)minutes],[NSString stringWithFormat:@"%.1f",sec]];
     return time;
 }
 

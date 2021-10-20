@@ -308,6 +308,7 @@
 				"${BUILT_PRODUCTS_DIR}/MKBeaconXPlus/MKBeaconXPlus.framework",
 				"${BUILT_PRODUCTS_DIR}/MKCustomUIModule/MKCustomUIModule.framework",
 				"${BUILT_PRODUCTS_DIR}/MLInputDodger/MLInputDodger.framework",
+				"${PODS_ROOT}/MTBeaconPlus/MTBeaconPlus/Frameworks/MTBeaconPlus.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast/Toast.framework",
 				"${BUILT_PRODUCTS_DIR}/WRNavigationBar/WRNavigationBar.framework",
@@ -327,6 +328,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MKBeaconXPlus.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MKCustomUIModule.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MLInputDodger.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MTBeaconPlus.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WRNavigationBar.framework",
@@ -485,7 +487,7 @@
 				GCC_PREFIX_HEADER = "MKBeaconXPlus/MKBeaconXPlus-Prefix.pch";
 				INFOPLIST_FILE = "MKBeaconXPlus/MKBeaconXPlus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moko.BeaconXPlus-CocoaPods";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -634,7 +636,7 @@
 				GCC_PREFIX_HEADER = "MKBeaconXPlus/MKBeaconXPlus-Prefix.pch";
 				INFOPLIST_FILE = "MKBeaconXPlus/MKBeaconXPlus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moko.BeaconXPlus-CocoaPods";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -658,7 +660,7 @@
 				GCC_PREFIX_HEADER = "MKBeaconXPlus/MKBeaconXPlus-Prefix.pch";
 				INFOPLIST_FILE = "MKBeaconXPlus/MKBeaconXPlus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moko.BeaconXPlus-CocoaPods";
 				PRODUCT_NAME = "$(TARGET_NAME)";

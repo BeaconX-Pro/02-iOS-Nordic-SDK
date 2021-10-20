@@ -35,6 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy)NSString *zData;
 
+/// 是否解析三轴数据，对于广播数据不包含mac地址的认为是旧固件，不需要解析转换成mg。
+@property (nonatomic, assign)BOOL needParse;
+
 @end
 
 @interface MKBXScanThreeASensorCell : MKBaseCell

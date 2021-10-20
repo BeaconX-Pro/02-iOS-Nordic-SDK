@@ -156,8 +156,8 @@ static CGFloat const msgLabelWidth = 100.f;
     if (!_dataModel || ![_dataModel isKindOfClass:MKBXScanHTCellModel.class]) {
         return;
     }
-    self.rssiValueLabel.text = [NSString stringWithFormat:@"%ld%@",SafeStr(_dataModel.rssi0M),@"dBm"];
-    self.txPowerValueLabel.text = [NSString stringWithFormat:@"%ld%@",SafeStr(_dataModel.txPower),@"dBm"];
+    self.rssiValueLabel.text = [NSString stringWithFormat:@"%@%@",SafeStr(_dataModel.rssi0M),@"dBm"];
+    self.txPowerValueLabel.text = [NSString stringWithFormat:@"%@%@",SafeStr(_dataModel.txPower),@"dBm"];
     self.tempValueLabel.text = [_dataModel.temperature stringByAppendingString:@"℃"];
     self.humidityValueLabel.text = [_dataModel.humidity stringByAppendingString:@"%RH"];
 }

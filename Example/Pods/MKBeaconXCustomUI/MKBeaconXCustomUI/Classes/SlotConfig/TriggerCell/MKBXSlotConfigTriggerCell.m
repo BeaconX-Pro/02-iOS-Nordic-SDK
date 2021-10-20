@@ -926,7 +926,7 @@ MKBXTriggerTapViewDelegate>
         _triggerTypeLabel.textColor = DEFAULT_TEXT_COLOR;
         _triggerTypeLabel.textAlignment = NSTextAlignmentLeft;
         _triggerTypeLabel.font = MKFont(15.f);
-        _triggerTypeLabel.text = @"Trigger Type";
+        _triggerTypeLabel.text = @"Trigger type";
     }
     return _triggerTypeLabel;
 }

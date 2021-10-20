@@ -504,7 +504,7 @@ MKBXPTabBarControllerDelegate>
 }
 
 - (void)showPasswordAlert:(CBPeripheral *)peripheral{
-    NSString *alertTitle = @"Please enter the password.";
+    NSString *alertTitle = @"Please enter password.";
     MKAlertController *alertController = [MKAlertController alertControllerWithTitle:alertTitle
                                                                              message:@""
                                                                       preferredStyle:UIAlertControllerStyleAlert];

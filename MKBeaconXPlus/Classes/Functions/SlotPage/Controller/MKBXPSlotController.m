@@ -123,11 +123,11 @@
         case mk_bx_slotFrameTypeTLM:
             return @"TLM";
         case mk_bx_slotFrameTypeNull:
-            return @"NO DATA";
+            return @"No data";
         case mk_bx_slotFrameTypeInfo:
             return @"Device info";
         case mk_bx_slotFrameTypeThreeASensor:
-            return @"Accel";
+            return @"3-axis Acc";
         case mk_bx_slotFrameTypeTHSensor:
             return @"T&H";
     }

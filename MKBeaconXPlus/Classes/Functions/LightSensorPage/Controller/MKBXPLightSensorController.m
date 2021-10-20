@@ -125,6 +125,7 @@
     if (!ValidDict(dic)) {
         return;
     }
+    NSLog(@"+++++%@",dic);
     NSString *state = @"Ambient light NOT detected";
     if ([dic[@"state"] isEqualToString:@"01"]) {
         state = @"Ambient light detected";
@@ -148,6 +149,7 @@
     
     if (self.syncButton.selected) {
         //开始旋转
+        self.textView.text = @"";
         [[MKBXPCentralManager shared] notifyLightSensorData:YES];
         [self.syncIcon.layer addAnimation:[MKCustomUIAdopter refreshAnimation:2.f] forKey:@"synIconAnimationKey"];
         self.syncLabel.text = @"Stop";
@@ -215,8 +217,12 @@
     [self.dataModel readWithSucBlock:^{
         @strongify(self);
         [[MKHudManager share] hide];
+        [[MKBXPCentralManager shared] notifyLightStatusData:YES];
         [self.headerView updateSensorStatus:self.dataModel.detected];
         [self.headerView updateCurrentTime:self.dataModel.date];
+        NSString *localData = [self readDataWithFileName];
+        self.textView.text = localData;
+        [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 1)];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
@@ -273,6 +279,14 @@
     [fileHandle writeData:stringData];
     [fileHandle closeFile];
     return YES;
+}
+
+- (NSString *)readDataWithFileName {
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES) lastObject];
+    NSString *localFileName = [NSString stringWithFormat:@"/%@.txt",@"/LightSensorDatas"];
+    NSString *filePath = [path stringByAppendingString:localFileName];
+    NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    return content;
 }
 
 - (void)addNotifications {
@@ -398,7 +412,6 @@
     if (!_syncIcon) {
         _syncIcon = [[UIImageView alloc] init];
         _syncIcon.image = LOADICON(@"MKBeaconXPlus", @"MKBXPLightSensorController", @"bxp_threeAxisAcceLoadingIcon.png");
-        _syncIcon.userInteractionEnabled = YES;
     }
     return _syncIcon;
 }

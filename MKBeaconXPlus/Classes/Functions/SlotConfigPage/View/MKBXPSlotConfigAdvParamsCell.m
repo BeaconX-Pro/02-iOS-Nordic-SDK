@@ -210,7 +210,7 @@
     if (_dataModel.slotType == mk_bx_slotFrameTypeBeacon) {
         tempMsg = @"RSSI@1m";
     }else if (_dataModel.slotType == mk_bx_slotFrameTypeInfo || _dataModel.slotType == mk_bx_slotFrameTypeThreeASensor || _dataModel.slotType == mk_bx_slotFrameTypeTHSensor) {
-        tempMsg = @"Measured RSSI";
+        tempMsg = @"Ranging data";
     }
     self.rssiMsgLabel.attributedText = [MKCustomUIAdopter attributedString:@[tempMsg,@"   (-100dBm ~ 0dBm)"] fonts:@[MKFont(13.f),MKFont(12.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
     

@@ -175,7 +175,7 @@ MKBXPAccelerationParamsCellDelegate>
 
 #pragma mark - UI
 - (void)loadSubViews {
-    self.defaultTitle = @"Acceleration";
+    self.defaultTitle = @"3-axis accelerometer";
     [self.rightButton setImage:LOADICON(@"MKBeaconXPlus", @"MKBXPAccelerationController", @"bxp_slotSaveIcon.png") forState:UIControlStateNormal];
     self.view.backgroundColor = RGBCOLOR(242, 242, 242);
     [self.view addSubview:self.tableView];

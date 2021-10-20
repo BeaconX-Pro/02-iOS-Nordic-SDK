@@ -39,6 +39,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[MKBXPConnectManager shared] clearParams];
     [MKBLEBaseLogManager deleteLogWithFileName:@"T&HDatas"];
+    [MKBLEBaseLogManager deleteLogWithFileName:@"/LightSensorDatas"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -113,11 +114,11 @@
     //00一分钟之内没有输入密码,01修改密码成功，02:设备恢复出厂设置
     self.disconnectType = YES;
     if ([type isEqualToString:@"01"]) {
-        [self showAlertWithMsg:@"Password changed successfully! Please reconnect the device." title:@"Change Password"];
+        [self showAlertWithMsg:@"Modify password success! Please reconnect the Device." title:@""];
         return;
     }
     if ([type isEqualToString:@"02"]) {
-        [self showAlertWithMsg:@"Factry reset successfully!Please reconnect the device." title:@"Dismiss"];
+        [self showAlertWithMsg:@"Reset success!Beacon is disconnected." title:@""];
         return;
     }
 }

@@ -16,4 +16,5 @@ platform :ios, '12.0'
 
 target 'MKBeaconXPlus_Example' do
   pod 'MKBeaconXPlus', :path => '../'
+  pod 'MTBeaconPlus'
 end

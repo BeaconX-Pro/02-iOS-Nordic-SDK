@@ -255,7 +255,7 @@ MKBXPSyncBeaconTimeCellDelegate>
 
 #pragma mark - UI
 - (void)loadSubViews {
-    self.defaultTitle = @"T&H";
+    self.defaultTitle = @"Temperature & Humidity";
     [self.rightButton setImage:LOADICON(@"MKBeaconXPlus", @"MKBXPHTConfigController", @"bxp_slotSaveIcon.png") forState:UIControlStateNormal];
     self.view.backgroundColor = RGBCOLOR(242, 242, 242);
     [self.view addSubview:self.tableView];

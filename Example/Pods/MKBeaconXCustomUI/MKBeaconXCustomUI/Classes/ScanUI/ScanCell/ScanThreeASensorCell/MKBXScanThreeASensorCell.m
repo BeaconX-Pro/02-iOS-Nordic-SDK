@@ -196,19 +196,28 @@ static CGFloat const leftIconHeight = 7.f;
     self.dateRateValueLabel.text = [self fetchDataRate:_dataModel.samplingRate];
     self.scaleValueLabel.text = [self fetchScaleData:_dataModel.accelerationOfGravity];
     self.senValueLabel.text = [NSString stringWithFormat:@"%.1f%@",[_dataModel.sensitivity integerValue] * 0.1,@"g"];
+    if (_dataModel.needParse) {
+        //新版本(广播数据包含MAC地址)
+        float scale = [self fetchRawScale:_dataModel.accelerationOfGravity];
+        
+        NSString *xValue = [self fetchRawString:_dataModel.xData scale:scale];
+        xValue = [NSString stringWithFormat:@"X:%@%@",xValue,@"mg"];
+        
+        NSString *yValue = [self fetchRawString:_dataModel.yData scale:scale];
+        yValue = [NSString stringWithFormat:@"Y:%@%@",yValue,@"mg"];
+        
+        NSString *zValue = [self fetchRawString:_dataModel.zData scale:scale];
+        zValue = [NSString stringWithFormat:@"Z:%@%@",zValue,@"mg"];
+        
+        self.rawValueLabel.text = [NSString stringWithFormat:@"%@ %@ %@",xValue,yValue,zValue];
+    }else {
+        //旧版本
+        NSString *xValue = [NSString stringWithFormat:@"%@%@",@"0x",[_dataModel.xData uppercaseString]];
+        NSString *yValue = [NSString stringWithFormat:@"%@%@",@"0x",[_dataModel.yData uppercaseString]];
+        NSString *zValue = [NSString stringWithFormat:@"%@%@",@"0x",[_dataModel.zData uppercaseString]];
+        self.rawValueLabel.text = [NSString stringWithFormat:@"X:%@ Y:%@ Z:%@",xValue,yValue,zValue];
+    }
     
-    float scale = [self fetchRawScale:_dataModel.accelerationOfGravity];
-    
-    NSString *xValue = [self fetchRawString:_dataModel.xData scale:scale];
-    xValue = [NSString stringWithFormat:@"X:%@%@",xValue,@"mg"];
-    
-    NSString *yValue = [self fetchRawString:_dataModel.yData scale:scale];
-    yValue = [NSString stringWithFormat:@"Y:%@%@",yValue,@"mg"];
-    
-    NSString *zValue = [self fetchRawString:_dataModel.zData scale:scale];
-    zValue = [NSString stringWithFormat:@"Z:%@%@",zValue,@"mg"];
-    
-    self.rawValueLabel.text = [NSString stringWithFormat:@"%@ %@ %@",xValue,yValue,zValue];
     [self setNeedsLayout];
 }
 

@@ -1,0 +1,6 @@
+framework module MTBeaconPlus {
+  umbrella header "MTBeaconPlus.h"
+
+  export *
+  module * { export * }
+}

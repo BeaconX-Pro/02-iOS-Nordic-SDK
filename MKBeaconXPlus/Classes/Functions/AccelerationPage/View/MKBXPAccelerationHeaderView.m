@@ -144,7 +144,6 @@
     if (!_synIcon) {
         _synIcon = [[UIImageView alloc] init];
         _synIcon.image = LOADICON(@"MKBeaconXPlus", @"MKBXPAccelerationHeaderView", @"bxp_threeAxisAcceLoadingIcon.png");
-        _synIcon.userInteractionEnabled = YES;
     }
     return _synIcon;
 }

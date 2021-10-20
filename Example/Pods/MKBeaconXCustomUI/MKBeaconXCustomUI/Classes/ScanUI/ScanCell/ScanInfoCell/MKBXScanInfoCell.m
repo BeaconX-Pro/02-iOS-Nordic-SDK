@@ -187,7 +187,7 @@ static CGFloat const batteryIconHeight = 25.f;
     
     [self.txPowerLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.nameLabel.mas_left);
-        make.width.mas_equalTo(55.f);
+        make.width.mas_equalTo(47.f);
         make.centerY.mas_equalTo(self.batteryLabel.mas_centerY);
         make.height.mas_equalTo(MKFont(10.f).lineHeight);
     }];
@@ -237,7 +237,7 @@ static CGFloat const batteryIconHeight = 25.f;
     self.nameLabel.text = (ValidStr(_dataModel.deviceName) ? _dataModel.deviceName : @"N/A");
     NSString *macAddress = (ValidStr(_dataModel.macAddress) ? _dataModel.macAddress : @"N/A");
     self.macLabel.text = [NSString stringWithFormat:@"MAC:%@",macAddress];
-    self.batteryLabel.text = (ValidStr(_dataModel.battery) ? [_dataModel.battery stringByAppendingString:@"mV"] : @"");
+    self.batteryLabel.text = (ValidStr(_dataModel.battery) ? [_dataModel.battery stringByAppendingString:@"mV"] : @"N/A");
     [self setNeedsLayout];
 }
 

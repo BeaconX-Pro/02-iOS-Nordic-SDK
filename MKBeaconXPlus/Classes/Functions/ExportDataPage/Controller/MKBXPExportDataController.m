@@ -92,6 +92,9 @@ static CGFloat htTextViewWidth = 80.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
+    NSString *localData = [self readDataWithFileName];
+    self.textView.text = localData;
+    [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 1)];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveRecordHTData:)
                                                  name:mk_bxp_receiveRecordHTDataNotification
@@ -326,6 +329,14 @@ static CGFloat htTextViewWidth = 80.f;
     return YES;
 }
 
+- (NSString *)readDataWithFileName {
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES) lastObject];
+    NSString *localFileName = [NSString stringWithFormat:@"/%@.txt",@"/T&HDatas"];
+    NSString *filePath = [path stringByAppendingString:localFileName];
+    NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    return content;
+}
+
 #pragma mark - UI
 
 - (void)loadSubViews {
@@ -446,7 +457,6 @@ static CGFloat htTextViewWidth = 80.f;
     if (!_synIcon) {
         _synIcon = [[UIImageView alloc] init];
         _synIcon.image = LOADICON(@"MKBeaconXPlus", @"MKBXPExportDataController", @"bxp_threeAxisAcceLoadingIcon.png");
-        _synIcon.userInteractionEnabled = YES;
     }
     return _synIcon;
 }

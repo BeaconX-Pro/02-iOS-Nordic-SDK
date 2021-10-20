@@ -102,7 +102,7 @@ static const char *frameTypeKey = "frameTypeKey";
         cellModel.interval = tempModel.interval;
         cellModel.major = tempModel.major;
         cellModel.minor = tempModel.minor;
-        cellModel.uuid = tempModel.uuid;
+        cellModel.uuid = [tempModel.uuid lowercaseString];
         return cellModel;
     }
     if ([beacon isKindOfClass:MKBXPTHSensorBeacon.class]) {
@@ -129,6 +129,7 @@ static const char *frameTypeKey = "frameTypeKey";
         cellModel.xData = tempModel.xData;
         cellModel.yData = tempModel.yData;
         cellModel.zData = tempModel.zData;
+        cellModel.needParse = ValidStr(tempModel.macAddress);
         return cellModel;
     }
     if ([beacon isKindOfClass:MKBXPTLMBeacon.class]) {
@@ -171,7 +172,7 @@ static const char *frameTypeKey = "frameTypeKey";
     deviceModel.rssi = [NSString stringWithFormat:@"%ld",(long)[beacon.rssi integerValue]];
     deviceModel.deviceName = (ValidStr(beacon.deviceName) ? beacon.deviceName : @"");
     deviceModel.displayTime = @"N/A";
-    deviceModel.lastScanDate = kSystemTimeStamp;
+    deviceModel.lastScanDate = [[NSDate date] timeIntervalSince1970] * 1000;
     deviceModel.connectable = beacon.connectEnable;
     deviceModel.peripheral = beacon.peripheral;
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
@@ -227,9 +228,12 @@ static const char *frameTypeKey = "frameTypeKey";
     if (ValidStr(beacon.deviceName)) {
         exsitModel.deviceName = beacon.deviceName;
     }
-    if (ValidStr(exsitModel.lastScanDate)) {
-        exsitModel.displayTime = [NSString stringWithFormat:@"%@%ld%@",@"<->",(long)([kSystemTimeStamp integerValue] - [exsitModel.lastScanDate integerValue]) * 1000,@"ms"];
-        exsitModel.lastScanDate = kSystemTimeStamp;
+    if (exsitModel.lastScanDate > 0) {
+        NSTimeInterval space = [[NSDate date] timeIntervalSince1970] * 1000 - exsitModel.lastScanDate;
+        if (space > 10) {
+            exsitModel.displayTime = [NSString stringWithFormat:@"%@%ld%@",@"<->",(long)space,@"ms"];
+            exsitModel.lastScanDate = [[NSDate date] timeIntervalSince1970] * 1000;
+        }
     }
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
         //设备信息帧

@@ -1,0 +1,1 @@
+../../../MTBeaconPlus/MTBeaconPlus/Classes/MinewDeviceInfo.h

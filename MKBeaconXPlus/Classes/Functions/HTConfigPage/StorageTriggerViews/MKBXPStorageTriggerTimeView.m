@@ -135,7 +135,7 @@
         _unitLabel.textAlignment = NSTextAlignmentLeft;
         _unitLabel.textColor = DEFAULT_TEXT_COLOR;
         _unitLabel.font = MKFont(13.f);
-        _unitLabel.text = @"min(s)";
+        _unitLabel.text = @"min";
     }
     return _unitLabel;
 }

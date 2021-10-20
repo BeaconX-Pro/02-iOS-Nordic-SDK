@@ -225,7 +225,7 @@
 - (void)configPassword{
     @weakify(self);
     NSString *msg = @"Note:The password should not be exceed 16 characters in length.";
-    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Change Password"
+    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Modify password"
                                                             message:msg
                                                      preferredStyle:UIAlertControllerStyleAlert];
     alertView.notificationName = @"mk_bxp_needDismissAlert";
@@ -275,7 +275,7 @@
         return;
     }
     if (![password isEqualToString:confirmpassword]) {
-        [self.view showCentralToast:@"Password do not match! Please try again."];
+        [self.view showCentralToast:@"Password not match! Please try again."];
         return;
     }
     [[MKHudManager share] showHUDWithTitle:@"Setting..."
@@ -284,7 +284,6 @@
     [MKBXPInterface bxp_configNewPassword:password originalPassword:[MKBXPConnectManager shared].password sucBlock:^(id  _Nonnull returnData) {
         [[MKHudManager share] hide];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"mk_bxp_modifyPasswordSuccessNotification" object:nil];
-        [self.view showCentralToast:@"Success"];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
@@ -316,7 +315,6 @@
                               isPenetration:NO];
     [MKBXPInterface bxp_factoryDataResetWithSucBlock:^(id returnData) {
         [[MKHudManager share] hide];
-        [self.view showCentralToast:@"Reset successfully!"];
     } failedBlock:^(NSError *error) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];

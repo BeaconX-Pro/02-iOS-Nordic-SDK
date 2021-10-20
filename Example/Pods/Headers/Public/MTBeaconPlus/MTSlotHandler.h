@@ -1,0 +1,1 @@
+../../../MTBeaconPlus/MTBeaconPlus/Classes/MTSlotHandler.h
