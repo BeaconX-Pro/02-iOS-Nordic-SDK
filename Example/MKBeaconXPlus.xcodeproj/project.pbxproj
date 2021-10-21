@@ -487,7 +487,7 @@
 				GCC_PREFIX_HEADER = "MKBeaconXPlus/MKBeaconXPlus-Prefix.pch";
 				INFOPLIST_FILE = "MKBeaconXPlus/MKBeaconXPlus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moko.BeaconXPlus-CocoaPods";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -636,7 +636,7 @@
 				GCC_PREFIX_HEADER = "MKBeaconXPlus/MKBeaconXPlus-Prefix.pch";
 				INFOPLIST_FILE = "MKBeaconXPlus/MKBeaconXPlus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moko.BeaconXPlus-CocoaPods";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -660,7 +660,7 @@
 				GCC_PREFIX_HEADER = "MKBeaconXPlus/MKBeaconXPlus-Prefix.pch";
 				INFOPLIST_FILE = "MKBeaconXPlus/MKBeaconXPlus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moko.BeaconXPlus-CocoaPods";
 				PRODUCT_NAME = "$(TARGET_NAME)";

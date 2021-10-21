@@ -160,7 +160,6 @@ static dispatch_once_t onceToken;
         NSLog(@"+++++++++++++++++接收数据出错");
         return;
     }
-    NSLog(@"--------接收到:%@",characteristic);
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_disconnectListenUUID]]) {
         //设备断开原因
         NSString *content = [MKBLEBaseSDKAdopter hexStringFromData:characteristic.value];
@@ -261,7 +260,6 @@ static dispatch_once_t onceToken;
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_lightSensorUUID]]) {
         //光感数据
         NSString *content = [MKBLEBaseSDKAdopter hexStringFromData:characteristic.value];
-//        NSLog(@"--------接收到的光感数据:%@",content);
         if (content.length == 14) {
             NSString *date = [MKBXPAdopter deviceTime:[content substringWithRange:NSMakeRange(0, 12)]];
             NSString *state = [content substringWithRange:NSMakeRange(12, 2)];
@@ -281,7 +279,6 @@ static dispatch_once_t onceToken;
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_lightStatusUUID]]) {
         //光感状态数据
         NSString *content = [MKBLEBaseSDKAdopter hexStringFromData:characteristic.value];
-        NSLog(@"++++++接收到的光感状态数据:%@",content);
         MKBLEBase_main_safe(^{
             [[NSNotificationCenter defaultCenter] postNotificationName:mk_bxp_receiveLightSensorStatusDataNotification
                                                                 object:nil
