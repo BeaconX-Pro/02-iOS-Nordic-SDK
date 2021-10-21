@@ -149,7 +149,6 @@
     
     if (self.syncButton.selected) {
         //开始旋转
-        self.textView.text = @"";
         [[MKBXPCentralManager shared] notifyLightSensorData:YES];
         [self.syncIcon.layer addAnimation:[MKCustomUIAdopter refreshAnimation:2.f] forKey:@"synIconAnimationKey"];
         self.syncLabel.text = @"Stop";
