@@ -18,7 +18,8 @@
 #import "MKHudManager.h"
 #import "MKNormalTextCell.h"
 #import "MKAlertController.h"
-#import "MKUpdateController.h"
+
+#import "MKBXUpdateController.h"
 
 #import "MKBXPConnectManager.h"
 
@@ -340,7 +341,7 @@
         @strongify(self);
         self.dfuModule = YES;
     };
-    MKUpdateController *vc = [[MKUpdateController alloc] init];
+    MKBXUpdateController *vc = [[MKBXUpdateController alloc] init];
     vc.protocol = dfuModel;
     [self.navigationController pushViewController:vc animated:YES];
 }

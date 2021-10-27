@@ -92,12 +92,7 @@
 - (void)bxp_lightSensorSyncTime {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    NSTimeZone *toTimeZone = [NSTimeZone localTimeZone];
-    //转换后源日期与世界标准时间的偏移量
-    NSInteger toGMTOffset = [toTimeZone secondsFromGMTForDate:[NSDate date]];
-    formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
-    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:toGMTOffset];
     NSString *date = [formatter stringFromDate:[NSDate date]];
     NSArray *dateList = [date componentsSeparatedByString:@"-"];
     
@@ -125,7 +120,6 @@
     if (!ValidDict(dic)) {
         return;
     }
-    NSLog(@"+++++%@",dic);
     NSString *state = @"Ambient light NOT detected";
     if ([dic[@"state"] isEqualToString:@"01"]) {
         state = @"Ambient light detected";

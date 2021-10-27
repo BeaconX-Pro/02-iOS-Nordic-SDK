@@ -113,9 +113,9 @@
 
 #pragma mark - public method
 - (void)updateDataWithXData:(NSString *)xData yData:(NSString *)yData zData:(NSString *)zData {
-    self.xDataLabel.text = [@"X-Data:0x" stringByAppendingString:xData];
-    self.yDataLabel.text = [@"Y-Data:0x" stringByAppendingString:yData];
-    self.zDataLabel.text = [@"Z-Data:0x" stringByAppendingString:zData];
+    self.xDataLabel.text = [@"X-axis:0x" stringByAppendingString:xData];
+    self.yDataLabel.text = [@"Y-axis:0x" stringByAppendingString:yData];
+    self.zDataLabel.text = [@"Z-axis:0x" stringByAppendingString:zData];
 }
 
 #pragma mark - getter
@@ -165,7 +165,7 @@
         _xDataLabel.textColor = DEFAULT_TEXT_COLOR;
         _xDataLabel.textAlignment = NSTextAlignmentCenter;
         _xDataLabel.font = MKFont(12.f);
-        _xDataLabel.text = @"X-Data:N/A";
+        _xDataLabel.text = @"X-axis:N/A";
     }
     return _xDataLabel;
 }
@@ -176,7 +176,7 @@
         _yDataLabel.textColor = DEFAULT_TEXT_COLOR;
         _yDataLabel.textAlignment = NSTextAlignmentCenter;
         _yDataLabel.font = MKFont(12.f);
-        _yDataLabel.text = @"Y-Data:N/A";
+        _yDataLabel.text = @"Y-axis:N/A";
     }
     return _yDataLabel;
 }
@@ -187,7 +187,7 @@
         _zDataLabel.textColor = DEFAULT_TEXT_COLOR;
         _zDataLabel.textAlignment = NSTextAlignmentCenter;
         _zDataLabel.font = MKFont(12.f);
-        _zDataLabel.text = @"Z-Data:N/A";
+        _zDataLabel.text = @"Z-axis:N/A";
     }
     return _zDataLabel;
 }

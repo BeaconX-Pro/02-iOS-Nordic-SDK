@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "MKBXDeviceInfoDataProtocol.h"
+#import <MKBeaconXCustomUI/MKBXDeviceInfoDataProtocol.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

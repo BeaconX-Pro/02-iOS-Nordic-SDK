@@ -186,16 +186,16 @@
         self.sensitivitySlider.minimumValue = 1;
         if (_dataModel.scale == 0) {
             //±2g
-            self.sensitivitySlider.maximumValue = 19;
+            self.sensitivitySlider.maximumValue = 20;
         }else if (_dataModel.scale == 1) {
             //±4g
-            self.sensitivitySlider.maximumValue = 39;
+            self.sensitivitySlider.maximumValue = 40;
         }else if (_dataModel.scale == 2) {
             //±8g
-            self.sensitivitySlider.maximumValue = 79;
+            self.sensitivitySlider.maximumValue = 80;
         }else if (_dataModel.scale == 3) {
             //±16g
-            self.sensitivitySlider.maximumValue = 159;
+            self.sensitivitySlider.maximumValue = 160;
         }
         self.sensitivityValueLabel.text = [NSString stringWithFormat:@"%.1f%@",_dataModel.sensitivityValue * 0.1,@"g"];
     }else {
@@ -213,16 +213,16 @@
         self.sensitivitySlider.minimumValue = 1;
         if (scale == 0) {
             //±2g
-            self.sensitivitySlider.maximumValue = 19;
+            self.sensitivitySlider.maximumValue = 20;
         }else if (scale == 1) {
             //±4g
-            self.sensitivitySlider.maximumValue = 39;
+            self.sensitivitySlider.maximumValue = 40;
         }else if (scale == 2) {
             //±8g
-            self.sensitivitySlider.maximumValue = 79;
+            self.sensitivitySlider.maximumValue = 80;
         }else if (scale == 3) {
             //±16g
-            self.sensitivitySlider.maximumValue = 159;
+            self.sensitivitySlider.maximumValue = 160;
         }
         self.sensitivityValueLabel.text = @"0.1g";
         self.sensitivitySlider.value = 1;
