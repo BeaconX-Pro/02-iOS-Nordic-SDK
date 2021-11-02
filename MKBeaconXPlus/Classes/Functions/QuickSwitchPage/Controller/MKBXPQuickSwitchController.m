@@ -146,23 +146,6 @@ MKBXQuickSwitchCellDelegate>
     }];
 }
 
-#pragma mark - 设置LED触发功能
-- (void)configTriggerLEDNotification:(BOOL)isOn {
-    [[MKHudManager share] showHUDWithTitle:@"Setting..."
-                                     inView:self.view
-                              isPenetration:NO];
-    [MKBXPInterface bxp_configLEDTriggerStatus:isOn sucBlock:^(id returnData) {
-        [[MKHudManager share] hide];
-        MKBXQuickSwitchCellModel *cellModel = self.dataList[1];
-        cellModel.isOn = isOn;
-        [self.view showCentralToast:@"Success!"];
-    } failedBlock:^(NSError *error) {
-        [[MKHudManager share] hide];
-        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-        [self.collectionView reloadData];
-    }];
-}
-
 #pragma mark - 配置按键关机状态
 - (void)configButtonPowerOff:(BOOL)isOn {
     if (isOn) {
@@ -196,10 +179,51 @@ MKBXQuickSwitchCellDelegate>
                               isPenetration:NO];
     [MKBXPInterface bxp_configButtonPowerStatus:isOn sucBlock:^(id returnData) {
         [[MKHudManager share] hide];
-        MKBXQuickSwitchCellModel *cellModel = self.dataList[2];
+        MKBXQuickSwitchCellModel *cellModel = self.dataList[1];
         cellModel.isOn = isOn;
         [self.view showCentralToast:@"Success!"];
     } failedBlock:^(NSError *error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.collectionView reloadData];
+    }];
+}
+
+#pragma mark - 设置设备是否免密码登录
+- (void)configPasswordVerification:(BOOL)isOn {
+    if (isOn) {
+        [self commandForLockState:isOn];
+        return;
+    }
+    NSString *msg = @"If Password verification is disabled, it will not need password to connect the Beacon.";
+    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Warning!"
+                                                                       message:msg
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+    alertView.notificationName = @"mk_bxp_needDismissAlert";
+    @weakify(self);
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        @strongify(self);
+        [self.collectionView reloadData];
+    }];
+    [alertView addAction:cancelAction];
+    UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        @strongify(self);
+        [self commandForLockState:isOn];
+    }];
+    [alertView addAction:moreAction];
+    
+    [self presentViewController:alertView animated:YES completion:nil];
+}
+
+- (void)commandForLockState:(BOOL)isOn{
+    [[MKHudManager share] showHUDWithTitle:@"Setting..." inView:self.view isPenetration:NO];
+    [MKBXPInterface bxp_configLockState:(isOn ? mk_bxp_lockStateOpen : mk_bxp_lockStateUnlockAutoMaticRelockDisabled) sucBlock:^(id  _Nonnull returnData) {
+        [[MKHudManager share] hide];
+        MKBXQuickSwitchCellModel *cellModel = self.dataList[2];
+        cellModel.isOn = isOn;
+        [MKBXPConnectManager shared].passwordVerification = isOn;
+        [self.view showCentralToast:@"Success!"];
+    } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
         [self.collectionView reloadData];
@@ -249,41 +273,17 @@ MKBXQuickSwitchCellDelegate>
     }];
 }
 
-#pragma mark - 设置设备是否免密码登录
-- (void)configPasswordVerification:(BOOL)isOn {
-    if (isOn) {
-        [self commandForLockState:isOn];
-        return;
-    }
-    NSString *msg = @"If Password verification is disabled, it will not need password to connect the Beacon.";
-    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Warning!"
-                                                                       message:msg
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-    alertView.notificationName = @"mk_bxp_needDismissAlert";
-    @weakify(self);
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self);
-        [self.collectionView reloadData];
-    }];
-    [alertView addAction:cancelAction];
-    UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self);
-        [self commandForLockState:isOn];
-    }];
-    [alertView addAction:moreAction];
-    
-    [self presentViewController:alertView animated:YES completion:nil];
-}
-
-- (void)commandForLockState:(BOOL)isOn{
-    [[MKHudManager share] showHUDWithTitle:@"Setting..." inView:self.view isPenetration:NO];
-    [MKBXPInterface bxp_configLockState:(isOn ? mk_bxp_lockStateOpen : mk_bxp_lockStateUnlockAutoMaticRelockDisabled) sucBlock:^(id  _Nonnull returnData) {
+#pragma mark - 设置LED触发功能
+- (void)configTriggerLEDNotification:(BOOL)isOn {
+    [[MKHudManager share] showHUDWithTitle:@"Setting..."
+                                     inView:self.view
+                              isPenetration:NO];
+    [MKBXPInterface bxp_configLEDTriggerStatus:isOn sucBlock:^(id returnData) {
         [[MKHudManager share] hide];
         MKBXQuickSwitchCellModel *cellModel = self.dataList[4];
         cellModel.isOn = isOn;
-        [MKBXPConnectManager shared].passwordVerification = isOn;
         [self.view showCentralToast:@"Success!"];
-    } failedBlock:^(NSError * _Nonnull error) {
+    } failedBlock:^(NSError *error) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
         [self.collectionView reloadData];
