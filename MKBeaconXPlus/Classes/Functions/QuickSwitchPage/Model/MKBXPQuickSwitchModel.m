@@ -30,18 +30,12 @@
             [self operationFailedBlockWithMsg:@"Read Connectable Error" block:failedBlock];
             return;
         }
-        if (![self readTriggerLED]) {
-            [self operationFailedBlockWithMsg:@"Read Trigger LED notification Error" block:failedBlock];
-            return;
-        }
+        [self readTriggerLED];
         if (![self readTurnOffByButton]) {
             [self operationFailedBlockWithMsg:@"Read Turn off Beacon by button Error" block:failedBlock];
             return;
         }
-        if (![self readResetByButton]) {
-            [self operationFailedBlockWithMsg:@"Read Reset Beacon by button Error" block:failedBlock];
-            return;
-        }
+        [self readResetByButton];
         self.passwordVerification = [MKBXPConnectManager shared].passwordVerification;
         moko_dispatch_main_safe(^{
             if (sucBlock) {
