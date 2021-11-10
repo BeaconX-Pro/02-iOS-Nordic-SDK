@@ -115,7 +115,7 @@
     dispatch_source_set_timer(self.receiveTimer, dispatch_walltime(NULL, 0), 0.1 * NSEC_PER_SEC, 0);
     dispatch_source_set_event_handler(self.receiveTimer, ^{
         __strong typeof(self) sself = weakSelf;
-        if (sself.timeout || sself.receiveTimerCount >= 50) {
+        if (sself.timeout || sself.receiveTimerCount >= 15) {
             //接受数据超时
             sself.receiveTimerCount = 0;
             [sself communicationTimeout];

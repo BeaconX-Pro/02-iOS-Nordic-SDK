@@ -26,6 +26,9 @@
   "dependencies": {
     "CTMediator": [
 
+    ],
+    "FMDB": [
+
     ]
   },
   "subspecs": [
@@ -73,6 +76,10 @@
       }
     },
     {
+      "name": "DatabaseManager",
+      "source_files": "MKBeaconXPlus/Classes/DatabaseManager/**"
+    },
+    {
       "name": "Functions",
       "dependencies": {
         "MKBeaconXPlus/ConnectManager": [
@@ -82,6 +89,9 @@
 
         ],
         "MKBeaconXPlus/CTMediator": [
+
+        ],
+        "MKBeaconXPlus/DatabaseManager": [
 
         ],
         "MKBaseModuleLibrary": [

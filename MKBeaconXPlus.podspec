@@ -63,6 +63,12 @@ TODO: Add long description of the pod here.
      ss.dependency 'MKBeaconXPlus/Functions'
    end
    
+   s.subspec 'DatabaseManager' do |ss|
+     ss.source_files = 'MKBeaconXPlus/Classes/DatabaseManager/**'
+     
+     s.dependency 'FMDB'
+   end
+   
    s.subspec 'Functions' do |ss|
      
      ss.subspec 'AboutPage' do |sss|
@@ -230,6 +236,7 @@ TODO: Add long description of the pod here.
      ss.dependency 'MKBeaconXPlus/ConnectManager'
      ss.dependency 'MKBeaconXPlus/SDK-BXP'
      ss.dependency 'MKBeaconXPlus/CTMediator'
+     ss.dependency 'MKBeaconXPlus/DatabaseManager'
      
      ss.dependency 'MKBaseModuleLibrary'
      ss.dependency 'MKCustomUIModule'

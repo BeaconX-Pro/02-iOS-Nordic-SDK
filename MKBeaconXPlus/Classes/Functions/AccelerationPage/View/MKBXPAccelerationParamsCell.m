@@ -236,6 +236,10 @@
     if ([self.delegate respondsToSelector:@selector(bxp_accelerationParamsScaleChanged:)]) {
         [self.delegate bxp_accelerationParamsScaleChanged:scale];
     }
+    NSString *tempValue = [NSString stringWithFormat:@"%.f",self.sensitivitySlider.value];
+    if ([self.delegate respondsToSelector:@selector(bxp_accelerationParamsSensitivityValueChanged:)]) {
+        [self.delegate bxp_accelerationParamsSensitivityValueChanged:[tempValue integerValue]];
+    }
 }
 
 #pragma mark - getter

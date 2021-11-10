@@ -22,6 +22,8 @@
 
 #import "MKBLEBaseLogManager.h"
 
+#import "MKBXPDatabaseManager.h"
+
 #import "MKBXPCentralManager.h"
 #import "MKBXPInterface+MKBXPConfig.h"
 
@@ -89,16 +91,45 @@ static CGFloat htTextViewWidth = 80.f;
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    //本页面禁止右划退出手势
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
-    NSString *localData = [self readDataWithFileName];
-    self.textView.text = localData;
-    [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 1)];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receiveRecordHTData:)
-                                                 name:mk_bxp_receiveRecordHTDataNotification
-                                               object:nil];
+    [self readDatasFromLocal];
+}
+
+#pragma mark - super method
+- (void)leftButtonMethod {
+    NSInteger totalNum = MIN(self.temperatureList.count, self.humidityList.count);
+    NSMutableArray *list = [NSMutableArray array];
+    for (NSInteger i = 0; i < totalNum; i ++) {
+        NSDictionary *dic = @{
+            @"temperature":self.temperatureList[i],
+            @"humidity":self.humidityList[i]
+        };
+        [list addObject:dic];
+    }
+    //先清除本地数据再保存
+    [MKBXPDatabaseManager deleteDatasWithSucBlock:nil failedBlock:nil];
+    [[MKHudManager share] showHUDWithTitle:@"Waiting..." inView:self.view isPenetration:NO];
+    [MKBXPDatabaseManager insertDeviceList:list sucBlock:^{
+        [[MKHudManager share] hide];
+        [super leftButtonMethod];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self performSelector:@selector(backAction) withObject:nil afterDelay:0.5f];
+    }];
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate
@@ -293,6 +324,32 @@ static CGFloat htTextViewWidth = 80.f;
                              completeBlock:^{
         [[MKHudManager share] hide];
     }];
+}
+
+- (void)readDatasFromLocal {
+    [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
+    [MKBXPDatabaseManager readLocalDeviceWithSucBlock:^(NSArray<NSDictionary *> * _Nonnull htList) {
+        [[MKHudManager share] hide];
+        NSString *localData = [self readDataWithFileName];
+        self.textView.text = localData;
+        [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 1)];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(receiveRecordHTData:)
+                                                     name:mk_bxp_receiveRecordHTDataNotification
+                                                   object:nil];
+        for (NSInteger i = 0; i < htList.count; i ++) {
+            NSDictionary *dic = htList[i];
+            [self.temperatureList addObject:dic[@"temperature"]];
+            [self.humidityList addObject:dic[@"humidity"]];
+        }
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
+}
+
+- (void)backAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - 邮件

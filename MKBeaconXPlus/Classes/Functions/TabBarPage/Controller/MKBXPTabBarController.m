@@ -20,6 +20,8 @@
 #import "MKBXPSlotController.h"
 #import "MKBXPSettingController.h"
 
+#import "MKBXPDatabaseManager.h"
+
 #import "MKBXPCentralManager.h"
 
 #import "MKBXPConnectManager.h"
@@ -40,6 +42,8 @@
     [[MKBXPConnectManager shared] clearParams];
     [MKBLEBaseLogManager deleteLogWithFileName:@"T&HDatas"];
     [MKBLEBaseLogManager deleteLogWithFileName:@"/LightSensorDatas"];
+    //本地记录的温湿度数据
+    [MKBXPDatabaseManager deleteDatasWithSucBlock:nil failedBlock:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
