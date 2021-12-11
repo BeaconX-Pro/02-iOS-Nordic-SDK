@@ -70,16 +70,19 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
 
 - (void)bxp_updateCurrentNotifySuccess:(CBCharacteristic *)characteristic {
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_notifyUUID]]){
-        objc_setAssociatedObject(self, &bxp_customNotifySuccessKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, &bxp_customNotifySuccessKey, @(YES), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         return;
     }
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_disconnectListenUUID]]) {
-        objc_setAssociatedObject(self, &bxp_disconnectListenSuccessKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, &bxp_disconnectListenSuccessKey, @(YES), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         return;
     }
 }
 
 - (BOOL)bxp_connectSuccess {
+    if (![objc_getAssociatedObject(self, &bxp_customNotifySuccessKey) boolValue] || ![objc_getAssociatedObject(self, &bxp_disconnectListenSuccessKey) boolValue]) {
+        return NO;
+    }
     if (![self bxp_serviceSuccess] || ![self bxp_customServiceSuccess] || ![self bxp_deviceInfoServiceSuccess]) {
         return NO;
     }

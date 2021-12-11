@@ -204,6 +204,7 @@
         _textField.placeholder = @"10-120";
         _textField.borderStyle = UITextBorderStyleNone;
         _textField.font = MKFont(13.f);
+        _textField.textColor = DEFAULT_TEXT_COLOR;
         
         _textField.backgroundColor = COLOR_WHITE_MACROS;
         _textField.layer.masksToBounds = YES;

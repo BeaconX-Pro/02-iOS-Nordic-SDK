@@ -118,6 +118,7 @@
         _userNameTextField.placeholder = @"0-256 Characters";
         _userNameTextField.borderStyle = UITextBorderStyleNone;
         _userNameTextField.font = MKFont(13.f);
+        _userNameTextField.textColor = DEFAULT_TEXT_COLOR;
         
         _userNameTextField.backgroundColor = COLOR_WHITE_MACROS;
         _userNameTextField.layer.masksToBounds = YES;
@@ -142,6 +143,7 @@
         _passwordTextField.placeholder = @"0-256 Characters";
         _passwordTextField.borderStyle = UITextBorderStyleNone;
         _passwordTextField.font = MKFont(13.f);
+        _passwordTextField.textColor = DEFAULT_TEXT_COLOR;
         
         _passwordTextField.backgroundColor = COLOR_WHITE_MACROS;
         _passwordTextField.layer.masksToBounds = YES;

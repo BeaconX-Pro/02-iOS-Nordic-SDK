@@ -228,7 +228,71 @@ When the device is connected, the developer can monitor the temperature and humi
 }
 ```
 
-#### 7.Monitoring device disconnect reason.
+#### 7.Monitor the light perception data stored by the device.
+
+When the device is connected, the developer can monitor the light perception data stored by the device through the following steps:
+
+* 1.Open data monitoring by the following method:
+
+```
+[[MKBXPCentralManager shared] notifyLightSensorData:YES];
+```
+
+* 2.Register for `mk_bxp_receiveLightSensorDataNotification` notifications to monitor data.
+
+```
+[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveLightSensorDatas:)
+                                                 name:mk_bxp_receiveLightSensorDataNotification
+                                               object:nil];
+```
+
+```
+#pragma mark - note
+- (void)receiveLightSensorDatas:(NSNotification *)note {
+    NSDictionary *dic = note.userInfo;
+    if (!ValidDict(dic)) {
+        return;
+    }
+    NSString *state = @"Ambient light NOT detected";
+    if ([dic[@"state"] isEqualToString:@"01"]) {
+        state = @"Ambient light detected";
+    }
+    NSArray *dateList = [dic[@"date"] componentsSeparatedByString:@"-"];
+    NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@ %@:%@:%@",dateList[2],dateList[1],dateList[0],dateList[3],dateList[4],dateList[5]];
+    NSString *text = [NSString stringWithFormat:@"\n%@\t\t%@",dateString,state];
+}
+```
+
+#### 8.Monitor the current light status of the device.
+
+When the device is connected, the developer can monitor the current light status of the device through the following steps:
+
+* 1.Open data monitoring by the following method:
+
+```
+[[MKBXPCentralManager shared] notifyLightStatusData:YES];
+```
+
+* 2.Register for `mk_bxp_receiveLightSensorStatusDataNotification` notifications to monitor data.
+
+```
+[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveLightSensorDatas:)
+                                                 name: mk_bxp_receiveLightSensorStatusDataNotification
+                                               object:nil];
+```
+
+```
+#pragma mark - note
+- (void)receiveLightSensorStatus:(NSNotification *)note {
+    ///method.
+}
+```
+
+
+
+#### 9.Monitoring device disconnect reason.
 
 Register for `mk_bxp_deviceDisconnectTypeNotification` notifications to monitor data.
 
@@ -276,10 +340,10 @@ Register for `mk_bxp_deviceDisconnectTypeNotification` notifications to monitor 
 
 * Slot type table(All types of devices support setting slot broadcast data to UID, URL, TLM, Device Info, iBeacon, NO DATA)
 
-|  deviceType   | 00  |  01   | 02  |  03 |
-|  ----  | ----  | ----  | ----  | ----  | ----  |----  | 
-| sensor type  | None | LIS3DH3  | SHT3X | LIS3DH3 & SHT3X |
-|  supported   | UID、URL、TLM、Device Info、iBeacon、NO DATA  |  UID、URL、TLM、Device Info、iBeacon、NO DATA、3-axis   | UID、URL、TLM、Device Info、iBeacon、NO DATA、T&H  |  UID、URL、TLM、Device Info、iBeacon、NO DATA、3-axis、T&H |
+|  deviceType   | 00  |  01   | 02  |  03 | 04 | 05 |
+|  ----  | ----  | ----  | ----  | ----  | ----  |----  | ---- | ---- |
+| sensor type  | None | LIS3DH3  | SHT3X | LIS3DH3 & SHT3X | Light sensor | Light sensor & LIS3DH3|
+|  supported   | UID/URL/TLM/Device Info/iBeacon/NO DATA  |  UID/URL/TLM/Device Info/iBeacon/NO DATA/3-axis   | UID/URL/TLM/Device Info/iBeacon/NO DATA/T&H  |  UID/URL/TLM/Device Info/iBeacon/NO DATA/3-axis/T&H | UID/URL/TLM/Device Info/iBeacon/NO DATA | UID/URL/TLM/Device Info/iBeacon/3-axis/NO DATA |
 
 
 #### Get data of each Slot
@@ -576,13 +640,13 @@ The developer can modify advertisement and parameters of every slot freely via o
 
 Conditions
 
-1、close(The Beacon will always broadcast.)
+1.close(The Beacon will always broadcast.)
 {
     "type":"00",
     "conditions":{}
 }
 
-2、Temperature
+2.Temperature
 {
     "type":"01",
     "conditions":{
@@ -592,7 +656,7 @@ Conditions
     }
 }
 
-3、Humidity
+3.Humidity
 {
     "type":"02",
     "conditions":{
@@ -602,7 +666,7 @@ Conditions
     }
 }
 
-3、Press button twice.
+3.Press button twice.
 {
     "type":"03",
     "conditions":{
@@ -611,7 +675,7 @@ Conditions
     }
 }
 
-4、Press button three times
+4.Press button three times
 {
     "type":"04",
     "conditions":{
@@ -620,11 +684,20 @@ Conditions
     }
 }
 
-5、Device moves(It means start/stop broadcasting when static reaches this time, and start/stop broadcasting after moving.)
+5.Device moves(It means start/stop broadcasting when static reaches this time, and start/stop broadcasting after moving.)
 {
-    "type":"03",
+    "type":"05",
     "conditions":{
         "time":"xx",            //If it is 0, it means that the broadcast will continue after moving (start=YES)/stop the broadcast (start=NO)
+        "start":@(YES),        //YES:Start broadcasting，NO:Stop broadcasting
+    }
+}
+
+6.Light Sensor(Start/Stop advertising after ambient light continuously detected for time.)
+{
+    "type":"06",
+    "conditions":{
+        "time":"xx",            //If it is 0, Start and keep advertising(start=YES)/stop the broadcast (start=NO)
         "start":@(YES),        //YES:Start broadcasting，NO:Stop broadcasting
     }
 }
@@ -691,7 +764,7 @@ mk_bxp_slotRadioTxPower power = mk_bxp_slotRadioTxPowerNeg40dBm;
 
 ```
 
-1、close(The Beacon will always broadcast.)
+1.close(The Beacon will always broadcast.)
 
 [MKBXPInterface bxp_configTriggerConditionsNoneWithSucBlock:^(id  _Nonnull returnData) {
         //Success
@@ -699,7 +772,7 @@ mk_bxp_slotRadioTxPower power = mk_bxp_slotRadioTxPowerNeg40dBm;
         //Failure
     }];
     
- 2、Temperature
+ 2.Temperature
  
  /**
  Setting the current active SLOT temperature trigger condition
@@ -716,7 +789,7 @@ mk_bxp_slotRadioTxPower power = mk_bxp_slotRadioTxPowerNeg40dBm;
                                           sucBlock:(void (^)(id returnData))sucBlock
                                        failedBlock:(void (^)(NSError *error))failedBlock;
                                        
-3、Humidity
+3.Humidity
 
 /**
  Setting the current active SLOT humidity trigger condition
@@ -733,7 +806,7 @@ mk_bxp_slotRadioTxPower power = mk_bxp_slotRadioTxPowerNeg40dBm;
                                        sucBlock:(void (^)(id returnData))sucBlock
                                     failedBlock:(void (^)(NSError *error))failedBlock;
                                     
-4、Press button twice
+4.Press button twice
 
 /**
  Setting the current active SLOT double tap trigger condition
@@ -748,7 +821,7 @@ mk_bxp_slotRadioTxPower power = mk_bxp_slotRadioTxPowerNeg40dBm;
                                         sucBlock:(void (^)(id returnData))sucBlock
                                      failedBlock:(void (^)(NSError *error))failedBlock;
                                      
-5、Press button three times
+5.Press button three times
 
 /**
  Setting the current active SLOT TripleTap trigger condition
@@ -764,7 +837,7 @@ mk_bxp_slotRadioTxPower power = mk_bxp_slotRadioTxPowerNeg40dBm;
                                      failedBlock:(void (^)(NSError *error))failedBlock;
                                      
 
-6、Device moves
+6.Device moves
 
 /**
  Setting the current active SLOT move trigger condition
@@ -778,6 +851,20 @@ mk_bxp_slotRadioTxPower power = mk_bxp_slotRadioTxPowerNeg40dBm;
                                        start:(BOOL)start
                                     sucBlock:(void (^)(id returnData))sucBlock
                                  failedBlock:(void (^)(NSError *error))failedBlock;
+                                 
+                                 
+                                 
+7.Light Sensor
+/// Setting the current active SLOT ambient light detected trigger condition
+/// @param time duration, unit s,0~65535
+/// @param start YES: Start advertising, NO: stop advertising
+/// @param sucBlock success callback
+/// @param failedBlock failed callback
++ (void)bxp_configTriggerConditionsWithAmbientLightDetected:(NSInteger)time
+                                                      start:(BOOL)start
+                                                   sucBlock:(void (^)(id returnData))sucBlock
+                                                failedBlock:(void (^)(NSError *error))failedBlock;
+                                 
 
 ```
 
@@ -847,10 +934,11 @@ Please refer to the code example below.
 
 ## Notes
 
-* In development progress, you may find there are multiple MTPeripheral instance correspond to a physical device. On this point, we consulted Apple's engineers. they told us that currently on the iOS platform, CoreBluetooth framework unfriendly to the multiple slot devices(especially the advertisement data in changing). due to that sometimes app can't connect to the device, Google Eddystone solve this issue by press button on eddystone devices, our device support this operation too.
+* In development progress, you may find there are multiple MKBXPBaseBeacon instance correspond to a physical device. On this point, we consulted Apple's engineers. they told us that currently on the iOS platform, CoreBluetooth framework unfriendly to the multiple slot devices(especially the advertisement data in changing). due to that sometimes app can't connect to the device, Google Eddystone solve this issue by press button on eddystone devices, our device support this operation too.
 * In scanning stage, some properties may nil, especially MAC address(restriction of iOS),if current device advertise DeviceInfo frame, then you can get name, MAC address and battery.
 
 
 # Change log
 
+* 20211211 Added support for light sensing function;
 * 20210316 first version;

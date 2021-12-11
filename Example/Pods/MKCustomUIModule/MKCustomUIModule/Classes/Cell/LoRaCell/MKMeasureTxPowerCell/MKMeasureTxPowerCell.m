@@ -219,7 +219,7 @@
 - (MKSlider *)txPowerSlider {
     if (!_txPowerSlider) {
         _txPowerSlider = [[MKSlider alloc] init];
-        _txPowerSlider.maximumValue = 9.f;
+        _txPowerSlider.maximumValue = 8.f;
         _txPowerSlider.minimumValue = 0.f;
         _txPowerSlider.value = 0.f;
         [_txPowerSlider addTarget:self

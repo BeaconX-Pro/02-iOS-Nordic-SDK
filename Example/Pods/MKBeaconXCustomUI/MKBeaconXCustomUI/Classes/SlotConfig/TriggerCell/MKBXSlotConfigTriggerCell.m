@@ -556,11 +556,11 @@ MKBXTriggerTapViewDelegate>
                     }
                 }else {
                     if (start) {
-                        tempIndex = 1;
-                        startValue = self.dataModel.conditions[@"time"];
-                    }else {
                         tempIndex = 2;
                         stopValue = self.dataModel.conditions[@"time"];
+                    }else {
+                        tempIndex = 1;
+                        startValue = self.dataModel.conditions[@"time"];
                     }
                 }
             }
@@ -632,11 +632,11 @@ MKBXTriggerTapViewDelegate>
                     }
                 }else {
                     if (start) {
-                        tempIndex = 1;
-                        startValue = self.dataModel.conditions[@"time"];
-                    }else {
                         tempIndex = 2;
                         stopValue = self.dataModel.conditions[@"time"];
+                    }else {
+                        tempIndex = 1;
+                        startValue = self.dataModel.conditions[@"time"];
                     }
                 }
             }
@@ -710,11 +710,11 @@ MKBXTriggerTapViewDelegate>
                     }
                 }else {
                     if (start) {
-                        tempIndex = 1;
-                        startValue = self.dataModel.conditions[@"time"];
-                    }else {
                         tempIndex = 2;
                         stopValue = self.dataModel.conditions[@"time"];
+                    }else {
+                        tempIndex = 1;
+                        startValue = self.dataModel.conditions[@"time"];
                     }
                 }
             }
@@ -870,6 +870,11 @@ MKBXTriggerTapViewDelegate>
     }else if (tempModel.index == 2) {
         timeValue = tempModel.stopValue;
     }
+    BOOL start = (tempModel.index != 2);
+    if (tapView == self.movesView) {
+        //
+        start = (tempModel.index != 1);
+    }
     return @{
              @"msg":@"",
              @"result":@{
@@ -880,7 +885,7 @@ MKBXTriggerTapViewDelegate>
                                      @"triggerType":triggerType,
                                      @"conditions":@{
                                              @"time":timeValue,
-                                             @"start":@(tempModel.index != 2)
+                                             @"start":@(start)
                                      }
                              },
                      },
