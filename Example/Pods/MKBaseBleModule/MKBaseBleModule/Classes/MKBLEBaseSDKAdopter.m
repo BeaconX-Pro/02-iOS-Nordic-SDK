@@ -148,37 +148,43 @@
     }
     Byte *bytes = (Byte *)[sourceData bytes];
     //下面是Byte 转换为16进制。
-    NSString *hexStr=@"";
-    for(int i=0;i<[sourceData length];i++){
+    NSString *hexStr = @"";
+    for(int i = 0;i < [sourceData length];i++){
         NSString *newHexStr = [NSString stringWithFormat:@"%x",bytes[i]&0xff];///16进制数
-        if([newHexStr length]==1)
+        if([newHexStr length]==1) {
             hexStr = [NSString stringWithFormat:@"%@0%@",hexStr,newHexStr];
-        else
+        }else {
             hexStr = [NSString stringWithFormat:@"%@%@",hexStr,newHexStr];
+        }
     }
     return hexStr;
 }
 
 + (NSData *)stringToData:(NSString *)dataString{
-    if (!MKValidStr(dataString) || !(dataString.length % 2 == 0)) {
+    if (!MKValidStr(dataString)) {
         return [NSData data];
     }
-    for (NSInteger i = 0; i < dataString.length; i ++) {
-        if (![self checkHexCharacter:[dataString substringWithRange:NSMakeRange(i, 1)]]) {
-            return [NSData data];
-        }
+        
+    NSMutableData *hexData = [[NSMutableData alloc] initWithCapacity:20];
+    NSRange range;
+    if ([dataString length] % 2 == 0) {
+        range = NSMakeRange(0, 2);
+    } else {
+        range = NSMakeRange(0, 1);
     }
-    Byte bytes[255] = {0};
-    NSInteger count = 0;
-    for (int i =0; i < dataString.length; i+=2) {
-        NSString *strByte = [dataString substringWithRange:NSMakeRange(i,2)];
-        unsigned long red = strtoul([strByte UTF8String],0,16);
-        Byte b =  (Byte) ((0xff & red) );//( Byte) 0xff&iByte;
-        bytes[i/2+0] = b;
-        count ++;
+    for (NSInteger i = range.location; i < [dataString length]; i += 2) {
+        unsigned int anInt;
+        NSString *hexCharStr = [dataString substringWithRange:range];
+        NSScanner *scanner = [[NSScanner alloc] initWithString:hexCharStr];
+        
+        [scanner scanHexInt:&anInt];
+        NSData *entity = [[NSData alloc] initWithBytes:&anInt length:1];
+        [hexData appendData:entity];
+        
+        range.location += range.length;
+        range.length = 2;
     }
-    NSData * data = [NSData dataWithBytes:bytes length:count];
-    return data;
+    return hexData;
 }
 
 + (BOOL)checkHexCharacter:(NSString *)character {
@@ -191,8 +197,16 @@
 }
 
 + (NSString *)binaryByhex:(NSString *)hex {
-    if (!MKValidStr(hex) || hex.length != 2 || ![self checkHexCharacter:hex]) {
+    if (!MKValidStr(hex) || ![self checkHexCharacter:hex]) {
         return @"";
+    }
+    if (hex.length % 2 != 0) {
+        
+        NSMutableString *mStr = [[NSMutableString alloc]init];;
+        for (int i = 0; i < 2 - hex.length % 2; i++) {
+            [mStr appendString:@"0"];
+        }
+        hex = [mStr stringByAppendingString:hex];
     }
     NSDictionary *hexDic = @{
                              @"0":@"0000",@"1":@"0001",@"2":@"0010",
@@ -239,44 +253,46 @@
 }
 
 + (NSString *)getHexByBinary:(NSString *)binary {
-    NSMutableDictionary *binaryDic = [[NSMutableDictionary alloc] initWithCapacity:16];
-    [binaryDic setObject:@"0" forKey:@"0000"];
-    [binaryDic setObject:@"1" forKey:@"0001"];
-    [binaryDic setObject:@"2" forKey:@"0010"];
-    [binaryDic setObject:@"3" forKey:@"0011"];
-    [binaryDic setObject:@"4" forKey:@"0100"];
-    [binaryDic setObject:@"5" forKey:@"0101"];
-    [binaryDic setObject:@"6" forKey:@"0110"];
-    [binaryDic setObject:@"7" forKey:@"0111"];
-    [binaryDic setObject:@"8" forKey:@"1000"];
-    [binaryDic setObject:@"9" forKey:@"1001"];
-    [binaryDic setObject:@"A" forKey:@"1010"];
-    [binaryDic setObject:@"B" forKey:@"1011"];
-    [binaryDic setObject:@"C" forKey:@"1100"];
-    [binaryDic setObject:@"D" forKey:@"1101"];
-    [binaryDic setObject:@"E" forKey:@"1110"];
-    [binaryDic setObject:@"F" forKey:@"1111"];
+    if (!MKValidStr(binary) || ![self checkHexCharacter:binary]) {
+        return @"";
+    }
+    NSDictionary *binaryDic = @{
+        @"0000":@"0",@"0001":@"1",@"0010":@"2",
+        @"0011":@"3",@"0100":@"4",@"0101":@"5",
+        @"0110":@"6",@"0111":@"7",@"1000":@"8",
+        @"1001":@"9",@"1010":@"A",@"1011":@"B",
+        @"1100":@"C",@"1101":@"D",@"1110":@"E",
+        @"1111":@"F",
+    };
     
-    if (binary.length % 4 != 0) {
-        
+    if (binary.length % 8 != 0) {
         NSMutableString *mStr = [[NSMutableString alloc]init];;
-        for (int i = 0; i < 4 - binary.length % 4; i++) {
+        for (int i = 0; i < 8 - binary.length % 8; i++) {
             
             [mStr appendString:@"0"];
         }
         binary = [mStr stringByAppendingString:binary];
     }
-    NSString *hex = @"";
-    for (int i=0; i<binary.length; i+=4) {
-        
-        NSString *key = [binary substringWithRange:NSMakeRange(i, 4)];
-        NSString *value = [binaryDic objectForKey:key];
-        if (value) {
-            
-            hex = [hex stringByAppendingString:value];
+    
+    NSInteger totalNum = (binary.length / 8);
+    
+    NSString *tempString = @"";
+    
+    for (NSInteger j = 0; j < totalNum; j ++) {
+        NSString *hex = @"";
+        NSString *tempBinary = [binary substringWithRange:NSMakeRange(j * 8, 8)];
+        for (int i = 0; i < tempBinary.length; i += 4) {
+            NSString *key = [tempBinary substringWithRange:NSMakeRange(i, 4)];
+            NSString *value = binaryDic[key];
+            if (value) {
+                hex = [hex stringByAppendingString:value];
+            }
         }
+        tempString = [tempString stringByAppendingString:hex];
     }
-    return hex;
+    
+    
+    return tempString;
 }
 
 + (NSString *)fetchHexValue:(unsigned long)value byteLen:(NSInteger)len {

@@ -451,6 +451,7 @@
 - (UITextView *)textView {
     if (!_textView) {
         _textView = [[UITextView alloc] init];
+        _textView.backgroundColor = COLOR_WHITE_MACROS;
         _textView.font = MKFont(12.f);
         _textView.layoutManager.allowsNonContiguousLayout = NO;
         _textView.editable = NO;

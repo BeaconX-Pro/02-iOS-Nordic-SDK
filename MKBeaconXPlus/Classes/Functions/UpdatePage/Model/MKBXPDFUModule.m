@@ -49,13 +49,15 @@ static NSString *const dfuUpdateDomain = @"com.moko.dfuUpdateDomain";
         [self operationFailedBlock:failedBlock msg:@"Dfu upgrade failure!"];
         return;
     }
-    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:zipData];// or
+    NSError *error = nil;
+    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:zipData error:&error];// or
     //Use the DFUServiceInitializer to initialize the DFU process.
     if (!selectedFirmware) {
         [self operationFailedBlock:failedBlock msg:@"Dfu upgrade failure!"];
         return;
     }
-    DFUServiceInitiator *initiator = [[DFUServiceInitiator alloc] initWithQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) progressQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) loggerQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    DFUServiceInitiator *initiator = [[DFUServiceInitiator alloc] initWithQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) progressQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) loggerQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+                                                          centralManagerOptions:@[]];
     initiator = [initiator withFirmware:selectedFirmware];
     initiator.logger = self; // - to get log info
     initiator.delegate = self; // - to be informed about current state and errors

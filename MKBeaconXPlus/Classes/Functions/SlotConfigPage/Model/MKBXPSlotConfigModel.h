@@ -117,6 +117,12 @@ NS_ASSUME_NONNULL_BEGIN
  @"start":@(YES),       //YES:开始广播，NO:停止广播
  }
  
+ //单击触发
+ type=07,conditions = @{
+ @"time":@"3",          //持续时长
+ @"start":@(YES),       //YES:开始广播，NO:停止广播
+ }
+ 
  */
 @property (nonatomic, strong)NSDictionary *triggerConditions;
 

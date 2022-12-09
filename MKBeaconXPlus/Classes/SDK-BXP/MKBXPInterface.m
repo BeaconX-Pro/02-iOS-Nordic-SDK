@@ -225,4 +225,13 @@
                           failedBlock:failedBlock];
 }
 
++ (void)bxp_readEffectiveClickIntervalWithSucBlock:(void (^)(id returnData))sucBlock
+                                       failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:mk_bxp_taskReadEffectiveClickIntervalOperation
+                          commandData:@"ea4d0000"
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
 @end

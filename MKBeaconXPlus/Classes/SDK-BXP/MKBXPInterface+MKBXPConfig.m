@@ -517,6 +517,23 @@
                           failedBlock:failedBlock];
 }
 
++ (void)bxp_configTriggerConditionsWithSingleTap:(NSInteger)time
+                                           start:(BOOL)start
+                                        sucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock {
+    if (time < 0 || time > 65535) {
+        [self operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *timeString = [MKBLEBaseSDKAdopter fetchHexValue:time byteLen:2];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ea39000407",timeString,(start ? @"01" : @"02")];
+    [centralManager addTaskWithTaskID:mk_bxp_taskConfigTriggerConditionsOperation
+                          commandData:commandString
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
 + (void)bxp_deleteBXPRecordHTDatasWithSucBlock:(void (^)(id returnData))sucBlock
                                    failedBlock:(void (^)(NSError *error))failedBlock {
     [centralManager addTaskWithTaskID:mk_bxp_taskDeleteRecordHTDataOperation
@@ -562,6 +579,22 @@
                                 failedBlock:(void (^)(NSError *error))failedBlock {
     NSString *commandString = (isOn ? @"ea58000101" : @"ea58000100");
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigResetBeaconByButtonStatusOperation
+                          commandData:commandString
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
++ (void)bxp_configEffectiveClickInterval:(NSInteger)interval
+                                sucBlock:(void (^)(id returnData))sucBlock
+                             failedBlock:(void (^)(NSError *error))failedBlock {
+    if (interval < 5 || interval > 15) {
+        [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *value = [MKBLEBaseSDKAdopter fetchHexValue:(interval * 100) byteLen:2];
+    NSString *commandString = [@"ea5d0002" stringByAppendingString:value];
+    [centralManager addTaskWithTaskID:mk_bxp_taskConfigEffectiveClickIntervalOperation
                           commandData:commandString
                        characteristic:peripheral.bxp_customWrite
                              sucBlock:sucBlock

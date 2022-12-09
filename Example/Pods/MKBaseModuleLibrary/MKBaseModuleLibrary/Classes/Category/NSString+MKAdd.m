@@ -70,6 +70,116 @@
     return YES;
 }
 
+- (NSString *)binaryByhex {
+    if (!self || ![self isKindOfClass:NSString.class] || ![self regularExpressions:isHexadecimal]) {
+        return @"";
+    }
+    NSString *hex = [self copy];
+    if (hex.length % 2 != 0) {
+        
+        NSMutableString *mStr = [[NSMutableString alloc]init];;
+        for (int i = 0; i < 2 - hex.length % 2; i++) {
+            
+            [mStr appendString:@"0"];
+        }
+        hex = [mStr stringByAppendingString:hex];
+    }
+    NSDictionary *hexDic = @{
+                             @"0":@"0000",@"1":@"0001",@"2":@"0010",
+                             @"3":@"0011",@"4":@"0100",@"5":@"0101",
+                             @"6":@"0110",@"7":@"0111",@"8":@"1000",
+                             @"9":@"1001",@"A":@"1010",@"a":@"1010",
+                             @"B":@"1011",@"b":@"1011",@"C":@"1100",
+                             @"c":@"1100",@"D":@"1101",@"d":@"1101",
+                             @"E":@"1110",@"e":@"1110",@"F":@"1111",
+                             @"f":@"1111",
+                             };
+    NSString *binaryString = @"";
+    for (int i = 0; i < [hex length]; i++) {
+        NSRange rage;
+        rage.length = 1;
+        rage.location = i;
+        NSString *key = [hex substringWithRange:rage];
+        binaryString = [NSString stringWithFormat:@"%@%@",binaryString,
+                        [NSString stringWithFormat:@"%@",[hexDic objectForKey:key]]];
+        
+    }
+    
+    return binaryString;
+}
+
+- (NSString *)fetchHexByBinary {
+    if (!self || ![self isKindOfClass:NSString.class] || ![self regularExpressions:isHexadecimal]) {
+        return @"";
+    }
+    NSString *binary = [self copy];
+    NSDictionary *binaryDic = @{
+        @"0000":@"0",@"0001":@"1",@"0010":@"2",
+        @"0011":@"3",@"0100":@"4",@"0101":@"5",
+        @"0110":@"6",@"0111":@"7",@"1000":@"8",
+        @"1001":@"9",@"1010":@"A",@"1011":@"B",
+        @"1100":@"C",@"1101":@"D",@"1110":@"E",
+        @"1111":@"F",
+    };
+    
+    if (binary.length % 8 != 0) {
+        NSMutableString *mStr = [[NSMutableString alloc]init];;
+        for (int i = 0; i < 8 - binary.length % 8; i++) {
+            
+            [mStr appendString:@"0"];
+        }
+        binary = [mStr stringByAppendingString:binary];
+    }
+    
+    NSInteger totalNum = (binary.length / 8);
+    
+    NSString *tempString = @"";
+    
+    for (NSInteger j = 0; j < totalNum; j ++) {
+        NSString *hex = @"";
+        NSString *tempBinary = [binary substringWithRange:NSMakeRange(j * 8, 8)];
+        for (int i = 0; i < tempBinary.length; i += 4) {
+            NSString *key = [tempBinary substringWithRange:NSMakeRange(i, 4)];
+            NSString *value = binaryDic[key];
+            if (value) {
+                hex = [hex stringByAppendingString:value];
+            }
+        }
+        tempString = [tempString stringByAppendingString:hex];
+    }
+    
+    
+    return tempString;
+}
+
+/// 将十六进制字符转换成对应的NSData
+- (NSData *)stringToData {
+    if (!self || ![self isKindOfClass:NSString.class]) {
+        return [NSData data];
+    }
+        
+    NSMutableData *hexData = [[NSMutableData alloc] initWithCapacity:20];
+    NSRange range;
+    if ([self length] % 2 == 0) {
+        range = NSMakeRange(0, 2);
+    } else {
+        range = NSMakeRange(0, 1);
+    }
+    for (NSInteger i = range.location; i < [self length]; i += 2) {
+        unsigned int anInt;
+        NSString *hexCharStr = [self substringWithRange:range];
+        NSScanner *scanner = [[NSScanner alloc] initWithString:hexCharStr];
+        
+        [scanner scanHexInt:&anInt];
+        NSData *entity = [[NSData alloc] initWithBytes:&anInt length:1];
+        [hexData appendData:entity];
+        
+        range.location += range.length;
+        range.length = 2;
+    }
+    return hexData;
+}
+
 - (BOOL)isMobileNumber
 {
     /**

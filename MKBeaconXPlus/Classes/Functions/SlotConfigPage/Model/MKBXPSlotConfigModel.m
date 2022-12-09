@@ -414,6 +414,11 @@
         return [self configTriggerConditionsWithLight:[triggerParams[@"conditions"][@"time"] integerValue]
                                                 start:[triggerParams[@"conditions"][@"start"] boolValue]];
     }
+    if ([triggerParams[@"triggerType"] isEqualToString:@"07"]) {
+        //光感触发
+        return [self configTriggerConditionsWithSingle:[triggerParams[@"conditions"][@"time"] integerValue]
+                                                 start:[triggerParams[@"conditions"][@"start"] boolValue]];
+    }
     return NO;
 }
 
@@ -496,6 +501,18 @@
 - (BOOL)configTriggerConditionsWithLight:(NSInteger)time start:(BOOL)start {
     __block BOOL success = NO;
     [MKBXPInterface bxp_configTriggerConditionsWithAmbientLightDetected:time start:start sucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configTriggerConditionsWithSingle:(NSInteger)time start:(BOOL)start {
+    __block BOOL success = NO;
+    [MKBXPInterface bxp_configTriggerConditionsWithSingleTap:time start:start sucBlock:^(id  _Nonnull returnData) {
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

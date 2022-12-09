@@ -73,7 +73,7 @@ static const char *formatterKey = "formatterKey";
 
 #pragma mark - private method
 + (NSString *)cachesDirectory {
-    return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES)lastObject];
+    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)lastObject];
 }
 
 /**
@@ -98,17 +98,10 @@ static const char *formatterKey = "formatterKey";
  @return YES:创建成功，NO:创建失败
  */
 + (BOOL)createFileInPath:(NSString *)path fileName:(NSString *)fileName{
-    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *newFilePath = [path stringByAppendingPathComponent:fileName];
     BOOL res = [fileManager createFileAtPath:newFilePath contents:nil attributes:nil];
-    if (res) {
-        //文件创建成功
-        return YES;
-    }else{
-        //文件创建失败
-        return NO;
-    }
+    return res;
 }
 
 /**
@@ -118,16 +111,9 @@ static const char *formatterKey = "formatterKey";
  @return YES:删除成功，NO:删除失败
  */
 + (BOOL)deleteFileInPath:(NSString *)path{
-    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL res = [fileManager removeItemAtPath:path error:nil];
-    if (res) {
-        //文件删除成功
-        return YES;
-    }else{
-        //文件删除失败
-        return NO;
-    }
+    return res;
 }
 
 /**

@@ -53,15 +53,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param dataString dataString
 + (NSData *)stringToData:(NSString *)dataString;
 
-/// 判断一个字符是否是16进制字符
+/// 判断字符串是否是十六进制
 /// @param character character
 + (BOOL)checkHexCharacter:(NSString *)character;
 
 /**
- 将一个字节的16进制数据转成8位2进制
+ 将16进制数据转成2进制
  
  @param hex 需要转换的16进制数据
- @return 转换后的8位2进制数据
+ @return 转换后的2进制数据
  */
 + (NSString *)binaryByhex:(NSString *)hex;
 
@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isUUIDString:(NSString *)uuid;
 
 /**
- 二进制转换成一个字节的十六进制
+ 二进制转换成十六进制
  
  @param binary 二进制数
  @return 十六进制数
@@ -83,8 +83,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 将一个十进制的数据转换成对应byteLen字节长度的十六进制数据，
 /*
- [MKBGSDKDataAdopter fetchHexValue:10 byteLen:4] ==>@"0000000a"
- [MKBGSDKDataAdopter fetchHexValue:10 byteLen:1] ==>@"0a"
+ [MKBLEBaseSDKAdopter fetchHexValue:10 byteLen:4] ==>@"0000000a"
+ [MKBLEBaseSDKAdopter fetchHexValue:10 byteLen:1] ==>@"0a"
  */
 /// @param value 十进制
 /// @param byteLen 字节长度

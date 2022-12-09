@@ -28,36 +28,13 @@
  */
 @property (nonatomic,strong) UIButton *rightButton;
 
-@property (nonatomic, assign)MKNaviType naviType;
-
 @end
 
 @implementation MKBaseViewController
 
-- (instancetype)init{
-    self = [super init];
-    if (self) {
-        self.naviType = MKNaviTypeShow;
-    }
-    return self;
-}
-
-- (instancetype)initWithNavigationType:(MKNaviType)type{
-    self = [self init];
-    if (self) {
-        self.naviType = type;
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupNavigationParams];
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:!(self.naviType == MKNaviTypeShow) animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated{

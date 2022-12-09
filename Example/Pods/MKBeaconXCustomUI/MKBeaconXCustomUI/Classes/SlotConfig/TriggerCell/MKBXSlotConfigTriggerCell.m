@@ -68,6 +68,10 @@ MKBXTriggerTapViewDelegate>
 
 @property (nonatomic, strong)MKBXTriggerTapViewModel *lightDetectedViewModel;
 
+@property (nonatomic, strong)MKBXTriggerTapView *singleTapView;
+
+@property (nonatomic, strong)MKBXTriggerTapViewModel *singleTapViewModel;
+
 @property (nonatomic, assign)NSInteger index;
 
 @end
@@ -95,6 +99,7 @@ MKBXTriggerTapViewDelegate>
         [self.contentView addSubview:self.tripleTapView];
         [self.contentView addSubview:self.movesView];
         [self.contentView addSubview:self.lightDetectedView];
+        [self.contentView addSubview:self.singleTapView];
         [self.triggerTypeLabel setHidden:YES];
         [self.triggerLabel setHidden:YES];
         [self.doubleTapView setHidden:YES];
@@ -160,6 +165,9 @@ MKBXTriggerTapViewDelegate>
     [self.lightDetectedView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.temperView);
     }];
+    [self.singleTapView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.temperView);
+    }];
 }
 
 #pragma mark - MKBXSlotConfigCellProtocol
@@ -179,28 +187,32 @@ MKBXTriggerTapViewDelegate>
     }
     //打开触发，需要根据不同的触发方式校验参数
     if (self.index == 0) {
+        //Single click button
+        return [self fetchTriggerTapViewData:self.singleTapView];
+    }
+    if (self.index == 1) {
         //Press button twice
         return [self fetchTriggerTapViewData:self.doubleTapView];
     }
-    if (self.index == 1) {
+    if (self.index == 2) {
         //Press button three times
         return [self fetchTriggerTapViewData:self.tripleTapView];
     }
     if ([self.dataModel.deviceType isEqualToString:@"01"]) {
         //带LIS3DH3轴加速度计
-        if (self.index == 2) {
+        if (self.index == 3) {
             //Device moves
             return [self fetchTriggerTapViewData:self.movesView];
         }
     }
     if ([self.dataModel.deviceType isEqualToString:@"02"] || [self.dataModel.deviceType isEqualToString:@"03"]) {
         //带SHT3X温湿度传感器或者同时带有LIS3DH及SHT3X传感器
-        if (self.index == 2 || self.index == 3) {
+        if (self.index == 3 || self.index == 4) {
             //3.Temperature above
             //4.Temperature below
             return [self fetchTemperViewData];
         }
-        if (self.index == 4 || self.index == 5) {
+        if (self.index == 5 || self.index == 6) {
             //5.Humidity above
             //6.Humidity below
             return [self fetchHumidityViewData];
@@ -209,25 +221,25 @@ MKBXTriggerTapViewDelegate>
     
     if ([self.dataModel.deviceType isEqualToString:@"03"]) {
         //同时带有LIS3DH及SHT3X传感器
-        if (self.index == 6) {
+        if (self.index == 7) {
             //Device moves
             return [self fetchTriggerTapViewData:self.movesView];
         }
     }
     if ([self.dataModel.deviceType isEqualToString:@"04"]) {
         //带光感
-        if (self.index == 2) {
+        if (self.index == 3) {
             //Ambient light detected
             return [self fetchTriggerTapViewData:self.lightDetectedView];
         }
     }
     if ([self.dataModel.deviceType isEqualToString:@"05"]) {
         //带LIS3DH和光感
-        if (self.index == 2) {
+        if (self.index == 3) {
             //Device moves
             return [self fetchTriggerTapViewData:self.movesView];
         }
-        if (self.index == 3) {
+        if (self.index == 4) {
             //Ambient light detected
             return [self fetchTriggerTapViewData:self.lightDetectedView];
         }
@@ -282,6 +294,11 @@ MKBXTriggerTapViewDelegate>
         self.lightDetectedViewModel.index = index;
         return;
     }
+    if (viewType == MKBXTriggerTapViewSingle) {
+        //单击
+        self.singleTapViewModel.index = index;
+        return;
+    }
 }
 
 /// index=1的时候，输入框的值
@@ -306,6 +323,11 @@ MKBXTriggerTapViewDelegate>
         self.lightDetectedViewModel.startValue = startValue;
         return;
     }
+    if (viewType == MKBXTriggerTapViewSingle) {
+        //光感
+        self.singleTapViewModel.startValue = startValue;
+        return;
+    }
 }
 
 /// index=2的时候，输入框的值
@@ -328,6 +350,11 @@ MKBXTriggerTapViewDelegate>
     if (viewType == MKBXTriggerTapViewAmbientLightDetected) {
         //光感
         self.lightDetectedViewModel.stopValue = stopValue;
+        return;
+    }
+    if (viewType == MKBXTriggerTapViewSingle) {
+        //光感
+        self.singleTapViewModel.stopValue = stopValue;
         return;
     }
 }
@@ -383,27 +410,33 @@ MKBXTriggerTapViewDelegate>
     [self.tripleTapView setHidden:YES];
     [self.movesView setHidden:YES];
     [self.lightDetectedView setHidden:YES];
+    [self.singleTapView setHidden:YES];
 }
 
 - (void)updateIndexValue {
     if ([self.dataModel.type isEqualToString:@"00"]) {
         return;
     }
+    if ([self.dataModel.type isEqualToString:@"07"] && ValidDict(self.dataModel.conditions)) {
+        //单击
+        self.index = 0;
+        return;
+    }
     if ([self.dataModel.type isEqualToString:@"03"] && ValidDict(self.dataModel.conditions)) {
         //双击
-        self.index = 0;
+        self.index = 1;
         return;
     }
     if ([self.dataModel.type isEqualToString:@"04"] && ValidDict(self.dataModel.conditions)) {
         //三击
-        self.index = 1;
+        self.index = 2;
         return;
     }
     if ([self.dataModel.deviceType isEqualToString:@"04"]) {
         //仅带光感,@"Press button twice",@"Press button three times",@"Ambient light detected"
         if ([self.dataModel.type isEqualToString:@"06"] && ValidDict(self.dataModel.conditions)) {
             //光感触发
-            self.index = 2;
+            self.index = 3;
             return;
         }
         return;
@@ -412,12 +445,12 @@ MKBXTriggerTapViewDelegate>
         //带光感和LIS3DH3轴加速度计,@"Press button twice",@"Press button three times",@"Device moves",@"Ambient light detected"
         if ([self.dataModel.type isEqualToString:@"05"] && ValidDict(self.dataModel.conditions)) {
             //移动触发
-            self.index = 2;
+            self.index = 3;
             return;
         }
         if ([self.dataModel.type isEqualToString:@"06"] && ValidDict(self.dataModel.conditions)) {
             //光感触发
-            self.index = 3;
+            self.index = 4;
             return;
         }
         return;
@@ -426,7 +459,7 @@ MKBXTriggerTapViewDelegate>
         //带LIS3DH3轴加速度计,@"Press button twice",@"Press button three times",@"Device moves"
         if ([self.dataModel.type isEqualToString:@"05"] && ValidDict(self.dataModel.conditions)) {
             //移动
-            self.index = 2;
+            self.index = 3;
             return;
         }
         return;
@@ -436,22 +469,22 @@ MKBXTriggerTapViewDelegate>
         if ([self.dataModel.type isEqualToString:@"01"] && ValidDict(self.dataModel.conditions)) {
             //温度
             if ([self.dataModel.conditions[@"above"] boolValue]) {
-                self.index = 2;
-            }else {
                 self.index = 3;
+            }else {
+                self.index = 4;
             }
         }
         if ([self.dataModel.type isEqualToString:@"02"] && ValidDict(self.dataModel.conditions)) {
             //湿度
             if ([self.dataModel.conditions[@"above"] boolValue]) {
-                self.index = 4;
-            }else {
                 self.index = 5;
+            }else {
+                self.index = 6;
             }
         }
         if ([self.dataModel.type isEqualToString:@"05"] && ValidDict(self.dataModel.conditions) && [self.dataModel.deviceType isEqualToString:@"03"]) {
             //移动
-            self.index = 6;
+            self.index = 7;
         }
         return;
     }
@@ -462,7 +495,43 @@ MKBXTriggerTapViewDelegate>
     NSArray *typeList = [self triggerTypeList];
     self.triggerLabel.text = typeList[self.index];
     if (self.index == 0) {
+        //Single click button
+        [self.singleTapView setHidden:NO];
+        [self.doubleTapView setHidden:YES];
+        [self.temperView setHidden:YES];
+        [self.humidityView setHidden:YES];
+        [self.tripleTapView setHidden:YES];
+        [self.movesView setHidden:YES];
+        [self.lightDetectedView setHidden:YES];
+        NSString *startValue = @"30";
+        NSString *stopValue = @"30";
+        NSInteger tempIndex = 0;
+        if (ValidDict(self.dataModel.conditions)) {
+            BOOL start = [self.dataModel.conditions[@"start"] boolValue];
+            if ([self.dataModel.conditions[@"time"] integerValue] == 0) {
+                if (start) {
+                    tempIndex = 0;
+                }
+            }else {
+                if (start) {
+                    tempIndex = 1;
+                    startValue = self.dataModel.conditions[@"time"];
+                }else {
+                    tempIndex = 2;
+                    stopValue = self.dataModel.conditions[@"time"];
+                }
+            }
+        }
+        self.singleTapViewModel.index = tempIndex;
+        self.singleTapViewModel.startValue = startValue;
+        self.singleTapViewModel.stopValue = stopValue;
+        self.singleTapView.dataModel = self.singleTapViewModel;
+        return;
+        return;
+    }
+    if (self.index == 1) {
         //Press button twice
+        [self.singleTapView setHidden:YES];
         [self.doubleTapView setHidden:NO];
         [self.temperView setHidden:YES];
         [self.humidityView setHidden:YES];
@@ -494,8 +563,9 @@ MKBXTriggerTapViewDelegate>
         self.doubleTapView.dataModel = self.doubleTapViewModel;
         return;
     }
-    if (self.index == 1) {
+    if (self.index == 2) {
         //Press button three times
+        [self.singleTapView setHidden:YES];
         [self.doubleTapView setHidden:YES];
         [self.temperView setHidden:YES];
         [self.humidityView setHidden:YES];
@@ -535,8 +605,9 @@ MKBXTriggerTapViewDelegate>
     
     if ([self.dataModel.deviceType isEqualToString:@"01"]) {
         //带LIS3DH3轴加速度计
-        if (self.index == 2) {
+        if (self.index == 3) {
             //Device moves
+            [self.singleTapView setHidden:YES];
             [self.doubleTapView setHidden:YES];
             [self.temperView setHidden:YES];
             [self.humidityView setHidden:YES];
@@ -575,9 +646,10 @@ MKBXTriggerTapViewDelegate>
     
     if ([self.dataModel.deviceType isEqualToString:@"02"] || [self.dataModel.deviceType isEqualToString:@"03"]) {
         //带SHT3X温湿度传感器或者同时带有LIS3DH及SHT3X传感器
-        if (self.index == 2 || self.index == 3) {
+        if (self.index == 3 || self.index == 4) {
             //3.Temperature above
             //4.Temperature below
+            [self.singleTapView setHidden:YES];
             [self.doubleTapView setHidden:YES];
             [self.temperView setHidden:NO];
             [self.humidityView setHidden:YES];
@@ -591,9 +663,10 @@ MKBXTriggerTapViewDelegate>
             self.temperView.dataModel = self.temperViewModel;
             return;
         }
-        if (self.index == 4 || self.index == 5) {
+        if (self.index == 5 || self.index == 6) {
             //5.Humidity above
             //6.Humidity below
+            [self.singleTapView setHidden:YES];
             [self.doubleTapView setHidden:YES];
             [self.temperView setHidden:YES];
             [self.humidityView setHidden:NO];
@@ -611,8 +684,9 @@ MKBXTriggerTapViewDelegate>
     
     if ([self.dataModel.deviceType isEqualToString:@"03"]) {
         //同时带有LIS3DH及SHT3X传感器
-        if (self.index == 6) {
+        if (self.index == 7) {
             //Device moves
+            [self.singleTapView setHidden:YES];
             [self.doubleTapView setHidden:YES];
             [self.temperView setHidden:YES];
             [self.humidityView setHidden:YES];
@@ -650,8 +724,9 @@ MKBXTriggerTapViewDelegate>
     }
     if ([self.dataModel.deviceType isEqualToString:@"04"]) {
         //带光感
-        if (self.index == 2) {
+        if (self.index == 3) {
             //Ambient light detected
+            [self.singleTapView setHidden:YES];
             [self.doubleTapView setHidden:YES];
             [self.temperView setHidden:YES];
             [self.humidityView setHidden:YES];
@@ -689,8 +764,9 @@ MKBXTriggerTapViewDelegate>
     }
     if ([self.dataModel.deviceType isEqualToString:@"05"]) {
         //光感和三轴加速度
-        if (self.index == 2) {
+        if (self.index == 3) {
             //Device moves
+            [self.singleTapView setHidden:YES];
             [self.doubleTapView setHidden:YES];
             [self.temperView setHidden:YES];
             [self.humidityView setHidden:YES];
@@ -724,8 +800,9 @@ MKBXTriggerTapViewDelegate>
             self.movesView.dataModel = self.movesViewModel;
             return;
         }
-        if (self.index == 3) {
+        if (self.index == 4) {
             //Ambient light detected
+            [self.singleTapView setHidden:YES];
             [self.doubleTapView setHidden:YES];
             [self.temperView setHidden:YES];
             [self.humidityView setHidden:YES];
@@ -770,26 +847,26 @@ MKBXTriggerTapViewDelegate>
 - (NSArray *)triggerTypeList {
     if ([self.dataModel.deviceType isEqualToString:@"01"]) {
         //带LIS3DH3轴加速度计
-        return @[@"Press button twice",@"Press button three times",@"Device moves"];
+        return @[@"Single click button",@"Press button twice",@"Press button three times",@"Device moves"];
     }
     if ([self.dataModel.deviceType isEqualToString:@"02"]) {
         //带SHT3X温湿度传感器
-        return @[@"Press button twice",@"Press button three times",@"Temperature above",@"Temperature below",@"Humidity above",@"Humidity below"];
+        return @[@"Single click button",@"Press button twice",@"Press button three times",@"Temperature above",@"Temperature below",@"Humidity above",@"Humidity below"];
     }
     if ([self.dataModel.deviceType isEqualToString:@"03"]) {
         //同时带有LIS3DH及SHT3X传感器
-        return @[@"Press button twice",@"Press button three times",@"Temperature above",@"Temperature below",@"Humidity above",@"Humidity below",@"Device moves"];
+        return @[@"Single click button",@"Press button twice",@"Press button three times",@"Temperature above",@"Temperature below",@"Humidity above",@"Humidity below",@"Device moves"];
     }
     if ([self.dataModel.deviceType isEqualToString:@"04"]) {
         //带光感
-        return @[@"Press button twice",@"Press button three times",@"Ambient light detected"];
+        return @[@"Single click button",@"Press button twice",@"Press button three times",@"Ambient light detected"];
     }
     if ([self.dataModel.deviceType isEqualToString:@"05"]) {
         //同时带有LIS3DH3轴加速度计和光感
-        return @[@"Press button twice",@"Press button three times",@"Device moves",@"Ambient light detected"];
+        return @[@"Single click button",@"Press button twice",@"Press button three times",@"Device moves",@"Ambient light detected"];
     }
     //不带传感器
-    return @[@"Press button twice",@"Press button three times"];
+    return @[@"Single click button",@"Press button twice",@"Press button three times"];
 }
 
 - (NSInteger)pickViewIndex:(NSArray *)dataList {
@@ -855,6 +932,9 @@ MKBXTriggerTapViewDelegate>
     }else if (tapView == self.lightDetectedView) {
         triggerType = @"06";
         tempModel = self.lightDetectedViewModel;
+    }else if (tapView == self.singleTapView) {
+        triggerType = @"07";
+        tempModel = self.singleTapViewModel;
     }
     if ((tempModel.index == 1 && (!ValidStr(tempModel.startValue) || [tempModel.startValue integerValue] < 1 || [tempModel.startValue integerValue] > 65535))
         || (tempModel.index == 2 && (!ValidStr(tempModel.stopValue) || [tempModel.stopValue integerValue] < 1 || [tempModel.stopValue integerValue] > 65535))) {
@@ -1040,6 +1120,22 @@ MKBXTriggerTapViewDelegate>
         _lightDetectedViewModel.viewType = MKBXTriggerTapViewAmbientLightDetected;
     }
     return _lightDetectedViewModel;
+}
+
+- (MKBXTriggerTapView *)singleTapView {
+    if (!_singleTapView) {
+        _singleTapView = [[MKBXTriggerTapView alloc] init];
+        _singleTapView.delegate = self;
+    }
+    return _singleTapView;
+}
+
+- (MKBXTriggerTapViewModel *)singleTapViewModel {
+    if (!_singleTapViewModel) {
+        _singleTapViewModel = [[MKBXTriggerTapViewModel alloc] init];
+        _singleTapViewModel.viewType = MKBXTriggerTapViewSingle;
+    }
+    return _singleTapViewModel;
 }
 
 @end

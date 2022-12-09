@@ -10,9 +10,6 @@
 #endif
 #endif
 
-#import "MKBXUpdateController.h"
-#import "MKBXDFUModule.h"
-#import "MKBXDFUProtocol.h"
 #import "MKBXEnumerateDefine.h"
 #import "MKBXDeviceInfoController.h"
 #import "MKBXDeviceInfoDataProtocol.h"

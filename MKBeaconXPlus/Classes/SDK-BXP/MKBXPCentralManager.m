@@ -35,17 +35,17 @@ NSString *const mk_bxp_receiveLightSensorStatusDataNotification = @"mk_bxp_recei
 static MKBXPCentralManager *manager = nil;
 static dispatch_once_t onceToken;
 
-@interface NSObject (MKBXPCentralManager)
-
-@end
-
-@implementation NSObject (MKBXPCentralManager)
-
-+ (void)load{
-    [MKBXPCentralManager shared];
-}
-
-@end
+//@interface NSObject (MKBXPCentralManager)
+//
+//@end
+//
+//@implementation NSObject (MKBXPCentralManager)
+//
+//+ (void)load{
+//    [MKBXPCentralManager shared];
+//}
+//
+//@end
 
 @interface MKBXPCentralManager ()
 
@@ -101,6 +101,7 @@ static dispatch_once_t onceToken;
 - (void)MKBLEBaseCentralManagerDiscoverPeripheral:(CBPeripheral *)peripheral
                                 advertisementData:(NSDictionary<NSString *,id> *)advertisementData
                                              RSSI:(NSNumber *)RSSI {
+    NSLog(@"%@",advertisementData);
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSArray *beaconList = [MKBXPBaseBeacon parseAdvData:advertisementData];
         for (NSInteger i = 0; i < beaconList.count; i ++) {

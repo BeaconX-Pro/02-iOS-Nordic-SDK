@@ -283,6 +283,25 @@
         [self setNeedsLayout];
         return;
     }
+    if (self.dataModel.viewType == MKBXTriggerTapViewSingle) {
+        //单击
+        if (self.index == 0) {
+            self.noteMsgLabel.text = @"*The Beacon will start and keep advertising after single click button.";
+            [self setNeedsLayout];
+            return;
+        }
+        if (self.index == 1) {
+            self.noteMsgLabel.text = [NSString stringWithFormat:@"*The Beacon will start advertising for %@s after single click button.",self.startField.text];
+            [self setNeedsLayout];
+            return;
+        }
+        if (self.index == 2) {
+            self.noteMsgLabel.text = [NSString stringWithFormat:@"*The Beacon will stop advertising for %@s after single click button.",self.stopField.text];
+            [self setNeedsLayout];
+            return;
+        }
+        return;
+    }
     NSString *typeString = (self.dataModel.viewType == MKBXTriggerTapViewTriple) ? @"three times" : @"twice";
     if (self.index == 0) {
         self.noteMsgLabel.text = [NSString stringWithFormat:@"*The Beacon will start and keep advertising after press the button %@.",typeString];

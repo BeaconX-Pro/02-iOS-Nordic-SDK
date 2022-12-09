@@ -228,6 +228,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bxp_readResetBeaconByButtonStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                           failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// The firmware recognizes the effective double-click or triple-click action corresponding to the button interval, the default is 600ms.
+/// @param sucBlock success callback
+/// @param failedBlock failed callback
++ (void)bxp_readEffectiveClickIntervalWithSucBlock:(void (^)(id returnData))sucBlock
+                                       failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

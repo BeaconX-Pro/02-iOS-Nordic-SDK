@@ -179,6 +179,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (uint32_t)mk_crc32;
 
+/// Returns a hex string;
+- (NSString *)mk_hexStringFromData;
+
 
 #pragma mark - Encrypt and Decrypt
 ///=============================================================================

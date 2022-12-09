@@ -8,6 +8,8 @@
 
 #import "MKBXPSettingController.h"
 
+#import "MLInputDodger.h"
+
 #import "Masonry.h"
 
 #import "MKMacroDefines.h"
@@ -17,22 +19,21 @@
 
 #import "MKHudManager.h"
 #import "MKNormalTextCell.h"
+#import "MKTextFieldCell.h"
 #import "MKAlertController.h"
-
-#import "MKBXUpdateController.h"
 
 #import "MKBXPConnectManager.h"
 
-#import "MKBXPCentralManager.h"
 #import "MKBXPInterface+MKBXPConfig.h"
 #import "MKBXPInterface.h"
 
-#import "MKBXPDFUModel.h"
-
 #import "MKBXPSensorConfigController.h"
 #import "MKBXPQuickSwitchController.h"
+#import "MKBXPUpdateController.h"
 
-@interface MKBXPSettingController ()<UITableViewDelegate, UITableViewDataSource>
+@interface MKBXPSettingController ()<UITableViewDelegate,
+UITableViewDataSource,
+MKTextFieldCellDelegate>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
 
@@ -42,11 +43,15 @@
 
 @property (nonatomic, strong)NSMutableArray *section2List;
 
+@property (nonatomic, strong)NSMutableArray *section3List;
+
 @property (nonatomic, strong)UITextField *passwordTextField;
 
 @property (nonatomic, strong)UITextField *confirmTextField;
 
 @property (nonatomic, assign)BOOL dfuModule;
+
+@property (nonatomic, copy)NSString *interval;
 
 @end
 
@@ -58,11 +63,12 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    self.view.shiftHeightAsDodgeViewForMLInputDodger = 50.0f;
+    [self.view registerAsDodgeViewForMLInputDodgerWithOriginalY:self.view.frame.origin.y];
     if (self.dfuModule) {
         return;
     }
-    [self loadSection1Datas];
-    [self.tableView reloadData];
+    [self readDataFromDevice];
 }
 
 - (void)viewDidLoad {
@@ -70,11 +76,20 @@
     [self loadSubViews];
     [self loadSection0Datas];
     [self loadSection2Datas];
+    [self loadSection3Datas];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deviceStartDFUProcess)
+                                                 name:@"mk_bxp_startDfuProcessNotification"
+                                               object:nil];
 }
 
 #pragma mark - super method
 - (void)leftButtonMethod {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"mk_bxp_popToRootViewControllerNotification" object:nil];
+}
+
+- (void)rightButtonMethod {
+    [self saveDataToDevice];
 }
 
 #pragma mark - UITableViewDelegate
@@ -99,7 +114,7 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -111,6 +126,9 @@
     }
     if (section == 2) {
         return self.section2List.count;
+    }
+    if (section == 3) {
+        return self.section3List.count;
     }
     return 0;
 }
@@ -126,9 +144,66 @@
         cell.dataModel = self.section1List[indexPath.row];
         return cell;
     }
-    MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
-    cell.dataModel = self.section2List[indexPath.row];
+    if (indexPath.section == 2) {
+        MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+        cell.dataModel = self.section2List[indexPath.row];
+        return cell;
+    }
+    MKTextFieldCell *cell = [MKTextFieldCell initCellWithTableView:tableView];
+    cell.dataModel = self.section3List[indexPath.row];
+    cell.delegate = self;
     return cell;
+}
+
+#pragma mark - MKTextFieldCellDelegate
+/// textField内容发送改变时的回调事件
+/// @param index 当前cell所在的index
+/// @param value 当前textField的值
+- (void)mk_deviceTextCellValueChanged:(NSInteger)index textValue:(NSString *)value {
+    if (index == 0) {
+        //Effective click interval
+        MKTextFieldCellModel *cellModel = self.section3List[0];
+        cellModel.textFieldValue = value;
+        self.interval = value;
+        return;
+    }
+}
+
+#pragma mark - note
+- (void)deviceStartDFUProcess {
+    self.dfuModule = YES;
+}
+
+#pragma mark - interface
+- (void)readDataFromDevice {
+    [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
+    [MKBXPInterface bxp_readEffectiveClickIntervalWithSucBlock:^(id  _Nonnull returnData) {
+        [[MKHudManager share] hide];
+        NSInteger tempData = [returnData[@"result"][@"interval"] integerValue] / 100;
+        self.interval = [NSString stringWithFormat:@"%ld",(long)tempData];
+        MKTextFieldCellModel *cellModel = self.section3List[0];
+        cellModel.textFieldValue = self.interval;
+        [self loadSection1Datas];
+        [self.tableView reloadData];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
+}
+
+- (void)saveDataToDevice {
+    if (!ValidStr(self.interval) || [self.interval integerValue] < 5 || [self.interval integerValue] > 15) {
+        [self.view showCentralToast:@"Params Error"];
+        return;
+    }
+    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
+    [MKBXPInterface bxp_configEffectiveClickInterval:[self.interval integerValue] sucBlock:^(id  _Nonnull returnData) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:@"Success"];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 #pragma mark - section0
@@ -332,24 +407,27 @@
 }
 
 - (void)pushDFUPage {
-    MKBXPDFUModel *dfuModel = [[MKBXPDFUModel alloc] init];
-    @weakify(self);
-    dfuModel.DFUCompleteBlock = ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"mk_bxp_centralDeallocNotification" object:nil];
-    };
-    dfuModel.startDFUBlock = ^{
-        @strongify(self);
-        self.dfuModule = YES;
-    };
-    MKBXUpdateController *vc = [[MKBXUpdateController alloc] init];
-    vc.protocol = dfuModel;
+    MKBXPUpdateController *vc = [[MKBXPUpdateController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - section3
+- (void)loadSection3Datas {
+    MKTextFieldCellModel *cellModel = [[MKTextFieldCellModel alloc] init];
+    cellModel.index = 0;
+    cellModel.msg = @"Effective click interval";
+    cellModel.textPlaceholder = @"5 ~ 15";
+    cellModel.maxLength = 2;
+    cellModel.textFieldType = mk_realNumberOnly;
+    cellModel.unit = @"x 100ms";
+    [self.section3List addObject:cellModel];
 }
 
 #pragma mark - UI
 
 - (void)loadSubViews {
     self.defaultTitle = @"SETTING";
+    [self.rightButton setImage:LOADICON(@"MKBeaconXPlus", @"MKBXPSettingController", @"bxp_slotSaveIcon.png") forState:UIControlStateNormal];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
@@ -389,6 +467,13 @@
         _section2List = [NSMutableArray array];
     }
     return _section2List;
+}
+
+- (NSMutableArray *)section3List {
+    if (!_section3List) {
+        _section3List = [NSMutableArray array];
+    }
+    return _section3List;
 }
 
 @end

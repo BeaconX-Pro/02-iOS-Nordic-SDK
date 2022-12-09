@@ -485,9 +485,18 @@
             @"isOn":@(isOn),
         };
         operationID = mk_bxp_taskReadResetBeaconByButtonStatusOperation;
+    }else if ([function isEqualToString:@"4d"] && content.length == 12) {
+        //
+        NSString *interval = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 4)];
+        operationID = mk_bxp_taskReadEffectiveClickIntervalOperation;
+        returnDic = @{@"interval":interval};
     }else if ([function isEqualToString:@"58"] && content.length == 8) {
         //设置设备是否可以按键开关机
         operationID = mk_bxp_taskConfigResetBeaconByButtonStatusOperation;
+        returnDic = @{@"success":@(YES)};
+    }else if ([function isEqualToString:@"5d"] && content.length == 8) {
+        //设置按键间隔时长
+        operationID = mk_bxp_taskConfigEffectiveClickIntervalOperation;
         returnDic = @{@"success":@(YES)};
     }
     return [self dataParserGetDataSuccess:returnDic operationID:operationID];
@@ -564,6 +573,14 @@
                       @"conditions":@{
                               @"time":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)],
                               @"start":@([[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"])
+                              }
+                      };
+    }else if ([type isEqualToString:@"07"] && content.length == 8) {
+        resultDic = @{
+                      @"type":type,
+                      @"conditions":@{
+                              @"time":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)],
+                              @"start":@([[content substringWithRange:NSMakeRange(6, 2)] isEqualToString:@"01"])
                               }
                       };
     }

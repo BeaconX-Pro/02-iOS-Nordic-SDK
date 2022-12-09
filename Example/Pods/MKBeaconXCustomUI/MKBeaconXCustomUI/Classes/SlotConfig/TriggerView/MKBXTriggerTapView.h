@@ -15,6 +15,7 @@ typedef NS_ENUM(NSInteger, MKBXTriggerTapViewType) {
     MKBXTriggerTapViewTriple,
     MKBXTriggerTapViewDeviceMoves,
     MKBXTriggerTapViewAmbientLightDetected,
+    MKBXTriggerTapViewSingle,
 };
 
 @interface MKBXTriggerTapViewModel : NSObject

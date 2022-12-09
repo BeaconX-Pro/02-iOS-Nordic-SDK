@@ -595,6 +595,7 @@ static CGFloat htTextViewWidth = 80.f;
 - (UITextView *)textView {
     if (!_textView) {
         _textView = [[UITextView alloc] initWithFrame:CGRectMake(10.f, 3 * 5.f + MKFont(13.f).lineHeight, kViewWidth - 30.f, textBackViewHeight - 15.f - MKFont(13.f).lineHeight)];
+        _textView.backgroundColor = COLOR_WHITE_MACROS;
         _textView.font = MKFont(13.f);
         _textView.layoutManager.allowsNonContiguousLayout = NO;
         _textView.editable = NO;

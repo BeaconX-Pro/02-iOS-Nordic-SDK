@@ -413,6 +413,16 @@ typedef NS_ENUM(NSInteger, mk_bxp_HTStorageConditions) {
                                                    sucBlock:(void (^)(id returnData))sucBlock
                                                 failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Setting the current active SLOT single tap trigger condition
+/// @param time duration, unit s,0~65535
+/// @param start YES: Start advertising, NO: stop advertising
+/// @param sucBlock success callback
+/// @param failedBlock failed callback
++ (void)bxp_configTriggerConditionsWithSingleTap:(NSInteger)time
+                                           start:(BOOL)start
+                                        sucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock;
+
 /**
  Delete the temperature and humidity data stored in the device
 
@@ -447,6 +457,14 @@ typedef NS_ENUM(NSInteger, mk_bxp_HTStorageConditions) {
 + (void)bxp_configResetBeaconByButtonStatus:(BOOL)isOn
                                    sucBlock:(void (^)(id returnData))sucBlock
                                 failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// The firmware recognizes the effective double-click or triple-click action corresponding to the button interval.
+/// @param interval 5 ~ 15(Uit:100ms)
+/// @param sucBlock success callback
+/// @param failedBlock failed callback
++ (void)bxp_configEffectiveClickInterval:(NSInteger)interval
+                                sucBlock:(void (^)(id returnData))sucBlock
+                             failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

@@ -50,7 +50,7 @@ TODO: Add long description of the pod here.
    s.subspec 'CTMediator' do |ss|
      ss.source_files = 'MKBeaconXPlus/Classes/CTMediator/**'
      
-     s.dependency 'CTMediator'
+     ss.dependency 'CTMediator'
    end
    
    s.subspec 'SDK-BXP' do |ss|
@@ -66,7 +66,7 @@ TODO: Add long description of the pod here.
    s.subspec 'DatabaseManager' do |ss|
      ss.source_files = 'MKBeaconXPlus/Classes/DatabaseManager/**'
      
-     s.dependency 'FMDB'
+     ss.dependency 'FMDB'
    end
    
    s.subspec 'Functions' do |ss|
@@ -146,13 +146,11 @@ TODO: Add long description of the pod here.
      ss.subspec 'SettingPage' do |sss|
        sss.subspec 'Controller' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/SettingPage/Controller/**'
-         ssss.dependency 'MKBeaconXPlus/Functions/SettingPage/Model'
 
          ssss.dependency 'MKBeaconXPlus/Functions/SensorConfigPage/Controller'
          ssss.dependency 'MKBeaconXPlus/Functions/QuickSwitchPage/Controller'
-       end
-       sss.subspec 'Model' do |ssss|
-         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/SettingPage/Model/**'
+         ssss.dependency 'MKBeaconXPlus/Functions/UpdatePage/Controller'
+         
        end
      end
 
@@ -230,6 +228,17 @@ TODO: Add long description of the pod here.
        end
        sss.subspec 'Model' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/LightSensorPage/Model/**'
+       end
+     end
+     
+     ss.subspec 'UpdatePage' do |sss|
+       sss.subspec 'Controller' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/UpdatePage/Controller/**'
+         
+         ssss.dependency 'MKBeaconXPlus/Functions/UpdatePage/Model'
+       end
+       sss.subspec 'Model' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/UpdatePage/Model/**'
        end
      end
 

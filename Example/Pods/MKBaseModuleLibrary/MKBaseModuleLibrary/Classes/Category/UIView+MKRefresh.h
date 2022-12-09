@@ -1,5 +1,5 @@
 //
-//  UIView+XDRefresh.h
+//  UIView+MKRefresh.h
 //  MKBaseModuleLibrary
 //
 //  Created by aa on 2020/12/19.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIView (XDRefresh)
+@interface UIView (MKRefresh)
 
 /**
  下拉刷新
@@ -18,22 +18,24 @@ NS_ASSUME_NONNULL_BEGIN
  @param position icon位置（默认：{10，34}navBar左上角）
  @param block 刷新回调
  */
-- (void)XD_refreshWithObject:(UIScrollView *)scrollView atPoint:(CGPoint)position downRefresh:(void(^)(void))block;
+- (void)mk_refreshWithObject:(UIScrollView *)scrollView
+                     atPoint:(CGPoint)position
+                 downRefresh:(void(^)(void))block;
 
 /**
  结束刷新动作
  */
-- (void)XD_endRefresh;
+- (void)mk_endRefresh;
 
 /**
  开始刷新
  */
-- (void)XD_beginRefresh;
+- (void)mk_beginRefresh;
 
 /**
  释放观察者，用于手动释放，否则将会在界面退出时自动释放
  */
-- (void)XD_freeReFresh;
+- (void)mk_freeReFresh;
 
 @end
 

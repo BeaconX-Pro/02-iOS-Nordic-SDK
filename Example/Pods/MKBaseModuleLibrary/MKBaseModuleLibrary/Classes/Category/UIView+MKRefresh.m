@@ -1,11 +1,11 @@
 //
-//  UIView+XDRefresh.m
+//  UIView+MKRefresh.m
 //  MKBaseModuleLibrary
 //
 //  Created by aa on 2020/12/19.
 //
 
-#import "UIView+XDRefresh.h"
+#import "UIView+MKRefresh.h"
 
 #import <objc/runtime.h>
 
@@ -18,9 +18,9 @@
 #define IconBackTime 0.2    //icon刷新完返回最顶端的时间
 
 typedef NS_ENUM(NSInteger,StatusOfRefresh) {
-    XDREFRESH_Default = 1,     //非刷新状态，该值不能为0
-    XDREFRESH_BeginRefresh,    //刷新状态
-    XDREFRESH_None             //全非状态（即不是刷新 也不是 非刷新状态）
+    MKREFRESH_Default = 1,     //非刷新状态，该值不能为0
+    MKREFRESH_BeginRefresh,    //刷新状态
+    MKREFRESH_None             //全非状态（即不是刷新 也不是 非刷新状态）
 };
 
 static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key, RefreshStatus_Key, IsObserver_Key;
@@ -53,7 +53,7 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
 @property (nonatomic, assign) BOOL isObserver;
 @end
 
-@implementation UIView (XDRefresh)
+@implementation UIView (MKRefresh)
 
 /**animation**/
 - (void)setAnimation:(CABasicAnimation *)animation {
@@ -122,7 +122,7 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
 }
 
 
-- (void)XD_refreshWithObject:(UIScrollView *)scrollView atPoint:(CGPoint)position downRefresh:(void (^)(void))block {
+- (void)mk_refreshWithObject:(UIScrollView *)scrollView atPoint:(CGPoint)position downRefresh:(void (^)(void))block {
     if (![scrollView isKindOfClass:[UIScrollView class]]) {
         return;
     }
@@ -161,14 +161,14 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     __weak typeof(self) weakSelf = self;
     //屏蔽掉全非状态时的操作
-    if (self.refreshStatus == XDREFRESH_None) {
+    if (self.refreshStatus == MKREFRESH_None) {
         return;
     }
     
     //屏蔽掉开始进入界面时的系统下拉动作
     if (self.refreshStatus == 0) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            weakSelf.refreshStatus = XDREFRESH_Default;
+            weakSelf.refreshStatus = MKREFRESH_Default;
         });
         return;
     }
@@ -185,11 +185,11 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
         dispatch_async(dispatch_get_main_queue(), ^{
             __strong typeof(weakSelf) strongSelf = weakSelf;
             /**非刷新状态**/
-            if (strongSelf.refreshStatus == XDREFRESH_Default) {
+            if (strongSelf.refreshStatus == MKREFRESH_Default) {
                 [strongSelf defaultHandleWithOffSet:offsetY change:change];
                 
                 /**刷新状态**/
-            } else if (strongSelf.refreshStatus == XDREFRESH_BeginRefresh) {
+            } else if (strongSelf.refreshStatus == MKREFRESH_BeginRefresh) {
                 [strongSelf refreshingHandleWithOffSet:offsetY];
             }
         });
@@ -215,7 +215,7 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
                          
                          */
                         [self anmiationHandelwithChange:change
-                                              andStatus:XDREFRESH_Default
+                                              andStatus:MKREFRESH_Default
                                           needAnimation:YES];
     }
     
@@ -230,14 +230,14 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
                             //NSLog(@"不刷新");
                             //default动作处理
                             [self anmiationHandelwithChange:change
-                                                  andStatus:XDREFRESH_Default
+                                                  andStatus:MKREFRESH_Default
                                               needAnimation:YES];
             
         } else {
                             //NSLog(@"开始刷新");
                             //刷新状态动作处理
                             [self anmiationHandelwithChange:change
-                                                  andStatus:XDREFRESH_BeginRefresh
+                                                  andStatus:MKREFRESH_BeginRefresh
                                               needAnimation:YES];
                             // 由非刷新状态 进入 刷新状态
                             [self beginRefresh];
@@ -276,12 +276,12 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
     }
 }
 
-- (void)XD_beginRefresh {
+- (void)mk_beginRefresh {
     self.refreshView.hidden = NO;
     self.refreshView.refreshIcon.alpha = 1;
     [self.refreshView setContentOffset:CGPointMake(0, self.threshold)];
     [self anmiationHandelwithChange:nil
-                          andStatus:XDREFRESH_BeginRefresh
+                          andStatus:MKREFRESH_BeginRefresh
                       needAnimation:YES];
     [self beginRefresh];
 }
@@ -291,8 +291,8 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
  */
 - (void)beginRefresh {
     //状态取反 保证一次刷新只执行一次回调
-    if (self.refreshStatus != XDREFRESH_BeginRefresh) {
-        self.refreshStatus = XDREFRESH_BeginRefresh;
+    if (self.refreshStatus != MKREFRESH_BeginRefresh) {
+        self.refreshStatus = MKREFRESH_BeginRefresh;
         if (self.refreshBlock) {
             self.refreshBlock();
         }
@@ -323,7 +323,7 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
     /**
      非刷新状态下的动作处理
      */
-    if (status == XDREFRESH_Default) {
+    if (status == MKREFRESH_Default) {
         /**把nsPoint结构体转换为cgPoint**/
         CGPoint oldPoint = [[change objectForKey:NSKeyValueChangeOldKey] CGPointValue];
         CGPoint newPoint = [[change objectForKey:NSKeyValueChangeNewKey] CGPointValue];
@@ -345,7 +345,7 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
         /**
          刷新状态下的动作处理
          */
-    } else if (status == XDREFRESH_BeginRefresh) {
+    } else if (status == MKREFRESH_BeginRefresh) {
         if (!self.animation) {
             self.animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
         }
@@ -375,7 +375,7 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
 /**
  结束刷新 对外接口
  */
-- (void)XD_endRefresh {
+- (void)mk_endRefresh {
     if (!self.extenScrollView) {
         return;
     }
@@ -407,8 +407,8 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
     }
     
     //当结束刷新时，把状态置为全非状态，避免在[UIView animateWithDuration:0.2]icon返回动作中的人为干预，造成icon闪顿现象
-    if (self.refreshStatus != XDREFRESH_None) {
-        self.refreshStatus = XDREFRESH_None;
+    if (self.refreshStatus != MKREFRESH_None) {
+        self.refreshStatus = MKREFRESH_None;
         
         [UIView animateWithDuration:IconBackTime animations:^{
             [weakSelf.refreshView setContentOffset:CGPointMake(0, 0)];
@@ -421,7 +421,7 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
             [weakSelf trangleToBeOriginal];
             
             //结束后将状态重置为非刷新状态 以备下次刷新
-            weakSelf.refreshStatus = XDREFRESH_Default;
+            weakSelf.refreshStatus = MKREFRESH_Default;
         }];
     }
 }
@@ -439,7 +439,7 @@ static char Refresh_Key, ScrollView_Key, Block_Key, MarginTop_Key, Animation_Key
 /**
  释放观察
  */
-- (void)XD_freeReFresh {
+- (void)mk_freeReFresh {
     if (self.isObserver) {
         self.isObserver = NO;
         [self.extenScrollView removeObserver:self forKeyPath:@"contentOffset"];

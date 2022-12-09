@@ -23,14 +23,6 @@
       "MKBeaconXPlus/Assets/*.png"
     ]
   },
-  "dependencies": {
-    "CTMediator": [
-
-    ],
-    "FMDB": [
-
-    ]
-  },
   "subspecs": [
     {
       "name": "ApplicationModule",
@@ -55,7 +47,12 @@
     },
     {
       "name": "CTMediator",
-      "source_files": "MKBeaconXPlus/Classes/CTMediator/**"
+      "source_files": "MKBeaconXPlus/Classes/CTMediator/**",
+      "dependencies": {
+        "CTMediator": [
+
+        ]
+      }
     },
     {
       "name": "SDK-BXP",
@@ -77,7 +74,12 @@
     },
     {
       "name": "DatabaseManager",
-      "source_files": "MKBeaconXPlus/Classes/DatabaseManager/**"
+      "source_files": "MKBeaconXPlus/Classes/DatabaseManager/**",
+      "dependencies": {
+        "FMDB": [
+
+        ]
+      }
     },
     {
       "name": "Functions",
@@ -246,20 +248,16 @@
               "name": "Controller",
               "source_files": "MKBeaconXPlus/Classes/Functions/SettingPage/Controller/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/SettingPage/Model": [
-
-                ],
                 "MKBeaconXPlus/Functions/SensorConfigPage/Controller": [
 
                 ],
                 "MKBeaconXPlus/Functions/QuickSwitchPage/Controller": [
 
+                ],
+                "MKBeaconXPlus/Functions/UpdatePage/Controller": [
+
                 ]
               }
-            },
-            {
-              "name": "Model",
-              "source_files": "MKBeaconXPlus/Classes/Functions/SettingPage/Model/**"
             }
           ]
         },
@@ -393,6 +391,24 @@
             {
               "name": "Model",
               "source_files": "MKBeaconXPlus/Classes/Functions/LightSensorPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "UpdatePage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKBeaconXPlus/Classes/Functions/UpdatePage/Controller/**",
+              "dependencies": {
+                "MKBeaconXPlus/Functions/UpdatePage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKBeaconXPlus/Classes/Functions/UpdatePage/Model/**"
             }
           ]
         }

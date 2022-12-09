@@ -58,6 +58,15 @@ static NSString *const isUrl = @"[a-zA-z]+://[^\\s]*";      //是否是Url
 /// 是否是ascii字符
 - (BOOL)isAsciiString;
 
+/// 将16进制数据转换成2进制数据
+- (NSString *)binaryByhex;
+
+/// 将2进制数据转换成对应的16进制数据
+- (NSString *)fetchHexByBinary;
+
+/// 将十六进制字符转换成对应的NSData
+- (NSData *)stringToData;
+
 #pragma mark - Hash
 ///=============================================================================
 /// @name Hash

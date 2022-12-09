@@ -8,17 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef  NS_ENUM(NSUInteger, MKNaviType){
-    /**
-     *  显示自带的NavigationBar
-     */
-    MKNaviTypeShow,
-    /**
-     *  隐藏自带的NavigationBar
-     */
-    MKNaviTypeHide
-};
-
 @interface MKBaseViewController : UIViewController
 
 /**
@@ -46,14 +35,6 @@ typedef  NS_ENUM(NSUInteger, MKNaviType){
  自定义导航栏颜色
  */
 @property (nonatomic, strong)UIColor *custom_naviBarColor;
-
-/**
- 初始化方法
- 
- @param type GYNaviType
- 
- */
-- (instancetype)initWithNavigationType:(MKNaviType)type;
 
 /**
  *  设置导航栏背景颜色
