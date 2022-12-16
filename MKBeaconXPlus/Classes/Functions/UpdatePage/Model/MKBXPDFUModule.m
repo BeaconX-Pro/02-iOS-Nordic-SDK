@@ -57,7 +57,7 @@ static NSString *const dfuUpdateDomain = @"com.moko.dfuUpdateDomain";
         return;
     }
     DFUServiceInitiator *initiator = [[DFUServiceInitiator alloc] initWithQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) progressQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) loggerQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-                                                          centralManagerOptions:@[]];
+                                                          centralManagerOptions:@{}];
     initiator = [initiator withFirmware:selectedFirmware];
     initiator.logger = self; // - to get log info
     initiator.delegate = self; // - to be informed about current state and errors
