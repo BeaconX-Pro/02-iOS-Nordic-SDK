@@ -14,9 +14,6 @@
 
 #import "MKCustomUIAdopter.h"
 
-@implementation MKBXPLightSensorHeaderViewModel
-@end
-
 @interface MKBXPLightSensorHeaderView ()
 
 @property (nonatomic, strong)UIView *topView;

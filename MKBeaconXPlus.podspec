@@ -60,6 +60,7 @@ TODO: Add long description of the pod here.
    
    s.subspec 'Target' do |ss|
      ss.source_files = 'MKBeaconXPlus/Classes/Target/**'
+     
      ss.dependency 'MKBeaconXPlus/Functions'
    end
    
