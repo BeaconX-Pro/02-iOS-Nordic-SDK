@@ -187,7 +187,8 @@ MKTextFieldCellDelegate>
         [self.tableView reloadData];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
-        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self loadSection1Datas];
+        [self.tableView reloadData];
     }];
 }
 
