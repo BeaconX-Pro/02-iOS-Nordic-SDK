@@ -413,7 +413,11 @@ MKBXPTabBarControllerDelegate>
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     [MKBXPInterface bxp_readDeviceTypeWithSucBlock:^(id  _Nonnull returnData) {
         [[MKHudManager share] hide];
-        [MKBXPConnectManager shared].deviceType = returnData[@"result"][@"deviceType"];
+        NSString *deviceType = returnData[@"result"][@"deviceType"];
+        if (deviceType.length > 2) {
+            deviceType = [deviceType substringWithRange:NSMakeRange(deviceType.length - 2, 2)];
+        }
+        [MKBXPConnectManager shared].deviceType = deviceType;
         [MKBXPConnectManager shared].passwordVerification = ([MKBXPCentralManager shared].lockState == mk_bxp_lockStateOpen);
         [self readManuDate];
     } failedBlock:^(NSError * _Nonnull error) {
