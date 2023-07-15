@@ -44,6 +44,10 @@
 #import "MKRegularsDefine.h"
 #import "MKClassInfo.h"
 #import "MKDateFormatter.h"
+#import "MKExcelCell.h"
+#import "MKExcelSheet.h"
+#import "MKExcelWookbook.h"
+#import "MKXMLReader.h"
 #import "MKModuleManager.h"
 
 FOUNDATION_EXPORT double MKBaseModuleLibraryVersionNumber;

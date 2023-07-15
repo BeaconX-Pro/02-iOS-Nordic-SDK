@@ -190,10 +190,12 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MLInputDodger/MLInputDodger.framework"
   install_framework "${PODS_ROOT}/MTBeaconPlus/MTBeaconPlus/Frameworks/MTBeaconPlus.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Toast/Toast.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WRNavigationBar/WRNavigationBar.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZIPFoundation/ZIPFoundation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/iOSDFULibrary/iOSDFULibrary.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/libxlsxwriter/xlsxwriter.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/CTMediator/CTMediator.framework"
@@ -210,10 +212,12 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MLInputDodger/MLInputDodger.framework"
   install_framework "${PODS_ROOT}/MTBeaconPlus/MTBeaconPlus/Frameworks/MTBeaconPlus.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Toast/Toast.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WRNavigationBar/WRNavigationBar.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZIPFoundation/ZIPFoundation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/iOSDFULibrary/iOSDFULibrary.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/libxlsxwriter/xlsxwriter.framework"
 fi
 if [[ "$CONFIGURATION" == "adhoc" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/CTMediator/CTMediator.framework"
@@ -230,10 +234,12 @@ if [[ "$CONFIGURATION" == "adhoc" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MLInputDodger/MLInputDodger.framework"
   install_framework "${PODS_ROOT}/MTBeaconPlus/MTBeaconPlus/Frameworks/MTBeaconPlus.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Toast/Toast.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WRNavigationBar/WRNavigationBar.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZIPFoundation/ZIPFoundation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/iOSDFULibrary/iOSDFULibrary.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/libxlsxwriter/xlsxwriter.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

@@ -1,6 +1,6 @@
 {
   "name": "MKBeaconXPlus",
-  "version": "1.0.5",
+  "version": "1.0.9",
   "summary": "A short description of MKBeaconXPlus.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/BeaconX-Pro/iOS-SDK",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/BeaconX-Pro/iOS-SDK.git",
-    "tag": "1.0.5"
+    "tag": "1.0.9"
   },
   "platforms": {
     "ios": "12.0"
@@ -76,6 +76,9 @@
       "name": "DatabaseManager",
       "source_files": "MKBeaconXPlus/Classes/DatabaseManager/**",
       "dependencies": {
+        "MKBaseModuleLibrary": [
+
+        ],
         "FMDB": [
 
         ]
