@@ -532,7 +532,7 @@ static CGFloat htTextViewWidth = 80.f;
 
 - (UIView *)topView {
     if (!_topView) {
-        _topView = [[UIView alloc] init];
+        _topView = [[UIView alloc] init]; 
         _topView.backgroundColor = COLOR_WHITE_MACROS;
     }
     return _topView;
