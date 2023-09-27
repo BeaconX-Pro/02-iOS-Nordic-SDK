@@ -516,18 +516,6 @@ static CGFloat htTextViewWidth = 80.f;
     [self.backView addSubview:self.textBackView];
     [self.textBackView addSubview:self.textView];
     [self.backView addSubview:self.curveView];
-    
-    // 计算需要增加的底部内边距
-    CGFloat additionalBottomInset = 10.0; // 自定义增加的数值
-
-    // 获取当前的 contentInset
-    UIEdgeInsets insets = self.textView.contentInset;
-
-    // 增加底部内边距
-    insets.bottom += additionalBottomInset;
-
-    // 设置新的 contentInset
-    self.textView.contentInset = insets;
 }
 
 #pragma mark - setter & getter
