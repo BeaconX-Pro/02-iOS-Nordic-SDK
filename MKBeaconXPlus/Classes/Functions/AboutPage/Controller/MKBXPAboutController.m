@@ -116,7 +116,7 @@
         _versionLabel.textColor = RGBCOLOR(189, 189, 189);
         _versionLabel.textAlignment = NSTextAlignmentCenter;
         _versionLabel.font = MKFont(16.f);
-        _versionLabel.text = @"Version: V1.0.3";
+        _versionLabel.text = @"Version: V1.1.0";
     }
     return _versionLabel;
 }
