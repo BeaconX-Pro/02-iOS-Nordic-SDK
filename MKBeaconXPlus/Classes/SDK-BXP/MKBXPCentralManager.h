@@ -22,6 +22,7 @@ extern NSString *const mk_bxp_receiveHTDataNotification;
 extern NSString *const mk_bxp_receiveRecordHTDataNotification;
 extern NSString *const mk_bxp_receiveLightSensorDataNotification;
 extern NSString *const mk_bxp_receiveLightSensorStatusDataNotification;
+extern NSString *const mk_bxp_cl_receiveHTDataNotification;
 
 /*
  After connecting the device, if no password is entered within one minute, it returns 0x00. After successful password change, it returns 0x01. Factory reset of the device,it returns 0x02.
@@ -207,6 +208,14 @@ typedef NS_ENUM(NSInteger, mk_bxp_lockState) {
  @return result
  */
 - (BOOL)notifyLightStatusData:(BOOL)notify;
+
+/**
+ Whether to monitor the stored temperature and humidity(BXP-CL-a).
+
+ @param notify BOOL
+ @return result
+ */
+- (BOOL)notifyBXPCLHTData:(BOOL)notify;
 
 @end
 

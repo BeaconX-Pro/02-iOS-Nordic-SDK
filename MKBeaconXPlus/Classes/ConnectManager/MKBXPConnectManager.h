@@ -10,6 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CBPeripheral;
 @interface MKBXPConnectManager : NSObject
 
 @property (nonatomic, copy)NSString *password;
@@ -28,6 +29,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 清除当前所有参数
 - (void)clearParams;
+
+/// 新增需求，临时版本支持读取100条历史数据和全部历史数据
+- (BOOL)claSupport;
+
+- (void)connectPeripheral:(CBPeripheral *)peripheral
+                 password:(NSString *)password
+            progressBlock:(void (^)(float progress))progressBlock
+                 sucBlock:(void (^)(void))sucBlock
+              failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

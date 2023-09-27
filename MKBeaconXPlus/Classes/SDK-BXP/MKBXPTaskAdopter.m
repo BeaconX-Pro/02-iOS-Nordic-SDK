@@ -352,8 +352,9 @@
     }
     //配置信息，eb开头
     NSString *ackHeader = [content substringToIndex:2];
-    if (![ackHeader isEqualToString:@"eb"]) {
-        return nil;
+    if ([ackHeader isEqualToString:@"ec"]) {
+        //多包数据
+        return [self parseMultiPacketData:content];
     }
     NSInteger len = strtoul([[content substringWithRange:NSMakeRange(6, 2)] UTF8String],0,16);
     if (content.length != 2 * len + 8) {
@@ -490,6 +491,16 @@
         NSString *interval = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 4)];
         operationID = mk_bxp_taskReadEffectiveClickIntervalOperation;
         returnDic = @{@"interval":interval};
+    }else if ([function isEqualToString:@"4f"]) {
+        //
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy-MM-dd-HH-mm-ss";
+        unsigned int value = [MKBLEBaseSDKAdopter getDecimalWithHex:content range:NSMakeRange(8, 8)];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:value];
+        NSString *timeString = [formatter stringFromDate:date];
+        
+        operationID = mk_bxp_taskReadTimeStampOperation;
+        returnDic = @{@"deviceTime":timeString};
     }else if ([function isEqualToString:@"58"] && content.length == 8) {
         //设置设备是否可以按键开关机
         operationID = mk_bxp_taskConfigResetBeaconByButtonStatusOperation;
@@ -498,6 +509,10 @@
         //设置按键间隔时长
         operationID = mk_bxp_taskConfigEffectiveClickIntervalOperation;
         returnDic = @{@"success":@(YES)};
+    }else if ([function isEqualToString:@"5f"] && content.length == 8) {
+        //设置时间戳
+        operationID = mk_bxp_taskConfigTimeStampOperation;
+        returnDic = @{@"success":@(YES)};
     }
     return [self dataParserGetDataSuccess:returnDic operationID:operationID];
 }
@@ -505,6 +520,18 @@
 + (NSDictionary *)parseConnectStatus:(NSData *)data {
     NSString *content = [MKBLEBaseSDKAdopter hexStringFromData:data];
     return [self dataParserGetDataSuccess:@{@"connectEnable":@(![content isEqualToString:@"00"])} operationID:mk_bxp_taskReadConnectEnableOperation];
+}
+
++ (NSDictionary *)parseMultiPacketData:(NSString *)content {
+    NSString *cmd = [content substringWithRange:NSMakeRange(4, 2)];
+    mk_bxp_taskOperationID operationID = mk_bxp_defaultTaskOperationID;
+    NSDictionary *returnDic = nil;
+    if ([cmd isEqualToString:@"4c"]) {
+        //历史温湿度数据
+        returnDic = [MKBXPAdopter parseHistoryHTData:[content substringFromIndex:6]];
+        operationID = mk_bxp_taskReadHundredHistoryDataOperation;
+    }
+    return [self dataParserGetDataSuccess:returnDic operationID:operationID];
 }
 
 #pragma mark - Private method

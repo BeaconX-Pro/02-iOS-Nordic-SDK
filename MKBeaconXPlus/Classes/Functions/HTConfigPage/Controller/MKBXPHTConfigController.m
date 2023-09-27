@@ -19,6 +19,8 @@
 
 #import "MKHudManager.h"
 
+#import "MKBXPConnectManager.h"
+
 #import "MKBXPCentralManager.h"
 #import "MKBXPInterface+MKBXPConfig.h"
 
@@ -32,6 +34,7 @@
 #import "MKBXPHTConfigModel.h"
 
 #import "MKBXPExportDataController.h"
+#import "MKBXPCLExportDataController.h"
 
 @interface MKBXPHTConfigController ()<UITableViewDelegate,
 UITableViewDataSource,
@@ -128,6 +131,11 @@ MKBXPSyncBeaconTimeCellDelegate>
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 2 && indexPath.row == 0) {
         //导出页面
+        if ([[MKBXPConnectManager shared] claSupport]) {
+            MKBXPCLExportDataController *vc = [[MKBXPCLExportDataController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            return;
+        }
         MKBXPExportDataController *vc = [[MKBXPExportDataController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
         return;
@@ -174,6 +182,24 @@ MKBXPSyncBeaconTimeCellDelegate>
 
 #pragma mark - MKBXPSyncBeaconTimeCellDelegate
 - (void)bxp_needUpdateDate {
+    if ([[MKBXPConnectManager shared] claSupport]) {
+        [self syncTimeStamp];
+        return;
+    }
+    [self syncDate];
+}
+
+#pragma mark - notes
+- (void)receiveHTDatas:(NSNotification *)note {
+    NSDictionary *dataDic = note.userInfo;
+    if (!ValidDict(dataDic)) {
+        return;
+    }
+    [self.headerView updateTemperature:dataDic[@"temperature"] humidity:dataDic[@"humidity"]];
+}
+
+#pragma mark - interface
+- (void)syncDate {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
@@ -200,13 +226,28 @@ MKBXPSyncBeaconTimeCellDelegate>
     }];
 }
 
-#pragma mark - notes
-- (void)receiveHTDatas:(NSNotification *)note {
-    NSDictionary *dataDic = note.userInfo;
-    if (!ValidDict(dataDic)) {
-        return;
-    }
-    [self.headerView updateTemperature:dataDic[@"temperature"] humidity:dataDic[@"humidity"]];
+- (void)syncTimeStamp {
+    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
+    
+    NSDate *timeDate = [NSDate date];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
+    NSString *date = [formatter stringFromDate:timeDate];
+    NSArray *dateList = [date componentsSeparatedByString:@"-"];
+    
+    long long recordTime = [timeDate timeIntervalSince1970];
+    
+    [MKBXPInterface bxp_configTimeStamp:recordTime sucBlock:^(id  _Nonnull returnData) {
+        [[MKHudManager share] hide];
+        MKBXPSyncBeaconTimeCellModel *cellModel = self.section1List[0];
+        cellModel.date = [NSString stringWithFormat:@"%@/%@/%@",dateList[2],dateList[1],dateList[0]];
+        cellModel.time = [NSString stringWithFormat:@"%@:%@:%@",dateList[3],dateList[4],dateList[5]];
+        [self.tableView mk_reloadSection:1 withRowAnimation:UITableViewRowAnimationNone];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 #pragma mark - 读取数据

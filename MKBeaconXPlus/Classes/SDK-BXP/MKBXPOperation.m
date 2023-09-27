@@ -43,6 +43,8 @@
  */
 @property (nonatomic, assign)NSInteger receiveTimerCount;
 
+@property (nonatomic, strong)NSMutableArray *dataList;
+
 @end
 
 @implementation MKBXPOperation
@@ -167,6 +169,20 @@
     if (self.receiveTimer) {
         dispatch_cancel(self.receiveTimer);
     }
+    if (operationID == mk_bxp_taskReadHundredHistoryDataOperation) {
+        //历史数据是多包数据
+        [self.dataList addObjectsFromArray:returnData[@"dataList"]];
+        NSInteger total = [returnData[@"totalNum"] integerValue];
+        NSInteger index = [returnData[@"index"] integerValue];
+        if (total <= index + 1) {
+            [self finishOperation];
+            //接受数据成功
+            if (self.completeBlock) {
+                self.completeBlock(nil, self.dataList);
+            }
+        }
+        return;
+    }
     [self finishOperation];
     //接受数据成功
     if (self.completeBlock) {
@@ -185,6 +201,13 @@
 
 - (BOOL)isExecuting{
     return _executing;
+}
+
+- (NSMutableArray *)dataList {
+    if (!_dataList) {
+        _dataList = [NSMutableArray array];
+    }
+    return _dataList;
 }
 
 @end

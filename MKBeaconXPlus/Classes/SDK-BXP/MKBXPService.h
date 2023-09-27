@@ -45,3 +45,5 @@ static NSString *const bxp_notifyUUID = @"e62a0003-1362-4f28-9327-f5b74e970801";
 static NSString *const bxp_lightSensorUUID = @"e62a000b-1362-4f28-9327-f5b74e970801";
 static NSString *const bxp_lightStatusUUID = @"e62a000c-1362-4f28-9327-f5b74e970801";
 
+static NSString *const bxp_bxpCLTHDataUUID = @"e62a000e-1362-4f28-9327-f5b74e970801";
+

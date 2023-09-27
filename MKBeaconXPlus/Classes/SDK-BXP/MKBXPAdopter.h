@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)fetchTxPowerWithContent:(NSString *)content;
 + (NSNumber *)fetchRSSIWithContent:(NSData *)contentData;
 + (NSString *)deviceTime:(NSString *)content;
++ (NSDictionary *)parseHistoryHTData:(NSString *)content;
 
 @end
 

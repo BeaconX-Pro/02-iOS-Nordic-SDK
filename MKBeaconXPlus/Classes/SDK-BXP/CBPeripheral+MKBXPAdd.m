@@ -34,6 +34,7 @@ static const char *bxp_temperatureHumidityKey = "bxp_temperatureHumidityKey";
 static const char *bxp_recordTHKey = "bxp_recordTHKey";
 static const char *bxp_lightSensorKey = "bxp_lightSensorKey";
 static const char *bxp_lightStatusKey = "bxp_lightStatusKey";
+static const char *bxp_clTHDataKey = "bxp_clTHDataKey";
 
 static const char *bxp_customWrite = "bxp_customWrite";
 static const char *bxp_customNotify = "bxp_customNotify";
@@ -114,6 +115,7 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
     objc_setAssociatedObject(self, &bxp_lightStatusKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     objc_setAssociatedObject(self, &bxp_customNotify, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     objc_setAssociatedObject(self, &bxp_customWrite, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &bxp_clTHDataKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     objc_setAssociatedObject(self, &bxp_vendor, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     objc_setAssociatedObject(self, &bxp_modeID, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -209,6 +211,10 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
 
 - (CBCharacteristic *)bxp_lightStatus {
     return objc_getAssociatedObject(self, &bxp_lightStatusKey);
+}
+
+- (CBCharacteristic *)bxp_clTHData {
+    return objc_getAssociatedObject(self, &bxp_clTHDataKey);
 }
 
 - (CBCharacteristic *)bxp_customWrite{
@@ -308,6 +314,8 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
             objc_setAssociatedObject(self, &bxp_lightSensorKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_lightStatusUUID]]) {
             objc_setAssociatedObject(self, &bxp_lightStatusKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_bxpCLTHDataUUID]]) {
+            objc_setAssociatedObject(self, &bxp_clTHDataKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
 }

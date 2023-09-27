@@ -328,4 +328,37 @@
     return [NSString stringWithFormat:@"%@-%@-%@-%@-%@-%@",year,month,day,hour,minutes,sec];
 }
 
++ (NSDictionary *)parseHistoryHTData:(NSString *)content {
+    NSString *total = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, 4)];
+    NSString *index = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(4, 4)];
+    
+    NSString *subContent = [content substringFromIndex:10];
+    NSInteger num = subContent.length / 16;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd-HH-mm-ss";
+    NSMutableArray *tempList = [NSMutableArray array];
+    for (NSInteger i = 0; i < num; i ++) {
+        NSString *htData = [subContent substringWithRange:NSMakeRange(i * 16, 16)];
+        long long timeStamp = [MKBLEBaseSDKAdopter getDecimalWithHex:htData range:NSMakeRange(0, 8)];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeStamp];
+        NSString *timeString = [formatter stringFromDate:date];
+        NSInteger tempTemp = [[MKBLEBaseSDKAdopter signedHexTurnString:[htData substringWithRange:NSMakeRange(8, 4)]] integerValue];
+        NSInteger tempHui = [MKBLEBaseSDKAdopter getDecimalWithHex:htData range:NSMakeRange(12, 4)];
+        NSString *temperature = [NSString stringWithFormat:@"%.1f",(tempTemp * 0.1)];
+        NSString *humidity = [NSString stringWithFormat:@"%.1f",(tempHui * 0.1)];
+        NSDictionary *dic = @{
+            @"temperature":temperature,
+            @"humidity":humidity,
+            @"date":timeString,
+        };
+        [tempList addObject:dic];
+    }
+    
+    return @{
+        @"totalNum":total,
+        @"index":index,
+        @"dataList":tempList
+    };
+}
+
 @end

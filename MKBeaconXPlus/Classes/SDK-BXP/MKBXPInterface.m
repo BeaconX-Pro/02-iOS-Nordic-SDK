@@ -225,10 +225,28 @@
                           failedBlock:failedBlock];
 }
 
++ (void)bxp_readHundredHistoryDataWithSucBlock:(void (^)(id returnData))sucBlock
+                                   failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:mk_bxp_taskReadHundredHistoryDataOperation
+                          commandData:@"ea4c0000"
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
 + (void)bxp_readEffectiveClickIntervalWithSucBlock:(void (^)(id returnData))sucBlock
                                        failedBlock:(void (^)(NSError *error))failedBlock {
     [centralManager addTaskWithTaskID:mk_bxp_taskReadEffectiveClickIntervalOperation
                           commandData:@"ea4d0000"
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
++ (void)bxp_readTimeStampWithSucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:mk_bxp_taskReadTimeStampOperation
+                          commandData:@"ea4f0000"
                        characteristic:peripheral.bxp_customWrite
                              sucBlock:sucBlock
                           failedBlock:failedBlock];

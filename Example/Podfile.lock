@@ -12,48 +12,48 @@ PODS:
   - MBProgressHUD (1.2.0)
   - MJRefresh (3.7.5)
   - MKBaseBleModule (1.1.4)
-  - MKBaseModuleLibrary (1.1.7):
-    - MKBaseModuleLibrary/Base (= 1.1.7)
-    - MKBaseModuleLibrary/Category (= 1.1.7)
-    - MKBaseModuleLibrary/Defines (= 1.1.7)
-    - MKBaseModuleLibrary/Tools (= 1.1.7)
-  - MKBaseModuleLibrary/Base (1.1.7):
-    - MKBaseModuleLibrary/Base/Cell (= 1.1.7)
-    - MKBaseModuleLibrary/Base/Controller (= 1.1.7)
-    - MKBaseModuleLibrary/Base/NavigationController (= 1.1.7)
-    - MKBaseModuleLibrary/Base/View (= 1.1.7)
-  - MKBaseModuleLibrary/Base/Cell (1.1.7):
-    - MKBaseModuleLibrary/Base/Cell/MKBaseCell (= 1.1.7)
-  - MKBaseModuleLibrary/Base/Cell/MKBaseCell (1.1.7):
+  - MKBaseModuleLibrary (1.1.8):
+    - MKBaseModuleLibrary/Base (= 1.1.8)
+    - MKBaseModuleLibrary/Category (= 1.1.8)
+    - MKBaseModuleLibrary/Defines (= 1.1.8)
+    - MKBaseModuleLibrary/Tools (= 1.1.8)
+  - MKBaseModuleLibrary/Base (1.1.8):
+    - MKBaseModuleLibrary/Base/Cell (= 1.1.8)
+    - MKBaseModuleLibrary/Base/Controller (= 1.1.8)
+    - MKBaseModuleLibrary/Base/NavigationController (= 1.1.8)
+    - MKBaseModuleLibrary/Base/View (= 1.1.8)
+  - MKBaseModuleLibrary/Base/Cell (1.1.8):
+    - MKBaseModuleLibrary/Base/Cell/MKBaseCell (= 1.1.8)
+  - MKBaseModuleLibrary/Base/Cell/MKBaseCell (1.1.8):
     - Masonry
     - MKBaseModuleLibrary/Defines
-  - MKBaseModuleLibrary/Base/Controller (1.1.7):
+  - MKBaseModuleLibrary/Base/Controller (1.1.8):
     - MKBaseModuleLibrary/Category
     - MKBaseModuleLibrary/Defines
     - WRNavigationBar
-  - MKBaseModuleLibrary/Base/NavigationController (1.1.7)
-  - MKBaseModuleLibrary/Base/View (1.1.7):
-    - MKBaseModuleLibrary/Base/View/CollectionView (= 1.1.7)
-    - MKBaseModuleLibrary/Base/View/TableView (= 1.1.7)
-  - MKBaseModuleLibrary/Base/View/CollectionView (1.1.7)
-  - MKBaseModuleLibrary/Base/View/TableView (1.1.7)
-  - MKBaseModuleLibrary/Category (1.1.7):
+  - MKBaseModuleLibrary/Base/NavigationController (1.1.8)
+  - MKBaseModuleLibrary/Base/View (1.1.8):
+    - MKBaseModuleLibrary/Base/View/CollectionView (= 1.1.8)
+    - MKBaseModuleLibrary/Base/View/TableView (= 1.1.8)
+  - MKBaseModuleLibrary/Base/View/CollectionView (1.1.8)
+  - MKBaseModuleLibrary/Base/View/TableView (1.1.8)
+  - MKBaseModuleLibrary/Category (1.1.8):
     - MKBaseModuleLibrary/Defines
     - MKBaseModuleLibrary/Tools/MKClassInfo
     - Toast
-  - MKBaseModuleLibrary/Defines (1.1.7)
-  - MKBaseModuleLibrary/Tools (1.1.7):
-    - MKBaseModuleLibrary/Tools/MKClassInfo (= 1.1.7)
-    - MKBaseModuleLibrary/Tools/MKDateFormatter (= 1.1.7)
-    - MKBaseModuleLibrary/Tools/MKExcelManager (= 1.1.7)
-    - MKBaseModuleLibrary/Tools/MKModuleManager (= 1.1.7)
-  - MKBaseModuleLibrary/Tools/MKClassInfo (1.1.7)
-  - MKBaseModuleLibrary/Tools/MKDateFormatter (1.1.7)
-  - MKBaseModuleLibrary/Tools/MKExcelManager (1.1.7):
+  - MKBaseModuleLibrary/Defines (1.1.8)
+  - MKBaseModuleLibrary/Tools (1.1.8):
+    - MKBaseModuleLibrary/Tools/MKClassInfo (= 1.1.8)
+    - MKBaseModuleLibrary/Tools/MKDateFormatter (= 1.1.8)
+    - MKBaseModuleLibrary/Tools/MKExcelManager (= 1.1.8)
+    - MKBaseModuleLibrary/Tools/MKModuleManager (= 1.1.8)
+  - MKBaseModuleLibrary/Tools/MKClassInfo (1.1.8)
+  - MKBaseModuleLibrary/Tools/MKDateFormatter (1.1.8)
+  - MKBaseModuleLibrary/Tools/MKExcelManager (1.1.8):
     - libxlsxwriter
     - MKBaseModuleLibrary/Defines
     - SSZipArchive
-  - MKBaseModuleLibrary/Tools/MKModuleManager (1.1.7)
+  - MKBaseModuleLibrary/Tools/MKModuleManager (1.1.8)
   - MKBeaconXCustomUI (1.0.6):
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI/Defines (= 1.0.6)
@@ -1214,7 +1214,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   MKBaseBleModule: 15aa067c4e408a473e025b1a768ebce00a7e5949
-  MKBaseModuleLibrary: 9ab75dfc3c79d88aa3ad13068cc5d47cba77bdd2
+  MKBaseModuleLibrary: 8d0292b517d87552083f9180eeaa4569605707db
   MKBeaconXCustomUI: e75dc529c553c9424e647e30272a463e0a8e9a4e
   MKBeaconXPlus: fa3fe0718d5bd04f019871c1020e73fb573127f9
   MKCustomUIModule: 83b76a0ccd1ac855157091b389154bd6a309c414
@@ -1227,4 +1227,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 5c92e31aeb5af74c2b408c822d3496b621c1d0ca
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.12.1

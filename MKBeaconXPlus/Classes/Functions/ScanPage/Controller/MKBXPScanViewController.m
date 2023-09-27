@@ -375,12 +375,12 @@ MKBXPTabBarControllerDelegate>
 - (void)connectDeviceWithoutPassword:(CBPeripheral *)peripheral{
     MKProgressView *progressView = [[MKProgressView alloc] initWithTitle:@"Connecting..." message:@"Make sure your phone and device are as close as possible."];
     [progressView show];
-    [[MKBXPCentralManager shared] connectPeripheral:peripheral progressBlock:^(float progress) {
+    [[MKBXPConnectManager shared] connectPeripheral:peripheral password:@"" progressBlock:^(float progress) {
         [progressView setProgress:(progress * 0.01) animated:NO];
-    } sucBlock:^(CBPeripheral *peripheral) {
+    } sucBlock:^{
         [progressView dismiss];
-        [self readDeviceType];
-    } failedBlock:^(NSError *error) {
+        [self performSelector:@selector(pushTabBarPage) withObject:nil afterDelay:0.3f];
+    } failedBlock:^(NSError * _Nonnull error) {
         [progressView dismiss];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
         [self connectFailed];
@@ -395,82 +395,15 @@ MKBXPTabBarControllerDelegate>
     }
     MKProgressView *progressView = [[MKProgressView alloc] initWithTitle:@"Connecting..." message:@"Make sure your phone and device are as close as possible."];
     [progressView show];
-    [[MKBXPCentralManager shared] connectPeripheral:peripheral password:password progressBlock:^(float progress) {
+    
+    [[MKBXPConnectManager shared] connectPeripheral:peripheral password:password progressBlock:^(float progress) {
         [progressView setProgress:(progress * 0.01) animated:NO];
-    } sucBlock:^(CBPeripheral *peripheral) {
+    } sucBlock:^{
         [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"mk_bxp_localPasswordKey"];
-        [MKBXPConnectManager shared].password = password;
         [progressView dismiss];
-        [self readDeviceType];
-    } failedBlock:^(NSError *error) {
-        [progressView dismiss];
-        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-        [self connectFailed];
-    }];
-}
-
-- (void)readDeviceType {
-    [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
-    [MKBXPInterface bxp_readDeviceTypeWithSucBlock:^(id  _Nonnull returnData) {
-        [[MKHudManager share] hide];
-        NSString *deviceType = returnData[@"result"][@"deviceType"];
-        if (deviceType.length > 2) {
-            deviceType = [deviceType substringWithRange:NSMakeRange(deviceType.length - 2, 2)];
-        }
-        [MKBXPConnectManager shared].deviceType = deviceType;
-        [MKBXPConnectManager shared].passwordVerification = ([MKBXPCentralManager shared].lockState == mk_bxp_lockStateOpen);
-        [self readManuDate];
-    } failedBlock:^(NSError * _Nonnull error) {
-        [[MKHudManager share] hide];
-        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-        [self connectFailed];
-    }];
-}
-
-- (void)readManuDate {
-    //根据生产日期确认是否支持新版本固件功能，生产日期2021/01/01以后的都是新固件
-    [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
-    [MKBXPInterface bxp_readProductionDateWithSucBlock:^(id  _Nonnull returnData) {
-        [[MKHudManager share] hide];
-        NSString *date = [returnData[@"result"][@"productionDate"] stringByReplacingOccurrencesOfString:@"/" withString:@""];
-        [MKBXPConnectManager shared].newVersion = ([date integerValue] >= 20210101);
-        if ([[MKBXPConnectManager shared].deviceType isEqualToString:@"02"]
-            || [[MKBXPConnectManager shared].deviceType isEqualToString:@"03"]
-            || [[MKBXPConnectManager shared].deviceType isEqualToString:@"04"]
-            || [[MKBXPConnectManager shared].deviceType isEqualToString:@"05"]) {
-            //温湿度和光感需要同步时间
-            [self syncTimeToDevice];
-            return;
-        }
         [self performSelector:@selector(pushTabBarPage) withObject:nil afterDelay:0.3f];
     } failedBlock:^(NSError * _Nonnull error) {
-        [[MKHudManager share] hide];
-        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-        [self connectFailed];
-    }];
-}
-
-- (void)syncTimeToDevice {
-    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
-    NSString *date = [formatter stringFromDate:[NSDate date]];
-    NSArray *dateList = [date componentsSeparatedByString:@"-"];
-    
-    MKBXPDeviceTimeDataModel *dateModel = [[MKBXPDeviceTimeDataModel alloc] init];
-    dateModel.year = [dateList[0] integerValue];
-    dateModel.month = [dateList[1] integerValue];
-    dateModel.day = [dateList[2] integerValue];
-    dateModel.hour = [dateList[3] integerValue];
-    dateModel.minutes = [dateList[4] integerValue];
-    dateModel.seconds = [dateList[5] integerValue];
-    
-    [MKBXPInterface bxp_configDeviceTime:dateModel sucBlock:^(id  _Nonnull returnData) {
-        [[MKHudManager share] hide];
-        [self performSelector:@selector(pushTabBarPage) withObject:nil afterDelay:0.3f];
-    } failedBlock:^(NSError * _Nonnull error) {
-        [[MKHudManager share] hide];
+        [progressView dismiss];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
         [self connectFailed];
     }];

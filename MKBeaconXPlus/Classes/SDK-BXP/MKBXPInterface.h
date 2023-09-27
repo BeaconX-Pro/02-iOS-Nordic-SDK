@@ -228,11 +228,23 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bxp_readResetBeaconByButtonStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                           failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Read the first 100 historical data. Only the BXP-CL-a firmware version is supported.
+/// @param sucBlock success callback
+/// @param failedBlock failed callback
++ (void)bxp_readHundredHistoryDataWithSucBlock:(void (^)(id returnData))sucBlock
+                                   failedBlock:(void (^)(NSError *error))failedBlock;
+
 /// The firmware recognizes the effective double-click or triple-click action corresponding to the button interval, the default is 600ms.
 /// @param sucBlock success callback
 /// @param failedBlock failed callback
 + (void)bxp_readEffectiveClickIntervalWithSucBlock:(void (^)(id returnData))sucBlock
                                        failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Only the BXP-CL-a firmware version is supported.
+/// @param sucBlock success callback
+/// @param failedBlock failed callback
++ (void)bxp_readTimeStampWithSucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

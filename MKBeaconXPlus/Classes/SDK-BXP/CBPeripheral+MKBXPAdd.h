@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly)CBCharacteristic *bxp_customNotify;
 @property (nonatomic, strong, readonly)CBCharacteristic *bxp_lightSensor;
 @property (nonatomic, strong, readonly)CBCharacteristic *bxp_lightStatus;
+@property (nonatomic, strong, readonly)CBCharacteristic *bxp_clTHData;
 
 #pragma mark - 系统信息下面的特征
 /**
