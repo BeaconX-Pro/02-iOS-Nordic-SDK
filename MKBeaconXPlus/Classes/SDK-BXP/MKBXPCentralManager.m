@@ -291,6 +291,8 @@ static dispatch_once_t onceToken;
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:bxp_bxpCLTHDataUUID]]) {
         //BXP-CL-a
         NSString *content = [MKBLEBaseSDKAdopter hexStringFromData:characteristic.value];
+        NSLog(@"+++++");
+        NSLog(@"%@",content);
         NSDictionary *result = [MKBXPAdopter parseHistoryHTData:[content substringFromIndex:6]];
         MKBLEBase_main_safe(^{
             [[NSNotificationCenter defaultCenter] postNotificationName:mk_bxp_cl_receiveHTDataNotification

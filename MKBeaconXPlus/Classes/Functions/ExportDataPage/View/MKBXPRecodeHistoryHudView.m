@@ -58,7 +58,7 @@
         _msgLabel.numberOfLines = 0;
         
         _msgLabel.layer.masksToBounds = YES;
-        _msgLabel.layer.maskedCorners = 6;
+        _msgLabel.layer.cornerRadius = 6;
     }
     return _msgLabel;
 }

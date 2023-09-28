@@ -273,6 +273,7 @@ static CGFloat htTextViewWidth = 80.f;
     for (NSDictionary *dic in dataList) {
         [self reloadHTDatas:dic];
     }
+    NSLog(@"%@",note.userInfo);
     NSInteger total = [note.userInfo[@"totalNum"] integerValue];
     NSInteger index = [note.userInfo[@"index"] integerValue];
     self.totalNum += dataList.count;
