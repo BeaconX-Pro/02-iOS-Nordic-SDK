@@ -325,6 +325,7 @@ static CGFloat htTextViewWidth = 80.f;
 
 - (void)showComplete {
     NSString *msg = [NSString stringWithFormat:@"Read data complete,update %ld records",(long)self.totalNum];
+    [self.hudView showMsg:msg];
     [self performSelector:@selector(removeHudView) withObject:nil afterDelay:2.f];
 }
 
