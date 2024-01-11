@@ -106,7 +106,7 @@
 
         ],
         "iOSDFULibrary": [
-
+          "4.13.0"
         ]
       },
       "subspecs": [

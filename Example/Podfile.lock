@@ -229,7 +229,7 @@ PODS:
     - MKBaseModuleLibrary
   - MKBeaconXPlus/Functions (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -253,7 +253,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/AboutPage (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -265,7 +265,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/AboutPage/Controller (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -276,7 +276,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/AccelerationPage (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -290,7 +290,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/AccelerationPage/Controller (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -303,7 +303,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/AccelerationPage/Model (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -314,7 +314,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/AccelerationPage/View (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -325,7 +325,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/ExportDataPage (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -338,7 +338,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/ExportDataPage/Controller (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -350,7 +350,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/ExportDataPage/View (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -361,7 +361,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/HTConfigPage (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -376,7 +376,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/HTConfigPage/Controller (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -390,7 +390,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/HTConfigPage/Model (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -401,7 +401,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/HTConfigPage/StorageTriggerViews (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -412,7 +412,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/HTConfigPage/View (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -424,7 +424,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/LightSensorPage (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -438,7 +438,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/LightSensorPage/Controller (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -451,7 +451,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/LightSensorPage/Model (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -462,7 +462,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/LightSensorPage/View (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -473,7 +473,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/QuickSwitchPage (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -486,7 +486,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/QuickSwitchPage/Controller (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -498,7 +498,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/QuickSwitchPage/Model (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -509,7 +509,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/ScanPage (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -523,7 +523,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/ScanPage/Adopter (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -535,7 +535,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/ScanPage/Controller (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -550,7 +550,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/ScanPage/Model (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -561,7 +561,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/SensorConfigPage (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -573,7 +573,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/SensorConfigPage/Controller (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -587,7 +587,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/SettingPage (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -599,7 +599,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/SettingPage/Controller (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -613,7 +613,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/SlotConfigPage (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -627,7 +627,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/SlotConfigPage/Controller (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -640,7 +640,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/SlotConfigPage/Model (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -651,7 +651,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/SlotConfigPage/View (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -662,7 +662,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/SlotPage (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -675,7 +675,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/SlotPage/Controller (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -688,7 +688,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/SlotPage/Model (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -699,7 +699,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/TabBarPage (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -712,7 +712,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/TabBarPage/Controller (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -726,7 +726,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/TabBarPage/Model (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -737,7 +737,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/UpdatePage (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -750,7 +750,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/UpdatePage/Controller (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -762,7 +762,7 @@ PODS:
     - MLInputDodger
   - MKBeaconXPlus/Functions/UpdatePage/Model (1.1.0):
     - HHTransition
-    - iOSDFULibrary
+    - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
     - MKBeaconXCustomUI
     - MKBeaconXPlus/ConnectManager
@@ -1240,7 +1240,7 @@ SPEC CHECKSUMS:
   MKBaseBleModule: 15aa067c4e408a473e025b1a768ebce00a7e5949
   MKBaseModuleLibrary: 2b79bcae588c755588413fbb643b510253271b23
   MKBeaconXCustomUI: 3cdea4a52442d432b2ebacd78460a890e7e644b6
-  MKBeaconXPlus: 45c666dcae6b2a7e1efae601d7b5e9fc5f36e2a9
+  MKBeaconXPlus: 15e1fcfdd436013ad31531d6da37d0c56b824907
   MKCustomUIModule: bbc862397ad4ffad0a88de756265a29aad5ddaab
   MLInputDodger: 79a0e420a80d0d3bba122bf2639603cc76609ba8
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
