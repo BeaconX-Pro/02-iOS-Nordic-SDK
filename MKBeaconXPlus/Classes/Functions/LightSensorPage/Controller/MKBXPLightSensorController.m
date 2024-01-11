@@ -301,7 +301,7 @@
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0.f);
         make.right.mas_equalTo(0.f);
-        make.top.mas_equalTo(defaultTopInset);
+        make.top.mas_equalTo(self.view.mas_safeAreaLayoutGuideTop);
         make.height.mas_equalTo(200.f);
     }];
     [self.view addSubview:self.bottomView];
@@ -309,7 +309,7 @@
         make.left.mas_equalTo(10.f);
         make.right.mas_equalTo(-10.f);
         make.top.mas_equalTo(self.headerView.mas_bottom).mas_offset(5.f);
-        make.bottom.mas_equalTo(-VirtualHomeHeight - 10.f);
+        make.bottom.mas_equalTo(self.view.mas_safeAreaLayoutGuideBottom).mas_offset(-10.f);
     }];
     [self.bottomView addSubview:self.syncButton];
     [self.bottomView addSubview:self.syncLabel];
@@ -370,7 +370,7 @@
         make.left.mas_equalTo(5.f);
         make.right.mas_equalTo(-5.f);
         make.top.mas_equalTo(timeLabel.mas_bottom).mas_offset(10.f);
-        make.bottom.mas_equalTo(-VirtualHomeHeight - 10.f);
+        make.bottom.mas_equalTo(self.view.mas_safeAreaLayoutGuideBottom).mas_offset(-10.f);
     }];
 }
 

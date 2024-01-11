@@ -298,8 +298,8 @@ MKBXPSyncBeaconTimeCellDelegate>
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(5.f);
         make.right.mas_equalTo(-5.f);
-        make.top.mas_equalTo(defaultTopInset);
-        make.bottom.mas_equalTo(-VirtualHomeHeight);
+        make.top.mas_equalTo(self.view.mas_safeAreaLayoutGuideTop);
+        make.bottom.mas_equalTo(self.view.mas_safeAreaLayoutGuideBottom);
     }];
 }
 

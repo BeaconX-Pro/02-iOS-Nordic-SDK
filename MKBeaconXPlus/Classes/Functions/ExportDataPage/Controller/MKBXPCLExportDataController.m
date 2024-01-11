@@ -31,7 +31,7 @@
 #import "MKBXPExportDataCurveView.h"
 #import "MKBXPRecodeHistoryHudView.h"
 
-#define textBackViewHeight (kViewHeight - defaultTopInset - 70.f)
+#define textBackViewHeight (kViewHeight - kTopBarHeight - 70.f)
 
 static CGFloat timeTextViewWidth = 130.f;
 static CGFloat htTextViewWidth = 80.f;
@@ -441,8 +441,8 @@ static CGFloat htTextViewWidth = 80.f;
     [self.backView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(5.f);
         make.right.mas_equalTo(-5.f);
-        make.top.mas_equalTo(defaultTopInset + 10.f);
-        make.bottom.mas_equalTo(-VirtualHomeHeight - 10.f);
+        make.top.mas_equalTo(self.view.mas_safeAreaLayoutGuideTop).mas_offset(10.f);
+        make.bottom.mas_equalTo(self.view.mas_safeAreaLayoutGuideBottom).mas_offset(-10.f);
     }];
     [self.backView addSubview:self.topView];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {

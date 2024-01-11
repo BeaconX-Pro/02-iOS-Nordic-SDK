@@ -10,7 +10,6 @@
 #endif
 #endif
 
-#import "MKBXPApplicationModule.h"
 #import "CTMediator+MKBXPAdd.h"
 #import "MKBXPConnectManager.h"
 #import "MKBXPDeviceTimeDataModel.h"

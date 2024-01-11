@@ -168,7 +168,7 @@ static NSString *const noteMsg2 = @"* There is an “OR“ relationship between 
     [self.slider setValue:(-100 - rssi)];
     [self.rssiValueLabel setText:[NSString stringWithFormat:@"%lddBm",(long)rssi]];
     [UIView animateWithDuration:0.25 animations:^{
-        self.backView.transform = CGAffineTransformMakeTranslation(0, backViewHeight + defaultTopInset);
+        self.backView.transform = CGAffineTransformMakeTranslation(0, backViewHeight + kTopBarHeight);
     } completion:^(BOOL finished) {
         [self.nameTextField becomeFirstResponder];
     }];

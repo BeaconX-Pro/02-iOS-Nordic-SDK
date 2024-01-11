@@ -84,11 +84,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>MTBeaconPlus.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Masonry.xcscheme</key>
 		<dict>
 			<key>isShown</key>

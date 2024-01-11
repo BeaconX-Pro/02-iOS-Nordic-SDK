@@ -1,1 +1,0 @@
-../../../MTBeaconPlus/MTBeaconPlus/Classes/MinewHTSensor.h

@@ -165,7 +165,7 @@ static CGFloat const pickViewRowHeight = 30;
         [topView addSubview:cancelButton];
         
         UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        confirmBtn.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 10 - 60, 10, 60, 30);
+        confirmBtn.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 10 - 70, 10, 70, 30);
         [confirmBtn setBackgroundColor:COLOR_CLEAR_MACROS];
         [confirmBtn setTitle:@"Confirm" forState:UIControlStateNormal];
         [confirmBtn setTitleColor:DEFAULT_TEXT_COLOR forState:UIControlStateNormal];
@@ -182,8 +182,6 @@ static CGFloat const pickViewRowHeight = 30;
                                                                    kDatePickerH - 216,
                                                                    self.frame.size.width - 2 * 10,
                                                                    216)];
-        // 显示选中框,iOS10以后分割线默认的是透明的，并且默认是显示的，设置该属性没有意义了，
-        _pickView.showsSelectionIndicator = YES;
         _pickView.dataSource = self;
         _pickView.delegate = self;
         _pickView.backgroundColor = COLOR_CLEAR_MACROS;

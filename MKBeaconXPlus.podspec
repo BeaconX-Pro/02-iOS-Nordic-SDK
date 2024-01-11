@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MKBeaconXPlus'
-  s.version          = '1.0.9'
+  s.version          = '1.1.0'
   s.summary          = 'A short description of MKBeaconXPlus.'
 
 # This description is used to generate tags and improve search results.
@@ -28,16 +28,11 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/BeaconX-Pro/iOS-SDK.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '12.0'
+  s.ios.deployment_target = '14.0'
   
   s.resource_bundles = {
     'MKBeaconXPlus' => ['MKBeaconXPlus/Assets/*.png']
   }
-   
-   s.subspec 'ApplicationModule' do |ss|
-     ss.source_files = 'MKBeaconXPlus/Classes/ApplicationModule/**'
-     ss.dependency 'MKBaseModuleLibrary'
-   end
    
    s.subspec 'ConnectManager' do |ss|
      ss.source_files = 'MKBeaconXPlus/Classes/ConnectManager/**'

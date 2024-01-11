@@ -52,90 +52,148 @@
 
 #pragma mark - *************************  硬件相关  *************************
 /** 获取屏幕尺寸、宽度、高度 */
-#define kScreenRect                 ([[UIScreen mainScreen] bounds])            //屏幕frame
-#define kViewWidth                ([UIScreen mainScreen].bounds.size.width)   //屏幕宽度
-#define kViewHeight               ([UIScreen mainScreen].bounds.size.height)  //屏幕高度
-#define kScreenCurrModeSize         [[UIScreen mainScreen] currentMode].size    //currentModel的size
+#define kScreenRect                 ([UIScreen mainScreen].bounds)            //屏幕frame
+#define kViewWidth                  ([UIScreen mainScreen].bounds.size.width)   //屏幕宽度
+#define kViewHeight                 ([UIScreen mainScreen].bounds.size.height)  //屏幕高度
 
 #define kScreenMaxLength            (MAX(kViewWidth, kViewHeight))          //获取屏幕宽高最大者
 #define kScreenMinLength            (MIN(kViewWidth, kViewHeight))          //获取屏幕宽高最小者
-#define launchBounds(i) (CGRectMake(i * kViewWidth,0,kViewWidth,kViewHeight))
-
-#define isIPad                      (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)    //是否是ipad设备
-#define isIPhone                    (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)  //是否是iPhone设备
-#define isRetina                    (kScreenScale >= 2.0)                                     //是否是retina屏幕
-
-//是否是垂直
-#define isPortrait                  ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait || [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown)
-
-//UIScreen是否响应currentMode方法
-#define isRespondCurrModel          [UIScreen instancesRespondToSelector:@selector(currentMode)]
-#define isEqualToCurrModelSize(w,h) CGSizeEqualToSize(CGSizeMake(w,h), kScreenCurrModeSize)
-
-/** 设备是否为iPhone 4/4S 分辨率320x480，像素640x960，@2x */
-#define iPhone4                     (isRespondCurrModel ? isEqualToCurrModelSize(640,960) : NO)
-
-/** 设备是否为iPhone 5C/5/5S 分辨率320x568，像素640x1136，@2x */
-#define iPhone5                     (isRespondCurrModel ? isEqualToCurrModelSize(640,1136) : NO)
-
-/** 设备是否为iPhone 6 分辨率375x667，像素750x1334，@2x */
-#define iPhone6                     (isRespondCurrModel ? isEqualToCurrModelSize(750, 1334) || isEqualToCurrModelSize(640, 1136) : NO)
-
-/** 设备是否为iPhone 6 Plus 分辨率414x736，像素1242x2208，@3x */
-#define iPhone6Plus                 (isRespondCurrModel ? isEqualToCurrModelSize(1125, 2001) || isEqualToCurrModelSize(1242, 2208) : NO)
-
-#define iPhone6PlusZoom             (isRespondCurrModel ? isEqualToCurrModelSize(1125, 2001) : NO)
-
-//判断iPHoneXr、iPhone 11
-#define iPhoneXR ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(828, 1792), [[UIScreen mainScreen] currentMode].size) : NO)
-
-//判断iPHoneX、iPHoneXs、iPhone 11 Pro
-#define iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
-
-//判断iPhoneXs Max、iPhone 11 Pro Max
-#define iPhoneMax ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size) : NO)
-
-/*
- 判断当前手机有没有安全区域，iPhone X以后新出的设备都有安全区和留海屏.
- */
-#define kIsBangsScreen ({\
-    BOOL isBangsScreen = NO; \
-    if (@available(iOS 11.0, *)) { \
-    UIWindow *window = [[UIApplication sharedApplication].windows firstObject]; \
-    isBangsScreen = window.safeAreaInsets.bottom > 0; \
-    } \
-    isBangsScreen; \
-})
-
-//状态栏、导航栏、标签栏高度
-#define Height_StatusBar [[UIApplication sharedApplication] statusBarFrame].size.height
-
-//底部虚拟home键高度 一般用于最底部view到底部的距离
-#define VirtualHomeHeight (kIsBangsScreen ? 34.f : 0.f)
-
-//默认顶部布局
-#define defaultTopInset (Height_StatusBar + 44.f)
 
 #pragma mark - *************************  系统相关  *************************
-//delegate对象//AppWindow
-#define kAppDelegate            ([[UIApplication sharedApplication] delegate])
-#define kAppWindow              ([UIApplication sharedApplication].keyWindow)
-#define kAppRootController      [UIApplication sharedApplication].keyWindow.rootViewController
+
+#define kAppDelegate ((AppDelegate *)[UIApplication sharedApplication].delegate)
+#define kAppWindow ({ \
+    UIWindow *topWindow = nil; \
+    if (@available(iOS 13.0, *)) { \
+        NSSet<UIScene *> *connectedScenes = [UIApplication sharedApplication].connectedScenes; \
+        UIWindowScene *activeScene = (UIWindowScene *)connectedScenes.anyObject; \
+        topWindow = activeScene.windows.lastObject; \
+    } else { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
+        topWindow = [[UIApplication sharedApplication].windows lastObject]; \
+_Pragma("clang diagnostic pop") \
+    } \
+    topWindow; \
+})
+
+#define kAppRootController ({ \
+    UIViewController *rootController = nil; \
+    if (@available(iOS 15.0, *)) { \
+        UIWindowScene *activeScene = nil; \
+        for (UIWindowScene *scene in UIApplication.sharedApplication.connectedScenes) { \
+            if (scene.activationState == UISceneActivationStateForegroundActive) { \
+                activeScene = scene; \
+                break; \
+            } \
+        } \
+        if (activeScene) { \
+            rootController = activeScene.windows.firstObject.rootViewController; \
+        } \
+    } else { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
+        rootController = [UIApplication sharedApplication].windows.firstObject.rootViewController; \
+_Pragma("clang diagnostic pop") \
+    } \
+    rootController; \
+})
 
 /** 获取系统版本 */
-#define kSystemVersionString    ([[UIDevice currentDevice] systemVersion])
+#define kSystemVersionString ({ \
+    NSString *systemVersion = nil; \
+    if (@available(iOS 15.0, *)) { \
+        systemVersion = [NSProcessInfo processInfo].operatingSystemVersionString; \
+    } else { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
+        systemVersion = [[UIDevice currentDevice] systemVersion]; \
+_Pragma("clang diagnostic pop") \
+    } \
+    systemVersion; \
+})
 
 /** 获取APP名称 */
-#define kAppName                ([[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"])
-/** 获取APP版本 */
-#define kAppVersion             ([[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"])
-/** 获取APP build版本 */
-#define kAppBuildVersion        ([[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"])
 
-#define iOS(x)                  (([[[UIDevice currentDevice] systemVersion] floatValue] >= x) ? YES : NO)
+#define kAppName ({ \
+    NSString *appName = nil; \
+    if (@available(iOS 15.0, *)) { \
+        appName = [NSBundle mainBundle].infoDictionary[@"CFBundleDisplayName"]; \
+        if (!appName) { \
+            appName = [NSBundle mainBundle].infoDictionary[@"CFBundleName"]; \
+        } \
+    } else { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
+        appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"]; \
+_Pragma("clang diagnostic pop") \
+    } \
+    appName; \
+})
+
+/** 获取APP版本 */
+#define kAppVersion ({ \
+    NSString *appVersion = nil; \
+    if (@available(iOS 15.0, *)) { \
+        appVersion = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"]; \
+    } else { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
+        appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]; \
+_Pragma("clang diagnostic pop") \
+    } \
+    appVersion; \
+})
+
+#define iOS(x) ({ \
+    BOOL isIOS = NO; \
+    if (@available(iOS x, *)) { \
+        isIOS = YES; \
+    } \
+    isIOS; \
+})
 
 //获取系统时间戳
 #define  kSystemTimeStamp [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]]
+
+#pragma mark - *************************  状态栏、导航栏、标签栏相关  *************************
+
+/*
+    状态栏
+ */
+
+#define kStatusBarHeight kAppWindow.windowScene.statusBarManager.statusBarFrame.size.height
+
+/**
+ *  导航栏
+ */
+#define kNavigationBarHeight [[UINavigationController alloc] init].navigationBar.frame.size.height
+
+/**
+ *  标签栏(底部)
+ */
+#define kTabBarHeight [[UITabBarController alloc] init].tabBar.frame.size.height
+
+
+
+
+/*
+    顶部导航栏+导航栏高度
+ */
+#define kTopBarHeight (kStatusBarHeight + kNavigationBarHeight)
+
+/**
+ *  竖屏底部安全区域
+ */
+#define kSafeAreaHeight ({\
+    CGFloat bottom=0.0;\
+    if (@available(iOS 11.0, *)) {\
+        bottom = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom;\
+    } else { \
+        bottom=0;\
+    }\
+    (bottom);\
+})
 
 
 #pragma mark - *************************  本地文档相关  *************************
@@ -163,7 +221,13 @@ if (strcmp(dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL), dispatch_queu
 }
 #endif
 #pragma mark - **************************  字体相关  *********************************
-#define MKFont(a)                      [UIFont systemFontOfSize:a]
+#define MKFont(a) ({  \
+    UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:a];  \
+    if (!font) {    \
+        font = [UIFont systemFontOfSize:a]; \
+    }   \
+    font;   \
+})
 
 #pragma mark - **************************  国际化相关  *********************************
 #define LS(a)                           NSLocalizedString(a, nil)
@@ -172,7 +236,17 @@ if (strcmp(dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL), dispatch_queu
 #define CUTTING_LINE_HEIGHT             ([[UIScreen mainScreen] scale] == 2.f ? 0.5 : 0.34)
 
 //图片的宏定义,注意该方法只对取mainBundle下面的图片有效，如果是自建的bundle，则该方法取不到。
-#define LOADIMAGE(file,ext) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@%@",file,(iPhone6Plus || iPhoneX || iPhoneMax) ? @"@3x" : @"@2x"] ofType:ext]]
+#define LOADIMAGE(file,ext) ({ \
+    NSBundle *bundle = [NSBundle mainBundle]; \
+    NSString *imageName = [NSString stringWithFormat:@"%@%@", file, \
+                           (UIScreen.mainScreen.nativeScale > 2.0) ? @"@3x" : @"@2x"]; \
+    UIImage *image = [UIImage imageNamed:imageName inBundle:bundle compatibleWithTraitCollection:nil]; \
+    if (!image) { \
+        NSString *imagePath = [bundle pathForResource:file ofType:ext]; \
+        image = [UIImage imageWithContentsOfFile:imagePath]; \
+    } \
+    image; \
+})
 
 /*
  podLibName:调用该方法的对象所在的bundle名称

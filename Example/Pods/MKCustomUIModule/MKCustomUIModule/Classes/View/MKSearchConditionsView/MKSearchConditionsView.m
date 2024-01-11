@@ -13,7 +13,6 @@
 
 static CGFloat const offset_X = 10.f;
 static CGFloat const backViewHeight = 200.f;
-static CGFloat const statusBarHeight = 64.f;
 static CGFloat const signalIconWidth = 17.f;
 static CGFloat const signalIconHeight = 15.f;
 
@@ -146,7 +145,7 @@ static CGFloat const signalIconHeight = 15.f;
     [self.slider setValue:rssiValue];
     [self.rssiValueLabel setText:[NSString stringWithFormat:@"%lddBm",(long)rssiValue]];
     [UIView animateWithDuration:0.25 animations:^{
-        self.backView.transform = CGAffineTransformMakeTranslation(0, backViewHeight + statusBarHeight);
+        self.backView.transform = CGAffineTransformMakeTranslation(0, backViewHeight + kTopBarHeight);
     } completion:^(BOOL finished) {
         [self.textField becomeFirstResponder];
     }];
