@@ -29,38 +29,45 @@ typedef NS_ENUM(NSInteger, mk_bxp_taskOperationID) {
     mk_bxp_taskConfigEidIdentityKeyOperation,
     mk_bxp_taskConfigAdvSlotDataOperation,
     mk_bxp_taskConfigFactoryResetOperation,
+    
+    
     mk_bxp_taskReadMacAddressOperation,                   //获取eddystone的mac地址
+    mk_bxp_taskReadThreeAxisParamsOperation,          //读取三轴传感器参数
+    mk_bxp_taskReadHTStorageConditionsOperation,      //读取温湿度存储条件
+    mk_bxp_taskReadHTSamplingRateOperation,           //读取温湿度采样率
+    mk_bxp_taskDeleteRecordHTDataOperation,           //删除已存储的温湿度数据
+    mk_bxp_taskReadDeviceTimeOperation,               //读取设备当前时间
+    mk_bxp_taskConfigPowerOffOperation,                    //关机命令
+    mk_bxp_taskReadButtonPowerStatusOperation,      //读取按键关机状态
+    mk_bxp_taskReadTriggerConditionsOperation,        //读取触发条件
+    mk_bxp_taskReadScanResponsePacketOperation,             //读取回应包开关状态
+    mk_bxp_taskConfigThreeAxisParamsOperation,           //设置三轴传感器参数
+    mk_bxp_taskConfigHTStorageConditionsOperation,       //设置温湿度存储条件
+    mk_bxp_taskConfigHTSamplingRateOperation,           //设置温湿度采样率
+    mk_bxp_taskConfigDeviceTimeOperation,                //设置设备当前时间
+    mk_bxp_taskConfigButtonPowerStatusOperation,    //设置按键关机状态
+    mk_bxp_taskConfigTriggerConditionsOperation,         //设置触发条件
+    mk_bxp_taskConfigScanResponsePacketOperation,           //配置回应包开关状态
+    mk_bxp_taskDeleteRecordLightSensorDataOperation,    //删除已存储的光感数据
+    mk_bxp_taskReadLEDTriggerStatusOperation,           //读取LED触发提醒状态
+    mk_bxp_taskReadResetBeaconByButtonStatusOperation,  //读取设备是否可以按键开关机
+    mk_bxp_taskReadEffectiveClickIntervalOperation,         //读取按键间隔时长
+    mk_bxp_taskReadTimeStampOperation,                      //读取当前BXP-CL-a设备的时间戳
+    mk_bxp_taskConfigLEDTriggerStatusOperation,         //设置LED触发提醒状态
+    mk_bxp_taskConfigResetBeaconByButtonStatusOperation,    //设置设备是否可以按键开关机
+    mk_bxp_taskConfigEffectiveClickIntervalOperation,       //设置按键间隔时长
+    mk_bxp_taskConfigTimeStampOperation,                    //设置当前BXP-CL-a设备的时间戳
+    
+    
+    
     mk_bxp_taskReadSlotTypeOperation,                     //获取eddystone的通道类型
     mk_bxp_taskReadConnectEnableOperation,                //获取eddystone的可连接状态
     mk_bxp_taskConfigConnectEnableOperation,              //设置eddystone的可连接状态
-    mk_bxp_taskConfigPowerOffOperation,                    //关机命令
+    
     mk_bxp_taskReadBatteryOperation,                      //读取battery
     mk_bxp_taskReadDeviceTypeOperation,               //读取设备类型
-    mk_bxp_taskReadThreeAxisParamsOperation,          //读取三轴传感器参数
-    mk_bxp_taskConfigThreeAxisParamsOperation,           //设置三轴传感器参数
-    mk_bxp_taskReadHTSamplingRateOperation,           //读取温湿度采样率
-    mk_bxp_taskConfigHTSamplingRateOperation,           //设置温湿度采样率
-    mk_bxp_taskReadHTStorageConditionsOperation,      //读取温湿度存储条件
-    mk_bxp_taskConfigHTStorageConditionsOperation,       //设置温湿度存储条件
-    mk_bxp_taskReadDeviceTimeOperation,               //读取设备当前时间
-    mk_bxp_taskConfigDeviceTimeOperation,                //设置设备当前时间
-    mk_bxp_taskReadTriggerConditionsOperation,        //读取触发条件
-    mk_bxp_taskConfigTriggerConditionsOperation,         //设置触发条件
-    mk_bxp_taskReadButtonPowerStatusOperation,      //读取按键关机状态
-    mk_bxp_taskConfigButtonPowerStatusOperation,    //设置按键关机状态
-    
-    mk_bxp_taskDeleteRecordHTDataOperation,           //删除已存储的温湿度数据
     
     mk_bxp_taskReadLightSensorStatusOperation,          //读取光感状态
-    mk_bxp_taskDeleteRecordLightSensorDataOperation,    //删除已存储的光感数据
     
-    mk_bxp_taskReadLEDTriggerStatusOperation,           //读取LED触发提醒状态
-    mk_bxp_taskConfigLEDTriggerStatusOperation,         //设置LED触发提醒状态
-    mk_bxp_taskReadResetBeaconByButtonStatusOperation,  //读取设备是否可以按键开关机
-    mk_bxp_taskConfigResetBeaconByButtonStatusOperation,    //设置设备是否可以按键开关机
     mk_bxp_taskReadHundredHistoryDataOperation,             //读取100条历史数据
-    mk_bxp_taskReadEffectiveClickIntervalOperation,         //读取按键间隔时长
-    mk_bxp_taskConfigEffectiveClickIntervalOperation,       //设置按键间隔时长
-    mk_bxp_taskReadTimeStampOperation,                      //读取当前BXP-CL-a设备的时间戳
-    mk_bxp_taskConfigTimeStampOperation,                    //设置当前BXP-CL-a设备的时间戳
 };

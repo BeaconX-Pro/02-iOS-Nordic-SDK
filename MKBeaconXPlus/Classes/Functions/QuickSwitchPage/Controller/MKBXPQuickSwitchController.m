@@ -99,6 +99,11 @@ MKBXQuickSwitchCellDelegate>
         [self configTriggerLEDNotification:isOn];
         return;
     }
+    if (index == 5) {
+        //设置回应包触发
+        [self configScanPacket:isOn];
+        return;
+    }
 }
 
 #pragma mark - 设置参数部分
@@ -263,8 +268,16 @@ MKBXQuickSwitchCellDelegate>
                               isPenetration:NO];
     [MKBXPInterface bxp_configResetBeaconByButtonStatus:isOn sucBlock:^(id returnData) {
         [[MKHudManager share] hide];
-        MKBXQuickSwitchCellModel *cellModel = self.dataList[3];
-        cellModel.isOn = isOn;
+        
+        self.dataModel.resetByButton = isOn;
+        for (NSInteger i = 0; i < self.dataList.count; i ++) {
+            MKBXQuickSwitchCellModel *cellModel = self.dataList[i];
+            if (cellModel.index == 3) {
+                cellModel.isOn = isOn;
+                break;
+            }
+        }
+        
         [self.view showCentralToast:@"Success!"];
     } failedBlock:^(NSError *error) {
         [[MKHudManager share] hide];
@@ -280,8 +293,37 @@ MKBXQuickSwitchCellDelegate>
                               isPenetration:NO];
     [MKBXPInterface bxp_configLEDTriggerStatus:isOn sucBlock:^(id returnData) {
         [[MKHudManager share] hide];
-        MKBXQuickSwitchCellModel *cellModel = self.dataList[4];
-        cellModel.isOn = isOn;
+        self.dataModel.triggerLED = isOn;
+        for (NSInteger i = 0; i < self.dataList.count; i ++) {
+            MKBXQuickSwitchCellModel *cellModel = self.dataList[i];
+            if (cellModel.index == 4) {
+                cellModel.isOn = isOn;
+                break;
+            }
+        }
+        [self.view showCentralToast:@"Success!"];
+    } failedBlock:^(NSError *error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.collectionView reloadData];
+    }];
+}
+
+#pragma mark - 设置回应包
+- (void)configScanPacket:(BOOL)isOn {
+    [[MKHudManager share] showHUDWithTitle:@"Setting..."
+                                     inView:self.view
+                              isPenetration:NO];
+    [MKBXPInterface bxp_configScanResponsePacket:isOn sucBlock:^(id returnData) {
+        [[MKHudManager share] hide];
+        self.dataModel.scanPacket = isOn;
+        for (NSInteger i = 0; i < self.dataList.count; i ++) {
+            MKBXQuickSwitchCellModel *cellModel = self.dataList[i];
+            if (cellModel.index == 5) {
+                cellModel.isOn = isOn;
+                break;
+            }
+        }
         [self.view showCentralToast:@"Success!"];
     } failedBlock:^(NSError *error) {
         [[MKHudManager share] hide];
@@ -339,6 +381,14 @@ MKBXQuickSwitchCellDelegate>
         cellModel5.titleMsg = @"Trigger LED indicator";
         cellModel5.isOn = self.dataModel.triggerLED;
         [self.dataList addObject:cellModel5];
+    }
+    
+    if ([self.dataModel supportScanPackage]) {
+        MKBXQuickSwitchCellModel *cellModel6 = [[MKBXQuickSwitchCellModel alloc] init];
+        cellModel6.index = 5;
+        cellModel6.titleMsg = @"Scan response packet";
+        cellModel6.isOn = self.dataModel.scanPacket;
+        [self.dataList addObject:cellModel6];
     }
         
     [self.collectionView reloadData];

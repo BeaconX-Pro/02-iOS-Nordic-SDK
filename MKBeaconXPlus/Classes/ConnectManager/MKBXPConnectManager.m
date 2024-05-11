@@ -184,7 +184,12 @@
     __block BOOL success = NO;
     [MKBXPInterface bxp_readFirmwareWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
-        self.firmware = returnData[@"result"][@"firmware"];
+        NSString *tempFirmware = returnData[@"result"][@"firmware"];
+        NSRange range = [tempFirmware rangeOfString:@"_V"];
+        if (range.location != NSNotFound) {
+            // 截取 "_V" 之后的子字符串
+            self.firmware = [tempFirmware substringFromIndex:range.location + range.length];
+        }
         
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

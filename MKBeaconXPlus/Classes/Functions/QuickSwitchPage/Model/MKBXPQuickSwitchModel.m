@@ -24,6 +24,12 @@
 
 @implementation MKBXPQuickSwitchModel
 
+- (BOOL)supportScanPackage {
+    NSString *firmwareVersion = [[MKBXPConnectManager shared].firmware stringByReplacingOccurrencesOfString:@"." withString:@""];
+    firmwareVersion = [firmwareVersion stringByReplacingOccurrencesOfString:@"V" withString:@""];
+    return ([firmwareVersion integerValue] >= 306);
+}
+
 - (void)readWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
         if (![self readConnectable]) {
@@ -37,6 +43,12 @@
         }
         [self readResetByButton];
         self.passwordVerification = [MKBXPConnectManager shared].passwordVerification;
+        if ([self supportScanPackage]) {
+            if (![self readScanPacket]) {
+                [self operationFailedBlockWithMsg:@"Read Scan Packet Error" block:failedBlock];
+                return;
+            }
+        }
         moko_dispatch_main_safe(^{
             if (sucBlock) {
                 sucBlock();
@@ -92,6 +104,19 @@
         success = YES;
         self.resetByButton = [returnData[@"result"][@"isOn"] boolValue];
         self.supportResetByButton = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)readScanPacket {
+    __block BOOL success = NO;
+    [MKBXPInterface bxp_readScanResponsePacketWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        self.scanPacket = [returnData[@"result"][@"isOn"] boolValue];
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);

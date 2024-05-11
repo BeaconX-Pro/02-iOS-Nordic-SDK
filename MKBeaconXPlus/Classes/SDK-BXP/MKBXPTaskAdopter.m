@@ -377,10 +377,6 @@
                       @"gravityReference":[content substringWithRange:NSMakeRange(10, 2)],
                       @"sensitivity":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(12, 2)],
                       };
-    }else if ([function isEqualToString:@"31"] && content.length == 8){
-        //设置三轴传感器参数
-        operationID = mk_bxp_taskConfigThreeAxisParamsOperation;
-        returnDic = @{@"success":@(YES)};
     }else if ([function isEqualToString:@"22"]){
         //读取温湿度存储条件
         NSString *tempFunction = [content substringWithRange:NSMakeRange(8, 2)];
@@ -418,6 +414,10 @@
         returnDic = @{
                       @"samplingRate":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 4)],
                       };
+    }else if ([function isEqualToString:@"24"] && content.length == 8){
+        //删除已储存的温湿度数据
+        operationID = mk_bxp_taskDeleteRecordHTDataOperation;
+        returnDic = @{@"success":@(YES)};
     }else if ([function isEqualToString:@"25"] && content.length == 20){
         //读取设备当前时间
         operationID = mk_bxp_taskReadDeviceTimeOperation;
@@ -425,11 +425,6 @@
         returnDic = @{
                       @"deviceTime":[MKBXPAdopter deviceTime:[content substringWithRange:NSMakeRange(8, 12)]],
                       };
-    }else if ([function isEqualToString:@"35"] && content.length == 8){
-        //设置设备当前时间
-        operationID = mk_bxp_taskConfigDeviceTimeOperation;
-        
-        returnDic = @{@"success":@(YES)};
     }else if ([function isEqualToString:@"26"] && content.length == 8){
         //关机
         operationID = mk_bxp_taskConfigPowerOffOperation;
@@ -440,17 +435,44 @@
         returnDic = @{
             @"isOn":@([[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"]),
         };
-    }else if ([function isEqualToString:@"38"] && content.length == 8){
-        //设置按键关机状态
-        operationID = mk_bxp_taskConfigButtonPowerStatusOperation;
-        returnDic = @{@"success":@(YES)};
     }else if ([function isEqualToString:@"29"] && content.length >= 10){
         //读取触发条件
         operationID = mk_bxp_taskReadTriggerConditionsOperation;
         returnDic = [self parseTriggerConditions:[content substringWithRange:NSMakeRange(8, 2 * len)]];
-    }else if ([function isEqualToString:@"39"] && content.length == 8){
-        //设置触发条件
-        operationID = mk_bxp_taskConfigTriggerConditionsOperation;
+    }else if ([function isEqualToString:@"2a"] && content.length >= 10){
+        //读取厂商信息
+        operationID = mk_bxp_taskReadVendorOperation;
+        NSString *tempString = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(4, data.length - 4)] encoding:NSUTF8StringEncoding];
+        returnDic = @{@"vendor":(MKValidStr(tempString) ? tempString : @"")};
+    }else if ([function isEqualToString:@"2b"] && content.length >= 10){
+        //读取固件版本
+        operationID = mk_bxp_taskReadFirmwareOperation;
+        NSString *tempString = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(4, data.length - 4)] encoding:NSUTF8StringEncoding];
+        returnDic = @{@"firmware":(MKValidStr(tempString) ? tempString : @"")};
+    }else if ([function isEqualToString:@"2c"] && content.length >= 10){
+        //读取软件版本
+        operationID = mk_bxp_taskReadSoftwareOperation;
+        NSString *tempString = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(4, data.length - 4)] encoding:NSUTF8StringEncoding];
+        returnDic = @{@"software":(MKValidStr(tempString) ? tempString : @"")};
+    }else if ([function isEqualToString:@"2d"] && content.length >= 10){
+        //读取硬件版本
+        operationID = mk_bxp_taskReadHardwareOperation;
+        NSString *tempString = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(4, data.length - 4)] encoding:NSUTF8StringEncoding];
+        returnDic = @{@"hardware":(MKValidStr(tempString) ? tempString : @"")};
+    }else if ([function isEqualToString:@"2e"] && content.length >= 10){
+        //读取产品型号信息
+        operationID = mk_bxp_taskReadModeIDOperation;
+        NSString *tempString = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(4, data.length - 4)] encoding:NSUTF8StringEncoding];
+        returnDic = @{@"modeID":(MKValidStr(tempString) ? tempString : @"")};
+    }else if ([function isEqualToString:@"2f"] && content.length == 10){
+        //读取回应包开关状态
+        operationID = mk_bxp_taskReadScanResponsePacketOperation;
+        returnDic = @{
+            @"isOn":@([[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"]),
+        };
+    }else if ([function isEqualToString:@"31"] && content.length == 8){
+        //设置三轴传感器参数
+        operationID = mk_bxp_taskConfigThreeAxisParamsOperation;
         returnDic = @{@"success":@(YES)};
     }else if ([function isEqualToString:@"32"] && content.length == 8){
         //设置温湿度存储条件
@@ -460,9 +482,22 @@
         //设置温湿度采样率
         operationID = mk_bxp_taskConfigHTSamplingRateOperation;
         returnDic = @{@"success":@(YES)};
-    }else if ([function isEqualToString:@"24"] && content.length == 8){
-        //删除已储存的温湿度数据
-        operationID = mk_bxp_taskDeleteRecordHTDataOperation;
+    }else if ([function isEqualToString:@"35"] && content.length == 8){
+        //设置设备当前时间
+        operationID = mk_bxp_taskConfigDeviceTimeOperation;
+        
+        returnDic = @{@"success":@(YES)};
+    }else if ([function isEqualToString:@"38"] && content.length == 8){
+        //设置按键关机状态
+        operationID = mk_bxp_taskConfigButtonPowerStatusOperation;
+        returnDic = @{@"success":@(YES)};
+    }else if ([function isEqualToString:@"39"] && content.length == 8){
+        //设置触发条件
+        operationID = mk_bxp_taskConfigTriggerConditionsOperation;
+        returnDic = @{@"success":@(YES)};
+    }else if ([function isEqualToString:@"3f"] && content.length == 8){
+        //配置回应包开关状态
+        operationID = mk_bxp_taskConfigScanResponsePacketOperation;
         returnDic = @{@"success":@(YES)};
     }else if ([function isEqualToString:@"46"] && content.length == 8){
         //删除已储存的光感数据
@@ -475,10 +510,6 @@
             @"isOn":@(isOn),
         };
         operationID = mk_bxp_taskReadLEDTriggerStatusOperation;
-    }else if ([function isEqualToString:@"57"] && content.length == 8) {
-        //设置LED触发提醒
-        operationID = mk_bxp_taskConfigLEDTriggerStatusOperation;
-        returnDic = @{@"success":@(YES)};
     }else if ([function isEqualToString:@"48"] && content.length == 10) {
         //读取设备是否可以按键开关机
         BOOL isOn = [[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"];
@@ -491,6 +522,20 @@
         NSString *interval = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 4)];
         operationID = mk_bxp_taskReadEffectiveClickIntervalOperation;
         returnDic = @{@"interval":interval};
+    }else if ([function isEqualToString:@"4e"] && content.length >= 10){
+        //读取生产日期
+        operationID = mk_bxp_taskReadProductionDateOperation;
+        NSString *year = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 4)];
+        NSString *month = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(12, 2)];
+        if (month.length == 1) {
+            month = [@"0" stringByAppendingString:month];
+        }
+        NSString *day = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(14, 2)];
+        if (day.length == 1) {
+            day = [@"0" stringByAppendingString:day];
+        }
+        NSString *productDate = [NSString stringWithFormat:@"%@/%@/%@",year,month,day];
+        returnDic = @{@"productionDate":productDate};
     }else if ([function isEqualToString:@"4f"]) {
         //
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -501,6 +546,10 @@
         
         operationID = mk_bxp_taskReadTimeStampOperation;
         returnDic = @{@"deviceTime":timeString};
+    }else if ([function isEqualToString:@"57"] && content.length == 8) {
+        //设置LED触发提醒
+        operationID = mk_bxp_taskConfigLEDTriggerStatusOperation;
+        returnDic = @{@"success":@(YES)};
     }else if ([function isEqualToString:@"58"] && content.length == 8) {
         //设置设备是否可以按键开关机
         operationID = mk_bxp_taskConfigResetBeaconByButtonStatusOperation;

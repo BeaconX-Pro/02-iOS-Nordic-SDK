@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 生产日期在2021/01/01(含)以后的都是新版本
 @property (nonatomic, assign)BOOL newVersion;
 
+@property (nonatomic, copy, readonly)NSString *firmware;
+
 /// 是否打开了密码验证，当lockState为mk_bxp_lockStateOpen,表明设备打开了密码验证
 @property (nonatomic, assign)BOOL passwordVerification;
 

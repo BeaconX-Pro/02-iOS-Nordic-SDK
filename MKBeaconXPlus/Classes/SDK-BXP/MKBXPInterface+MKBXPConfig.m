@@ -613,6 +613,17 @@
                           failedBlock:failedBlock];
 }
 
++ (void)bxp_configScanResponsePacket:(BOOL)isOn
+                            sucBlock:(void (^)(id returnData))sucBlock
+                         failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = (isOn ? @"ea013f0101" : @"ea013f0100");
+    [centralManager addTaskWithTaskID:mk_bxp_taskConfigScanResponsePacketOperation
+                          commandData:commandString
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
 #pragma mark - private method
 + (NSString *)fetchSlotNumber:(mk_bxp_activeSlotNo)slotNo{
     switch (slotNo) {

@@ -84,7 +84,7 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
     if (![objc_getAssociatedObject(self, &bxp_customNotifySuccessKey) boolValue] || ![objc_getAssociatedObject(self, &bxp_disconnectListenSuccessKey) boolValue]) {
         return NO;
     }
-    if (![self bxp_serviceSuccess] || ![self bxp_customServiceSuccess] || ![self bxp_deviceInfoServiceSuccess]) {
+    if (![self bxp_serviceSuccess] || ![self bxp_customServiceSuccess]) {
         return NO;
     }
     return YES;

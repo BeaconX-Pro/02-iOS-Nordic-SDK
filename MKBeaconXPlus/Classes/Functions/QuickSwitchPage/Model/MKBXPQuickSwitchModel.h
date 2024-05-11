@@ -26,6 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign)BOOL passwordVerification;
 
+/// 固件版本V3.0.6以后才支持该功能
+@property (nonatomic, assign)BOOL scanPacket;
+
+- (BOOL)supportScanPackage;
+
 - (void)readWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end

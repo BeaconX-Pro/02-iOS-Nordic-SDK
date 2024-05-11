@@ -474,6 +474,14 @@ typedef NS_ENUM(NSInteger, mk_bxp_HTStorageConditions) {
                    sucBlock:(void (^)(id returnData))sucBlock
                 failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Scan response packet.
+/// @param isOn isOn
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)bxp_configScanResponsePacket:(BOOL)isOn
+                            sucBlock:(void (^)(id returnData))sucBlock
+                         failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

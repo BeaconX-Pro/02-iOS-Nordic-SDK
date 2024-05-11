@@ -37,6 +37,16 @@
 
 + (void)bxp_readModeIDWithSucBlock:(void (^)(id returnData))sucBlock
                        failedBlock:(void (^)(NSError *error))failedBlock {
+    if (!peripheral.bxp_modeID) {
+        //新固件已经不支持180A服务下面的特征读取,通过自定义协议读
+        NSString *commandString = @"ea2e0000";
+        [centralManager addTaskWithTaskID:mk_bxp_taskReadModeIDOperation
+                              commandData:commandString
+                           characteristic:peripheral.bxp_customWrite
+                                 sucBlock:sucBlock
+                              failedBlock:failedBlock];
+        return;
+    }
     [centralManager addReadTaskWithTaskID:mk_bxp_taskReadModeIDOperation
                            characteristic:peripheral.bxp_modeID
                                  sucBlock:sucBlock
@@ -45,6 +55,16 @@
 
 + (void)bxp_readSoftwareWithSucBlock:(void (^)(id returnData))sucBlock
                          failedBlock:(void (^)(NSError *error))failedBlock {
+    if (!peripheral.bxp_software) {
+        //新固件已经不支持180A服务下面的特征读取,通过自定义协议读
+        NSString *commandString = @"ea2c0000";
+        [centralManager addTaskWithTaskID:mk_bxp_taskReadSoftwareOperation
+                              commandData:commandString
+                           characteristic:peripheral.bxp_customWrite
+                                 sucBlock:sucBlock
+                              failedBlock:failedBlock];
+        return;
+    }
     [centralManager addReadTaskWithTaskID:mk_bxp_taskReadSoftwareOperation
                            characteristic:peripheral.bxp_software
                                  sucBlock:sucBlock
@@ -53,6 +73,16 @@
 
 + (void)bxp_readFirmwareWithSucBlock:(void (^)(id returnData))sucBlock
                          failedBlock:(void (^)(NSError *error))failedBlock {
+    if (!peripheral.bxp_firmware) {
+        //新固件已经不支持180A服务下面的特征读取,通过自定义协议读
+        NSString *commandString = @"ea2b0000";
+        [centralManager addTaskWithTaskID:mk_bxp_taskReadFirmwareOperation
+                              commandData:commandString
+                           characteristic:peripheral.bxp_customWrite
+                                 sucBlock:sucBlock
+                              failedBlock:failedBlock];
+        return;
+    }
     [centralManager addReadTaskWithTaskID:mk_bxp_taskReadFirmwareOperation
                            characteristic:peripheral.bxp_firmware
                                  sucBlock:sucBlock
@@ -61,6 +91,16 @@
 
 + (void)bxp_readHardwareWithSucBlock:(void (^)(id returnData))sucBlock
                          failedBlock:(void (^)(NSError *error))failedBlock {
+    if (!peripheral.bxp_hardware) {
+        //新固件已经不支持180A服务下面的特征读取,通过自定义协议读
+        NSString *commandString = @"ea2d0000";
+        [centralManager addTaskWithTaskID:mk_bxp_taskReadHardwareOperation
+                              commandData:commandString
+                           characteristic:peripheral.bxp_customWrite
+                                 sucBlock:sucBlock
+                              failedBlock:failedBlock];
+        return;
+    }
     [centralManager addReadTaskWithTaskID:mk_bxp_taskReadHardwareOperation
                            characteristic:peripheral.bxp_hardware
                                  sucBlock:sucBlock
@@ -69,6 +109,16 @@
 
 + (void)bxp_readProductionDateWithSucBlock:(void (^)(id returnData))sucBlock
                                failedBlock:(void (^)(NSError *error))failedBlock {
+    if (!peripheral.bxp_productionDate) {
+        //新固件已经不支持180A服务下面的特征读取,通过自定义协议读
+        NSString *commandString = @"ea4e0000";
+        [centralManager addTaskWithTaskID:mk_bxp_taskReadProductionDateOperation
+                              commandData:commandString
+                           characteristic:peripheral.bxp_customWrite
+                                 sucBlock:sucBlock
+                              failedBlock:failedBlock];
+        return;
+    }
     [centralManager addReadTaskWithTaskID:mk_bxp_taskReadProductionDateOperation
                            characteristic:peripheral.bxp_productionDate
                                  sucBlock:sucBlock
@@ -77,6 +127,16 @@
 
 + (void)bxp_readVendorWithSucBlock:(void (^)(id returnData))sucBlock
                        failedBlock:(void (^)(NSError *error))failedBlock {
+    if (!peripheral.bxp_vendor) {
+        //新固件已经不支持180A服务下面的特征读取,通过自定义协议读
+        NSString *commandString = @"ea2a0000";
+        [centralManager addTaskWithTaskID:mk_bxp_taskReadVendorOperation
+                              commandData:commandString
+                           characteristic:peripheral.bxp_customWrite
+                                 sucBlock:sucBlock
+                              failedBlock:failedBlock];
+        return;
+    }
     [centralManager addReadTaskWithTaskID:mk_bxp_taskReadVendorOperation
                            characteristic:peripheral.bxp_vendor
                                  sucBlock:sucBlock
@@ -247,6 +307,15 @@
                           failedBlock:(void (^)(NSError *error))failedBlock {
     [centralManager addTaskWithTaskID:mk_bxp_taskReadTimeStampOperation
                           commandData:@"ea4f0000"
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
++ (void)bxp_readScanResponsePacketWithSucBlock:(void (^)(id returnData))sucBlock
+                                   failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:mk_bxp_taskReadScanResponsePacketOperation
+                          commandData:@"ea2f0000"
                        characteristic:peripheral.bxp_customWrite
                              sucBlock:sucBlock
                           failedBlock:failedBlock];
