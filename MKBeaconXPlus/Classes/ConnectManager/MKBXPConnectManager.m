@@ -84,17 +84,9 @@
             || [self.deviceType isEqualToString:@"04"]
             || [self.deviceType isEqualToString:@"05"]) {
             //温湿度和光感需要同步时间
-            if ([self claSupport]) {
-                //时间戳方式同步时间
-                if (![self configTimeStamp]) {
-                    [self operationFailedMsg:@"Config Date Error" completeBlock:failedBlock];
-                    return;
-                }
-            }else {
-                if (![self syncTimeToDevice]) {
-                    [self operationFailedMsg:@"Config Date Error" completeBlock:failedBlock];
-                    return;
-                }
+            if (![self syncTimeToDevice]) {
+                [self operationFailedMsg:@"Config Date Error" completeBlock:failedBlock];
+                return;
             }
         }
         self.password = password;
@@ -238,37 +230,12 @@
     return success;
 }
 
-- (BOOL)configTimeStamp {
-    __block BOOL success = NO;
-    long long recordTime = [[NSDate date] timeIntervalSince1970];
-    [MKBXPInterface bxp_configTimeStamp:recordTime sucBlock:^(id  _Nonnull returnData) {
-        success = YES;
-        dispatch_semaphore_signal(self.semaphore);
-    } failedBlock:^(NSError * _Nonnull error) {
-        dispatch_semaphore_signal(self.semaphore);
-    }];
-    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-    return success;
-}
-
 - (void)clearParams {
     self.password = @"";
     self.deviceType = @"";
     self.newVersion = NO;
     self.software = @"";
     self.firmware = @"";
-}
-
-- (BOOL)claSupport {
-    if (!ValidStr(self.software) || !ValidStr(self.firmware)) {
-        return NO;
-    }
-    if (![self.software isEqualToString:@"BXP-CL-a"]) {
-        return NO;
-    }
-    NSString *firmwareVersion = [self.firmware stringByReplacingOccurrencesOfString:@"." withString:@""];
-    firmwareVersion = [firmwareVersion stringByReplacingOccurrencesOfString:@"V" withString:@""];
-    return ([firmwareVersion integerValue] >= 206);
 }
 
 #pragma mark - private method

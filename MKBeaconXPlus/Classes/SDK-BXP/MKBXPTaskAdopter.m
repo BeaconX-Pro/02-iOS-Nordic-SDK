@@ -558,10 +558,6 @@
         //设置按键间隔时长
         operationID = mk_bxp_taskConfigEffectiveClickIntervalOperation;
         returnDic = @{@"success":@(YES)};
-    }else if ([function isEqualToString:@"5f"] && content.length == 8) {
-        //设置时间戳
-        operationID = mk_bxp_taskConfigTimeStampOperation;
-        returnDic = @{@"success":@(YES)};
     }
     return [self dataParserGetDataSuccess:returnDic operationID:operationID];
 }

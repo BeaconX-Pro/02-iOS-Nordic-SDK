@@ -12,8 +12,6 @@
 
 #import "MKBXPInterface.h"
 
-#import "MKBXPConnectManager.h"
-
 @implementation MKBXPHTStorageConditionsModel
 @end
 
@@ -34,16 +32,9 @@
             [self operationFailedBlockWithMsg:@"Read Sampling Rate Error" block:failedBlock];
             return;
         }
-        if ([[MKBXPConnectManager shared] claSupport]) {
-            if (![self readTimeStamp]) {
-                [self operationFailedBlockWithMsg:@"Config Device Time Error" block:failedBlock];
-                return;
-            }
-        }else {
-            if (![self readDeviceTime]) {
-                [self operationFailedBlockWithMsg:@"Config Device Time Error" block:failedBlock];
-                return;
-            }
+        if (![self readDeviceTime]) {
+            [self operationFailedBlockWithMsg:@"Config Device Time Error" block:failedBlock];
+            return;
         }
         
         if (![self readHTStorageConditions]) {

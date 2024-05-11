@@ -601,18 +601,6 @@
                           failedBlock:failedBlock];
 }
 
-+ (void)bxp_configTimeStamp:(unsigned long)timestamp
-                   sucBlock:(void (^)(id returnData))sucBlock
-                failedBlock:(void (^)(NSError *error))failedBlock {
-    NSString *value = [NSString stringWithFormat:@"%1lx",(unsigned long)timestamp];
-    NSString *commandString = [@"ea5f0004" stringByAppendingString:value];
-    [centralManager addTaskWithTaskID:mk_bxp_taskConfigTimeStampOperation
-                          commandData:commandString
-                       characteristic:peripheral.bxp_customWrite
-                             sucBlock:sucBlock
-                          failedBlock:failedBlock];
-}
-
 + (void)bxp_configScanResponsePacket:(BOOL)isOn
                             sucBlock:(void (^)(id returnData))sucBlock
                          failedBlock:(void (^)(NSError *error))failedBlock {

@@ -56,7 +56,6 @@ typedef NS_ENUM(NSInteger, mk_bxp_taskOperationID) {
     mk_bxp_taskConfigLEDTriggerStatusOperation,         //设置LED触发提醒状态
     mk_bxp_taskConfigResetBeaconByButtonStatusOperation,    //设置设备是否可以按键开关机
     mk_bxp_taskConfigEffectiveClickIntervalOperation,       //设置按键间隔时长
-    mk_bxp_taskConfigTimeStampOperation,                    //设置当前BXP-CL-a设备的时间戳
     
     
     

@@ -368,7 +368,6 @@
 		72E4FE6C11CD0BFD55CF70DF2867F7FF /* CTMediator.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D33A63EBCA3BA9D31ED542B292C694 /* CTMediator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		73152C04FD3FEFB5DA7E60C2C3D25BB9 /* libxlsxwriter-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C08F1BA7A00222392A90155C03C6F /* libxlsxwriter-dummy.m */; };
 		731E05FBD7329EF51F73EFD3D711FEC6 /* SecureDFUPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A49BDBCDD0E82D6251F98EF6AB6EF52 /* SecureDFUPeripheralDelegate.swift */; };
-		7394FBFAA147469C1CBD4AFC63F11A38 /* MKBXPCLExportDataController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B40A4EB0913CD089C06C4589C79F81D /* MKBXPCLExportDataController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7403C4B13DCB543EED1F4BF9C234FD56 /* MKBXPUpdateController.h in Headers */ = {isa = PBXBuildFile; fileRef = 822E52F4F1920CF230EEA91ABBDDF09B /* MKBXPUpdateController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		740C544C240FA2FF6D2112E5E3D9BC37 /* SSZipArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = E850BBC61D4631FCC9E60B8745D13760 /* SSZipArchive.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7445486B7D0C94F9CB5459CCB7C9168A /* MKBXPLightSensorController.h in Headers */ = {isa = PBXBuildFile; fileRef = 75CC17E7E5DAFCE0EDB783BCDB3901A0 /* MKBXPLightSensorController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -775,7 +774,6 @@
 		E5C5BA054134CF1D6E69D0E79B18AB55 /* mk_customUI_listButtonUnselectedIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 161FFCBD9FA9B8ABF59711541ADE0008 /* mk_customUI_listButtonUnselectedIcon@2x.png */; };
 		E5F6C8F568DBFE1A12DE2060C57DA04F /* MKMeasureTxPowerCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D48B37C962ACAD42977BB7180E989352 /* MKMeasureTxPowerCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6397D0E591509914736EE0F8D4F50AF /* NSDateFormatter+MKAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 60EB3F7078CA8EBDE6967BA1CF5F7094 /* NSDateFormatter+MKAdd.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		E716EBBC405FE879C61DC5E54C47D344 /* MKBXPCLExportDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8D6587B53F6290CBC58CBC87D52429 /* MKBXPCLExportDataController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E7313ECCCBCC257E68F8189EB3D73E8E /* chartsheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B7223C2399F53EE6ADCF30E7E06ED7B /* chartsheet.h */; };
 		E77858DDE68FC9104A0482C56625ACB4 /* drawing.h in Copy xlsxwriter Public Headers */ = {isa = PBXBuildFile; fileRef = D38B35D61793917FCF176AEE39EC93E3 /* drawing.h */; };
 		E79E768503A60933CAAF815C5D5F08E5 /* bxp_slotConfigCellBackIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AFAE043A1227FCA25F82BBCE2EB7DCB5 /* bxp_slotConfigCellBackIcon@3x.png */; };
@@ -1288,7 +1286,6 @@
 		0A65CED77FE7D7F30571402B9CDDE8F4 /* Pods-MKBeaconXPlus_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MKBeaconXPlus_Example-umbrella.h"; sourceTree = "<group>"; };
 		0A8F6B457F7ABBF5352D53B08511CA55 /* CTMediator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CTMediator.m; path = CTMediator/CTMediator/CTMediator.m; sourceTree = "<group>"; };
 		0B23191F4FA5ABD49EFA103BEBE43920 /* View+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "View+MASAdditions.m"; path = "Masonry/View+MASAdditions.m"; sourceTree = "<group>"; };
-		0B40A4EB0913CD089C06C4589C79F81D /* MKBXPCLExportDataController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MKBXPCLExportDataController.h; path = MKBeaconXPlus/Classes/Functions/ExportDataPage/Controller/MKBXPCLExportDataController.h; sourceTree = "<group>"; };
 		0BAA64726F0D1A421B14BCA37163CD27 /* MKBeaconXPlus.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MKBeaconXPlus.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF9EADFF8D1E2E06BC861E0BC9B0FA5 /* vml.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = vml.h; path = include/xlsxwriter/vml.h; sourceTree = "<group>"; };
 		0C3C8D0282CBACD1009D5251AAAF2407 /* Pods-MKBeaconXPlus_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-MKBeaconXPlus_Example"; path = Pods_MKBeaconXPlus_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1396,7 +1393,6 @@
 		2A780683A3E7C327A5220528BFA462F2 /* bxp_slotExportEnableIcon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "bxp_slotExportEnableIcon@3x.png"; path = "MKBeaconXPlus/Assets/bxp_slotExportEnableIcon@3x.png"; sourceTree = "<group>"; };
 		2B5E70DC20D487F9820E12BF4D146A06 /* UISegmentedControl+MKAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UISegmentedControl+MKAdd.m"; path = "MKBaseModuleLibrary/Classes/Category/UISegmentedControl+MKAdd.m"; sourceTree = "<group>"; };
 		2C50F0F8D8674E2DD318FB1CAF447ABD /* MKBXPStorageTriggerCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MKBXPStorageTriggerCell.m; path = MKBeaconXPlus/Classes/Functions/HTConfigPage/View/MKBXPStorageTriggerCell.m; sourceTree = "<group>"; };
-		2C8D6587B53F6290CBC58CBC87D52429 /* MKBXPCLExportDataController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MKBXPCLExportDataController.m; path = MKBeaconXPlus/Classes/Functions/ExportDataPage/Controller/MKBXPCLExportDataController.m; sourceTree = "<group>"; };
 		2CD629A096DCD2D5668D0E5550A03F98 /* ResourceBundle-MKBeaconXCustomUI-MKBeaconXCustomUI-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-MKBeaconXCustomUI-MKBeaconXCustomUI-Info.plist"; sourceTree = "<group>"; };
 		2CE26F007847541F0EC927B751A96C2B /* MJRefreshAutoNormalFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshAutoNormalFooter.h; path = MJRefresh/Custom/Footer/Auto/MJRefreshAutoNormalFooter.h; sourceTree = "<group>"; };
 		2D11F8D3303EE655733D201641C265EC /* CircleProgressBar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CircleProgressBar.debug.xcconfig; sourceTree = "<group>"; };
@@ -3630,8 +3626,6 @@
 		8FC49C4A62586E231D4F6E92A26C56EA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0B40A4EB0913CD089C06C4589C79F81D /* MKBXPCLExportDataController.h */,
-				2C8D6587B53F6290CBC58CBC87D52429 /* MKBXPCLExportDataController.m */,
 				52129300ACEFD265CC4A35FF19CEBC21 /* MKBXPExportDataController.h */,
 				58B85F1ABF7BD1A49B3EB854FAE5A3C0 /* MKBXPExportDataController.m */,
 			);
@@ -4995,7 +4989,6 @@
 				A6A827D89BBC9E15256173CE1953ADAD /* MKBXPAdopter.h in Headers */,
 				74F0B9E6DF2977E8E6709686DFFDC725 /* MKBXPBaseBeacon.h in Headers */,
 				77AD6E0881E21A01E90894B7ABCDF408 /* MKBXPCentralManager.h in Headers */,
-				7394FBFAA147469C1CBD4AFC63F11A38 /* MKBXPCLExportDataController.h in Headers */,
 				661A0C932158225E4F56E62ACD271E97 /* MKBXPConnectManager.h in Headers */,
 				910E45A10C6D0C82B04301240EDA74CB /* MKBXPDatabaseManager.h in Headers */,
 				214EAEDB8A71F58C110D69ACE30578AF /* MKBXPDeviceInfoModel.h in Headers */,
@@ -6505,7 +6498,6 @@
 				9AD5F97E0D8C3ED5D7AB9758FD6C733C /* MKBXPAdopter.m in Sources */,
 				D226D684EDF45F986211DA639E81C6C6 /* MKBXPBaseBeacon.m in Sources */,
 				E51D8E531359B159A67B48F2A44E2F76 /* MKBXPCentralManager.m in Sources */,
-				E716EBBC405FE879C61DC5E54C47D344 /* MKBXPCLExportDataController.m in Sources */,
 				16B1208B8E67574780728D9DA91891F7 /* MKBXPConnectManager.m in Sources */,
 				84C6F66C9F0613BE2985BA1C6EC708FD /* MKBXPDatabaseManager.m in Sources */,
 				7E3BBC3A45AEE5CE81074882DAD7BC35 /* MKBXPDeviceInfoModel.m in Sources */,
