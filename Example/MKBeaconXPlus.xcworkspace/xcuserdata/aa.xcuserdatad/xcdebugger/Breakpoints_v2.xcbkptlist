@@ -19,64 +19,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F16F6D5D-20E6-42A3-AFC8-A8C2F3F1C4E1"
+            uuid = "AA41DE7E-E2D5-4EBD-A4CC-0B8B48474B92"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../MKBeaconXPlus/Classes/Functions/QuickSwitchPage/Controller/MKBXPQuickSwitchController.m"
+            filePath = "../MKBeaconXPlus/Classes/SDK-BXP/MKBXPCentralManager.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "314"
-            endingLineNumber = "314"
-            landmarkName = "-configScanPacket:"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "-peripheral:didUpdateValueForCharacteristic:error:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F16F6D5D-20E6-42A3-AFC8-A8C2F3F1C4E1 - a8f1a053d6444853"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__47-[MKBXPQuickSwitchController configScanPacket:]_block_invoke"
-                  moduleName = "MKBeaconXPlus"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aa/Desktop/MKBXPApp/Modules/MKBeaconXPlus/MKBeaconXPlus/Classes/Functions/QuickSwitchPage/Controller/MKBXPQuickSwitchController.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "314"
-                  endingLineNumber = "314"
-                  offsetFromSymbolStart = "92">
-               </Location>
-               <Location
-                  uuid = "F16F6D5D-20E6-42A3-AFC8-A8C2F3F1C4E1 - c08155c0a43824f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MKBXPQuickSwitchController configScanPacket:]"
-                  moduleName = "MKBeaconXPlus"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aa/Desktop/MKBXPApp/Modules/MKBeaconXPlus/MKBeaconXPlus/Classes/Functions/QuickSwitchPage/Controller/MKBXPQuickSwitchController.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "314"
-                  endingLineNumber = "314"
-                  offsetFromSymbolStart = "44">
-               </Location>
-               <Location
-                  uuid = "F16F6D5D-20E6-42A3-AFC8-A8C2F3F1C4E1 - c08155c0a43824f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MKBXPQuickSwitchController configScanPacket:]"
-                  moduleName = "MKBeaconXPlus"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aa/Desktop/MKBXPApp/Modules/MKBeaconXPlus/MKBeaconXPlus/Classes/Functions/QuickSwitchPage/Controller/MKBXPQuickSwitchController.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "314"
-                  endingLineNumber = "314"
-                  offsetFromSymbolStart = "28">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "27063820-39D3-4FCC-8335-FD145F941528"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/MKBaseBleModule/MKBaseBleModule/Classes/MKBLEBaseCentralManager.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "-peripheral:didUpdateNotificationStateForCharacteristic:error:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

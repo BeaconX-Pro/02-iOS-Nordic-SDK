@@ -604,7 +604,7 @@
 + (void)bxp_configScanResponsePacket:(BOOL)isOn
                             sucBlock:(void (^)(id returnData))sucBlock
                          failedBlock:(void (^)(NSError *error))failedBlock {
-    NSString *commandString = (isOn ? @"ea013f0101" : @"ea013f0100");
+    NSString *commandString = (isOn ? @"ea3f000101" : @"ea3f000100");
     [centralManager addTaskWithTaskID:mk_bxp_taskConfigScanResponsePacketOperation
                           commandData:commandString
                        characteristic:peripheral.bxp_customWrite
