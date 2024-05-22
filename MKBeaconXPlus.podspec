@@ -31,7 +31,7 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '14.0'
   
   s.resource_bundles = {
-    'MKBeaconXPlus' => ['MKBeaconXPlus/Assets/*.png']
+    'MKBeaconXPlus' => ['MKBeaconXPlus/Assets/*.*']
   }
    
    s.subspec 'ConnectManager' do |ss|

@@ -13,6 +13,10 @@
 #import "MKMacroDefines.h"
 #import "UIView+MKAdd.h"
 
+#import "MKHudManager.h"
+
+#import "MKBXPReportController.h"
+
 @interface MKBXPAboutController ()
 
 @property (nonatomic, strong)UIImageView *aboutIcon;
@@ -40,6 +44,24 @@
     [self loadSubViews];
 }
 
+- (void)rightButtonMethod {
+    MKBXPReportController *vc = [[MKBXPReportController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    return;
+    [[MKHudManager share] showHUDWithTitle:@"Waiting..." inView:self.view isPenetration:NO];
+//    NSMutableArray *dataList = [NSMutableArray array];
+//    for (NSInteger i = 0; i < 1000; i ++) {
+//        MKBXPExcelModel *dataModel = [[MKBXPExcelModel alloc] init];
+//        dataModel.index = i;
+//        dataModel.timestamp = @"05/16/2024 16:32:50";
+//        dataModel.temperature = @"24.5";
+//        
+//        [dataList addObject:dataModel];
+//    }
+    [[MKHudManager share] hide];
+    [self.view showCentralToast:@"Save Complete !"];
+}
+
 #pragma mark - event method
 - (void)openWebBrowser{
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.mokoblue.com"]
@@ -50,7 +72,7 @@
 #pragma mark - ui
 - (void)loadSubViews {
     self.defaultTitle = @"ABOUT";
-    [self.rightButton setHidden:YES];
+    [self.rightButton setTitle:@"开始" forState:UIControlStateNormal];
     [self.view addSubview:self.aboutIcon];
     [self.view addSubview:self.appNameLabel];
     [self.view addSubview:self.versionLabel];

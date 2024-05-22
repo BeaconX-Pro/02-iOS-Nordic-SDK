@@ -63,7 +63,7 @@
     [self.window addSubview:self.launchView];
     [self.window bringSubviewToFront:self.launchView];
     
-    [self performSelector:@selector(launchViewRemoved) withObject:nil afterDelay:3.f];
+    [self performSelector:@selector(launchViewRemoved) withObject:nil afterDelay:1.f];
 }
 
 - (void)launchViewRemoved {
