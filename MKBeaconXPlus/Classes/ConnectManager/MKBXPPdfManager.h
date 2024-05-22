@@ -49,6 +49,22 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)printMessageStr:(NSString *)printStr CGRect:(CGRect)rect;
 
 /**
+ *  @brief 文字，默认宋体
+ *
+ *  @param printStr 绘制的文字
+ *  @param rect 文字frame
+ *  @param lineSpacing 文字行间距
+ *  @param lineBreakMode 文字过长时的显示格式
+ *  @param alignment 文字对齐方式
+ */
+- (void)printStr:(NSString *)printStr
+          CGRect:(CGRect)rect
+            Font:(CGFloat)font
+     lineSpacing:(CGFloat)lineSpacing
+   lineBreakMode:(NSLineBreakMode)lineBreakMode
+       alignment:(NSTextAlignment)alignment;
+
+/**
  *  @brief 两点坐标相连画线,高度1像素
  *
  *  @param from 起始坐标

@@ -275,9 +275,9 @@
 
 - (void)drawPageTitle {
     UIImage *image = LOADICON(@"MKBeaconXPlus", @"MKBXPRoadCasePrint", @"deltaTrakIcon.png");
-    CGFloat imageWidth = 140.f;
+    CGFloat imageWidth = 200.f;
     [[MKBXPPdfManager shared] drawImage:image rect:CGRectMake(INIT_X, TITLE_Y, imageWidth, TITLE_FONT_HEIGHT)];
-    [[MKBXPPdfManager shared] printStr:@"FlashLink® PDF Report" CGRect:CGRectMake(INIT_X + imageWidth + 10.f, TITLE_Y, WIDTH - 2 * INIT_X - 100.f, TITLE_FONT_HEIGHT) Font:TITLE_FONT fontWithName:@"PingFangSC-Semibold" lineSpacing:0.0f lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentLeft];
+    [[MKBXPPdfManager shared] printStr:@"FlashLink® PDF Report" CGRect:CGRectMake(INIT_X + imageWidth + 10.f, TITLE_Y, WIDTH - 2 * INIT_X - 100.f, TITLE_FONT_HEIGHT) Font:45.f lineSpacing:0.0f lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentLeft];
     
     ///< 第一行线
     [[MKBXPPdfManager shared] drawBoldLineFromPoint:CGPointMake(INIT_X, INIT_Y) toPoint:CGPointMake(WIDTH - INIT_X, INIT_Y)];
@@ -289,7 +289,7 @@
     ///< 第一行线
     [[MKBXPPdfManager shared] drawBoldLineFromPoint:CGPointMake(INIT_X, HEIGHT - 3 * tableTitleHeight) toPoint:CGPointMake(WIDTH - INIT_X, HEIGHT - 3 * tableTitleHeight)];
     
-    [[MKBXPPdfManager shared] printStr:footerMsg CGRect:CGRectMake(0, HEIGHT - 3 * tableTitleHeight, WIDTH, 2 * tableTitleHeight) Font:20 fontWithName:@"PingFangSC-Semibold" lineSpacing:0.0f lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printStr:footerMsg CGRect:CGRectMake(0, HEIGHT - 3 * tableTitleHeight, WIDTH, 2 * tableTitleHeight) Font:20 lineSpacing:0.0f lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
 }
 
 
@@ -313,7 +313,8 @@
     ///< Order下方第一行线
     [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X, orderTableTopLineOffsetY) toPoint:CGPointMake(orderWidth - 5.f, orderTableTopLineOffsetY)];
     ///< Order下方左侧第一行文字
-    [[MKBXPPdfManager shared] printTipsStr:@"Shipper/Carrier" CGRect:CGRectMake(INIT_X, orderTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), orderLeftMsgRowWidth, TEXT_TWO_ROW_HEIGHT)];
+//    [[MKBXPPdfManager shared] printTipsStr:@"Shipper/Carrier" CGRect:CGRectMake(INIT_X, orderTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), orderLeftMsgRowWidth, TEXT_TWO_ROW_HEIGHT)];
+    [[MKBXPPdfManager shared] printStr:@"Shipper/Carrier" CGRect:CGRectMake(INIT_X, orderTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), orderLeftMsgRowWidth, TEXT_TWO_ROW_HEIGHT) Font:15 lineSpacing:0.0f lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentLeft];
     ///< Order下方右侧第一行文字
     [[MKBXPPdfManager shared] printMessageStr:@"" CGRect:CGRectMake(orderRightMsgOffsetX, orderTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), orderRightMsgWidth, TEXT_TWO_ROW_HEIGHT)];
     
@@ -490,7 +491,8 @@
 #define statisticalTableTopLineOffsetY (statisticalTableOffsetY + shadowHeight)
 #define thirdLineMultiple 2.5
 - (void)drawStatisticalSummaryTable {
-    CGFloat rowWidth = (WIDTH - 2 * INIT_X) / 6;
+    CGFloat lastRowWidth = 230.f;
+    CGFloat rowWidth = (WIDTH - 2 * INIT_X - 2 * lastRowWidth) / 4;
     
     ///< Statistical Summary阴影
     CGFloat shadowWidth = 2.5 * PART_ONE_COLUMNWIDTH;
@@ -506,19 +508,15 @@
     [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X, statisticalTableTopLineOffsetY + thirdLineMultiple * PART_ONE_ROW_HEIGHT) toPoint:CGPointMake(WIDTH - INIT_X, statisticalTableTopLineOffsetY + thirdLineMultiple * PART_ONE_ROW_HEIGHT)];
     
     ///< Statistical Summary第一行列左线
-    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X, statisticalTableTopLineOffsetY) toPoint:CGPointMake(INIT_X, statisticalTableTopLineOffsetY + thirdLineMultiple * PART_ONE_ROW_HEIGHT)];
-    ///< Statistical Summary第二行列左线
-    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X + rowWidth, statisticalTableTopLineOffsetY) toPoint:CGPointMake(INIT_X + rowWidth, statisticalTableTopLineOffsetY + thirdLineMultiple * PART_ONE_ROW_HEIGHT)];
-    ///< Statistical Summary第三行列左线
-    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X + 2 * rowWidth, statisticalTableTopLineOffsetY) toPoint:CGPointMake(INIT_X + 2 * rowWidth, statisticalTableTopLineOffsetY + thirdLineMultiple * PART_ONE_ROW_HEIGHT)];
-    ///< Statistical Summary第四行列左线
-    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X + 3 * rowWidth, statisticalTableTopLineOffsetY) toPoint:CGPointMake(INIT_X + 3 * rowWidth, statisticalTableTopLineOffsetY + thirdLineMultiple * PART_ONE_ROW_HEIGHT)];
-    ///< Statistical Summary第五行列左线
-    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X + 4 * rowWidth, statisticalTableTopLineOffsetY) toPoint:CGPointMake(INIT_X + 4 * rowWidth, statisticalTableTopLineOffsetY + thirdLineMultiple * PART_ONE_ROW_HEIGHT)];
+    ///< 竖线
+    for (NSInteger i = 0; i < 5; i ++) {
+        [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X + i * rowWidth, statisticalTableTopLineOffsetY) toPoint:CGPointMake(INIT_X + i * rowWidth, statisticalTableTopLineOffsetY + thirdLineMultiple * PART_ONE_ROW_HEIGHT)];
+    }
+    
     ///< Statistical Summary第六行列左线
-    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X + 5 * rowWidth, statisticalTableTopLineOffsetY) toPoint:CGPointMake(INIT_X + 5 * rowWidth, statisticalTableTopLineOffsetY + thirdLineMultiple * PART_ONE_ROW_HEIGHT)];
+    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X + 4 * rowWidth + lastRowWidth, statisticalTableTopLineOffsetY) toPoint:CGPointMake(INIT_X + 4 * rowWidth + lastRowWidth, statisticalTableTopLineOffsetY + thirdLineMultiple * PART_ONE_ROW_HEIGHT)];
     ///< Statistical Summary第七行列左线
-    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X + 6 * rowWidth, statisticalTableTopLineOffsetY) toPoint:CGPointMake(INIT_X + 6 * rowWidth, statisticalTableTopLineOffsetY + thirdLineMultiple * PART_ONE_ROW_HEIGHT)];
+    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X + 4 * rowWidth + 2 * lastRowWidth, statisticalTableTopLineOffsetY) toPoint:CGPointMake(INIT_X + 4 * rowWidth + 2 * lastRowWidth, statisticalTableTopLineOffsetY + thirdLineMultiple * PART_ONE_ROW_HEIGHT)];
     
     ///< Statistical Summary第一列第一行文字
     [[MKBXPPdfManager shared] printTipsStr:@"Maximum" CGRect:CGRectMake(INIT_X, statisticalTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
@@ -542,21 +540,21 @@
     ///< Statistical Summary第四列第一行文字
     [[MKBXPPdfManager shared] printTipsStr:@"Degree Minutes" CGRect:CGRectMake(INIT_X + 3 * rowWidth, statisticalTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Statistical Summary第四列第二行文字
-    [[MKBXPPdfManager shared] printMessageStr:@"---.-°C x Mins" CGRect:CGRectMake(INIT_X + 3 * rowWidth, statisticalTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + 8.f, rowWidth, 40.f)];
+    [[MKBXPPdfManager shared] printMessageStr:@"    ---.-°C x           Mins" CGRect:CGRectMake(INIT_X + 3 * rowWidth, statisticalTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + 8.f, rowWidth, 40.f)];
     ///< Statistical Summary第四列第三行文字
-    [[MKBXPPdfManager shared] printMessageStr:@"---.-°F x Mins" CGRect:CGRectMake(INIT_X + 3 * rowWidth, statisticalTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + 40.f, rowWidth, TEXT_TWO_ROW_HEIGHT)];
+    [[MKBXPPdfManager shared] printMessageStr:@"    ---.-°F x           Mins" CGRect:CGRectMake(INIT_X + 3 * rowWidth, statisticalTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + 40.f, rowWidth, TEXT_TWO_ROW_HEIGHT)];
     
     ///< Statistical Summary第五列第一行文字
-    [[MKBXPPdfManager shared] printTipsStr:@"Mean +-- Standard Deviation" CGRect:CGRectMake(INIT_X + 4 * rowWidth, statisticalTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
+    [[MKBXPPdfManager shared] printTipsStr:@"Mean +-- Standard Deviation" CGRect:CGRectMake(INIT_X + 4 * rowWidth, statisticalTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), lastRowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Statistical Summary第五列第二行文字
-    [[MKBXPPdfManager shared] printMessageStr:@"24.0°C +-- 0.4°C" CGRect:CGRectMake(INIT_X + 4 * rowWidth, statisticalTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + 8.f, rowWidth, 40.f)];
+    [[MKBXPPdfManager shared] printMessageStr:@"24.0°C +-- 0.4°C" CGRect:CGRectMake(INIT_X + 4 * rowWidth, statisticalTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + 8.f, lastRowWidth, 40.f)];
     ///< Statistical Summary第五列第三行文字
-    [[MKBXPPdfManager shared] printMessageStr:@"75.2°F +-- 0.7°F" CGRect:CGRectMake(INIT_X + 4 * rowWidth, statisticalTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + 40.f, rowWidth, TEXT_TWO_ROW_HEIGHT)];
+    [[MKBXPPdfManager shared] printMessageStr:@"75.2°F +-- 0.7°F" CGRect:CGRectMake(INIT_X + 4 * rowWidth, statisticalTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + 40.f, lastRowWidth, TEXT_TWO_ROW_HEIGHT)];
     
     ///< Statistical Summary第六列第一行文字
-    [[MKBXPPdfManager shared] printTipsStr:@"Mean Kinetic Temperature" CGRect:CGRectMake(INIT_X + 5 * rowWidth, statisticalTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
+    [[MKBXPPdfManager shared] printTipsStr:@"Mean Kinetic Temperature" CGRect:CGRectMake(INIT_X + 4 * rowWidth + lastRowWidth, statisticalTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), lastRowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Statistical Summary第六列第二行文字
-    [[MKBXPPdfManager shared] printMessageStr:@"24.0°C / 75.2°F" CGRect:CGRectMake(INIT_X + 5 * rowWidth, statisticalTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + ((1.5 * PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
+    [[MKBXPPdfManager shared] printMessageStr:@"24.0°C / 75.2°F" CGRect:CGRectMake(INIT_X + 4 * rowWidth + lastRowWidth, statisticalTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + ((1.5 * PART_ONE_ROW_HEIGHT - FONT) / 2), lastRowWidth, TEXT_TWO_ROW_HEIGHT)];
 }
 
 /*
@@ -566,7 +564,7 @@
 #define alarmTableTopLineOffsetY (alarmTableOffsetY + shadowHeight)
 - (void)drawAlarmSummaryTable {
     CGFloat eventRowWidth = 70.f;
-    CGFloat statusRowWidth = 100.f;
+    CGFloat statusRowWidth = 120.f;
     CGFloat firstEventRowWidth = 100.f;
     CGFloat rowWidth = (WIDTH - 2 * INIT_X - eventRowWidth - statusRowWidth - firstEventRowWidth) / 4;
     
@@ -575,21 +573,11 @@
     ///< Alarm Summary
     [[MKBXPPdfManager shared] printTableHeaderStr:@"Alarm Summary" CGRect:CGRectMake(INIT_X, alarmTableOffsetY + (shadowHeight - tableTitleHeight) / 2, PART_ONE_COLUMNWIDTH, tableTitleHeight)];
         
-    ///< Alarm Summary下方第一行线
-    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X, alarmTableTopLineOffsetY) toPoint:CGPointMake(WIDTH - INIT_X, alarmTableTopLineOffsetY)];
-    ///< Alarm Summary下方第二行线
-    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT) toPoint:CGPointMake(WIDTH - INIT_X, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT)];
-    ///< Alarm Summary下方第三行线
-    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT) toPoint:CGPointMake(WIDTH - INIT_X, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT)];
-    ///< Alarm Summary下方第四行线
-    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT) toPoint:CGPointMake(WIDTH - INIT_X, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT)];
-    ///< Alarm Summary下方第五行线
-    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT) toPoint:CGPointMake(WIDTH - INIT_X, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT)];
-    ///< Alarm Summary下方第六行线
-    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT) toPoint:CGPointMake(WIDTH - INIT_X, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT)];
-    ///< Alarm Summary下方第七行线
-    [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X, alarmTableTopLineOffsetY + 6 * PART_ONE_ROW_HEIGHT) toPoint:CGPointMake(WIDTH - INIT_X, alarmTableTopLineOffsetY + 6 * PART_ONE_ROW_HEIGHT)];
-    
+    ///< 绘制行线
+    for (NSInteger i = 0; i < 7; i ++) {
+        [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X, alarmTableTopLineOffsetY + i * PART_ONE_ROW_HEIGHT) toPoint:CGPointMake(WIDTH - INIT_X, alarmTableTopLineOffsetY + i * PART_ONE_ROW_HEIGHT)];
+    }
+        
     ///< Alarm Summary第一行列左线
     [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(INIT_X, alarmTableTopLineOffsetY) toPoint:CGPointMake(INIT_X, alarmTableTopLineOffsetY + 6 * PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第二行列左线
@@ -609,104 +597,104 @@
     
     ///< Alarm Summary第一列第一行文字
     CGFloat firstRowOffsetX = INIT_X;
-    [[MKBXPPdfManager shared] printStr:@"" CGRect:CGRectMake(firstRowOffsetX, alarmTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printTipsStr:@"" CGRect:CGRectMake(firstRowOffsetX, alarmTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Alarm Summary第一列第二行文字
-    [[MKBXPPdfManager shared] printStr:@"Ideal Range" CGRect:CGRectMake(firstRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printTipsStr:@"Ideal Range" CGRect:CGRectMake(firstRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Alarm Summary第一列第三行文字
-    [[MKBXPPdfManager shared] printStr:@"Extreme High Alarm" CGRect:CGRectMake(firstRowOffsetX, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printTipsStr:@"Extreme High Alarm" CGRect:CGRectMake(firstRowOffsetX, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Alarm Summary第一列第四行文字
-    [[MKBXPPdfManager shared] printStr:@"High Alarm" CGRect:CGRectMake(firstRowOffsetX, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printTipsStr:@"High Alarm" CGRect:CGRectMake(firstRowOffsetX, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Alarm Summary第一列第五行文字
-    [[MKBXPPdfManager shared] printStr:@"Low Alarm" CGRect:CGRectMake(firstRowOffsetX, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printTipsStr:@"Low Alarm" CGRect:CGRectMake(firstRowOffsetX, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Alarm Summary第一列第六行文字
-    [[MKBXPPdfManager shared] printStr:@"Extreme Low Alarm" CGRect:CGRectMake(firstRowOffsetX, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printTipsStr:@"Extreme Low Alarm" CGRect:CGRectMake(firstRowOffsetX, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
     
     ///< Alarm Summary第二列第一行文字
     CGFloat secondRowOffsetX = firstRowOffsetX + rowWidth;
-    [[MKBXPPdfManager shared] printStr:@"Limits" CGRect:CGRectMake(secondRowOffsetX, alarmTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printTipsStr:@"Limits" CGRect:CGRectMake(secondRowOffsetX, alarmTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Alarm Summary第二列第二行上文字
-    [[MKBXPPdfManager shared] printStr:@">-- -25.0°C/-13.0°F" CGRect:CGRectMake(secondRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + 8.f, rowWidth, 40.f) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"≥ -25.0°C/-13.0°F" CGRect:CGRectMake(secondRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + 5.f, rowWidth, 15.f)];
     ///< Alarm Summary第二列第二行下文字
-    [[MKBXPPdfManager shared] printStr:@"-- 30.0°C/ 86.0°F" CGRect:CGRectMake(secondRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + 8.f + 40.f, rowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"≤ 30.0°C/ 86.0°F" CGRect:CGRectMake(secondRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + 5.f + 15.f, rowWidth, 15.f)];
     ///< Alarm Summary第二列第三行文字
-    [[MKBXPPdfManager shared] printStr:@"Over 33.0°C/ 91.4°F" CGRect:CGRectMake(secondRowOffsetX, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"Over 33.0°C/ 91.4°F" CGRect:CGRectMake(secondRowOffsetX, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Alarm Summary第二列第四行文字
-    [[MKBXPPdfManager shared] printStr:@"Over 30.0°C/ 86.0°F" CGRect:CGRectMake(secondRowOffsetX, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"Over 30.0°C/ 86.0°F" CGRect:CGRectMake(secondRowOffsetX, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Alarm Summary第二列第五行文字
-    [[MKBXPPdfManager shared] printStr:@"Under -25.0°C/-13.0°F" CGRect:CGRectMake(secondRowOffsetX, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"Under -25.0°C/-13.0°F" CGRect:CGRectMake(secondRowOffsetX, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Alarm Summary第二列第六行文字
-    [[MKBXPPdfManager shared] printStr:@"Under -30.0°C/-22.0°F" CGRect:CGRectMake(secondRowOffsetX, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"Under -30.0°C/-22.0°F" CGRect:CGRectMake(secondRowOffsetX, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
     
     
     ///< Alarm Summary第三列第一行文字
     CGFloat thirdRowOffsetX = secondRowOffsetX + rowWidth;
-    [[MKBXPPdfManager shared] printStr:@"Cumulative Limit" CGRect:CGRectMake(thirdRowOffsetX, alarmTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printTipsStr:@"Cumulative Limit" CGRect:CGRectMake(thirdRowOffsetX, alarmTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Alarm Summary第三列第二行文字
-    [[MKBXPPdfManager shared] printStr:@"Unlimited" CGRect:CGRectMake(thirdRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"Unlimited" CGRect:CGRectMake(thirdRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第三列第三行文字
-    [[MKBXPPdfManager shared] printStr:@"00 Hrs 00 Mins 50 Secs" CGRect:CGRectMake(thirdRowOffsetX, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"00 Hrs 00 Mins 50 Secs" CGRect:CGRectMake(thirdRowOffsetX, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第三列第四行文字
-    [[MKBXPPdfManager shared] printStr:@"00 Hrs 00 Mins 45 Secs" CGRect:CGRectMake(thirdRowOffsetX, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"00 Hrs 00 Mins 45 Secs" CGRect:CGRectMake(thirdRowOffsetX, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第三列第五行文字
-    [[MKBXPPdfManager shared] printStr:@"00 Hrs 00 Mins 40 Secs" CGRect:CGRectMake(thirdRowOffsetX, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"00 Hrs 00 Mins 40 Secs" CGRect:CGRectMake(thirdRowOffsetX, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第三列第六行文字
-    [[MKBXPPdfManager shared] printStr:@"00 Hrs 00 Mins 35 Secs" CGRect:CGRectMake(thirdRowOffsetX, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"00 Hrs 00 Mins 35 Secs" CGRect:CGRectMake(thirdRowOffsetX, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT)];
     
     ///< Alarm Summary第四列第一行文字
     CGFloat forthRowOffsetX = thirdRowOffsetX + rowWidth;
-    [[MKBXPPdfManager shared] printStr:@"First Event" CGRect:CGRectMake(forthRowOffsetX, alarmTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), firstEventRowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printTipsStr:@"First Event" CGRect:CGRectMake(forthRowOffsetX, alarmTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), firstEventRowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Alarm Summary第四列第二行文字
-    [[MKBXPPdfManager shared] printStr:@"" CGRect:CGRectMake(forthRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), firstEventRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"" CGRect:CGRectMake(forthRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), firstEventRowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第四列第三行文字
-    [[MKBXPPdfManager shared] printStr:@"NONE" CGRect:CGRectMake(forthRowOffsetX, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), firstEventRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"NONE" CGRect:CGRectMake(forthRowOffsetX, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), firstEventRowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第四列第四行文字
-    [[MKBXPPdfManager shared] printStr:@"NONE" CGRect:CGRectMake(forthRowOffsetX, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), firstEventRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"NONE" CGRect:CGRectMake(forthRowOffsetX, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), firstEventRowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第四列第五行文字
-    [[MKBXPPdfManager shared] printStr:@"NONE" CGRect:CGRectMake(forthRowOffsetX, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), firstEventRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"NONE" CGRect:CGRectMake(forthRowOffsetX, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), firstEventRowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第四列第六行文字
-    [[MKBXPPdfManager shared] printStr:@"NONE" CGRect:CGRectMake(forthRowOffsetX, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), firstEventRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"NONE" CGRect:CGRectMake(forthRowOffsetX, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), firstEventRowWidth, PART_ONE_ROW_HEIGHT)];
     
     ///< Alarm Summary第五列第一行文字
     CGFloat fivthRowOffsetX = forthRowOffsetX + firstEventRowWidth;
-    [[MKBXPPdfManager shared] printStr:@"Event" CGRect:CGRectMake(fivthRowOffsetX, alarmTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), eventRowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printTipsStr:@"Event" CGRect:CGRectMake(fivthRowOffsetX, alarmTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), eventRowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Alarm Summary第五列第二行文字
-    [[MKBXPPdfManager shared] printStr:@"" CGRect:CGRectMake(fivthRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), eventRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"" CGRect:CGRectMake(fivthRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), eventRowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第五列第三行文字
-    [[MKBXPPdfManager shared] printStr:@"0" CGRect:CGRectMake(fivthRowOffsetX, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), eventRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"0" CGRect:CGRectMake(fivthRowOffsetX, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), eventRowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第五列第四行文字
-    [[MKBXPPdfManager shared] printStr:@"0" CGRect:CGRectMake(fivthRowOffsetX, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), eventRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"0" CGRect:CGRectMake(fivthRowOffsetX, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), eventRowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第五列第五行文字
-    [[MKBXPPdfManager shared] printStr:@"0" CGRect:CGRectMake(fivthRowOffsetX, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), eventRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"0" CGRect:CGRectMake(fivthRowOffsetX, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), eventRowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第五列第六行文字
-    [[MKBXPPdfManager shared] printStr:@"0" CGRect:CGRectMake(fivthRowOffsetX, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), eventRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"0" CGRect:CGRectMake(fivthRowOffsetX, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), eventRowWidth, PART_ONE_ROW_HEIGHT)];
     
     ///< Alarm Summary第六列第一行文字
     CGFloat sixthRowOffsetX = fivthRowOffsetX + eventRowWidth;
-    [[MKBXPPdfManager shared] printStr:@"Total Time" CGRect:CGRectMake(sixthRowOffsetX, alarmTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printTipsStr:@"Total Time" CGRect:CGRectMake(sixthRowOffsetX, alarmTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Alarm Summary第六列第二行文字
-    [[MKBXPPdfManager shared] printStr:@"" CGRect:CGRectMake(sixthRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"" CGRect:CGRectMake(sixthRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第六列第三行文字
-    [[MKBXPPdfManager shared] printStr:@"00 Hrs 00 Mins 00 Secs" CGRect:CGRectMake(sixthRowOffsetX, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"00 Hrs 00 Mins 00 Secs" CGRect:CGRectMake(sixthRowOffsetX, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第六列第四行文字
-    [[MKBXPPdfManager shared] printStr:@"00 Hrs 00 Mins 00 Secs" CGRect:CGRectMake(sixthRowOffsetX, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"00 Hrs 00 Mins 00 Secs" CGRect:CGRectMake(sixthRowOffsetX, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第六列第五行文字
-    [[MKBXPPdfManager shared] printStr:@"00 Hrs 00 Mins 00 Secs" CGRect:CGRectMake(sixthRowOffsetX, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"00 Hrs 00 Mins 00 Secs" CGRect:CGRectMake(sixthRowOffsetX, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第六列第六行文字
-    [[MKBXPPdfManager shared] printStr:@"00 Hrs 00 Mins 00 Secs" CGRect:CGRectMake(sixthRowOffsetX, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"00 Hrs 00 Mins 00 Secs" CGRect:CGRectMake(sixthRowOffsetX, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), rowWidth, PART_ONE_ROW_HEIGHT)];
     
     ///< Alarm Summary第七列第一行文字
     CGFloat seventhRowOffsetX = sixthRowOffsetX + rowWidth;
-    [[MKBXPPdfManager shared] printStr:@"Total Time" CGRect:CGRectMake(seventhRowOffsetX, alarmTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), statusRowWidth, TEXT_TWO_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printTipsStr:@"Alarm Status" CGRect:CGRectMake(seventhRowOffsetX, alarmTableTopLineOffsetY + ((PART_ONE_ROW_HEIGHT - FONT) / 2), statusRowWidth, TEXT_TWO_ROW_HEIGHT)];
     ///< Alarm Summary第七列第二行文字
-    [[MKBXPPdfManager shared] printStr:@"" CGRect:CGRectMake(seventhRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), statusRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"" CGRect:CGRectMake(seventhRowOffsetX, alarmTableTopLineOffsetY + PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), statusRowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第七列第三行文字
-    [[MKBXPPdfManager shared] printStr:@"✅" CGRect:CGRectMake(seventhRowOffsetX, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), statusRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"✅" CGRect:CGRectMake(seventhRowOffsetX, alarmTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), statusRowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第七列第四行文字
-    [[MKBXPPdfManager shared] printStr:@"✅" CGRect:CGRectMake(seventhRowOffsetX, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), statusRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"✅" CGRect:CGRectMake(seventhRowOffsetX, alarmTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), statusRowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第七列第五行文字
-    [[MKBXPPdfManager shared] printStr:@"✅" CGRect:CGRectMake(seventhRowOffsetX, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), statusRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"✅" CGRect:CGRectMake(seventhRowOffsetX, alarmTableTopLineOffsetY + 4 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), statusRowWidth, PART_ONE_ROW_HEIGHT)];
     ///< Alarm Summary第七列第六行文字
-    [[MKBXPPdfManager shared] printStr:@"✅" CGRect:CGRectMake(seventhRowOffsetX, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), statusRowWidth, PART_ONE_ROW_HEIGHT) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:@"✅" CGRect:CGRectMake(seventhRowOffsetX, alarmTableTopLineOffsetY + 5 * PART_ONE_ROW_HEIGHT + ((PART_ONE_ROW_HEIGHT - FONT) / 2), statusRowWidth, PART_ONE_ROW_HEIGHT)];
 }
 
 /*
@@ -731,7 +719,7 @@
     [[MKBXPPdfManager shared] drawLineFromPoint:CGPointMake(WIDTH - INIT_X, noteTableTopLineOffsetY) toPoint:CGPointMake(WIDTH - INIT_X, noteTableTopLineOffsetY + 2 * PART_ONE_ROW_HEIGHT)];
 }
 
-#define temperatureTopLineOffsetY (noteTableTopLineOffsetY + 3 * PART_ONE_ROW_HEIGHT)
+#define temperatureTopLineOffsetY (noteTableTopLineOffsetY + 2.5 * PART_ONE_ROW_HEIGHT)
 
 - (void)drawTemperatureIllustrate {
     //绘制标题
@@ -741,18 +729,18 @@
     NSArray *fDataList = @[@"87.4",@"86.0",@"84.5",@"83.1",@"81.6",@"80.2",@"78.8",@"77.3",@"75.9",@"74.4",@"73.0"];
     
     CGFloat unitRowWidth = 50.f;
-    CGFloat unitRowHeight = 30.f;
+    CGFloat unitRowHeight = 40.f;
     
     ///< 第一列第一行文字
     CGFloat firstRowOffsetX = INIT_X;
-    [[MKBXPPdfManager shared] printStr:@"[°C]" CGRect:CGRectMake(firstRowOffsetX, temperatureTopLineOffsetY + ((unitRowHeight - FONT) / 2), unitRowWidth, unitRowHeight) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printTipsStr:@"[°C]" CGRect:CGRectMake(firstRowOffsetX, temperatureTopLineOffsetY + ((unitRowHeight - FONT) / 2), unitRowWidth, unitRowHeight)];
     
     ///< 第二列第一行文字
     CGFloat secondRowOffsetX = firstRowOffsetX + unitRowWidth;
-    [[MKBXPPdfManager shared] printStr:@"[°F]" CGRect:CGRectMake(secondRowOffsetX, temperatureTopLineOffsetY + ((unitRowHeight - FONT) / 2), unitRowWidth, unitRowHeight) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printTipsStr:@"[°F]" CGRect:CGRectMake(secondRowOffsetX, temperatureTopLineOffsetY + ((unitRowHeight - FONT) / 2), unitRowWidth, unitRowHeight)];
     
     ///< 最右边顶部文字
-    [[MKBXPPdfManager shared] printStr:@"TIME SCALE [00 Hrs 07 Mins 29 Secs ]" CGRect:CGRectMake(WIDTH - INIT_X - 340.f - unitRowWidth - 5.f, temperatureTopLineOffsetY + ((unitRowHeight - FONT) / 2), 340, unitRowHeight) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentRight];
+    [[MKBXPPdfManager shared] printTipsStr:@"TIME SCALE [00 Hrs 07 Mins 29 Secs ]" CGRect:CGRectMake(WIDTH - INIT_X - 340.f - unitRowWidth - 5.f, temperatureTopLineOffsetY + ((unitRowHeight - FONT) / 2), 340, unitRowHeight)];
     
     ///< 绘制矩形外框
     CGFloat squareOffsetX = secondRowOffsetX + unitRowWidth + 5.f;
@@ -768,23 +756,23 @@
     [[MKBXPPdfManager shared] drawDashBoldLineFromPoint:CGPointMake(squareOffsetX, horizontalDashLineOffsetY) toPoint:CGPointMake(squareOffsetX + squareWidth, horizontalDashLineOffsetY)];
     //绘制第一列第一行文字
     CGFloat dataValueOffsetY = squareOffsetY - (unitRowHeight / 2);
-    [[MKBXPPdfManager shared] printStr:cDataList[0] CGRect:CGRectMake(firstRowOffsetX, dataValueOffsetY, unitRowWidth, unitRowHeight) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:cDataList[0] CGRect:CGRectMake(firstRowOffsetX, dataValueOffsetY, unitRowWidth, unitRowHeight)];
     //绘制第二列第一行文字
-    [[MKBXPPdfManager shared] printStr:fDataList[0] CGRect:CGRectMake(secondRowOffsetX, dataValueOffsetY, unitRowWidth, unitRowHeight) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:fDataList[0] CGRect:CGRectMake(secondRowOffsetX, dataValueOffsetY, unitRowWidth, unitRowHeight)];
 
     ///< 绘制九行虚线 + 左侧两列数据值
     for (NSInteger i = 1; i < 10; i ++) {
         CGFloat tempOffsetY = squareOffsetY + i * dataRowHeight;
         [[MKBXPPdfManager shared] drawDashLineFromPoint:CGPointMake(squareOffsetX, tempOffsetY) toPoint:CGPointMake(squareOffsetX + squareWidth, tempOffsetY)];
         CGFloat tempDataValueOffsetY = dataValueOffsetY + i * dataRowHeight;
-        [[MKBXPPdfManager shared] printStr:cDataList[i] CGRect:CGRectMake(firstRowOffsetX, tempDataValueOffsetY, unitRowWidth, unitRowHeight) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
-        [[MKBXPPdfManager shared] printStr:fDataList[i] CGRect:CGRectMake(secondRowOffsetX, tempDataValueOffsetY, unitRowWidth, unitRowHeight) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+        [[MKBXPPdfManager shared] printMessageStr:cDataList[i] CGRect:CGRectMake(firstRowOffsetX, tempDataValueOffsetY, unitRowWidth, unitRowHeight)];
+        [[MKBXPPdfManager shared] printMessageStr:fDataList[i] CGRect:CGRectMake(secondRowOffsetX, tempDataValueOffsetY, unitRowWidth, unitRowHeight)];
     }
     
     //绘制第一列最后一行文字
-    [[MKBXPPdfManager shared] printStr:cDataList[10] CGRect:CGRectMake(firstRowOffsetX, dataValueOffsetY + 10 * dataRowHeight, unitRowWidth, unitRowHeight) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:cDataList[10] CGRect:CGRectMake(firstRowOffsetX, dataValueOffsetY + 10 * dataRowHeight, unitRowWidth, unitRowHeight)];
     //绘制第二列最后一行文字
-    [[MKBXPPdfManager shared] printStr:fDataList[10] CGRect:CGRectMake(secondRowOffsetX, dataValueOffsetY + 10 * dataRowHeight, unitRowWidth, unitRowHeight) Font:FONT lineSpacing:LINESPACING lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
+    [[MKBXPPdfManager shared] printMessageStr:fDataList[10] CGRect:CGRectMake(secondRowOffsetX, dataValueOffsetY + 10 * dataRowHeight, unitRowWidth, unitRowHeight)];
     
     ///< 绘制九列虚线
     for (NSInteger i = 1; i < 10; i ++) {

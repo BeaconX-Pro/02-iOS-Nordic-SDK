@@ -68,33 +68,55 @@
                                NSParagraphStyleAttributeName:paragraphStyle,
                                NSForegroundColorAttributeName:[UIColor whiteColor]
                                };
-    [printStr drawWithRect:rect options:NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil];
+    [printStr drawWithRect:CGRectMake(rect.origin.x + 5, rect.origin.y, rect.size.width - 2 * 5.f, rect.size.height)
+                   options:NSStringDrawingUsesLineFragmentOrigin
+                attributes:attribute
+                   context:nil];
 }
 
 - (void)printTipsStr:(NSString *)printStr CGRect:(CGRect)rect {
     UIFont *Font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
     NSMutableParagraphStyle* paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    paragraphStyle.alignment = NSTextAlignmentLeft;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
     NSDictionary *attribute = @{
                                NSFontAttributeName:Font,
                                NSParagraphStyleAttributeName:paragraphStyle,
-                               NSForegroundColorAttributeName:[UIColor whiteColor]
                                };
-    [printStr drawWithRect:rect options:NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil];
+    [printStr drawWithRect:CGRectMake(rect.origin.x + 5, rect.origin.y, rect.size.width - 2 * 5.f, rect.size.height)
+                   options:NSStringDrawingUsesLineFragmentOrigin
+                attributes:attribute
+                   context:nil];
 }
 
 - (void)printMessageStr:(NSString *)printStr CGRect:(CGRect)rect {
-    UIFont *Font = [UIFont fontWithName:@"PingFang" size:13];
+    UIFont *Font = [UIFont fontWithName:@"Helvetica" size:14];
     NSMutableParagraphStyle* paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
     paragraphStyle.alignment = NSTextAlignmentLeft;
     NSDictionary *attribute = @{
                                NSFontAttributeName:Font,
                                NSParagraphStyleAttributeName:paragraphStyle,
-                               NSForegroundColorAttributeName:[UIColor whiteColor]
                                };
-    [printStr drawWithRect:rect options:NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil];
+    [printStr drawWithRect:CGRectMake(rect.origin.x + 5, rect.origin.y, rect.size.width - 2 * 5.f, rect.size.height)
+                   options:NSStringDrawingUsesLineFragmentOrigin
+                attributes:attribute
+                   context:nil];
+}
+
+- (void)printStr:(NSString *)printStr
+          CGRect:(CGRect)rect
+            Font:(CGFloat)font
+     lineSpacing:(CGFloat)lineSpacing
+   lineBreakMode:(NSLineBreakMode)lineBreakMode
+       alignment:(NSTextAlignment)alignment {
+    [self printStr:printStr
+            CGRect:rect
+              Font:font
+      fontWithName:@"Helvetica-Bold"
+       lineSpacing:lineSpacing
+     lineBreakMode:lineBreakMode
+         alignment:alignment];
 }
 
 - (void)drawLineFromPoint:(CGPoint)from toPoint:(CGPoint)to
@@ -122,8 +144,8 @@
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
-    CGContextSetLineWidth(context, 1.0);
-    CGFloat components[] = {10,5};
+    CGContextSetLineWidth(context, 1);
+    CGFloat components[] = {2,2};
     CGContextSetLineDash(context, 0, components, 1);
     CGContextMoveToPoint(context, from.x, from.y);
     CGContextAddLineToPoint(context, to.x, to.y);
@@ -133,9 +155,9 @@
 - (void)drawDashBoldLineFromPoint:(CGPoint)from toPoint:(CGPoint)to {
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetStrokeColorWithColor(context, [UIColor redColor].CGColor);
-    CGContextSetLineWidth(context, 1.0);
-    CGFloat components[] = {10,5};
-    CGContextSetLineDash(context, 0, components, 1);
+    CGContextSetLineWidth(context, 2);
+    CGFloat components[] = {2,2};
+    CGContextSetLineDash(context, 0, components, 2);
     CGContextMoveToPoint(context, from.x, from.y);
     CGContextAddLineToPoint(context, to.x, to.y);
     CGContextStrokePath(context);
@@ -244,32 +266,30 @@
     paragraphStyle.alignment = alignment;
     if (lineSpacing > 0) {
         paragraphStyle.lineSpacing = lineSpacing;
-    }    NSDictionary *attribute = @{
+    }
+    NSDictionary *attribute = @{
                                NSFontAttributeName:Font,
                                NSParagraphStyleAttributeName:paragraphStyle
                                };
-    [printStr drawWithRect:rect options:NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil];
+    [printStr drawWithRect:rect 
+                   options:NSStringDrawingUsesLineFragmentOrigin
+                attributes:attribute
+                   context:nil];
 }
 
 - (void)printStr:(NSString *)printStr
           CGRect:(CGRect)rect
             Font:(CGFloat)font
    lineBreakMode:(NSLineBreakMode)lineBreakMode
-       alignment:(NSTextAlignment)alignment
-{
-    [self printStr:printStr CGRect:rect Font:font fontWithName:@"Helvetica-Bold" lineSpacing:0.0f lineBreakMode:lineBreakMode alignment:alignment];
+       alignment:(NSTextAlignment)alignment {
+    [self printStr:printStr
+            CGRect:rect
+              Font:font
+      fontWithName:@"Helvetica-Bold"
+       lineSpacing:0.0f
+     lineBreakMode:lineBreakMode
+         alignment:alignment];
 
-}
-
-
-- (void)printStr:(NSString *)printStr
-          CGRect:(CGRect)rect
-            Font:(CGFloat)font
-     lineSpacing:(CGFloat)lineSpacing
-   lineBreakMode:(NSLineBreakMode)lineBreakMode
-       alignment:(NSTextAlignment)alignment
-{
-    [self printStr:printStr CGRect:rect Font:font fontWithName:@"Helvetica-Bold" lineSpacing:lineSpacing lineBreakMode:lineBreakMode alignment:alignment];
 }
 
 @end
