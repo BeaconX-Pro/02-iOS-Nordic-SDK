@@ -265,7 +265,7 @@ static CGFloat htTextViewWidth = 80.f;
     NSArray *dateList = [dic[@"date"] componentsSeparatedByString:@"-"];
     NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@ %@:%@:%@",dateList[2],dateList[1],dateList[0],dateList[3],dateList[4],dateList[5]];
     NSString *text = [NSString stringWithFormat:@"\n%@\t\t%@\t\t%@",dateString,temperature,humidity];
-    [MKBLEBaseLogManager saveDataWithFileName:@"T&HDatas" dataList:@[text]];
+    [self saveDataToLocal:text];
     self.textView.text = [self.textView.text stringByAppendingString:text];
     [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 1)];
     self.receiveCount = 0;
@@ -290,6 +290,39 @@ static CGFloat htTextViewWidth = 80.f;
 }
 
 #pragma mark - private method
+- (BOOL)saveDataToLocal:(NSString *)text {
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)lastObject];
+    NSString *localFileName = [NSString stringWithFormat:@"/%@.txt",@"T&HDatas"];
+    NSString *filePath = [path stringByAppendingString:localFileName];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+        
+    BOOL directory = NO;
+    BOOL existed = [fileManager fileExistsAtPath:filePath isDirectory:&directory];
+    
+    if (!existed) {
+        
+        NSString *newFilePath = [path stringByAppendingPathComponent:localFileName];
+        BOOL createResult = [fileManager createFileAtPath:newFilePath contents:nil attributes:nil];
+        if (!createResult) {
+            return NO;
+        }
+    }
+    
+    NSError *error = nil;
+    NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:filePath error:&error];
+    if (error || !ValidDict(fileAttributes)) {
+        return NO;
+    }
+    //写数据部分
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForUpdatingAtPath:filePath];
+    [fileHandle seekToEndOfFile];   //将节点跳到文件的末尾
+    NSData *stringData = [text dataUsingEncoding:NSUTF8StringEncoding];
+    [fileHandle writeData:stringData];
+    [fileHandle closeFile];
+    return YES;
+}
+
 - (void)startReceiveTimer {
     self.receiveTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,dispatch_get_global_queue(0, 0));
     dispatch_source_set_timer(self.receiveTimer, dispatch_time(DISPATCH_TIME_NOW, 1.f * NSEC_PER_SEC),  1.f * NSEC_PER_SEC, 0);

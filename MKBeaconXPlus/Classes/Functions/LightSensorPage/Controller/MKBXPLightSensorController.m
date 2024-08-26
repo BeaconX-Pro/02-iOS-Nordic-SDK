@@ -127,7 +127,7 @@
     NSArray *dateList = [dic[@"date"] componentsSeparatedByString:@"-"];
     NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@ %@:%@:%@",dateList[2],dateList[1],dateList[0],dateList[3],dateList[4],dateList[5]];
     NSString *text = [NSString stringWithFormat:@"\n%@\t\t%@",dateString,state];
-    [MKBLEBaseLogManager saveDataWithFileName:@"LightSensorDatas" dataList:@[text]];
+    [self saveDataToLocal:text];
     self.textView.text = [self.textView.text stringByAppendingString:text];
     [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 1)];
 }
@@ -240,6 +240,39 @@
 }
 
 #pragma mark - private method
+- (BOOL)saveDataToLocal:(NSString *)text {
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)lastObject];
+    NSString *localFileName = [NSString stringWithFormat:@"/%@.txt",@"LightSensorDatas"];
+    NSString *filePath = [path stringByAppendingString:localFileName];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+        
+    BOOL directory = NO;
+    BOOL existed = [fileManager fileExistsAtPath:filePath isDirectory:&directory];
+    
+    if (!existed) {
+        
+        NSString *newFilePath = [path stringByAppendingPathComponent:localFileName];
+        BOOL createResult = [fileManager createFileAtPath:newFilePath contents:nil attributes:nil];
+        if (!createResult) {
+            return NO;
+        }
+    }
+    
+    NSError *error = nil;
+    NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:filePath error:&error];
+    if (error || !ValidDict(fileAttributes)) {
+        return NO;
+    }
+    //写数据部分
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForUpdatingAtPath:filePath];
+    [fileHandle seekToEndOfFile];   //将节点跳到文件的末尾
+    NSData *stringData = [text dataUsingEncoding:NSUTF8StringEncoding];
+    [fileHandle writeData:stringData];
+    [fileHandle closeFile];
+    return YES;
+}
+
 - (void)addNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveLightSensorDatas:)
