@@ -41,7 +41,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[MKBXPConnectManager shared] clearParams];
     [MKBLEBaseLogManager deleteLogWithFileName:@"T&HDatas"];
-    [MKBLEBaseLogManager deleteLogWithFileName:@"/LightSensorDatas"];
+    [MKBLEBaseLogManager deleteLogWithFileName:@"LightSensorDatas"];
     //本地记录的温湿度数据
     [MKBXPDatabaseManager deleteDatasWithSucBlock:nil failedBlock:nil];
 }

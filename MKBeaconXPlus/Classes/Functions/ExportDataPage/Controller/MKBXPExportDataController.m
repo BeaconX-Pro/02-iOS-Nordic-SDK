@@ -203,7 +203,7 @@ static CGFloat htTextViewWidth = 80.f;
                                  completionHandler:nil];
         return;
     }
-    NSData *emailData = [MKBLEBaseLogManager readDataWithFileName:@"/T&HDatas"];
+    NSData *emailData = [MKBLEBaseLogManager readDataWithFileName:@"T&HDatas"];
     if (!ValidData(emailData)) {
         [self.view showCentralToast:@"Log file does not exist"];
         return;
@@ -265,7 +265,7 @@ static CGFloat htTextViewWidth = 80.f;
     NSArray *dateList = [dic[@"date"] componentsSeparatedByString:@"-"];
     NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@ %@:%@:%@",dateList[2],dateList[1],dateList[0],dateList[3],dateList[4],dateList[5]];
     NSString *text = [NSString stringWithFormat:@"\n%@\t\t%@\t\t%@",dateString,temperature,humidity];
-    [self saveDataToLocal:text];
+    [MKBLEBaseLogManager saveDataWithFileName:@"T&HDatas" dataList:@[text]];
     self.textView.text = [self.textView.text stringByAppendingString:text];
     [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 1)];
     self.receiveCount = 0;
@@ -273,7 +273,7 @@ static CGFloat htTextViewWidth = 80.f;
 
 #pragma mark - interface
 - (void)deleteRecordDatas {
-    [MKBLEBaseLogManager deleteLogWithFileName:@"/T&HDatas"];
+    [MKBLEBaseLogManager deleteLogWithFileName:@"T&HDatas"];
     [self.textView setText:@""];
     self.syncButton.selected = NO;
     [self.synIcon.layer removeAnimationForKey:@"synIconAnimationKey"];
@@ -330,8 +330,8 @@ static CGFloat htTextViewWidth = 80.f;
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     [MKBXPDatabaseManager readLocalDeviceWithSucBlock:^(NSArray<NSDictionary *> * _Nonnull htList) {
         [[MKHudManager share] hide];
-        NSString *localData = [self readDataWithFileName];
-        self.textView.text = localData;
+        NSData *localData = [MKBLEBaseLogManager readDataWithFileName:@"T&HDatas"];
+        self.textView.text = [[NSString alloc] initWithData:localData encoding:NSUTF8StringEncoding];
         [self.textView scrollRangeToVisible:NSMakeRange(self.textView.text.length, 1)];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(receiveRecordHTData:)
@@ -350,48 +350,6 @@ static CGFloat htTextViewWidth = 80.f;
 
 - (void)backAction {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-#pragma mark - 邮件
-- (BOOL)saveDataToLocal:(NSString *)text {
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES)lastObject];
-    NSString *localFileName = [NSString stringWithFormat:@"/%@.txt",@"/T&HDatas"];
-    NSString *filePath = [path stringByAppendingString:localFileName];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-        
-    BOOL directory = NO;
-    BOOL existed = [fileManager fileExistsAtPath:filePath isDirectory:&directory];
-    
-    if (!existed) {
-        
-        NSString *newFilePath = [path stringByAppendingPathComponent:localFileName];
-        BOOL createResult = [fileManager createFileAtPath:newFilePath contents:nil attributes:nil];
-        if (!createResult) {
-            return NO;
-        }
-    }
-    
-    NSError *error = nil;
-    NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:filePath error:&error];
-    if (error || !ValidDict(fileAttributes)) {
-        return NO;
-    }
-    //写数据部分
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForUpdatingAtPath:filePath];
-    [fileHandle seekToEndOfFile];   //将节点跳到文件的末尾
-    NSData *stringData = [text dataUsingEncoding:NSUTF8StringEncoding];
-    [fileHandle writeData:stringData];
-    [fileHandle closeFile];
-    return YES;
-}
-
-- (NSString *)readDataWithFileName {
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES) lastObject];
-    NSString *localFileName = [NSString stringWithFormat:@"/%@.txt",@"/T&HDatas"];
-    NSString *filePath = [path stringByAppendingString:localFileName];
-    NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    return content;
 }
 
 #pragma mark - UI
