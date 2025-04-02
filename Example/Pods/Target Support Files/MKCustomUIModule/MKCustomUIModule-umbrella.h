@@ -47,6 +47,7 @@
 #import "MKAlertView.h"
 #import "MKHexKeyboard.h"
 #import "MKHudManager.h"
+#import "MKProgressHUD.h"
 #import "MKPageControl.h"
 #import "MKPickerView.h"
 #import "MKProgressView.h"

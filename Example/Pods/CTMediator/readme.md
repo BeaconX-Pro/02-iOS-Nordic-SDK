@@ -75,7 +75,7 @@ pod repo add PrivatePods https://github.com/ModulizationDemo/PrivatePods.git
 
 ---
 
-`CTMediator` helps you to devide your project into multi-project, and use `Target-Action` pattern to let subprojects to communicate with each other.
+`CTMediator` helps you to divide your project into multi-project, and use `Target-Action` pattern to let subprojects to communicate with each other.
 
 you can check demo for more details:
 

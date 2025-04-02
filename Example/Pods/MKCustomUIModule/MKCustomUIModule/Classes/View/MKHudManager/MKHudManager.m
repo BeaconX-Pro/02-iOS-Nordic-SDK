@@ -7,14 +7,14 @@
 //
 
 #import "MKHudManager.h"
-#import "MBProgressHUD.h"
+#import "MKProgressHUD.h"
 #import "MKMacroDefines.h"
 
 @interface MKHudManager (){
     __weak UIView *_inView;
 }
 
-@property (nonatomic,strong) MBProgressHUD      *mBProgressHUD;
+@property (nonatomic,strong) MKProgressHUD      *MKProgressHUD;
 
 @end
 
@@ -32,9 +32,9 @@
 - (void)showHUDWithTitle:(NSString *)title
                   inView:(UIView *)inView
            isPenetration:(BOOL)isPenetration{
-    if (_mBProgressHUD) {
+    if (_MKProgressHUD) {
         [self hide];
-        _mBProgressHUD = nil;
+        _MKProgressHUD = nil;
     }
     _inView = inView;
     UIView *baseView = nil;
@@ -45,26 +45,26 @@
         baseView = kAppWindow;
     }
     
-    _mBProgressHUD = [[MBProgressHUD alloc] initWithView:baseView];
-    _mBProgressHUD.userInteractionEnabled = !isPenetration;
-    _mBProgressHUD.removeFromSuperViewOnHide = YES;
-    _mBProgressHUD.bezelView.layer.cornerRadius = 5.0;
-    _mBProgressHUD.bezelView.color = [UIColor colorWithWhite:0.0 alpha:0.75];
+    _MKProgressHUD = [[MKProgressHUD alloc] initWithView:baseView];
+    _MKProgressHUD.userInteractionEnabled = !isPenetration;
+    _MKProgressHUD.removeFromSuperViewOnHide = YES;
+    _MKProgressHUD.bezelView.layer.cornerRadius = 5.0;
+    _MKProgressHUD.bezelView.color = [UIColor colorWithWhite:0.0 alpha:0.75];
     _inView = inView;
     if (_inView) {
-        [_inView addSubview:_mBProgressHUD];
+        [_inView addSubview:_MKProgressHUD];
     }
     else{
-        [kAppWindow addSubview:_mBProgressHUD];
+        [kAppWindow addSubview:_MKProgressHUD];
     }
     
-    _mBProgressHUD.label.text = title;
+    _MKProgressHUD.label.text = title;
     [self show];
 }
 
 -(void)show{
-    [kAppWindow bringSubviewToFront:_mBProgressHUD];
-    [_mBProgressHUD showAnimated:YES];
+    [kAppWindow bringSubviewToFront:_MKProgressHUD];
+    [_MKProgressHUD showAnimated:YES];
 }
 
 -(void)hide{
@@ -72,7 +72,7 @@
         _inView.userInteractionEnabled = YES;
     }
     moko_dispatch_main_safe(^{
-        [_mBProgressHUD hideAnimated:YES];
+        [_MKProgressHUD hideAnimated:YES];
     });
 }
 

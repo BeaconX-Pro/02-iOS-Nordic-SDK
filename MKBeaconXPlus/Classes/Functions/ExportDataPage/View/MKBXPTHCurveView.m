@@ -68,9 +68,16 @@ static NSInteger const maxPointCount = 1000;
     }
     [self.pointList removeAllObjects];
     CGFloat totalValue = (maxValue - minValue);
-    for (NSInteger i = 0; i < pointList.count; i ++) {
-        CGFloat tempValue = (self.frame.size.height - 13.f) * (maxValue - [pointList[i] floatValue]) / totalValue;
-        [self.pointList addObject:@(tempValue)];
+    if (totalValue == 0) {
+        for (NSInteger i = 0; i < pointList.count; i ++) {
+            CGFloat tempValue = (self.frame.size.height - 13.f);
+            [self.pointList addObject:@(tempValue)];
+        }
+    }else {
+        for (NSInteger i = 0; i < pointList.count; i ++) {
+            CGFloat tempValue = (self.frame.size.height - 13.f) * (maxValue - [pointList[i] floatValue]) / totalValue;
+            [self.pointList addObject:@(tempValue)];
+        }
     }
     [self setNeedsDisplay];
 }

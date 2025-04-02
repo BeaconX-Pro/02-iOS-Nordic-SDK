@@ -1,16 +1,17 @@
 PODS:
   - CircleProgressBar (0.32)
-  - CTMediator (46)
-  - FMDB (2.7.5):
-    - FMDB/standard (= 2.7.5)
-  - FMDB/standard (2.7.5)
-  - HHTransition (3.0.2)
+  - CTMediator (48)
+  - FMDB (2.7.12):
+    - FMDB/standard (= 2.7.12)
+  - FMDB/Core (2.7.12)
+  - FMDB/standard (2.7.12):
+    - FMDB/Core
+  - HHTransition (3.1.2)
   - iOSDFULibrary (4.13.0):
     - ZIPFoundation (= 0.9.11)
-  - libxlsxwriter (1.1.5)
+  - libxlsxwriter (1.2.1)
   - Masonry (1.1.0)
-  - MBProgressHUD (1.2.0)
-  - MJRefresh (3.7.6)
+  - MJRefresh (3.7.9)
   - MKBaseBleModule (1.1.4)
   - MKBaseModuleLibrary (2.0.9):
     - MKBaseModuleLibrary/Base (= 2.0.9)
@@ -212,22 +213,22 @@ PODS:
     - MKBaseModuleLibrary
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus (1.1.0):
-    - MKBeaconXPlus/ConnectManager (= 1.1.0)
-    - MKBeaconXPlus/CTMediator (= 1.1.0)
-    - MKBeaconXPlus/DatabaseManager (= 1.1.0)
-    - MKBeaconXPlus/Functions (= 1.1.0)
-    - MKBeaconXPlus/SDK-BXP (= 1.1.0)
-    - MKBeaconXPlus/Target (= 1.1.0)
-  - MKBeaconXPlus/ConnectManager (1.1.0):
+  - MKBeaconXPlus (1.2.1):
+    - MKBeaconXPlus/ConnectManager (= 1.2.1)
+    - MKBeaconXPlus/CTMediator (= 1.2.1)
+    - MKBeaconXPlus/DatabaseManager (= 1.2.1)
+    - MKBeaconXPlus/Functions (= 1.2.1)
+    - MKBeaconXPlus/SDK-BXP (= 1.2.1)
+    - MKBeaconXPlus/Target (= 1.2.1)
+  - MKBeaconXPlus/ConnectManager (1.2.1):
     - MKBaseModuleLibrary
     - MKBeaconXPlus/SDK-BXP
-  - MKBeaconXPlus/CTMediator (1.1.0):
+  - MKBeaconXPlus/CTMediator (1.2.1):
     - CTMediator
-  - MKBeaconXPlus/DatabaseManager (1.1.0):
+  - MKBeaconXPlus/DatabaseManager (1.2.1):
     - FMDB
     - MKBaseModuleLibrary
-  - MKBeaconXPlus/Functions (1.1.0):
+  - MKBeaconXPlus/Functions (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -235,23 +236,23 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/DatabaseManager
-    - MKBeaconXPlus/Functions/AboutPage (= 1.1.0)
-    - MKBeaconXPlus/Functions/AccelerationPage (= 1.1.0)
-    - MKBeaconXPlus/Functions/ExportDataPage (= 1.1.0)
-    - MKBeaconXPlus/Functions/HTConfigPage (= 1.1.0)
-    - MKBeaconXPlus/Functions/LightSensorPage (= 1.1.0)
-    - MKBeaconXPlus/Functions/QuickSwitchPage (= 1.1.0)
-    - MKBeaconXPlus/Functions/ScanPage (= 1.1.0)
-    - MKBeaconXPlus/Functions/SensorConfigPage (= 1.1.0)
-    - MKBeaconXPlus/Functions/SettingPage (= 1.1.0)
-    - MKBeaconXPlus/Functions/SlotConfigPage (= 1.1.0)
-    - MKBeaconXPlus/Functions/SlotPage (= 1.1.0)
-    - MKBeaconXPlus/Functions/TabBarPage (= 1.1.0)
-    - MKBeaconXPlus/Functions/UpdatePage (= 1.1.0)
+    - MKBeaconXPlus/Functions/AboutPage (= 1.2.1)
+    - MKBeaconXPlus/Functions/AccelerationPage (= 1.2.1)
+    - MKBeaconXPlus/Functions/ExportDataPage (= 1.2.1)
+    - MKBeaconXPlus/Functions/HTConfigPage (= 1.2.1)
+    - MKBeaconXPlus/Functions/LightSensorPage (= 1.2.1)
+    - MKBeaconXPlus/Functions/QuickSwitchPage (= 1.2.1)
+    - MKBeaconXPlus/Functions/ScanPage (= 1.2.1)
+    - MKBeaconXPlus/Functions/SensorConfigPage (= 1.2.1)
+    - MKBeaconXPlus/Functions/SettingPage (= 1.2.1)
+    - MKBeaconXPlus/Functions/SlotConfigPage (= 1.2.1)
+    - MKBeaconXPlus/Functions/SlotPage (= 1.2.1)
+    - MKBeaconXPlus/Functions/TabBarPage (= 1.2.1)
+    - MKBeaconXPlus/Functions/UpdatePage (= 1.2.1)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/AboutPage (1.1.0):
+  - MKBeaconXPlus/Functions/AboutPage (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -259,11 +260,11 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/DatabaseManager
-    - MKBeaconXPlus/Functions/AboutPage/Controller (= 1.1.0)
+    - MKBeaconXPlus/Functions/AboutPage/Controller (= 1.2.1)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/AboutPage/Controller (1.1.0):
+  - MKBeaconXPlus/Functions/AboutPage/Controller (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -274,7 +275,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/AccelerationPage (1.1.0):
+  - MKBeaconXPlus/Functions/AccelerationPage (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -282,13 +283,13 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/DatabaseManager
-    - MKBeaconXPlus/Functions/AccelerationPage/Controller (= 1.1.0)
-    - MKBeaconXPlus/Functions/AccelerationPage/Model (= 1.1.0)
-    - MKBeaconXPlus/Functions/AccelerationPage/View (= 1.1.0)
+    - MKBeaconXPlus/Functions/AccelerationPage/Controller (= 1.2.1)
+    - MKBeaconXPlus/Functions/AccelerationPage/Model (= 1.2.1)
+    - MKBeaconXPlus/Functions/AccelerationPage/View (= 1.2.1)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/AccelerationPage/Controller (1.1.0):
+  - MKBeaconXPlus/Functions/AccelerationPage/Controller (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -301,7 +302,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/AccelerationPage/Model (1.1.0):
+  - MKBeaconXPlus/Functions/AccelerationPage/Model (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -312,7 +313,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/AccelerationPage/View (1.1.0):
+  - MKBeaconXPlus/Functions/AccelerationPage/View (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -323,7 +324,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/ExportDataPage (1.1.0):
+  - MKBeaconXPlus/Functions/ExportDataPage (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -331,12 +332,12 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/DatabaseManager
-    - MKBeaconXPlus/Functions/ExportDataPage/Controller (= 1.1.0)
-    - MKBeaconXPlus/Functions/ExportDataPage/View (= 1.1.0)
+    - MKBeaconXPlus/Functions/ExportDataPage/Controller (= 1.2.1)
+    - MKBeaconXPlus/Functions/ExportDataPage/View (= 1.2.1)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/ExportDataPage/Controller (1.1.0):
+  - MKBeaconXPlus/Functions/ExportDataPage/Controller (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -348,7 +349,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/ExportDataPage/View (1.1.0):
+  - MKBeaconXPlus/Functions/ExportDataPage/View (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -359,7 +360,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/HTConfigPage (1.1.0):
+  - MKBeaconXPlus/Functions/HTConfigPage (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -367,14 +368,14 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/DatabaseManager
-    - MKBeaconXPlus/Functions/HTConfigPage/Controller (= 1.1.0)
-    - MKBeaconXPlus/Functions/HTConfigPage/Model (= 1.1.0)
-    - MKBeaconXPlus/Functions/HTConfigPage/StorageTriggerViews (= 1.1.0)
-    - MKBeaconXPlus/Functions/HTConfigPage/View (= 1.1.0)
+    - MKBeaconXPlus/Functions/HTConfigPage/Controller (= 1.2.1)
+    - MKBeaconXPlus/Functions/HTConfigPage/Model (= 1.2.1)
+    - MKBeaconXPlus/Functions/HTConfigPage/StorageTriggerViews (= 1.2.1)
+    - MKBeaconXPlus/Functions/HTConfigPage/View (= 1.2.1)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/HTConfigPage/Controller (1.1.0):
+  - MKBeaconXPlus/Functions/HTConfigPage/Controller (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -388,7 +389,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/HTConfigPage/Model (1.1.0):
+  - MKBeaconXPlus/Functions/HTConfigPage/Model (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -399,7 +400,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/HTConfigPage/StorageTriggerViews (1.1.0):
+  - MKBeaconXPlus/Functions/HTConfigPage/StorageTriggerViews (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -410,7 +411,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/HTConfigPage/View (1.1.0):
+  - MKBeaconXPlus/Functions/HTConfigPage/View (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -422,7 +423,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/LightSensorPage (1.1.0):
+  - MKBeaconXPlus/Functions/LightSensorPage (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -430,13 +431,13 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/DatabaseManager
-    - MKBeaconXPlus/Functions/LightSensorPage/Controller (= 1.1.0)
-    - MKBeaconXPlus/Functions/LightSensorPage/Model (= 1.1.0)
-    - MKBeaconXPlus/Functions/LightSensorPage/View (= 1.1.0)
+    - MKBeaconXPlus/Functions/LightSensorPage/Controller (= 1.2.1)
+    - MKBeaconXPlus/Functions/LightSensorPage/Model (= 1.2.1)
+    - MKBeaconXPlus/Functions/LightSensorPage/View (= 1.2.1)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/LightSensorPage/Controller (1.1.0):
+  - MKBeaconXPlus/Functions/LightSensorPage/Controller (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -449,7 +450,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/LightSensorPage/Model (1.1.0):
+  - MKBeaconXPlus/Functions/LightSensorPage/Model (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -460,7 +461,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/LightSensorPage/View (1.1.0):
+  - MKBeaconXPlus/Functions/LightSensorPage/View (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -471,7 +472,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/QuickSwitchPage (1.1.0):
+  - MKBeaconXPlus/Functions/QuickSwitchPage (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -479,12 +480,12 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/DatabaseManager
-    - MKBeaconXPlus/Functions/QuickSwitchPage/Controller (= 1.1.0)
-    - MKBeaconXPlus/Functions/QuickSwitchPage/Model (= 1.1.0)
+    - MKBeaconXPlus/Functions/QuickSwitchPage/Controller (= 1.2.1)
+    - MKBeaconXPlus/Functions/QuickSwitchPage/Model (= 1.2.1)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/QuickSwitchPage/Controller (1.1.0):
+  - MKBeaconXPlus/Functions/QuickSwitchPage/Controller (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -496,7 +497,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/QuickSwitchPage/Model (1.1.0):
+  - MKBeaconXPlus/Functions/QuickSwitchPage/Model (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -507,7 +508,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/ScanPage (1.1.0):
+  - MKBeaconXPlus/Functions/ScanPage (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -515,13 +516,13 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/DatabaseManager
-    - MKBeaconXPlus/Functions/ScanPage/Adopter (= 1.1.0)
-    - MKBeaconXPlus/Functions/ScanPage/Controller (= 1.1.0)
-    - MKBeaconXPlus/Functions/ScanPage/Model (= 1.1.0)
+    - MKBeaconXPlus/Functions/ScanPage/Adopter (= 1.2.1)
+    - MKBeaconXPlus/Functions/ScanPage/Controller (= 1.2.1)
+    - MKBeaconXPlus/Functions/ScanPage/Model (= 1.2.1)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/ScanPage/Adopter (1.1.0):
+  - MKBeaconXPlus/Functions/ScanPage/Adopter (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -533,7 +534,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/ScanPage/Controller (1.1.0):
+  - MKBeaconXPlus/Functions/ScanPage/Controller (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -548,7 +549,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/ScanPage/Model (1.1.0):
+  - MKBeaconXPlus/Functions/ScanPage/Model (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -559,7 +560,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SensorConfigPage (1.1.0):
+  - MKBeaconXPlus/Functions/SensorConfigPage (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -567,11 +568,11 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/DatabaseManager
-    - MKBeaconXPlus/Functions/SensorConfigPage/Controller (= 1.1.0)
+    - MKBeaconXPlus/Functions/SensorConfigPage/Controller (= 1.2.1)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SensorConfigPage/Controller (1.1.0):
+  - MKBeaconXPlus/Functions/SensorConfigPage/Controller (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -585,7 +586,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SettingPage (1.1.0):
+  - MKBeaconXPlus/Functions/SettingPage (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -593,11 +594,11 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/DatabaseManager
-    - MKBeaconXPlus/Functions/SettingPage/Controller (= 1.1.0)
+    - MKBeaconXPlus/Functions/SettingPage/Controller (= 1.2.1)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SettingPage/Controller (1.1.0):
+  - MKBeaconXPlus/Functions/SettingPage/Controller (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -611,7 +612,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotConfigPage (1.1.0):
+  - MKBeaconXPlus/Functions/SlotConfigPage (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -619,13 +620,13 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/DatabaseManager
-    - MKBeaconXPlus/Functions/SlotConfigPage/Controller (= 1.1.0)
-    - MKBeaconXPlus/Functions/SlotConfigPage/Model (= 1.1.0)
-    - MKBeaconXPlus/Functions/SlotConfigPage/View (= 1.1.0)
+    - MKBeaconXPlus/Functions/SlotConfigPage/Controller (= 1.2.1)
+    - MKBeaconXPlus/Functions/SlotConfigPage/Model (= 1.2.1)
+    - MKBeaconXPlus/Functions/SlotConfigPage/View (= 1.2.1)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotConfigPage/Controller (1.1.0):
+  - MKBeaconXPlus/Functions/SlotConfigPage/Controller (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -638,7 +639,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotConfigPage/Model (1.1.0):
+  - MKBeaconXPlus/Functions/SlotConfigPage/Model (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -649,7 +650,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotConfigPage/View (1.1.0):
+  - MKBeaconXPlus/Functions/SlotConfigPage/View (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -660,7 +661,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotPage (1.1.0):
+  - MKBeaconXPlus/Functions/SlotPage (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -668,12 +669,12 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/DatabaseManager
-    - MKBeaconXPlus/Functions/SlotPage/Controller (= 1.1.0)
-    - MKBeaconXPlus/Functions/SlotPage/Model (= 1.1.0)
+    - MKBeaconXPlus/Functions/SlotPage/Controller (= 1.2.1)
+    - MKBeaconXPlus/Functions/SlotPage/Model (= 1.2.1)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotPage/Controller (1.1.0):
+  - MKBeaconXPlus/Functions/SlotPage/Controller (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -686,7 +687,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/SlotPage/Model (1.1.0):
+  - MKBeaconXPlus/Functions/SlotPage/Model (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -697,7 +698,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/TabBarPage (1.1.0):
+  - MKBeaconXPlus/Functions/TabBarPage (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -705,12 +706,12 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/DatabaseManager
-    - MKBeaconXPlus/Functions/TabBarPage/Controller (= 1.1.0)
-    - MKBeaconXPlus/Functions/TabBarPage/Model (= 1.1.0)
+    - MKBeaconXPlus/Functions/TabBarPage/Controller (= 1.2.1)
+    - MKBeaconXPlus/Functions/TabBarPage/Model (= 1.2.1)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/TabBarPage/Controller (1.1.0):
+  - MKBeaconXPlus/Functions/TabBarPage/Controller (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -724,7 +725,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/TabBarPage/Model (1.1.0):
+  - MKBeaconXPlus/Functions/TabBarPage/Model (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -735,7 +736,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/UpdatePage (1.1.0):
+  - MKBeaconXPlus/Functions/UpdatePage (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -743,12 +744,12 @@ PODS:
     - MKBeaconXPlus/ConnectManager
     - MKBeaconXPlus/CTMediator
     - MKBeaconXPlus/DatabaseManager
-    - MKBeaconXPlus/Functions/UpdatePage/Controller (= 1.1.0)
-    - MKBeaconXPlus/Functions/UpdatePage/Model (= 1.1.0)
+    - MKBeaconXPlus/Functions/UpdatePage/Controller (= 1.2.1)
+    - MKBeaconXPlus/Functions/UpdatePage/Model (= 1.2.1)
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/UpdatePage/Controller (1.1.0):
+  - MKBeaconXPlus/Functions/UpdatePage/Controller (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -760,7 +761,7 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/Functions/UpdatePage/Model (1.1.0):
+  - MKBeaconXPlus/Functions/UpdatePage/Model (1.2.1):
     - HHTransition
     - iOSDFULibrary (= 4.13.0)
     - MKBaseModuleLibrary
@@ -771,431 +772,375 @@ PODS:
     - MKBeaconXPlus/SDK-BXP
     - MKCustomUIModule
     - MLInputDodger
-  - MKBeaconXPlus/SDK-BXP (1.1.0):
+  - MKBeaconXPlus/SDK-BXP (1.2.1):
     - MKBaseBleModule
-  - MKBeaconXPlus/Target (1.1.0):
+  - MKBeaconXPlus/Target (1.2.1):
     - MKBeaconXPlus/Functions
-  - MKCustomUIModule (2.1.3):
+  - MKCustomUIModule (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-    - MKCustomUIModule/Cell (= 2.1.3)
-    - MKCustomUIModule/Controller (= 2.1.3)
-    - MKCustomUIModule/MQTTServerView (= 2.1.3)
-    - MKCustomUIModule/UIAdopter (= 2.1.3)
-    - MKCustomUIModule/View (= 2.1.3)
-  - MKCustomUIModule/Cell (2.1.3):
+    - MKCustomUIModule/Cell (= 2.1.7)
+    - MKCustomUIModule/Controller (= 2.1.7)
+    - MKCustomUIModule/MQTTServerView (= 2.1.7)
+    - MKCustomUIModule/UIAdopter (= 2.1.7)
+    - MKCustomUIModule/View (= 2.1.7)
+  - MKCustomUIModule/Cell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-    - MKCustomUIModule/Cell/FilterCell (= 2.1.3)
-    - MKCustomUIModule/Cell/LoRaCell (= 2.1.3)
-    - MKCustomUIModule/Cell/NormalCell (= 2.1.3)
-  - MKCustomUIModule/Cell/FilterCell (2.1.3):
+    - MKCustomUIModule/Cell/FilterCell (= 2.1.7)
+    - MKCustomUIModule/Cell/LoRaCell (= 2.1.7)
+    - MKCustomUIModule/Cell/NormalCell (= 2.1.7)
+  - MKCustomUIModule/Cell/FilterCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-    - MKCustomUIModule/Cell/FilterCell/FilterBeaconCell (= 2.1.3)
-    - MKCustomUIModule/Cell/FilterCell/FilterByRawDataCell (= 2.1.3)
-    - MKCustomUIModule/Cell/FilterCell/FilterEditSectionHeaderView (= 2.1.3)
-    - MKCustomUIModule/Cell/FilterCell/FilterNormalTextFieldCell (= 2.1.3)
-  - MKCustomUIModule/Cell/FilterCell/FilterBeaconCell (2.1.3):
+    - MKCustomUIModule/Cell/FilterCell/FilterBeaconCell (= 2.1.7)
+    - MKCustomUIModule/Cell/FilterCell/FilterByRawDataCell (= 2.1.7)
+    - MKCustomUIModule/Cell/FilterCell/FilterEditSectionHeaderView (= 2.1.7)
+    - MKCustomUIModule/Cell/FilterCell/FilterNormalTextFieldCell (= 2.1.7)
+  - MKCustomUIModule/Cell/FilterCell/FilterBeaconCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/UIAdopter
     - MKCustomUIModule/View/MKTextField
-  - MKCustomUIModule/Cell/FilterCell/FilterByRawDataCell (2.1.3):
+  - MKCustomUIModule/Cell/FilterCell/FilterByRawDataCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/View/MKTextField
-  - MKCustomUIModule/Cell/FilterCell/FilterEditSectionHeaderView (2.1.3):
+  - MKCustomUIModule/Cell/FilterCell/FilterEditSectionHeaderView (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/Cell/FilterCell/FilterNormalTextFieldCell (2.1.3):
+  - MKCustomUIModule/Cell/FilterCell/FilterNormalTextFieldCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/UIAdopter
     - MKCustomUIModule/View/MKTextField
-  - MKCustomUIModule/Cell/LoRaCell (2.1.3):
+  - MKCustomUIModule/Cell/LoRaCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-    - MKCustomUIModule/Cell/LoRaCell/MKAdvancedSettingCell (= 2.1.3)
-    - MKCustomUIModule/Cell/LoRaCell/MKFilterConditionCell (= 2.1.3)
-    - MKCustomUIModule/Cell/LoRaCell/MKFilterDataCell (= 2.1.3)
-    - MKCustomUIModule/Cell/LoRaCell/MKFilterRawAdvDataCell (= 2.1.3)
-    - MKCustomUIModule/Cell/LoRaCell/MKLoRaSettingCHCell (= 2.1.3)
-    - MKCustomUIModule/Cell/LoRaCell/MKMeasureTxPowerCell (= 2.1.3)
-    - MKCustomUIModule/Cell/LoRaCell/MKMixedChoiceCell (= 2.1.3)
-    - MKCustomUIModule/Cell/LoRaCell/MKRawAdvDataOperationCell (= 2.1.3)
-  - MKCustomUIModule/Cell/LoRaCell/MKAdvancedSettingCell (2.1.3):
+    - MKCustomUIModule/Cell/LoRaCell/MKAdvancedSettingCell (= 2.1.7)
+    - MKCustomUIModule/Cell/LoRaCell/MKFilterConditionCell (= 2.1.7)
+    - MKCustomUIModule/Cell/LoRaCell/MKFilterDataCell (= 2.1.7)
+    - MKCustomUIModule/Cell/LoRaCell/MKFilterRawAdvDataCell (= 2.1.7)
+    - MKCustomUIModule/Cell/LoRaCell/MKLoRaSettingCHCell (= 2.1.7)
+    - MKCustomUIModule/Cell/LoRaCell/MKMeasureTxPowerCell (= 2.1.7)
+    - MKCustomUIModule/Cell/LoRaCell/MKMixedChoiceCell (= 2.1.7)
+    - MKCustomUIModule/Cell/LoRaCell/MKRawAdvDataOperationCell (= 2.1.7)
+  - MKCustomUIModule/Cell/LoRaCell/MKAdvancedSettingCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/Cell/LoRaCell/MKFilterConditionCell (2.1.3):
+  - MKCustomUIModule/Cell/LoRaCell/MKFilterConditionCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/UIAdopter
     - MKCustomUIModule/View/MKPickerView
-  - MKCustomUIModule/Cell/LoRaCell/MKFilterDataCell (2.1.3):
+  - MKCustomUIModule/Cell/LoRaCell/MKFilterDataCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/View/MKTextField
-  - MKCustomUIModule/Cell/LoRaCell/MKFilterRawAdvDataCell (2.1.3):
+  - MKCustomUIModule/Cell/LoRaCell/MKFilterRawAdvDataCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/View/MKTextField
-  - MKCustomUIModule/Cell/LoRaCell/MKLoRaSettingCHCell (2.1.3):
+  - MKCustomUIModule/Cell/LoRaCell/MKLoRaSettingCHCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/View/MKPickerView
-  - MKCustomUIModule/Cell/LoRaCell/MKMeasureTxPowerCell (2.1.3):
+  - MKCustomUIModule/Cell/LoRaCell/MKMeasureTxPowerCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/UIAdopter
     - MKCustomUIModule/View/MKSlider
-  - MKCustomUIModule/Cell/LoRaCell/MKMixedChoiceCell (2.1.3):
+  - MKCustomUIModule/Cell/LoRaCell/MKMixedChoiceCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/Cell/LoRaCell/MKRawAdvDataOperationCell (2.1.3):
+  - MKCustomUIModule/Cell/LoRaCell/MKRawAdvDataOperationCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/Cell/NormalCell (2.1.3):
+  - MKCustomUIModule/Cell/NormalCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-    - MKCustomUIModule/Cell/NormalCell/MKButtonMsgCell (= 2.1.3)
-    - MKCustomUIModule/Cell/NormalCell/MKDeviceInfoCell (= 2.1.3)
-    - MKCustomUIModule/Cell/NormalCell/MKDeviceInfoDfuCell (= 2.1.3)
-    - MKCustomUIModule/Cell/NormalCell/MKNormalSliderCell (= 2.1.3)
-    - MKCustomUIModule/Cell/NormalCell/MKNormalTextCell (= 2.1.3)
-    - MKCustomUIModule/Cell/NormalCell/MKSettingTextCell (= 2.1.3)
-    - MKCustomUIModule/Cell/NormalCell/MKTextButtonCell (= 2.1.3)
-    - MKCustomUIModule/Cell/NormalCell/MKTextFieldCell (= 2.1.3)
-    - MKCustomUIModule/Cell/NormalCell/MKTextSwitchCell (= 2.1.3)
-  - MKCustomUIModule/Cell/NormalCell/MKButtonMsgCell (2.1.3):
+    - MKCustomUIModule/Cell/NormalCell/MKButtonMsgCell (= 2.1.7)
+    - MKCustomUIModule/Cell/NormalCell/MKDeviceInfoCell (= 2.1.7)
+    - MKCustomUIModule/Cell/NormalCell/MKDeviceInfoDfuCell (= 2.1.7)
+    - MKCustomUIModule/Cell/NormalCell/MKNormalSliderCell (= 2.1.7)
+    - MKCustomUIModule/Cell/NormalCell/MKNormalTextCell (= 2.1.7)
+    - MKCustomUIModule/Cell/NormalCell/MKSettingTextCell (= 2.1.7)
+    - MKCustomUIModule/Cell/NormalCell/MKTextButtonCell (= 2.1.7)
+    - MKCustomUIModule/Cell/NormalCell/MKTextFieldCell (= 2.1.7)
+    - MKCustomUIModule/Cell/NormalCell/MKTextSwitchCell (= 2.1.7)
+  - MKCustomUIModule/Cell/NormalCell/MKButtonMsgCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/Cell/NormalCell/MKDeviceInfoCell (2.1.3):
+  - MKCustomUIModule/Cell/NormalCell/MKDeviceInfoCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/Cell/NormalCell/MKDeviceInfoDfuCell (2.1.3):
+  - MKCustomUIModule/Cell/NormalCell/MKDeviceInfoDfuCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/UIAdopter
-  - MKCustomUIModule/Cell/NormalCell/MKNormalSliderCell (2.1.3):
+  - MKCustomUIModule/Cell/NormalCell/MKNormalSliderCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/UIAdopter
     - MKCustomUIModule/View/MKSlider
-  - MKCustomUIModule/Cell/NormalCell/MKNormalTextCell (2.1.3):
+  - MKCustomUIModule/Cell/NormalCell/MKNormalTextCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/Cell/NormalCell/MKSettingTextCell (2.1.3):
+  - MKCustomUIModule/Cell/NormalCell/MKSettingTextCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/Cell/NormalCell/MKTextButtonCell (2.1.3):
+  - MKCustomUIModule/Cell/NormalCell/MKTextButtonCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/View/MKPickerView
-  - MKCustomUIModule/Cell/NormalCell/MKTextFieldCell (2.1.3):
+  - MKCustomUIModule/Cell/NormalCell/MKTextFieldCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/View/MKTextField
-  - MKCustomUIModule/Cell/NormalCell/MKTextSwitchCell (2.1.3):
+  - MKCustomUIModule/Cell/NormalCell/MKTextSwitchCell (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/Controller (2.1.3):
+  - MKCustomUIModule/Controller (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-    - MKCustomUIModule/Controller/CASelectPage (= 2.1.3)
-    - MKCustomUIModule/Controller/MKAboutPage (= 2.1.3)
-    - MKCustomUIModule/Controller/MKAlertController (= 2.1.3)
-    - MKCustomUIModule/Controller/MKTrackerAboutPage (= 2.1.3)
-  - MKCustomUIModule/Controller/CASelectPage (2.1.3):
+    - MKCustomUIModule/Controller/CASelectPage (= 2.1.7)
+    - MKCustomUIModule/Controller/MKAboutPage (= 2.1.7)
+    - MKCustomUIModule/Controller/MKAlertController (= 2.1.7)
+    - MKCustomUIModule/Controller/MKTrackerAboutPage (= 2.1.7)
+  - MKCustomUIModule/Controller/CASelectPage (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-    - MKCustomUIModule/Controller/CASelectPage/Controller (= 2.1.3)
-  - MKCustomUIModule/Controller/CASelectPage/Controller (2.1.3):
+    - MKCustomUIModule/Controller/CASelectPage/Controller (= 2.1.7)
+  - MKCustomUIModule/Controller/CASelectPage/Controller (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/Cell/NormalCell/MKNormalTextCell
-  - MKCustomUIModule/Controller/MKAboutPage (2.1.3):
+  - MKCustomUIModule/Controller/MKAboutPage (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-    - MKCustomUIModule/Controller/MKAboutPage/Controller (= 2.1.3)
-    - MKCustomUIModule/Controller/MKAboutPage/Model (= 2.1.3)
-    - MKCustomUIModule/Controller/MKAboutPage/View (= 2.1.3)
-  - MKCustomUIModule/Controller/MKAboutPage/Controller (2.1.3):
+    - MKCustomUIModule/Controller/MKAboutPage/Controller (= 2.1.7)
+    - MKCustomUIModule/Controller/MKAboutPage/Model (= 2.1.7)
+    - MKCustomUIModule/Controller/MKAboutPage/View (= 2.1.7)
+  - MKCustomUIModule/Controller/MKAboutPage/Controller (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/Controller/MKAboutPage/Model
     - MKCustomUIModule/Controller/MKAboutPage/View
-  - MKCustomUIModule/Controller/MKAboutPage/Model (2.1.3):
+  - MKCustomUIModule/Controller/MKAboutPage/Model (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/Controller/MKAboutPage/View (2.1.3):
+  - MKCustomUIModule/Controller/MKAboutPage/View (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/Controller/MKAboutPage/Model
-  - MKCustomUIModule/Controller/MKAlertController (2.1.3):
+  - MKCustomUIModule/Controller/MKAlertController (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/Controller/MKTrackerAboutPage (2.1.3):
+  - MKCustomUIModule/Controller/MKTrackerAboutPage (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-    - MKCustomUIModule/Controller/MKTrackerAboutPage/Controller (= 2.1.3)
-  - MKCustomUIModule/Controller/MKTrackerAboutPage/Controller (2.1.3):
+    - MKCustomUIModule/Controller/MKTrackerAboutPage/Controller (= 2.1.7)
+  - MKCustomUIModule/Controller/MKTrackerAboutPage/Controller (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/MQTTServerView (2.1.3):
+  - MKCustomUIModule/MQTTServerView (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-    - MKCustomUIModule/MQTTServerView/GeneralParams (= 2.1.3)
-    - MKCustomUIModule/MQTTServerView/SSL (= 2.1.3)
-    - MKCustomUIModule/MQTTServerView/UserCredentials (= 2.1.3)
-  - MKCustomUIModule/MQTTServerView/GeneralParams (2.1.3):
+    - MKCustomUIModule/MQTTServerView/GeneralParams (= 2.1.7)
+    - MKCustomUIModule/MQTTServerView/SSL (= 2.1.7)
+    - MKCustomUIModule/MQTTServerView/UserCredentials (= 2.1.7)
+  - MKCustomUIModule/MQTTServerView/GeneralParams (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/View/MKTextField
-  - MKCustomUIModule/MQTTServerView/SSL (2.1.3):
+  - MKCustomUIModule/MQTTServerView/SSL (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/MQTTServerView/UserCredentials (2.1.3):
+  - MKCustomUIModule/MQTTServerView/UserCredentials (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/View/MKTextField
-  - MKCustomUIModule/UIAdopter (2.1.3):
+  - MKCustomUIModule/UIAdopter (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/View
-  - MKCustomUIModule/View (2.1.3):
+  - MKCustomUIModule/View (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-    - MKCustomUIModule/View/HaveRefreshView (= 2.1.3)
-    - MKCustomUIModule/View/MKAlertView (= 2.1.3)
-    - MKCustomUIModule/View/MKHexKeyBoard (= 2.1.3)
-    - MKCustomUIModule/View/MKHudManager (= 2.1.3)
-    - MKCustomUIModule/View/MKPageControl (= 2.1.3)
-    - MKCustomUIModule/View/MKPickerView (= 2.1.3)
-    - MKCustomUIModule/View/MKProgressView (= 2.1.3)
-    - MKCustomUIModule/View/MKSearchButton (= 2.1.3)
-    - MKCustomUIModule/View/MKSearchConditionsView (= 2.1.3)
-    - MKCustomUIModule/View/MKSlider (= 2.1.3)
-    - MKCustomUIModule/View/MKTableSectionHeader (= 2.1.3)
-    - MKCustomUIModule/View/MKTextField (= 2.1.3)
-    - MKCustomUIModule/View/NirKxMenu (= 2.1.3)
-    - MKCustomUIModule/View/WifiAlertView (= 2.1.3)
-  - MKCustomUIModule/View/HaveRefreshView (2.1.3):
+    - MKCustomUIModule/View/HaveRefreshView (= 2.1.7)
+    - MKCustomUIModule/View/MKAlertView (= 2.1.7)
+    - MKCustomUIModule/View/MKHexKeyBoard (= 2.1.7)
+    - MKCustomUIModule/View/MKHudManager (= 2.1.7)
+    - MKCustomUIModule/View/MKPageControl (= 2.1.7)
+    - MKCustomUIModule/View/MKPickerView (= 2.1.7)
+    - MKCustomUIModule/View/MKProgressView (= 2.1.7)
+    - MKCustomUIModule/View/MKSearchButton (= 2.1.7)
+    - MKCustomUIModule/View/MKSearchConditionsView (= 2.1.7)
+    - MKCustomUIModule/View/MKSlider (= 2.1.7)
+    - MKCustomUIModule/View/MKTableSectionHeader (= 2.1.7)
+    - MKCustomUIModule/View/MKTextField (= 2.1.7)
+    - MKCustomUIModule/View/NirKxMenu (= 2.1.7)
+    - MKCustomUIModule/View/WifiAlertView (= 2.1.7)
+  - MKCustomUIModule/View/HaveRefreshView (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/View/MKAlertView (2.1.3):
+  - MKCustomUIModule/View/MKAlertView (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/View/MKTextField
-  - MKCustomUIModule/View/MKHexKeyBoard (2.1.3):
+  - MKCustomUIModule/View/MKHexKeyBoard (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/View/MKHudManager (2.1.3):
+  - MKCustomUIModule/View/MKHudManager (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/View/MKPageControl (2.1.3):
+  - MKCustomUIModule/View/MKPageControl (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/View/MKPickerView (2.1.3):
+  - MKCustomUIModule/View/MKPickerView (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/View/MKProgressView (2.1.3):
+  - MKCustomUIModule/View/MKProgressView (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/View/MKSearchButton (2.1.3):
+  - MKCustomUIModule/View/MKSearchButton (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/View/MKSearchConditionsView (2.1.3):
+  - MKCustomUIModule/View/MKSearchConditionsView (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/View/MKSlider
-  - MKCustomUIModule/View/MKSlider (2.1.3):
+  - MKCustomUIModule/View/MKSlider (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/View/MKTableSectionHeader (2.1.3):
+  - MKCustomUIModule/View/MKTableSectionHeader (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/View/MKTextField (2.1.3):
+  - MKCustomUIModule/View/MKTextField (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/View/NirKxMenu (2.1.3):
+  - MKCustomUIModule/View/NirKxMenu (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
-  - MKCustomUIModule/View/WifiAlertView (2.1.3):
+  - MKCustomUIModule/View/WifiAlertView (2.1.7):
     - CircleProgressBar
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/View/MKTextField
   - MLInputDodger (1.5.2)
   - SSZipArchive (2.4.3)
-  - Toast (4.1.0)
+  - Toast (4.1.1)
   - WRNavigationBar (1.4.0)
   - ZIPFoundation (0.9.11)
 
@@ -1211,7 +1156,6 @@ SPEC REPOS:
     - iOSDFULibrary
     - libxlsxwriter
     - Masonry
-    - MBProgressHUD
     - MJRefresh
     - MKBaseBleModule
     - MKBaseModuleLibrary
@@ -1229,25 +1173,24 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CircleProgressBar: 3920079be5224b62b3d9ed6eeb23ac01c835b681
-  CTMediator: f1cf58d509fb3192086c367711f039efd769b907
-  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  HHTransition: ca5035c126a6a2dc1eb9a90d084013784bf4bf0a
-  iOSDFULibrary: 3b9de67ed4bfb901b5f09c2fea843f65e152612d
-  libxlsxwriter: 07cdc00cf0edb30ce9773efbbb49a03459a6e0f0
+  CTMediator: 3f3578b525b3a46a7a2f92a99922ec40363f4269
+  FMDB: 728731dd336af3936ce00f91d9d8495f5718a0e6
+  HHTransition: 67c1bc632c4838e4eb28f07b9be1b927362ae07d
+  iOSDFULibrary: ae1bcb1cb921e6e3ff551755f6fdff1b77e07e15
+  libxlsxwriter: 58b8454485fa0936de8a8bce3df7bac9dce7730e
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
-  MJRefresh: 2fe7fb43a5167ceda20bb7e63f130c04fd1814a5
+  MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
   MKBaseBleModule: 15aa067c4e408a473e025b1a768ebce00a7e5949
   MKBaseModuleLibrary: 2b79bcae588c755588413fbb643b510253271b23
   MKBeaconXCustomUI: 3cdea4a52442d432b2ebacd78460a890e7e644b6
-  MKBeaconXPlus: 15e1fcfdd436013ad31531d6da37d0c56b824907
-  MKCustomUIModule: bbc862397ad4ffad0a88de756265a29aad5ddaab
+  MKBeaconXPlus: ca315966ab81a09c234b242325853636a42dc605
+  MKCustomUIModule: 8426eba1d3178b06d92741d31da32502920fb8fa
   MLInputDodger: 79a0e420a80d0d3bba122bf2639603cc76609ba8
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
-  Toast: ec33c32b8688982cecc6348adeae667c1b9938da
+  Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
   WRNavigationBar: 10bfdf96addf14d640d07c2ef08a029c18d8af10
   ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
 PODFILE CHECKSUM: c15c716ae416da3016fe258104fd048d3869655f
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.16.1

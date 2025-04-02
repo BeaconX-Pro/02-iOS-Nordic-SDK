@@ -30,6 +30,36 @@
             endingLineNumber = "162"
             landmarkName = "-peripheral:didUpdateValueForCharacteristic:error:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "AA41DE7E-E2D5-4EBD-A4CC-0B8B48474B92 - c67e613d0ca313b5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[MKBXPCentralManager peripheral:didUpdateValueForCharacteristic:error:]"
+                  moduleName = "MKBeaconXPlus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aa/Desktop/MKBXPApp/Modules/MKBeaconXPlus/MKBeaconXPlus/Classes/SDK-BXP/MKBXPCentralManager.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "165"
+                  endingLineNumber = "165">
+               </Location>
+               <Location
+                  uuid = "AA41DE7E-E2D5-4EBD-A4CC-0B8B48474B92 - c67e613d0ca31392"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[MKBXPCentralManager peripheral:didUpdateValueForCharacteristic:error:]"
+                  moduleName = "MKBeaconXPlus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aa/Desktop/MKBXPApp/Modules/MKBeaconXPlus/MKBeaconXPlus/Classes/SDK-BXP/MKBXPCentralManager.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "164"
+                  endingLineNumber = "164">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

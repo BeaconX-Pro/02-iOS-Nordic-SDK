@@ -1,7 +1,8 @@
 /*
  * libxlsxwriter
  *
- * Copyright 2014-2022, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
+ * SPDX-License-Identifier: BSD-2-Clause
+ * Copyright 2014-2025, John McNamara, jmcnamara@cpan.org.
  */
 
 /**
@@ -435,6 +436,8 @@ typedef struct lxw_format {
     uint8_t color_indexed;
     uint8_t font_only;
 
+    uint8_t quote_prefix;
+
     STAILQ_ENTRY (lxw_format) list_pointers;
 } lxw_format;
 
@@ -661,6 +664,38 @@ void format_set_font_strikeout(lxw_format *format);
  * - #LXW_FONT_SUBSCRIPT
  */
 void format_set_font_script(lxw_format *format, uint8_t style);
+
+/**
+ * @brief Set the Format font family property.
+ *
+ * @param format Pointer to a Format instance.
+ * @param value  The font family index.
+ *
+ * Set the font family. This is usually an integer in the range 1-4. This
+ * function is implemented for completeness but is rarely used in practice.
+ *
+ * @code
+ *     format_set_font_family(format, 178);
+ * @endcode
+ *
+ */
+void format_set_font_family(lxw_format *format, uint8_t value);
+
+/**
+ * @brief Set the Format font character set property.
+ *
+ * @param format Pointer to a Format instance.
+ * @param value  The font character set.
+ *
+ * Set the font character set property. This function is implemented for
+ * completeness but is rarely used in practice.
+ *
+ * @code
+ *     format_set_font_charset(format, 178);
+ * @endcode
+ *
+ */
+void format_set_font_charset(lxw_format *format, uint8_t value);
 
 /**
  * @brief Set the number format for a cell.
@@ -1278,10 +1313,28 @@ void format_set_diag_border(lxw_format *format, uint8_t style);
  */
 void format_set_diag_color(lxw_format *format, lxw_color_t color);
 
+/**
+ * @brief Turn on quote prefix for the format.
+ *
+ * @param format Pointer to a Format instance.
+ *
+ * Set the quote prefix property of a format to ensure a string is treated
+ * as a string after editing. This is the same as prefixing the string with
+ * a single quote in Excel. You don't need to add the quote to the
+ * string but you do need to add the format.
+ *
+ * @code
+ *     format = workbook_add_format(workbook);
+ *     format_set_quote_prefix(format);
+ *
+ *     worksheet_write_string(worksheet, 0, 0, "=Foo", format);
+ * @endcode
+ *
+ */
+void format_set_quote_prefix(lxw_format *format);
+
 void format_set_font_outline(lxw_format *format);
 void format_set_font_shadow(lxw_format *format);
-void format_set_font_family(lxw_format *format, uint8_t value);
-void format_set_font_charset(lxw_format *format, uint8_t value);
 void format_set_font_scheme(lxw_format *format, const char *font_scheme);
 void format_set_font_condense(lxw_format *format);
 void format_set_font_extend(lxw_format *format);

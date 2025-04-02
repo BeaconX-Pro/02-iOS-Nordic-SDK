@@ -138,6 +138,14 @@ NSString * const kCTMediatorParamsKeySwiftTargetModuleName = @"kCTMediatorParams
     }
 }
 
+- (BOOL)check:(NSString * _Nullable)targetName moduleName:(NSString * _Nullable)moduleName{
+    if (moduleName.length > 0) {
+        return NSClassFromString([NSString stringWithFormat:@"%@.Target_%@", moduleName, targetName]) != nil;
+    } else {
+        return NSClassFromString([NSString stringWithFormat:@"Target_%@", targetName]) != nil;
+    }
+}
+
 #pragma mark - private methods
 - (void)NoTargetActionResponseWithTargetString:(NSString *)targetString selectorString:(NSString *)selectorString originParams:(NSDictionary *)originParams
 {
