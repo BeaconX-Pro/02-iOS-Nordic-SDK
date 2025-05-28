@@ -38,6 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *macAddress;
 
+/// 防拆状态
+@property (nonatomic, assign)BOOL tamperAlert;
+
 @end
 
 

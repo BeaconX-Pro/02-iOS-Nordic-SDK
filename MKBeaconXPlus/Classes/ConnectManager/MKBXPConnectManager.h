@@ -27,6 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 是否打开了密码验证，当lockState为mk_bxp_lockStateOpen,表明设备打开了密码验证
 @property (nonatomic, assign)BOOL passwordVerification;
 
+/// 软件版本是否包含BXP-C字符
+@property (nonatomic, assign)BOOL isBXPC;
+
+/// 固件版本是否包含BXP-DH01或BXP-DH_W7或BXP-D04
+@property (nonatomic, assign)BOOL tamperDetect;
+
 + (MKBXPConnectManager *)shared;
 
 /// 清除当前所有参数

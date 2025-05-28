@@ -66,6 +66,9 @@ NS_ASSUME_NONNULL_BEGIN
 //Battery Voltage
 @property (nonatomic, copy) NSString *battery;
 
+/// 防拆状态
+@property (nonatomic, assign)BOOL tamperAlert;
+
 
 #pragma mark - ***********************下面三个不属于MKBXScanInfoCellProtocol**********************
 

@@ -126,6 +126,8 @@ typedef NS_ENUM(NSInteger, MKBXPDataFrameType) {
 
 @property (nonatomic, copy) NSString *softVersion;
 
+@property (nonatomic, assign)BOOL tamperAlert;
+
 - (MKBXPDeviceInfoBeacon *)initWithAdvertiseData:(NSData *)advData;
 
 @end

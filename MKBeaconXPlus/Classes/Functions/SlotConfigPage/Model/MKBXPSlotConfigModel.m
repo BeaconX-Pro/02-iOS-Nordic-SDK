@@ -419,6 +419,11 @@
         return [self configTriggerConditionsWithSingle:[triggerParams[@"conditions"][@"time"] integerValue]
                                                  start:[triggerParams[@"conditions"][@"start"] boolValue]];
     }
+    if ([triggerParams[@"triggerType"] isEqualToString:@"08"]) {
+        //防拆触发
+        return [self configTriggerConditionsWithTamperDetect:[triggerParams[@"conditions"][@"time"] integerValue]
+                                                 start:[triggerParams[@"conditions"][@"start"] boolValue]];
+    }
     return NO;
 }
 
@@ -513,6 +518,18 @@
 - (BOOL)configTriggerConditionsWithSingle:(NSInteger)time start:(BOOL)start {
     __block BOOL success = NO;
     [MKBXPInterface bxp_configTriggerConditionsWithSingleTap:time start:start sucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configTriggerConditionsWithTamperDetect:(NSInteger)time start:(BOOL)start {
+    __block BOOL success = NO;
+    [MKBXPInterface bxp_configTriggerConditionsWithTamperDetect:time start:start sucBlock:^(id  _Nonnull returnData) {
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

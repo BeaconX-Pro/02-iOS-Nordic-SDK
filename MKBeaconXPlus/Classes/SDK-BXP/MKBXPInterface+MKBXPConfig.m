@@ -534,6 +534,23 @@
                           failedBlock:failedBlock];
 }
 
++ (void)bxp_configTriggerConditionsWithTamperDetect:(NSInteger)time
+                                              start:(BOOL)start
+                                           sucBlock:(void (^)(id returnData))sucBlock
+                                        failedBlock:(void (^)(NSError *error))failedBlock {
+    if (time < 0 || time > 65535) {
+        [self operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *timeString = [MKBLEBaseSDKAdopter fetchHexValue:time byteLen:2];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ea39000408",timeString,(start ? @"01" : @"02")];
+    [centralManager addTaskWithTaskID:mk_bxp_taskConfigTriggerConditionsOperation
+                          commandData:commandString
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
 + (void)bxp_deleteBXPRecordHTDatasWithSucBlock:(void (^)(id returnData))sucBlock
                                    failedBlock:(void (^)(NSError *error))failedBlock {
     [centralManager addTaskWithTaskID:mk_bxp_taskDeleteRecordHTDataOperation

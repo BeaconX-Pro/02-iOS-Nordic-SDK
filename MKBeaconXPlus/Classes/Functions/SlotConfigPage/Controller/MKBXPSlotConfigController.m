@@ -276,6 +276,8 @@ MKBXSlotConfigTriggerCellDelegate>
 - (void)loadSection2Datas {
     MKBXSlotConfigTriggerCellModel *cellModel = [[MKBXSlotConfigTriggerCellModel alloc] init];
     cellModel.deviceType = [MKBXPConnectManager shared].deviceType;
+    cellModel.isBXPC = [MKBXPConnectManager shared].isBXPC;
+    cellModel.tamperDetect = [MKBXPConnectManager shared].tamperDetect;
     if (self.slotType == self.dataModel.slotType) {
         cellModel.type = self.dataModel.triggerConditions[@"type"];
         cellModel.conditions = self.dataModel.triggerConditions[@"conditions"];

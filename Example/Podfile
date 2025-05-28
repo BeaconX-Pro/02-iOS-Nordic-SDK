@@ -10,7 +10,7 @@ end
 
 inhibit_all_warnings!
 use_frameworks!
-source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
+source 'https://cdn.cocoapods.org/'
 
 platform :ios, '14.0'
 

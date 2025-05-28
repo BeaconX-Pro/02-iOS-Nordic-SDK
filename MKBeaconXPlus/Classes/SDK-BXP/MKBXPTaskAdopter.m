@@ -655,6 +655,14 @@
                               @"start":@([[content substringWithRange:NSMakeRange(6, 2)] isEqualToString:@"01"])
                               }
                       };
+    }else if ([type isEqualToString:@"08"] && content.length == 8) {
+        resultDic = @{
+                      @"type":type,
+                      @"conditions":@{
+                              @"time":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)],
+                              @"start":@([[content substringWithRange:NSMakeRange(6, 2)] isEqualToString:@"01"])
+                              }
+                      };
     }
     return resultDic;
 }

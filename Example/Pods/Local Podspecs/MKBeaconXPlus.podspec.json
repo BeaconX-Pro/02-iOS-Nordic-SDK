@@ -1,6 +1,6 @@
 {
   "name": "MKBeaconXPlus",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "summary": "A short description of MKBeaconXPlus.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/BeaconX-Pro/iOS-SDK",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/BeaconX-Pro/iOS-SDK.git",
-    "tag": "1.2.1"
+    "tag": "1.2.2"
   },
   "platforms": {
     "ios": "14.0"
@@ -97,7 +97,7 @@
 
         ],
         "MKBeaconXCustomUI": [
-
+          "1.0.8"
         ],
         "HHTransition": [
 

@@ -423,6 +423,16 @@ typedef NS_ENUM(NSInteger, mk_bxp_HTStorageConditions) {
                                         sucBlock:(void (^)(id returnData))sucBlock
                                      failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Setting the current active SLOT tamper detect trigger condition
+/// @param time duration, unit s,0~65535
+/// @param start YES: Start advertising, NO: stop advertising
+/// @param sucBlock success callback
+/// @param failedBlock failed callback
++ (void)bxp_configTriggerConditionsWithTamperDetect:(NSInteger)time
+                                              start:(BOOL)start
+                                           sucBlock:(void (^)(id returnData))sucBlock
+                                        failedBlock:(void (^)(NSError *error))failedBlock;
+
 /**
  Delete the temperature and humidity data stored in the device
 

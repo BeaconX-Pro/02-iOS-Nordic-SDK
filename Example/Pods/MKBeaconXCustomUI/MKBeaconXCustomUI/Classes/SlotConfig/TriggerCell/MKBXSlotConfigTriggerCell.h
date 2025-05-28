@@ -20,10 +20,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MKBXSlotConfigTriggerCellModel : NSObject
 
+/// 软件版本是否包含BXP-C字符
+@property (nonatomic, assign)BOOL isBXPC;
+
+/// 固件版本是否包含BXP-DH01或BXP-DH_W7或BXP-D04
+@property (nonatomic, assign)BOOL tamperDetect;
+
 /// 是否打开触发条件
 @property (nonatomic, assign)BOOL isOn;
 
-/// 00:无触发,01:温度触发,02:湿度触发.03:双击触发.04:三击触发.05:移动触发.06:光感触发.07:单击触发
+/// 00:无触发,01:温度触发,02:湿度触发.03:双击触发.04:三击触发.05:移动触发.06:光感触发.07:单击触发.08:防拆
 @property (nonatomic, copy)NSString *type;
 
 /// 当前设备的传感器类型.

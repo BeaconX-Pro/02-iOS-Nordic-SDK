@@ -187,6 +187,7 @@ static const char *frameTypeKey = "frameTypeKey";
         deviceModel.softVersion = tempInfoModel.softVersion;
         deviceModel.lightSensor = tempInfoModel.lightSensor;
         deviceModel.lightSensorStatus = tempInfoModel.lightSensorStatus;
+        deviceModel.tamperAlert = tempInfoModel.tamperAlert;
         return deviceModel;
     }
     //如果是URL、TLM、UID、iBeacon、温湿度、三轴中的一种，直接加入到deviceModel中的数据帧数组里面
@@ -247,6 +248,7 @@ static const char *frameTypeKey = "frameTypeKey";
         exsitModel.softVersion = tempInfoModel.softVersion;
         exsitModel.lightSensor = tempInfoModel.lightSensor;
         exsitModel.lightSensorStatus = tempInfoModel.lightSensorStatus;
+        exsitModel.tamperAlert = tempInfoModel.tamperAlert;
         return;
     }
     if (beacon.frameType == MKBXPThreeASensorFrameType && !ValidStr(exsitModel.macAddress)) {

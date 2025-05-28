@@ -302,6 +302,25 @@
         }
         return;
     }
+    if (self.dataModel.viewType == MKBXTriggerTapViewTamperDetect) {
+        //防拆
+        if (self.index == 0) {
+            self.noteMsgLabel.text = @"*The Beacon will start and keep advertising after the tamper wire is disconnected";
+            [self setNeedsLayout];
+            return;
+        }
+        if (self.index == 1) {
+            self.noteMsgLabel.text = [NSString stringWithFormat:@"*The Beacon will start advertising for %@s after the tamper wire is disconnected",self.startField.text];
+            [self setNeedsLayout];
+            return;
+        }
+        if (self.index == 2) {
+            self.noteMsgLabel.text = [NSString stringWithFormat:@"*The Beacon will stop advertising for %@s after the tamper wire is disconnected",self.stopField.text];
+            [self setNeedsLayout];
+            return;
+        }
+        return;
+    }
     NSString *typeString = (self.dataModel.viewType == MKBXTriggerTapViewTriple) ? @"three times" : @"twice";
     if (self.index == 0) {
         self.noteMsgLabel.text = [NSString stringWithFormat:@"*The Beacon will start and keep advertising after press the button %@.",typeString];
