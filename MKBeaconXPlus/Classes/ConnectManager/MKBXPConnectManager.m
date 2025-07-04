@@ -182,6 +182,7 @@
             || [tempFirmware containsString:@"BXP-D04"]) {
             self.tamperDetect = YES;
         }
+        self.isBXPC = ([tempFirmware containsString:@"BXP-C"]);
         NSRange range = [tempFirmware rangeOfString:@"_V"];
         if (range.location != NSNotFound) {
             // 截取 "_V" 之后的子字符串
@@ -201,7 +202,6 @@
     [MKBXPInterface bxp_readSoftwareWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.software = returnData[@"result"][@"software"];
-        self.isBXPC = ([self.software containsString:@"BXP-C"]);
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);

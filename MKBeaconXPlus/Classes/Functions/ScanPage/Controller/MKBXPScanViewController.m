@@ -306,11 +306,30 @@ MKBXPTabBarControllerDelegate>
  @param beacon 设备
  */
 - (void)filterBeaconWithSearchName:(MKBXPBaseBeacon *)beacon{
-    if (beacon.frameType == MKBXPDeviceInfoFrameType) {
+    BOOL filter = NO;
+    NSString *macAddress = @"";
+    NSString *deviceName = @"";
+    if (beacon.frameType == MKBXPDeviceInfoFrameType || beacon.frameType == MKBXPThreeASensorFrameType || beacon.frameType == MKBXPTHSensorFrameType) {
+        filter = YES;
+        
         //如果是设备信息帧
-        MKBXPDeviceInfoBeacon *tempBeacon = (MKBXPDeviceInfoBeacon *)beacon;
-        if ([[tempBeacon.deviceName uppercaseString] containsString:[self.buttonModel.searchName uppercaseString]]
-            || [[[tempBeacon.macAddress stringByReplacingOccurrencesOfString:@":" withString:@""] uppercaseString] containsString:[self.buttonModel.searchMac uppercaseString]]) {
+        if (beacon.frameType == MKBXPDeviceInfoFrameType) {
+            MKBXPDeviceInfoBeacon *tempBeacon = (MKBXPDeviceInfoBeacon *)beacon;
+            macAddress = tempBeacon.macAddress;
+            deviceName = tempBeacon.deviceName;
+        }else if (beacon.frameType == MKBXPThreeASensorFrameType) {
+            MKBXPThreeASensorBeacon *tempBeacon = (MKBXPThreeASensorBeacon *)beacon;
+            macAddress = tempBeacon.macAddress;
+            deviceName = tempBeacon.deviceName;
+        }else if (beacon.frameType == MKBXPTHSensorFrameType) {
+            MKBXPTHSensorBeacon *tempBeacon = (MKBXPTHSensorBeacon *)beacon;
+            macAddress = tempBeacon.macAddress;
+            deviceName = tempBeacon.deviceName;
+        }
+    }
+    if (filter) {
+        if ([[deviceName uppercaseString] containsString:[self.buttonModel.searchName uppercaseString]]
+            || [[[macAddress stringByReplacingOccurrencesOfString:@":" withString:@""] uppercaseString] containsString:[self.buttonModel.searchMac uppercaseString]]) {
             //如果mac地址和设备名称包含搜索条件，则加入
             [self processBeacon:beacon];
         }
