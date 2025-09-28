@@ -28,83 +28,51 @@
       "name": "ConnectManager",
       "source_files": "MKBeaconXPlus/Classes/ConnectManager/**",
       "dependencies": {
-        "MKBaseModuleLibrary": [
-
-        ],
-        "MKBeaconXPlus/SDK-BXP": [
-
-        ]
+        "MKBaseModuleLibrary": [],
+        "MKBeaconXPlus/SDK-BXP": []
       }
     },
     {
       "name": "CTMediator",
       "source_files": "MKBeaconXPlus/Classes/CTMediator/**",
       "dependencies": {
-        "CTMediator": [
-
-        ]
+        "CTMediator": []
       }
     },
     {
       "name": "SDK-BXP",
       "source_files": "MKBeaconXPlus/Classes/SDK-BXP/**",
       "dependencies": {
-        "MKBaseBleModule": [
-
-        ]
+        "MKBaseBleModule": []
       }
     },
     {
       "name": "Target",
       "source_files": "MKBeaconXPlus/Classes/Target/**",
       "dependencies": {
-        "MKBeaconXPlus/Functions": [
-
-        ]
+        "MKBeaconXPlus/Functions": []
       }
     },
     {
       "name": "DatabaseManager",
       "source_files": "MKBeaconXPlus/Classes/DatabaseManager/**",
       "dependencies": {
-        "MKBaseModuleLibrary": [
-
-        ],
-        "FMDB": [
-
-        ]
+        "MKBaseModuleLibrary": [],
+        "FMDB": []
       }
     },
     {
       "name": "Functions",
       "dependencies": {
-        "MKBeaconXPlus/ConnectManager": [
-
-        ],
-        "MKBeaconXPlus/SDK-BXP": [
-
-        ],
-        "MKBeaconXPlus/CTMediator": [
-
-        ],
-        "MKBeaconXPlus/DatabaseManager": [
-
-        ],
-        "MKBaseModuleLibrary": [
-
-        ],
-        "MKCustomUIModule": [
-
-        ],
-        "MKBeaconXCustomUI": [
-          "1.0.8"
-        ],
-        "HHTransition": [
-
-        ],
-        "MLInputDodger": [
-
-        ],
+        "MKBeaconXPlus/ConnectManager": [],
+        "MKBeaconXPlus/SDK-BXP": [],
+        "MKBeaconXPlus/CTMediator": [],
+        "MKBeaconXPlus/DatabaseManager": [],
+        "MKBaseModuleLibrary": [],
+        "MKCustomUIModule": [],
+        "MKBeaconXCustomUI": [],
+        "HHTransition": [],
+        "MLInputDodger": [],
         "iOSDFULibrary": [
           "4.13.0"
         ]
@@ -126,12 +94,8 @@
               "name": "Controller",
               "source_files": "MKBeaconXPlus/Classes/Functions/AccelerationPage/Controller/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/AccelerationPage/Model": [
-
-                ],
-                "MKBeaconXPlus/Functions/AccelerationPage/View": [
-
-                ]
+                "MKBeaconXPlus/Functions/AccelerationPage/Model": [],
+                "MKBeaconXPlus/Functions/AccelerationPage/View": []
               }
             },
             {
@@ -151,9 +115,7 @@
               "name": "Controller",
               "source_files": "MKBeaconXPlus/Classes/Functions/ExportDataPage/Controller/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/ExportDataPage/View": [
-
-                ]
+                "MKBeaconXPlus/Functions/ExportDataPage/View": []
               }
             },
             {
@@ -169,15 +131,9 @@
               "name": "Controller",
               "source_files": "MKBeaconXPlus/Classes/Functions/HTConfigPage/Controller/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/HTConfigPage/Model": [
-
-                ],
-                "MKBeaconXPlus/Functions/HTConfigPage/View": [
-
-                ],
-                "MKBeaconXPlus/Functions/ExportDataPage/Controller": [
-
-                ]
+                "MKBeaconXPlus/Functions/HTConfigPage/Model": [],
+                "MKBeaconXPlus/Functions/HTConfigPage/View": [],
+                "MKBeaconXPlus/Functions/ExportDataPage/Controller": []
               }
             },
             {
@@ -192,9 +148,7 @@
               "name": "View",
               "source_files": "MKBeaconXPlus/Classes/Functions/HTConfigPage/View/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/HTConfigPage/StorageTriggerViews": [
-
-                ]
+                "MKBeaconXPlus/Functions/HTConfigPage/StorageTriggerViews": []
               }
             }
           ]
@@ -206,18 +160,12 @@
               "name": "Controller",
               "source_files": "MKBeaconXPlus/Classes/Functions/ScanPage/Controller/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/ScanPage/Model": [
-
-                ],
-                "MKBeaconXPlus/Functions/ScanPage/Adopter": [
-
-                ],
-                "MKBeaconXPlus/Functions/TabBarPage/Controller": [
-
-                ],
-                "MKBeaconXPlus/Functions/AboutPage/Controller": [
-
-                ]
+                "MKBeaconXPlus/Functions/ScanPage/Model": [],
+                "MKBeaconXPlus/Functions/ScanPage/View": [],
+                "MKBeaconXPlus/Functions/ScanPage/Adopter": [],
+                "MKBeaconXPlus/Functions/TabBarPage/Controller": [],
+                "MKBeaconXPlus/Functions/AboutPage/Controller": [],
+                "MKBeaconXPlus/Functions/UpdatePage/Controller": []
               }
             },
             {
@@ -225,12 +173,18 @@
               "source_files": "MKBeaconXPlus/Classes/Functions/ScanPage/Model/**"
             },
             {
+              "name": "View",
+              "source_files": "MKBeaconXPlus/Classes/Functions/ScanPage/View/**",
+              "dependencies": {
+                "MKBeaconXPlus/Functions/ScanPage/Model": []
+              }
+            },
+            {
               "name": "Adopter",
               "source_files": "MKBeaconXPlus/Classes/Functions/ScanPage/Adopter/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/ScanPage/Model": [
-
-                ]
+                "MKBeaconXPlus/Functions/ScanPage/Model": [],
+                "MKBeaconXPlus/Functions/ScanPage/View": []
               }
             }
           ]
@@ -242,15 +196,10 @@
               "name": "Controller",
               "source_files": "MKBeaconXPlus/Classes/Functions/SettingPage/Controller/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/SensorConfigPage/Controller": [
-
-                ],
-                "MKBeaconXPlus/Functions/QuickSwitchPage/Controller": [
-
-                ],
-                "MKBeaconXPlus/Functions/UpdatePage/Controller": [
-
-                ]
+                "MKBeaconXPlus/Functions/SensorConfigPage/Controller": [],
+                "MKBeaconXPlus/Functions/QuickSwitchPage/Controller": [],
+                "MKBeaconXPlus/Functions/UpdatePage/Controller": [],
+                "MKBeaconXPlus/Functions/RemoteReminderPage/Controller": []
               }
             }
           ]
@@ -262,12 +211,8 @@
               "name": "Controller",
               "source_files": "MKBeaconXPlus/Classes/Functions/SlotConfigPage/Controller/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/SlotConfigPage/Model": [
-
-                ],
-                "MKBeaconXPlus/Functions/SlotConfigPage/View": [
-
-                ]
+                "MKBeaconXPlus/Functions/SlotConfigPage/Model": [],
+                "MKBeaconXPlus/Functions/SlotConfigPage/View": []
               }
             },
             {
@@ -287,12 +232,8 @@
               "name": "Controller",
               "source_files": "MKBeaconXPlus/Classes/Functions/SlotPage/Controller/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/SlotPage/Model": [
-
-                ],
-                "MKBeaconXPlus/Functions/SlotConfigPage/Controller": [
-
-                ]
+                "MKBeaconXPlus/Functions/SlotPage/Model": [],
+                "MKBeaconXPlus/Functions/SlotConfigPage/Controller": []
               }
             },
             {
@@ -308,15 +249,9 @@
               "name": "Controller",
               "source_files": "MKBeaconXPlus/Classes/Functions/TabBarPage/Controller/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/TabBarPage/Model": [
-
-                ],
-                "MKBeaconXPlus/Functions/SlotPage/Controller": [
-
-                ],
-                "MKBeaconXPlus/Functions/SettingPage/Controller": [
-
-                ]
+                "MKBeaconXPlus/Functions/TabBarPage/Model": [],
+                "MKBeaconXPlus/Functions/SlotPage/Controller": [],
+                "MKBeaconXPlus/Functions/SettingPage/Controller": []
               }
             },
             {
@@ -332,15 +267,9 @@
               "name": "Controller",
               "source_files": "MKBeaconXPlus/Classes/Functions/SensorConfigPage/Controller/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/AccelerationPage": [
-
-                ],
-                "MKBeaconXPlus/Functions/HTConfigPage": [
-
-                ],
-                "MKBeaconXPlus/Functions/LightSensorPage": [
-
-                ]
+                "MKBeaconXPlus/Functions/AccelerationPage": [],
+                "MKBeaconXPlus/Functions/HTConfigPage": [],
+                "MKBeaconXPlus/Functions/LightSensorPage": []
               }
             }
           ]
@@ -352,14 +281,33 @@
               "name": "Controller",
               "source_files": "MKBeaconXPlus/Classes/Functions/QuickSwitchPage/Controller/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/QuickSwitchPage/Model": [
-
-                ]
+                "MKBeaconXPlus/Functions/QuickSwitchPage/Model": []
               }
             },
             {
               "name": "Model",
               "source_files": "MKBeaconXPlus/Classes/Functions/QuickSwitchPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "RemoteReminderPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKBeaconXPlus/Classes/Functions/RemoteReminderPage/Controller/**",
+              "dependencies": {
+                "MKBeaconXPlus/Functions/RemoteReminderPage/Model": [],
+                "MKBeaconXPlus/Functions/RemoteReminderPage/View": []
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKBeaconXPlus/Classes/Functions/RemoteReminderPage/Model/**"
+            },
+            {
+              "name": "View",
+              "source_files": "MKBeaconXPlus/Classes/Functions/RemoteReminderPage/View/**"
             }
           ]
         },
@@ -370,12 +318,8 @@
               "name": "Controller",
               "source_files": "MKBeaconXPlus/Classes/Functions/LightSensorPage/Controller/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/LightSensorPage/View": [
-
-                ],
-                "MKBeaconXPlus/Functions/LightSensorPage/Model": [
-
-                ]
+                "MKBeaconXPlus/Functions/LightSensorPage/View": [],
+                "MKBeaconXPlus/Functions/LightSensorPage/Model": []
               }
             },
             {
@@ -395,9 +339,7 @@
               "name": "Controller",
               "source_files": "MKBeaconXPlus/Classes/Functions/UpdatePage/Controller/**",
               "dependencies": {
-                "MKBeaconXPlus/Functions/UpdatePage/Model": [
-
-                ]
+                "MKBeaconXPlus/Functions/UpdatePage/Model": []
               }
             },
             {

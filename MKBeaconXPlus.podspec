@@ -125,18 +125,25 @@ TODO: Add long description of the pod here.
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/ScanPage/Controller/**'
          
          ssss.dependency 'MKBeaconXPlus/Functions/ScanPage/Model'
+         ssss.dependency 'MKBeaconXPlus/Functions/ScanPage/View'
          ssss.dependency 'MKBeaconXPlus/Functions/ScanPage/Adopter'
 
          ssss.dependency 'MKBeaconXPlus/Functions/TabBarPage/Controller'
          ssss.dependency 'MKBeaconXPlus/Functions/AboutPage/Controller'
+         ssss.dependency 'MKBeaconXPlus/Functions/UpdatePage/Controller'
        end
        sss.subspec 'Model' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/ScanPage/Model/**'
+       end
+       sss.subspec 'View' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/ScanPage/View/**'
+         ssss.dependency 'MKBeaconXPlus/Functions/ScanPage/Model'
        end
        sss.subspec 'Adopter' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/ScanPage/Adopter/**'
          
          ssss.dependency 'MKBeaconXPlus/Functions/ScanPage/Model'
+         ssss.dependency 'MKBeaconXPlus/Functions/ScanPage/View'
        end
      end
 
@@ -147,6 +154,7 @@ TODO: Add long description of the pod here.
          ssss.dependency 'MKBeaconXPlus/Functions/SensorConfigPage/Controller'
          ssss.dependency 'MKBeaconXPlus/Functions/QuickSwitchPage/Controller'
          ssss.dependency 'MKBeaconXPlus/Functions/UpdatePage/Controller'
+         ssss.dependency 'MKBeaconXPlus/Functions/RemoteReminderPage/Controller'
          
        end
      end
@@ -213,6 +221,21 @@ TODO: Add long description of the pod here.
        end
      end
      
+     ss.subspec 'RemoteReminderPage' do |sss|
+       sss.subspec 'Controller' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/RemoteReminderPage/Controller/**'
+         
+         ssss.dependency 'MKBeaconXPlus/Functions/RemoteReminderPage/Model'
+         ssss.dependency 'MKBeaconXPlus/Functions/RemoteReminderPage/View'
+       end
+       sss.subspec 'Model' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/RemoteReminderPage/Model/**'
+       end
+       sss.subspec 'View' do |ssss|
+         ssss.source_files = 'MKBeaconXPlus/Classes/Functions/RemoteReminderPage/View/**'
+       end
+     end
+     
      ss.subspec 'LightSensorPage' do |sss|
        sss.subspec 'Controller' do |ssss|
          ssss.source_files = 'MKBeaconXPlus/Classes/Functions/LightSensorPage/Controller/**'
@@ -247,6 +270,7 @@ TODO: Add long description of the pod here.
      ss.dependency 'MKBaseModuleLibrary'
      ss.dependency 'MKCustomUIModule'
      ss.dependency 'MKBeaconXCustomUI'
+     
      ss.dependency 'HHTransition'
      ss.dependency 'MLInputDodger'
      ss.dependency 'iOSDFULibrary',    '4.13.0'

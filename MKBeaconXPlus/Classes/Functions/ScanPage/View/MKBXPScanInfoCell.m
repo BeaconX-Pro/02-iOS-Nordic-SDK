@@ -1,12 +1,12 @@
 //
-//  MKBXScanInfoCell.m
-//  MKBeaconXProTLA_Example
+//  MKBXPScanInfoCell.m
+//  MKBeaconXPlus_Example
 //
-//  Created by aa on 2021/8/14.
-//  Copyright © 2021 aadyx2007@163.com. All rights reserved.
+//  Created by aa on 2025/9/28.
+//  Copyright © 2025 aadyx2007@163.com. All rights reserved.
 //
 
-#import "MKBXScanInfoCell.h"
+#import "MKBXPScanInfoCell.h"
 
 #import <CoreBluetooth/CoreBluetooth.h>
 
@@ -14,6 +14,8 @@
 
 #import "MKMacroDefines.h"
 #import "NSString+MKAdd.h"
+
+#import "MKBXPScanInfoCellModel.h"
 
 static CGFloat const offset_X = 15.f;
 static CGFloat const rssiIconWidth = 22.f;
@@ -23,7 +25,7 @@ static CGFloat const connectButtonHeight = 30.f;
 static CGFloat const batteryIconWidth = 25.f;
 static CGFloat const batteryIconHeight = 25.f;
 
-@interface MKBXScanInfoCell ()
+@interface MKBXPScanInfoCell ()
 
 /**
  信号icon
@@ -75,12 +77,12 @@ static CGFloat const batteryIconHeight = 25.f;
 
 @end
 
-@implementation MKBXScanInfoCell
+@implementation MKBXPScanInfoCell
 
-+ (MKBXScanInfoCell *)initCellWithTableView:(UITableView *)tableView{
-    MKBXScanInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MKBXScanInfoCellIdenty"];
++ (MKBXPScanInfoCell *)initCellWithTableView:(UITableView *)tableView{
+    MKBXPScanInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MKBXPScanInfoCellIdenty"];
     if (!cell) {
-        cell = [[MKBXScanInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MKBXScanInfoCellIdenty"];
+        cell = [[MKBXPScanInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MKBXPScanInfoCellIdenty"];
     }
     return cell;
 }
@@ -219,16 +221,16 @@ static CGFloat const batteryIconHeight = 25.f;
     if (!self.dataModel.peripheral || ![self.dataModel.peripheral isKindOfClass:CBPeripheral.class]) {
         return;
     }
-    if ([self.delegate respondsToSelector:@selector(mk_bx_connectPeripheral:)]) {
-        [self.delegate mk_bx_connectPeripheral:self.dataModel.peripheral];
+    if ([self.delegate respondsToSelector:@selector(mk_bxp_connectPeripheral:)]) {
+        [self.delegate mk_bxp_connectPeripheral:self.dataModel];
     }
 }
 
 #pragma mark - setter
-- (void)setDataModel:(id<MKBXScanInfoCellProtocol>)dataModel {
+- (void)setDataModel:(MKBXPScanInfoCellModel *)dataModel {
     _dataModel = nil;
     _dataModel = dataModel;
-    if (!_dataModel || ![_dataModel conformsToProtocol:@protocol(MKBXScanInfoCellProtocol)]) {
+    if (!_dataModel || ![_dataModel isKindOfClass:MKBXPScanInfoCellModel.class]) {
         return;
     }
     self.connectButton.hidden = !_dataModel.connectable;
@@ -260,7 +262,7 @@ static CGFloat const batteryIconHeight = 25.f;
 - (UIImageView *)rssiIcon{
     if (!_rssiIcon) {
         _rssiIcon = [[UIImageView alloc] init];
-        _rssiIcon.image = LOADICON(@"MKBeaconXCustomUI", @"MKBXScanInfoCell", @"mk_bx_signalIcon.png");
+        _rssiIcon.image = LOADICON(@"MKBeaconXPlus", @"MKBXPScanInfoCell", @"bxp_signalIcon.png");
     }
     return _rssiIcon;
 }
@@ -299,7 +301,7 @@ static CGFloat const batteryIconHeight = 25.f;
 - (UIImageView *)batteryIcon{
     if (!_batteryIcon) {
         _batteryIcon = [[UIImageView alloc] init];
-        _batteryIcon.image = LOADICON(@"MKBeaconXCustomUI", @"MKBXScanInfoCell", @"mk_bx_batteryHighest.png");
+        _batteryIcon.image = LOADICON(@"MKBeaconXPlus", @"MKBXPScanInfoCell", @"bxp_batteryHighest.png");
     }
     return _batteryIcon;
 }

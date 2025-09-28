@@ -140,6 +140,14 @@ typedef NS_ENUM(NSInteger, mk_bxp_lockState) {
                  sucBlock:(void (^)(CBPeripheral *peripheral))sucBlock
               failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Dfu connect device function.
+/// @param peripheral peripheral
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
+- (void)dfuconnectPeripheral:(nonnull CBPeripheral *)peripheral
+                    sucBlock:(void (^)(CBPeripheral *peripheral))sucBlock
+                 failedBlock:(void (^)(NSError *error))failedBlock;
+
 - (void)disconnect;
 
 /**

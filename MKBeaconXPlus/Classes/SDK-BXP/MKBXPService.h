@@ -47,3 +47,6 @@ static NSString *const bxp_lightStatusUUID = @"e62a000c-1362-4f28-9327-f5b74e970
 
 static NSString *const bxp_bxpCLTHDataUUID = @"e62a000e-1362-4f28-9327-f5b74e970801";
 
+static NSString *const kBXPOtaServerUUIDString = @"00001530-1212-EFDE-1523-785FEABCD123";
+static NSString *const kBXPOtaControlUUIDString = @"00001531-1212-EFDE-1523-785FEABCD123";
+static NSString *const kBXPOtaDataUUIDString = @"00001532-1212-EFDE-1523-785FEABCD123";

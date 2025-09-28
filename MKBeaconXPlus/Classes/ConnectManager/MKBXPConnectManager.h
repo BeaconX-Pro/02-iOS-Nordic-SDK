@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 固件版本是否包含BXP-DH01或BXP-DH_W7或BXP-D04
 @property (nonatomic, assign)BOOL tamperDetect;
 
+@property (nonatomic, assign)BOOL isBXPD04;
+
 + (MKBXPConnectManager *)shared;
 
 /// 清除当前所有参数

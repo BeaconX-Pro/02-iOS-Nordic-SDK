@@ -30,6 +30,7 @@
 #import "MKBXPSensorConfigController.h"
 #import "MKBXPQuickSwitchController.h"
 #import "MKBXPUpdateController.h"
+#import "MKBXPRemoteReminderController.h"
 
 @interface MKBXPSettingController ()<UITableViewDelegate,
 UITableViewDataSource,
@@ -44,6 +45,8 @@ MKTextFieldCellDelegate>
 @property (nonatomic, strong)NSMutableArray *section2List;
 
 @property (nonatomic, strong)NSMutableArray *section3List;
+
+@property (nonatomic, strong)NSMutableArray *section4List;
 
 @property (nonatomic, strong)UITextField *passwordTextField;
 
@@ -74,9 +77,7 @@ MKTextFieldCellDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
-    [self loadSection0Datas];
-    [self loadSection2Datas];
-    [self loadSection3Datas];
+    [self loadSectionDatas];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(deviceStartDFUProcess)
                                                  name:@"mk_bxp_startDfuProcessNotification"
@@ -106,6 +107,8 @@ MKTextFieldCellDelegate>
         cellModel = self.section1List[indexPath.row];
     }else if (indexPath.section == 2) {
         cellModel = self.section2List[indexPath.row];
+    }else if (indexPath.section == 4) {
+        cellModel = self.section4List[indexPath.row];
     }
     if (ValidStr(cellModel.methodName) && [self respondsToSelector:NSSelectorFromString(cellModel.methodName)]) {
         [self performSelector:NSSelectorFromString(cellModel.methodName) withObject:nil];
@@ -114,7 +117,7 @@ MKTextFieldCellDelegate>
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -129,6 +132,9 @@ MKTextFieldCellDelegate>
     }
     if (section == 3) {
         return self.section3List.count;
+    }
+    if (section == 3) {
+        return ([MKBXPConnectManager shared].isBXPD04 ? self.section4List.count : 0);
     }
     return 0;
 }
@@ -149,9 +155,14 @@ MKTextFieldCellDelegate>
         cell.dataModel = self.section2List[indexPath.row];
         return cell;
     }
-    MKTextFieldCell *cell = [MKTextFieldCell initCellWithTableView:tableView];
-    cell.dataModel = self.section3List[indexPath.row];
-    cell.delegate = self;
+    if (indexPath.section == 3) {
+        MKTextFieldCell *cell = [MKTextFieldCell initCellWithTableView:tableView];
+        cell.dataModel = self.section3List[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
+    MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+    cell.dataModel = self.section4List[indexPath.row];
     return cell;
 }
 
@@ -205,6 +216,14 @@ MKTextFieldCellDelegate>
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
     }];
+}
+
+#pragma mark - loadSectionDatas
+- (void)loadSectionDatas {
+    [self loadSection0Datas];
+    [self loadSection2Datas];
+    [self loadSection3Datas];
+    [self loadSection4Datas];
 }
 
 #pragma mark - section0
@@ -424,6 +443,21 @@ MKTextFieldCellDelegate>
     [self.section3List addObject:cellModel];
 }
 
+#pragma mark - section4
+
+- (void)loadSection4Datas {
+    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
+    cellModel.leftMsg = @"Remote reminder";
+    cellModel.showRightIcon = YES;
+    cellModel.methodName = @"pushRemoteReminderPage";
+    [self.section4List addObject:cellModel];
+}
+
+- (void)pushRemoteReminderPage {
+    MKBXPRemoteReminderController *vc = [[MKBXPRemoteReminderController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - UI
 
 - (void)loadSubViews {
@@ -475,6 +509,13 @@ MKTextFieldCellDelegate>
         _section3List = [NSMutableArray array];
     }
     return _section3List;
+}
+
+- (NSMutableArray *)section4List {
+    if (!_section4List) {
+        _section4List = [NSMutableArray array];
+    }
+    return _section4List;
 }
 
 @end

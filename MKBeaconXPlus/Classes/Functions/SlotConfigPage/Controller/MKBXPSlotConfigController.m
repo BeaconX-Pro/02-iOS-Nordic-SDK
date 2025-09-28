@@ -21,6 +21,7 @@
 
 #import "MKHudManager.h"
 #import "MKTableSectionLineHeader.h"
+#import "MKAlertView.h"
 
 #import "MKBXSlotConfigCellProtocol.h"
 #import "MKBXSlotConfigBeaconCell.h"
@@ -95,6 +96,27 @@ MKBXSlotConfigTriggerCellDelegate>
 
 #pragma mark - super method
 - (void)rightButtonMethod {
+    BOOL valid = NO;
+    for (NSInteger i = 0; i < self.dataModel.slotTypeList.count; i ++) {
+        NSString *type = self.dataModel.slotTypeList[i];
+        if (i != self.slotIndex) {
+            if (![type isEqualToString:@"ff"]) {
+                valid = YES;
+                break;
+            }
+        }
+    }
+    if (!valid && self.slotType == mk_bx_slotFrameTypeNull) {
+        //如果其他通道都是ff，则当前通道不能设置为ff
+        MKAlertViewAction *cancelAction = [[MKAlertViewAction alloc] initWithTitle:@"OK" handler:^{
+            
+        }];
+        NSString *msg = @"*Please ensure that at lease 1 SLOT is enabled";
+        MKAlertView *alertView = [[MKAlertView alloc] init];
+        [alertView addAction:cancelAction];
+        [alertView showAlertWithTitle:@"Warning!" message:msg notificationName:@"mk_bxp_needDismissAlert"];
+        return;
+    }
     NSMutableDictionary *dataDic = [NSMutableDictionary dictionary];
     if (self.slotType != mk_bx_slotFrameTypeNull) {
         //当前要配置的通道信息不是NO DATA

@@ -102,8 +102,26 @@ static dispatch_once_t onceToken;
 - (void)MKBLEBaseCentralManagerDiscoverPeripheral:(CBPeripheral *)peripheral
                                 advertisementData:(NSDictionary<NSString *,id> *)advertisementData
                                              RSSI:(NSNumber *)RSSI {
-    NSLog(@"%@",advertisementData);
+    if ([RSSI integerValue] >= -45) {
+        NSLog(@"%@",advertisementData);
+    }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        if ([advertisementData[CBAdvertisementDataLocalNameKey] isEqualToString:@"MK_OTA"]) {
+            //OTA广播帧
+            MKBXPOTABeacon *beaconModel = [[MKBXPOTABeacon alloc] init];
+            beaconModel.frameType = MKBXPOTAFrameType;
+            beaconModel.identifier = peripheral.identifier.UUIDString;
+            beaconModel.rssi = RSSI;
+            beaconModel.peripheral = peripheral;
+            beaconModel.deviceName = advertisementData[CBAdvertisementDataLocalNameKey];
+            beaconModel.connectEnable = [advertisementData[CBAdvertisementDataIsConnectable] boolValue];
+            if ([self.delegate respondsToSelector:@selector(mk_bxp_receiveBeacon:)]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate mk_bxp_receiveBeacon:@[beaconModel]];
+                });
+            }
+            return;
+        }
         NSArray *beaconList = [MKBXPBaseBeacon parseAdvData:advertisementData];
         for (NSInteger i = 0; i < beaconList.count; i ++) {
             MKBXPBaseBeacon *beaconModel = beaconList[i];
@@ -326,7 +344,8 @@ static dispatch_once_t onceToken;
 }
 
 - (void)startScan {
-    [[MKBLEBaseCentralManager shared] scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"FEAA"],
+    [[MKBLEBaseCentralManager shared] scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"EAFF"],
+                                                                       [CBUUID UUIDWithString:@"FEAA"],
                                                                        [CBUUID UUIDWithString:@"FEAB"]]
                                                              options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@(YES)}];
 }
@@ -371,7 +390,7 @@ static dispatch_once_t onceToken;
             MKBLEBase_main_safe(^{sucBlock(lockState);});
         }
     };
-    MKBXPPeripheral *bxpPeripheral = [[MKBXPPeripheral alloc] initWithPeripheral:peripheral];
+    MKBXPPeripheral *bxpPeripheral = [[MKBXPPeripheral alloc] initWithPeripheral:peripheral dfuMode:NO];
     [[MKBLEBaseCentralManager shared] connectDevice:bxpPeripheral sucBlock:^(CBPeripheral * _Nonnull peripheral) {
         [self sendPasswordToDevice];
     } failedBlock:^(NSError * _Nonnull error) {
@@ -400,7 +419,33 @@ static dispatch_once_t onceToken;
         if (progressBlock) {
             progressBlock(progress);
         }
-    } sucBlock:^(CBPeripheral * _Nonnull peripheral) {
+    } dfu:NO sucBlock:^(CBPeripheral * _Nonnull peripheral) {
+        __strong typeof(self) sself = weakSelf;
+        [sself clearAllParams];
+        if (sucBlock) {
+            sucBlock(peripheral);
+        }
+    } failedBlock:^(NSError * _Nonnull error) {
+        __strong typeof(self) sself = weakSelf;
+        [sself clearAllParams];
+        if (failedBlock) {
+            failedBlock(error);
+        }
+    }];
+}
+
+- (void)dfuconnectPeripheral:(nonnull CBPeripheral *)peripheral
+                    sucBlock:(void (^)(CBPeripheral *peripheral))sucBlock
+                 failedBlock:(void (^)(NSError *error))failedBlock {
+    if (!peripheral) {
+        [MKBLEBaseSDKAdopter operationConnectFailedBlock:failedBlock];
+        return;
+    }
+    self.password = @"";
+    __weak typeof(self) weakSelf = self;
+    [self connect:peripheral progressBlock:^(float progress) {
+        
+    } dfu:YES sucBlock:^(CBPeripheral * _Nonnull peripheral) {
         __strong typeof(self) sself = weakSelf;
         [sself clearAllParams];
         if (sucBlock) {
@@ -735,6 +780,7 @@ static dispatch_once_t onceToken;
 #pragma mark - private method
 - (void)connect:(CBPeripheral *)peripheral
   progressBlock:(void (^)(float progress))progressBlock
+            dfu:(BOOL)dfu
        sucBlock:(void (^)(CBPeripheral * _Nonnull peripheral))sucBlock
     failedBlock:(void (^)(NSError * _Nonnull error))failedBlock {
     self.sucBlock = nil;
@@ -744,8 +790,12 @@ static dispatch_once_t onceToken;
     self.progressBlock = nil;
     self.progressBlock = progressBlock;
     [self updateConnectProgress:5.f];
-    MKBXPPeripheral *bxpPeripheral = [[MKBXPPeripheral alloc] initWithPeripheral:peripheral];
+    MKBXPPeripheral *bxpPeripheral = [[MKBXPPeripheral alloc] initWithPeripheral:peripheral dfuMode:dfu];
     [[MKBLEBaseCentralManager shared] connectDevice:bxpPeripheral sucBlock:^(CBPeripheral * _Nonnull peripheral) {
+        if (dfu) {
+            [self connectDeviecSuccess];
+            return;
+        }
         [self updateConnectProgress:30.f];
         [self sendPasswordToDevice];
     } failedBlock:failedBlock];

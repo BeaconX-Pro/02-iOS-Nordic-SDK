@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MKBXPSlotConfigModel : NSObject
 
+/// 2025/08/26新增需求，如果所有通道为NO Data，则不允许设置，所以增加读取通道类型
+@property (nonatomic, strong)NSArray *slotTypeList;
+
 /// 通道index
 @property (nonatomic, assign)NSInteger slotIndex;
 

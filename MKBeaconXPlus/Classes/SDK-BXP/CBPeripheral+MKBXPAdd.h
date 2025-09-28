@@ -72,11 +72,17 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, readonly)CBCharacteristic *bxp_software;
 
+#pragma mark - OTA
+
+@property (nonatomic, strong, readonly)CBCharacteristic *bxp_otaData;
+
+@property (nonatomic, strong, readonly)CBCharacteristic *bxp_otaControl;
+
 - (void)bxp_updateCharacterWithService:(CBService *)service;
 
 - (void)bxp_updateCurrentNotifySuccess:(CBCharacteristic *)characteristic;
 
-- (BOOL)bxp_connectSuccess;
+- (BOOL)bxp_connectSuccess:(BOOL)dfu;
 
 - (void)bxp_setNil;
 

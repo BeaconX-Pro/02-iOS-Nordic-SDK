@@ -17,13 +17,16 @@
 
 @property (nonatomic, strong)CBPeripheral *peripheral;
 
+@property (nonatomic, assign)BOOL dfu;
+
 @end
 
 @implementation MKBXPPeripheral
 
-- (instancetype)initWithPeripheral:(CBPeripheral *)peripheral {
+- (instancetype)initWithPeripheral:(CBPeripheral *)peripheral dfuMode:(BOOL)dfu {
     if (self = [super init]) {
         self.peripheral = peripheral;
+        self.dfu = dfu;
     }
     return self;
 }
@@ -31,7 +34,8 @@
 - (void)discoverServices {
     NSArray *services = @[[CBUUID UUIDWithString:bxp_configServiceUUID],  //bxp通用配置服务
                           [CBUUID UUIDWithString:bxp_customServiceUUID],  //custom配置服务
-                          [CBUUID UUIDWithString:bxp_deviceServiceUUID]]; //设备信息服务
+                          [CBUUID UUIDWithString:bxp_deviceServiceUUID],
+                          [CBUUID UUIDWithString:kBXPOtaServerUUIDString]]; //设备信息服务
     [self.peripheral discoverServices:services];
 }
 
@@ -73,6 +77,10 @@
                                          [CBUUID UUIDWithString:bxp_softwareUUID],
                                          [CBUUID UUIDWithString:bxp_vendorUUID]];
             [self.peripheral discoverCharacteristics:characteristics forService:service];
+        }else if ([service.UUID isEqual:[CBUUID UUIDWithString:kBXPOtaServerUUIDString]]) {
+            NSArray *characteristics = @[[CBUUID UUIDWithString:kBXPOtaControlUUIDString],
+                                         [CBUUID UUIDWithString:kBXPOtaDataUUIDString]];
+            [self.peripheral discoverCharacteristics:characteristics forService:service];
         }
     }
 }
@@ -86,7 +94,7 @@
 }
 
 - (BOOL)connectSuccess {
-    return [self.peripheral bxp_connectSuccess];
+    return [self.peripheral bxp_connectSuccess:self.dfu];
 }
 
 - (void)setNil {
