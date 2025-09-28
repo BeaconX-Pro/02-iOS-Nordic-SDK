@@ -32,6 +32,8 @@
 
 @property (nonatomic, assign)BOOL disconnectType;
 
+@property (nonatomic, assign)BOOL startDfu;
+
 @end
 
 @implementation MKBXPTabBarController
@@ -86,7 +88,7 @@
 }
 
 - (void)centralManagerStateChanged {
-    if (self.disconnectType) {
+    if (self.disconnectType || self.startDfu) {
         return;
     }
     if ([MKBXPCentralManager shared].centralStatus != mk_bxp_centralManagerStatusEnable) {
@@ -95,7 +97,7 @@
 }
 
 - (void)deviceConnectStateChanged {
-    if (self.disconnectType) {
+    if (self.disconnectType || self.startDfu) {
         return;
     }
     [self showAlertWithMsg:@"The device is disconnected." title:@"Dismiss"];
@@ -103,7 +105,7 @@
 }
 
 - (void)deviceLockStateChanged {
-    if (self.disconnectType) {
+    if (self.disconnectType || self.startDfu) {
         return;
     }
     if ([MKBXPCentralManager shared].lockState != mk_bxp_lockStateOpen
@@ -114,6 +116,9 @@
 }
 
 - (void)disconnectTypeNotification:(NSNotification *)note {
+    if (self.startDfu) {
+        return;
+    }
     NSString *type = note.userInfo[@"type"];
     //00一分钟之内没有输入密码,01修改密码成功，02:设备恢复出厂设置
     self.disconnectType = YES;
@@ -132,6 +137,10 @@
         return;
     }
     [self showAlertWithMsg:@"The device is turned off" title:@"Dismiss"];
+}
+
+- (void)startDfuProcess {
+    self.startDfu = YES;
 }
 
 #pragma mark - private method
@@ -164,6 +173,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(devicePowerOff)
                                                  name:@"mk_bxp_powerOffNotification"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(startDfuProcess)
+                                                 name:@"mk_bxp_startDfuProcessNotification"
                                                object:nil];
 }
 

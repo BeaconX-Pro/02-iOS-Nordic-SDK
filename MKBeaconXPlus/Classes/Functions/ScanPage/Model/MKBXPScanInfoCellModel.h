@@ -66,11 +66,14 @@ NS_ASSUME_NONNULL_BEGIN
 //Battery Voltage
 @property (nonatomic, copy) NSString *battery;
 
-/// 防拆状态
+/// Whether the device has tamper sensor.
+@property (nonatomic, assign)BOOL tamperSensor;
+
+/// 防拆状态，只有当tamperSensor=YES，才有效
 @property (nonatomic, assign)BOOL tamperAlert;
 
-
-#pragma mark - ***********************下面三个不属于MKBXScanInfoCellProtocol**********************
+/// 设备是否处于ota模式
+@property (nonatomic, assign)BOOL otaMode;
 
 @property (nonatomic, copy) NSString *lockState;
 

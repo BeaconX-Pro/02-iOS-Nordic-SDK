@@ -16,9 +16,12 @@
 #import "MKNormalTextCell.h"
 #import "MKHudManager.h"
 
+#import "MKBXPConnectManager.h"
+
 #import "MKBXPCentralManager.h"
 
 #import "MKBXPDFUModule.h"
+#import "MKBXPD04DFUModule.h"
 
 @interface MKBXPUpdateController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -27,6 +30,8 @@
 @property (nonatomic, strong)NSMutableArray *dataList;
 
 @property (nonatomic, strong)MKBXPDFUModule *dfuModule;
+
+@property (nonatomic, strong)MKBXPD04DFUModule *dfu04DModule;
 
 @property (nonatomic, strong)dispatch_queue_t monitorQueue;
 
@@ -76,6 +81,26 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"mk_bxp_startDfuProcessNotification" object:nil];
     NSString *document = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *filePath = [document stringByAppendingPathComponent:firmwareModel.leftMsg];
+//    if ([MKBXPConnectManager shared].isBXPD04) {
+//        [self startBXPD04DFU:filePath];
+//        return;
+//    }
+    [self startDFU:filePath];
+}
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.dataList.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
+    cell.dataModel = self.dataList[indexPath.row];
+    return cell;
+}
+
+#pragma mark - private method
+- (void)startDFU:(NSString *)filePath {
     self.leftButton.enabled = NO;
     //BLE升级
     [[MKHudManager share] showHUDWithTitle:@"Waiting..." inView:self.view isPenetration:NO];
@@ -93,18 +118,24 @@
     }];
 }
 
-#pragma mark - UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataList.count;
+- (void)startBXPD04DFU:(NSString *)filePath {
+    self.leftButton.enabled = NO;
+    //BLE升级
+    [[MKHudManager share] showHUDWithTitle:@"Waiting..." inView:self.view isPenetration:NO];
+    @weakify(self);
+    [self.dfu04DModule updateWithFileUrl:filePath progressBlock:^(CGFloat progress) {
+        
+    } sucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] showHUDWithTitle:@"Update firmware successfully!" inView:self.view isPenetration:NO];
+        [self performSelector:@selector(updateComplete) withObject:nil afterDelay:1.f];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] showHUDWithTitle:@"Opps!DFU Failed. Please try again!" inView:self.view isPenetration:NO];
+        [self performSelector:@selector(updateComplete) withObject:nil afterDelay:1.f];
+    }];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
-    cell.dataModel = self.dataList[indexPath.row];
-    return cell;
-}
-
-#pragma mark -
 - (void)updateComplete {
     self.leftButton.enabled = YES;
     [[MKHudManager share] hide];
@@ -204,6 +235,13 @@
         _dfuModule = [[MKBXPDFUModule alloc] init];
     }
     return _dfuModule;
+}
+
+- (MKBXPD04DFUModule *)dfu04DModule {
+    if (!_dfu04DModule) {
+        _dfu04DModule = [[MKBXPD04DFUModule alloc] init];
+    }
+    return _dfu04DModule;
 }
 
 @end

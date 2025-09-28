@@ -629,6 +629,48 @@
                           failedBlock:failedBlock];
 }
 
++ (void)bxp_configRemoteReminderLEDNotiParams:(NSInteger)blinkingTime
+                             blinkingInterval:(NSInteger)blinkingInterval
+                                        color:(mk_bxp_remoteReminderLedColor)color
+                                     sucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock {
+    if (blinkingTime < 10 || blinkingTime > 6000 || blinkingInterval < 1 || blinkingInterval > 100) {
+        [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *colorString = [MKBLEBaseSDKAdopter fetchHexValue:(color + 3) byteLen:1];
+    NSString *time = [MKBLEBaseSDKAdopter fetchHexValue:blinkingTime byteLen:2];
+    NSString *interval = [MKBLEBaseSDKAdopter fetchHexValue:blinkingInterval byteLen:2];
+    
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ea710005",colorString,interval,time];
+    [centralManager addTaskWithTaskID:mk_bxp_taskConfigRemoteReminderLEDNotiParamsOperation
+                          commandData:commandString
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
++ (void)bxp_configRemoteReminderBuzzerNotiParams:(NSInteger)ringingTime
+                                 ringingInterval:(NSInteger)ringingInterval
+                                        frequent:(NSInteger)frequent
+                                        sucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock {
+    if (ringingTime < 10 || ringingTime > 6000 || ringingInterval < 1 || ringingInterval > 100 || frequent < 200 || frequent > 20000) {
+        [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *frequentHex = [MKBLEBaseSDKAdopter fetchHexValue:frequent byteLen:2];
+    NSString *time = [MKBLEBaseSDKAdopter fetchHexValue:ringingTime byteLen:2];
+    NSString *interval = [MKBLEBaseSDKAdopter fetchHexValue:ringingInterval byteLen:2];
+    
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ea720006",frequentHex,interval,time];
+    [centralManager addTaskWithTaskID:mk_bxp_taskConfigRemoteReminderBuzzerNotiParamsOperation
+                          commandData:commandString
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
 #pragma mark - private method
 + (NSString *)fetchSlotNumber:(mk_bxp_activeSlotNo)slotNo{
     switch (slotNo) {

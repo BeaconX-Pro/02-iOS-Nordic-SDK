@@ -46,6 +46,9 @@ static const char *bxp_firmware = "bxp_firmware";
 static const char *bxp_software = "bxp_software";
 static const char *bxp_productionDate = "bxp_productionDate";
 
+static const char *bxp_otaControlKey = "bxp_otaControlKey";
+static const char *bxp_otaDataKey = "bxp_otaDataKey";
+
 static const char *bxp_customNotifySuccessKey = "bxp_customNotifySuccessKey";
 static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccessKey";
 
@@ -67,6 +70,18 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
         [self bxp_updateDeviceInfoCharacteristic:service];
         return;
     }
+    if ([service.UUID isEqual:[CBUUID UUIDWithString:kBXPOtaServerUUIDString]]) {
+        //OTA
+        NSArray *characteristicList = service.characteristics;
+        for (CBCharacteristic *characteristic in characteristicList) {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kBXPOtaControlUUIDString]]) {
+                objc_setAssociatedObject(self, &bxp_otaControlKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kBXPOtaDataUUIDString]]) {
+                objc_setAssociatedObject(self, &bxp_otaDataKey, characteristic, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+        }
+        return;
+    }
 }
 
 - (void)bxp_updateCurrentNotifySuccess:(CBCharacteristic *)characteristic {
@@ -80,7 +95,13 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
     }
 }
 
-- (BOOL)bxp_connectSuccess {
+- (BOOL)bxp_connectSuccess:(BOOL)dfu {
+    if (dfu) {
+        if (!self.bxp_otaData || !self.bxp_otaControl) {
+            return NO;
+        }
+        return YES;
+    }
     if (![objc_getAssociatedObject(self, &bxp_customNotifySuccessKey) boolValue] || ![objc_getAssociatedObject(self, &bxp_disconnectListenSuccessKey) boolValue]) {
         return NO;
     }
@@ -123,6 +144,9 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
     objc_setAssociatedObject(self, &bxp_firmware, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     objc_setAssociatedObject(self, &bxp_software, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     objc_setAssociatedObject(self, &bxp_productionDate, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
+    objc_setAssociatedObject(self, &bxp_otaControlKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &bxp_otaDataKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     objc_setAssociatedObject(self, &bxp_customNotifySuccessKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     objc_setAssociatedObject(self, &bxp_disconnectListenSuccessKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -247,6 +271,14 @@ static const char *bxp_disconnectListenSuccessKey = "bxp_disconnectListenSuccess
 
 - (CBCharacteristic *)bxp_vendor{
     return objc_getAssociatedObject(self, &bxp_vendor);
+}
+
+- (CBCharacteristic *)bxp_otaData {
+    return objc_getAssociatedObject(self, &bxp_otaDataKey);
+}
+
+- (CBCharacteristic *)bxp_otaControl {
+    return objc_getAssociatedObject(self, &bxp_otaControlKey);
 }
 
 #pragma mark - private method

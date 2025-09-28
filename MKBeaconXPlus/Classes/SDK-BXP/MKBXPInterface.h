@@ -257,6 +257,33 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bxp_readScanResponsePacketWithSucBlock:(void (^)(id returnData))sucBlock
                                    failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Remote LED reminder parameters.
+/*
+ @{
+ @"color":@"3",         //@"0":Red @"1":Green @"2":Blue
+ @"time":@"10",         //x100ms
+ @"interval":@"5",      //x100ms
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)bxp_readRemoteReminderLEDNotiParamsWithSucBlock:(void (^)(id returnData))sucBlock
+                                            failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Remote Buzzer reminder parameters.
+/*
+ @{
+ @"frequent":@"4000",   //Unit:Hz
+ @"time":@"10",         //x100ms
+ @"interval":@"5",      //x100ms
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)bxp_readRemoteReminderBuzzerNotiParamsWithSucBlock:(void (^)(id returnData))sucBlock
+                                               failedBlock:(void (^)(NSError *error))failedBlock;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -63,6 +63,12 @@ typedef NS_ENUM(NSInteger, mk_bxp_HTStorageConditions) {
     mk_bxp_HTStorageConditionsTime,            // Store data when time changes
 };
 
+typedef NS_ENUM(NSInteger, mk_bxp_remoteReminderLedColor) {
+    mk_bxp_remoteReminderLedColor_red,
+    mk_bxp_remoteReminderLedColor_green,
+    mk_bxp_remoteReminderLedColor_blue,
+};
+
 
 @protocol MKBXPDeviceTimeProtocol <NSObject>
 
@@ -483,6 +489,30 @@ typedef NS_ENUM(NSInteger, mk_bxp_HTStorageConditions) {
 + (void)bxp_configScanResponsePacket:(BOOL)isOn
                             sucBlock:(void (^)(id returnData))sucBlock
                          failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Remote LED reminder parameters.
+/// @param blinkingTime Blinking time.10 ~ 6000(Unit:100ms)
+/// @param blinkingInterval Blinking interval.1 ~ 100(Unit:100ms)
+/// @param color color
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)bxp_configRemoteReminderLEDNotiParams:(NSInteger)blinkingTime
+                             blinkingInterval:(NSInteger)blinkingInterval
+                                        color:(mk_bxp_remoteReminderLedColor)color
+                                     sucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Remote Buzzer reminder parameters.
+/// @param ringingTime Ringing time.10 ~ 6000(Unit:100ms)
+/// @param ringingInterval Ringing interval.1 ~ 100(Unit:100ms)
+/// @param frequent:200Hz~20,000Hz
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)bxp_configRemoteReminderBuzzerNotiParams:(NSInteger)ringingTime
+                                 ringingInterval:(NSInteger)ringingInterval
+                                        frequent:(NSInteger)frequent
+                                        sucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

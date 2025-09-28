@@ -56,7 +56,8 @@
             //免密登录
             dic = [self connectDevice:peripheral progressBlock:progressBlock];
         }
-        
+        self.tamperDetect = NO;
+        self.isBXPD04 = NO;
         
         if (![dic[@"success"] boolValue]) {
             [self operationFailedMsg:dic[@"msg"] completeBlock:failedBlock];
@@ -178,9 +179,11 @@
         success = YES;
         NSString *tempFirmware = returnData[@"result"][@"firmware"];
         if ([tempFirmware containsString:@"BXP-DH01"]
-            || [tempFirmware containsString:@"BXP-DH_W7"]
-            || [tempFirmware containsString:@"BXP-D04"]) {
+            || [tempFirmware containsString:@"BXP-DH_W7"]) {
             self.tamperDetect = YES;
+        }else if ([tempFirmware containsString:@"BXP-D04"]) {
+            self.tamperDetect = YES;
+            self.isBXPD04 = YES;
         }
         self.isBXPC = ([tempFirmware containsString:@"BXP-C"]);
         NSRange range = [tempFirmware rangeOfString:@"_V"];

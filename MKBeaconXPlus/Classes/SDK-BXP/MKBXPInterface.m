@@ -321,4 +321,22 @@
                           failedBlock:failedBlock];
 }
 
++ (void)bxp_readRemoteReminderLEDNotiParamsWithSucBlock:(void (^)(id returnData))sucBlock
+                                            failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:mk_bxp_taskReadRemoteReminderLEDNotiParamsOperation
+                          commandData:@"ea610000"
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
++ (void)bxp_readRemoteReminderBuzzerNotiParamsWithSucBlock:(void (^)(id returnData))sucBlock
+                                               failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addTaskWithTaskID:mk_bxp_taskReadRemoteReminderBuzzerNotiParamsOperation
+                          commandData:@"ea620000"
+                       characteristic:peripheral.bxp_customWrite
+                             sucBlock:sucBlock
+                          failedBlock:failedBlock];
+}
+
 @end

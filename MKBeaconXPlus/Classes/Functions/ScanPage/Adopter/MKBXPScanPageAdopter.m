@@ -175,6 +175,7 @@ static const char *frameTypeKey = "frameTypeKey";
     deviceModel.lastScanDate = [[NSDate date] timeIntervalSince1970] * 1000;
     deviceModel.connectable = beacon.connectEnable;
     deviceModel.peripheral = beacon.peripheral;
+    deviceModel.otaMode = (beacon.frameType == MKBXPOTAFrameType);
     if (beacon.frameType == MKBXPDeviceInfoFrameType) {
         //如果是设备信息帧
         MKBXPDeviceInfoBeacon *tempInfoModel = (MKBXPDeviceInfoBeacon *)beacon;
@@ -188,6 +189,7 @@ static const char *frameTypeKey = "frameTypeKey";
         deviceModel.lightSensor = tempInfoModel.lightSensor;
         deviceModel.lightSensorStatus = tempInfoModel.lightSensorStatus;
         deviceModel.tamperAlert = tempInfoModel.tamperAlert;
+        deviceModel.tamperSensor = tempInfoModel.tamperSensor;
         return deviceModel;
     }
     //如果是URL、TLM、UID、iBeacon、温湿度、三轴中的一种，直接加入到deviceModel中的数据帧数组里面
@@ -226,6 +228,7 @@ static const char *frameTypeKey = "frameTypeKey";
     exsitModel.connectable = beacon.connectEnable;
     exsitModel.peripheral = beacon.peripheral;
     exsitModel.rssi = [NSString stringWithFormat:@"%ld",(long)[beacon.rssi integerValue]];
+    exsitModel.otaMode = (beacon.frameType == MKBXPOTAFrameType);
     if (ValidStr(beacon.deviceName)) {
         exsitModel.deviceName = beacon.deviceName;
     }

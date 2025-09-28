@@ -38,7 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *macAddress;
 
-/// 防拆状态
+/// Whether the device has tamper sensor.
+@property (nonatomic, assign)BOOL tamperSensor;
+
+/// 防拆状态，只有当tamperSensor=YES，才有效
 @property (nonatomic, assign)BOOL tamperAlert;
 
 @end

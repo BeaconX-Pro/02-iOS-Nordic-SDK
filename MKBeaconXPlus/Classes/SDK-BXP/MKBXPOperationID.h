@@ -48,6 +48,8 @@ typedef NS_ENUM(NSInteger, mk_bxp_taskOperationID) {
     mk_bxp_taskConfigButtonPowerStatusOperation,    //设置按键关机状态
     mk_bxp_taskConfigTriggerConditionsOperation,         //设置触发条件
     mk_bxp_taskConfigScanResponsePacketOperation,           //配置回应包开关状态
+    mk_bxp_taskConfigRemoteReminderLEDNotiParamsOperation,  //配置远程LED控制参数
+    mk_bxp_taskConfigRemoteReminderBuzzerNotiParamsOperation,   //配置远程buzzer控制参数
     mk_bxp_taskDeleteRecordLightSensorDataOperation,    //删除已存储的光感数据
     mk_bxp_taskReadLEDTriggerStatusOperation,           //读取LED触发提醒状态
     mk_bxp_taskReadResetBeaconByButtonStatusOperation,  //读取设备是否可以按键开关机
@@ -56,8 +58,8 @@ typedef NS_ENUM(NSInteger, mk_bxp_taskOperationID) {
     mk_bxp_taskConfigLEDTriggerStatusOperation,         //设置LED触发提醒状态
     mk_bxp_taskConfigResetBeaconByButtonStatusOperation,    //设置设备是否可以按键开关机
     mk_bxp_taskConfigEffectiveClickIntervalOperation,       //设置按键间隔时长
-    
-    
+    mk_bxp_taskReadRemoteReminderLEDNotiParamsOperation,    //读取LED远程提醒参数
+    mk_bxp_taskReadRemoteReminderBuzzerNotiParamsOperation, //读取buzzer远程提醒参数
     
     mk_bxp_taskReadSlotTypeOperation,                     //获取eddystone的通道类型
     mk_bxp_taskReadConnectEnableOperation,                //获取eddystone的可连接状态

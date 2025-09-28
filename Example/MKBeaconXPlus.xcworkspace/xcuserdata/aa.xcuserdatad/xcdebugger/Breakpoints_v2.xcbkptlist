@@ -19,16 +19,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AA41DE7E-E2D5-4EBD-A4CC-0B8B48474B92"
+            uuid = "C2BD05B8-A03D-4CE6-844C-6C69EC835478"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../MKBeaconXPlus/Classes/SDK-BXP/MKBXPCentralManager.m"
+            filePath = "../MKBeaconXPlus/Classes/Functions/UpdatePage/Model/MKBXPD04DFUModule.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
-            landmarkName = "-peripheral:didUpdateValueForCharacteristic:error:"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "-updateWithFileUrl:progressBlock:sucBlock:failedBlock:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E570CC97-6A91-4092-9106-85340691124F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../MKBeaconXPlus/Classes/Functions/UpdatePage/Model/MKBXPD04DFUModule.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "-updateWithFileUrl:progressBlock:sucBlock:failedBlock:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EC10274B-C949-4A74-B82B-A017B2EC49BE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../MKBeaconXPlus/Classes/SDK-BXP/MKBXPPeripheral.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "-discoverCharacteristics"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

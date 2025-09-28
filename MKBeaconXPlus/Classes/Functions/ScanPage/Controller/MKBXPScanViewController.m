@@ -30,9 +30,6 @@
 #import "MKBXScanFilterView.h"
 #import "MKBXScanSearchButton.h"
 
-#import "MKBXScanInfoCellProtocol.h"
-#import "MKBXScanInfoCell.h"
-
 #import "MKBXScanPageAdopter.h"
 
 #import "MKBXPSDK.h"
@@ -44,8 +41,11 @@
 
 #import "MKBXPScanInfoCellModel.h"
 
+#import "MKBXPScanInfoCell.h"
+
 #import "MKBXPTabBarController.h"
 #import "MKBXPAboutController.h"
+#import "MKBXPUpdateController.h"
 
 static CGFloat const offset_X = 15.f;
 static CGFloat const searchButtonHeight = 40.f;
@@ -57,7 +57,7 @@ static NSTimeInterval const kRefreshInterval = 0.5f;
 UITableViewDataSource,
 MKBXScanSearchButtonDelegate,
 mk_bxp_centralManagerScanDelegate,
-MKBXScanInfoCellDelegate,
+MKBXPScanInfoCellDelegate,
 MKBXPTabBarControllerDelegate>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
@@ -98,6 +98,10 @@ MKBXPTabBarControllerDelegate>
     [super viewDidLoad];
     [self loadSubViews];
     [self startRefresh];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dfuUpdateComplete)
+                                                 name:@"mk_bxp_centralDeallocNotification"
+                                               object:nil];
 }
 
 #pragma mark - super method
@@ -119,7 +123,7 @@ MKBXPTabBarControllerDelegate>
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         //第一个row固定为设备信息帧
-        MKBXScanInfoCell *cell = [MKBXScanInfoCell initCellWithTableView:tableView];
+        MKBXPScanInfoCell *cell = [MKBXPScanInfoCell initCellWithTableView:tableView];
         cell.dataModel = self.dataList[indexPath.section];
         cell.delegate = self;
         return cell;
@@ -192,9 +196,9 @@ MKBXPTabBarControllerDelegate>
     }
 }
 
-#pragma mark - MKBXScanInfoCellDelegate
-- (void)mk_bx_connectPeripheral:(CBPeripheral *)peripheral {
-    [self connectPeripheral:peripheral];
+#pragma mark - MKBXPScanInfoCellDelegate
+- (void)mk_bxp_connectPeripheral:(MKBXPScanInfoCellModel *)deviceModel {
+    [self connectPeripheral:deviceModel];
 }
 
 #pragma mark - MKBXPTabBarControllerDelegate
@@ -203,6 +207,11 @@ MKBXPTabBarControllerDelegate>
         [MKBXPCentralManager shared].delegate = self;
     }
     [self performSelector:@selector(startScanDevice) withObject:nil afterDelay:(need ? 1.f : 0.1f)];
+}
+
+#pragma mark - Note
+- (void)dfuUpdateComplete {
+    [self mk_bxp_needResetScanDelegate:YES];
 }
 
 #pragma mark - event method
@@ -367,21 +376,37 @@ MKBXPTabBarControllerDelegate>
 
 #pragma mark - 连接设备
 
-- (void)connectPeripheral:(CBPeripheral *)peripheral{
+- (void)connectPeripheral:(MKBXPScanInfoCellModel *)deviceModel {
     //停止扫描
     [self.refreshIcon.layer removeAnimationForKey:@"mk_refreshAnimationKey"];
     [[MKBXPCentralManager shared] stopScan];
+    
+    if (deviceModel.otaMode) {
+        //处于ota
+        [[MKHudManager share] showHUDWithTitle:@"Connecting..." inView:self.view isPenetration:NO];
+        [[MKBXPCentralManager shared] dfuconnectPeripheral:deviceModel.peripheral sucBlock:^(CBPeripheral * _Nonnull peripheral) {
+            [[MKHudManager share] hide];
+            MKBXPUpdateController *vc = [[MKBXPUpdateController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        } failedBlock:^(NSError * _Nonnull error) {
+            [[MKHudManager share] hide];
+            [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+            [self connectFailed];
+        }];
+        return;
+    }
+    
     [[MKHudManager share] showHUDWithTitle:@"Loading..." inView:self.view isPenetration:NO];
-    [[MKBXPCentralManager shared] readLockStateWithPeripheral:peripheral sucBlock:^(NSString *lockState) {
+    [[MKBXPCentralManager shared] readLockStateWithPeripheral:deviceModel.peripheral sucBlock:^(NSString *lockState) {
         [[MKHudManager share] hide];
         if ([lockState isEqualToString:@"00"]) {
             //密码登录
-            [self showPasswordAlert:peripheral];
+            [self showPasswordAlert:deviceModel.peripheral];
             return ;
         }
         if ([lockState isEqualToString:@"02"]) {
             //免密码登录
-            [self connectDeviceWithoutPassword:peripheral];
+            [self connectDeviceWithoutPassword:deviceModel.peripheral];
             return;
         }
     } failedBlock:^(NSError *error) {

@@ -31,6 +31,10 @@
 - (void)readWithSucBlock:(void (^)(void))sucBlock
              failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
+        if (![self readSlotTypeList]) {
+            [self operationFailedBlockWithMsg:@"Read Slot Type List Error" block:failedBlock];
+            return;
+        }
         if (![self configActiveSlot:self.slotIndex]) {
             [self operationFailedBlockWithMsg:@"Config Active Slot Error" block:failedBlock];
             return;
@@ -149,6 +153,19 @@
 }
 
 #pragma mark - interface
+- (BOOL)readSlotTypeList {
+    __block BOOL success = NO;
+    [MKBXPInterface bxp_readSlotDataTypeWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        self.slotTypeList = returnData[@"result"][@"slotTypeList"];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        success = YES;
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
 - (BOOL)configActiveSlot:(NSInteger)slotIndex {
     __block BOOL success = NO;
     [MKBXPInterface bxp_configActiveSlot:slotIndex sucBlock:^(id  _Nonnull returnData) {

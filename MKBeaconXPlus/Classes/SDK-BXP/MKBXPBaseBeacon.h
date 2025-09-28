@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
  - MKBXPThreeASensorFrameType: 3-axis accelerometer data
  - MKBXPTHSensorFrameType: Temperature and humidity sensor data
  - MKBXPNODATAFrameType: NO DATA
+ - MKBXPOTAFrameType: OTA Frame Type
  - MKBXPUnkonwFrameType: Unknown
  */
 typedef NS_ENUM(NSInteger, MKBXPDataFrameType) {
@@ -32,6 +33,7 @@ typedef NS_ENUM(NSInteger, MKBXPDataFrameType) {
     MKBXPThreeASensorFrameType,
     MKBXPTHSensorFrameType,
     MKBXPNODATAFrameType,
+    MKBXPOTAFrameType,
     MKBXPUnknownFrameType,
 };
 
@@ -119,6 +121,9 @@ typedef NS_ENUM(NSInteger, MKBXPDataFrameType) {
 /// Whether the device has light sensor.
 @property (nonatomic, assign)BOOL lightSensor;
 
+/// Whether the device has tamper sensor.
+@property (nonatomic, assign)BOOL tamperSensor;
+
 /// lightSensor must be YES.
 @property (nonatomic, assign)BOOL lightSensorStatus;
 
@@ -126,6 +131,7 @@ typedef NS_ENUM(NSInteger, MKBXPDataFrameType) {
 
 @property (nonatomic, copy) NSString *softVersion;
 
+/// The tamper sensor. If tamperSensor is YES, this function is valid.
 @property (nonatomic, assign)BOOL tamperAlert;
 
 - (MKBXPDeviceInfoBeacon *)initWithAdvertiseData:(NSData *)advData;
@@ -206,6 +212,11 @@ typedef NS_ENUM(NSInteger, MKBXPDataFrameType) {
 @property (nonatomic, copy) NSString *macAddress;
 
 - (MKBXPTHSensorBeacon *)initWithAdvertiseData:(NSData *)advData;
+
+@end
+
+
+@interface MKBXPOTABeacon : MKBXPBaseBeacon
 
 @end
 

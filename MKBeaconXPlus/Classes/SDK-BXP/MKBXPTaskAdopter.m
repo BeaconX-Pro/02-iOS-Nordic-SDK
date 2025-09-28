@@ -558,6 +558,36 @@
         //设置按键间隔时长
         operationID = mk_bxp_taskConfigEffectiveClickIntervalOperation;
         returnDic = @{@"success":@(YES)};
+    }else if ([function isEqualToString:@"61"] && content.length == 18) {
+        //读取LED远程提醒参数
+        NSString *color = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 2)];
+        NSString *interval = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 4)];
+        NSString *time = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(14, 4)];
+        operationID = mk_bxp_taskReadRemoteReminderLEDNotiParamsOperation;
+        returnDic = @{
+            @"color":color,
+            @"interval":interval,
+            @"time":time
+        };
+    }else if ([function isEqualToString:@"62"] && content.length == 20) {
+        //读取远程控制蜂鸣器
+        NSString *frequent = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 4)];
+        NSString *interval = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(12, 4)];
+        NSString *time = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(16, 4)];
+        operationID = mk_bxp_taskReadRemoteReminderBuzzerNotiParamsOperation;
+        returnDic = @{
+            @"frequent":frequent,
+            @"interval":interval,
+            @"time":time
+        };
+    }else if ([function isEqualToString:@"71"] && content.length == 8){
+        //配置远程LED控制参数
+        operationID = mk_bxp_taskConfigRemoteReminderLEDNotiParamsOperation;
+        returnDic = @{@"success":@(YES)};
+    }else if ([function isEqualToString:@"72"] && content.length == 8){
+        //配置远程buzzer控制参数
+        operationID = mk_bxp_taskConfigRemoteReminderBuzzerNotiParamsOperation;
+        returnDic = @{@"success":@(YES)};
     }
     return [self dataParserGetDataSuccess:returnDic operationID:operationID];
 }

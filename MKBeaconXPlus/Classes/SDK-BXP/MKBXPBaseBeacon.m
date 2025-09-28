@@ -345,6 +345,7 @@
             self.lockState = @"02";
         }
         self.lightSensor = [[binary1 substringWithRange:NSMakeRange(5, 1)] isEqualToString:@"1"];
+        self.tamperSensor = [[binary1 substringWithRange:NSMakeRange(3, 1)] isEqualToString:@"1"];
         NSString *binary2 = [MKBLEBaseSDKAdopter binaryByhex:[tempContent substringWithRange:NSMakeRange(12, 2)]];
         self.lightSensorStatus = [[binary2 substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"1"];
         self.tamperAlert = [[binary2 substringWithRange:NSMakeRange(4, 1)] isEqualToString:@"1"];
@@ -488,6 +489,19 @@
             self.macAddress = [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",[tempMac substringWithRange:NSMakeRange(0, 2)],[tempMac substringWithRange:NSMakeRange(2, 2)],[tempMac substringWithRange:NSMakeRange(4, 2)],[tempMac substringWithRange:NSMakeRange(6, 2)],[tempMac substringWithRange:NSMakeRange(8, 2)],[tempMac substringWithRange:NSMakeRange(10, 2)]];
         }
         free(data);
+    }
+    return self;
+}
+
+@end
+
+
+
+@implementation MKBXPOTABeacon
+
+- (MKBXPOTABeacon *)initWithAdvertiseData:(NSData *)advData {
+    if (self = [super init]) {
+        
     }
     return self;
 }
