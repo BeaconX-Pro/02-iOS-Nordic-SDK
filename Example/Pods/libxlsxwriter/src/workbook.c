@@ -737,8 +737,10 @@ _store_defined_name(lxw_workbook *self, const char *name,
         /* Remove any worksheet quoting. */
         if (worksheet_name[0] == '\'')
             worksheet_name++;
-        if (worksheet_name[strlen(worksheet_name) - 1] == '\'')
+        if (strlen(worksheet_name) > 0
+            && worksheet_name[strlen(worksheet_name) - 1] == '\'') {
             worksheet_name[strlen(worksheet_name) - 1] = '\0';
+        }
 
         /* Search for worksheet name to get the equivalent worksheet index. */
         STAILQ_FOREACH(sheet, self->sheets, list_pointers) {
@@ -976,8 +978,9 @@ _populate_range_dimensions(lxw_workbook *self, lxw_series_range *range)
         /* Remove any worksheet quoting. */
         if (sheetname[0] == '\'')
             sheetname++;
-        if (sheetname[strlen(sheetname) - 1] == '\'')
+        if (strlen(sheetname) > 0 && sheetname[strlen(sheetname) - 1] == '\'') {
             sheetname[strlen(sheetname) - 1] = '\0';
+        }
 
         /* Check that the sheetname exists. */
         if (!workbook_get_worksheet_by_name(self, sheetname)) {
@@ -1611,6 +1614,9 @@ _write_workbook_pr(lxw_workbook *self)
     if (self->vba_codename)
         LXW_PUSH_ATTRIBUTES_STR("codeName", self->vba_codename);
 
+    if (self->use_1904_epoch)
+        LXW_PUSH_ATTRIBUTES_STR("date1904", "1");
+
     LXW_PUSH_ATTRIBUTES_STR("defaultThemeVersion", "124226");
 
     lxw_xml_empty_tag(self->file, "workbookPr", &attributes);
@@ -1991,7 +1997,8 @@ workbook_add_worksheet(lxw_workbook *self, const char *sheetname)
     lxw_worksheet *worksheet = NULL;
     lxw_worksheet_name *worksheet_name = NULL;
     lxw_error error;
-    lxw_worksheet_init_data init_data = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    lxw_worksheet_init_data init_data =
+        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     char *new_name = NULL;
 
     if (sheetname) {
@@ -2032,6 +2039,7 @@ workbook_add_worksheet(lxw_workbook *self, const char *sheetname)
     init_data.tmpdir = self->options.tmpdir;
     init_data.default_url_format = self->default_url_format;
     init_data.max_url_length = self->max_url_length;
+    init_data.use_1904_epoch = self->use_1904_epoch;
 
     /* Create a new worksheet object. */
     worksheet = lxw_worksheet_new(&init_data);
@@ -2075,7 +2083,8 @@ workbook_add_chartsheet(lxw_workbook *self, const char *sheetname)
     lxw_chartsheet *chartsheet = NULL;
     lxw_chartsheet_name *chartsheet_name = NULL;
     lxw_error error;
-    lxw_worksheet_init_data init_data = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    lxw_worksheet_init_data init_data =
+        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     char *new_name = NULL;
 
     if (sheetname) {
@@ -2853,6 +2862,15 @@ void
 workbook_read_only_recommended(lxw_workbook *self)
 {
     self->read_only = 2;
+}
+
+/*
+ * Use the 1904 epoch for dates in the workbook.
+ */
+void
+workbook_use_1904_epoch(lxw_workbook *self)
+{
+    self->use_1904_epoch = LXW_TRUE;
 }
 
 /*

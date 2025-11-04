@@ -294,6 +294,7 @@ lxw_worksheet_new(lxw_worksheet_init_data *init_data)
         worksheet->first_sheet = init_data->first_sheet;
         worksheet->default_url_format = init_data->default_url_format;
         worksheet->max_url_length = init_data->max_url_length;
+        worksheet->use_1904_epoch = init_data->use_1904_epoch;
     }
 
     return worksheet;
@@ -8127,7 +8128,7 @@ _store_array_formula(lxw_worksheet *self,
 
     /* Copy and trip leading "{=" from formula. */
     if (formula[0] == '{')
-        if (formula[1] == '=')
+        if (strlen(formula) >= 2 && formula[1] == '=')
             formula_copy = lxw_strdup(formula + 2);
         else
             formula_copy = lxw_strdup(formula + 1);
@@ -8135,8 +8136,17 @@ _store_array_formula(lxw_worksheet *self,
         formula_copy = lxw_strdup_formula(formula);
 
     /* Strip trailing "}" from formula. */
-    if (formula_copy[strlen(formula_copy) - 1] == '}')
+    if (strlen(formula_copy) > 0
+        && formula_copy[strlen(formula_copy) - 1] == '}') {
         formula_copy[strlen(formula_copy) - 1] = '\0';
+    }
+
+    /* Check for empty formula that started as {=}. */
+    if (lxw_str_is_empty(formula_copy)) {
+        free(formula_copy);
+        free(range);
+        return LXW_ERROR_PARAMETER_IS_EMPTY;
+    }
 
     /* Create a new array formula cell object. */
     cell = _new_array_formula_cell(first_row, first_col,
@@ -8322,7 +8332,12 @@ worksheet_write_datetime(lxw_worksheet *self,
     if (err)
         return err;
 
-    excel_date = lxw_datetime_to_excel_date_epoch(datetime, LXW_EPOCH_1900);
+    printf("worksheet_write_datetime(): %d-%02d-%02d - 1904: %d\n",
+           datetime->year, datetime->month, datetime->day,
+           self->use_1904_epoch);
+
+    excel_date =
+        lxw_datetime_to_excel_date_with_epoch(datetime, self->use_1904_epoch);
 
     cell = _new_number_cell(row_num, col_num, excel_date, format);
 
@@ -8348,7 +8363,8 @@ worksheet_write_unixtime(lxw_worksheet *self,
     if (err)
         return err;
 
-    excel_date = lxw_unixtime_to_excel_date_epoch(unixtime, LXW_EPOCH_1900);
+    excel_date =
+        lxw_unixtime_to_excel_date_with_epoch(unixtime, self->use_1904_epoch);
 
     cell = _new_number_cell(row_num, col_num, excel_date, format);
 
@@ -11354,16 +11370,16 @@ worksheet_data_validation_range(lxw_worksheet *self, lxw_row_t first_row,
         || validation->validate == LXW_VALIDATION_TYPE_TIME) {
         if (is_between) {
             copy->value_number =
-                lxw_datetime_to_excel_date_epoch
-                (&validation->minimum_datetime, LXW_EPOCH_1900);
+                lxw_datetime_to_excel_date_with_epoch
+                (&validation->minimum_datetime, self->use_1904_epoch);
             copy->maximum_number =
-                lxw_datetime_to_excel_date_epoch
-                (&validation->maximum_datetime, LXW_EPOCH_1900);
+                lxw_datetime_to_excel_date_with_epoch
+                (&validation->maximum_datetime, self->use_1904_epoch);
         }
         else {
             copy->value_number =
-                lxw_datetime_to_excel_date_epoch(&validation->value_datetime,
-                                                 LXW_EPOCH_1900);
+                lxw_datetime_to_excel_date_with_epoch
+                (&validation->value_datetime, self->use_1904_epoch);
         }
     }
 

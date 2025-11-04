@@ -326,7 +326,7 @@ MKBXTriggerTapViewDelegate>
     }
     if (viewType == MKBXTriggerTapViewTamperDetect) {
         //防拆
-        self.singleTapViewModel.startValue = startValue;
+        self.tamperDetectViewModel.startValue = startValue;
         return;
     }
 }
@@ -360,7 +360,7 @@ MKBXTriggerTapViewDelegate>
     }
     if (viewType == MKBXTriggerTapViewTamperDetect) {
         //防拆
-        self.singleTapViewModel.stopValue = stopValue;
+        self.tamperDetectViewModel.stopValue = stopValue;
         return;
     }
 }

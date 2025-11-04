@@ -133,7 +133,7 @@ MKTextFieldCellDelegate>
     if (section == 3) {
         return self.section3List.count;
     }
-    if (section == 3) {
+    if (section == 4) {
         return ([MKBXPConnectManager shared].isBXPD04 ? self.section4List.count : 0);
     }
     return 0;
