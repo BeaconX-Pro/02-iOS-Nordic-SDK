@@ -226,7 +226,7 @@ MKBXPRemoteReminderCellDelegate>
 }
 
 - (void)reminderLED {
-    if (!ValidStr(self.dataModel.blinkingTime) || [self.dataModel.blinkingTime integerValue] < 10 || [self.dataModel.blinkingTime integerValue] > 6000) {
+    if (!ValidStr(self.dataModel.blinkingTime) || [self.dataModel.blinkingTime integerValue] < 1 || [self.dataModel.blinkingTime integerValue] > 600) {
         [self.view showCentralToast:@"Blink Time Error"];
         return ;
     }
@@ -235,7 +235,7 @@ MKBXPRemoteReminderCellDelegate>
         return ;
     }
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-    [MKBXPInterface bxp_configRemoteReminderLEDNotiParams:[self.dataModel.blinkingTime integerValue] blinkingInterval:[self.dataModel.blinkingInterval integerValue] color:self.dataModel.color sucBlock:^(id  _Nonnull returnData) {
+    [MKBXPInterface bxp_configRemoteReminderLEDNotiParams:([self.dataModel.blinkingTime integerValue] * 10) blinkingInterval:[self.dataModel.blinkingInterval integerValue] color:self.dataModel.color sucBlock:^(id  _Nonnull returnData) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:@"Success"];
     } failedBlock:^(NSError * _Nonnull error) {
@@ -245,7 +245,7 @@ MKBXPRemoteReminderCellDelegate>
 }
 
 - (void)reminderBuzzer {
-    if (!ValidStr(self.dataModel.ringingTime) || [self.dataModel.ringingTime integerValue] < 10 || [self.dataModel.ringingTime integerValue] > 6000) {
+    if (!ValidStr(self.dataModel.ringingTime) || [self.dataModel.ringingTime integerValue] < 1 || [self.dataModel.ringingTime integerValue] > 600) {
         [self.view showCentralToast:@"Ringing Time Error"];
         return ;
     }
@@ -254,7 +254,7 @@ MKBXPRemoteReminderCellDelegate>
         return ;
     }
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-    [MKBXPInterface bxp_configRemoteReminderBuzzerNotiParams:[self.dataModel.ringingTime integerValue]
+    [MKBXPInterface bxp_configRemoteReminderBuzzerNotiParams:([self.dataModel.ringingTime integerValue] * 10)
                                              ringingInterval:[self.dataModel.ringingInterval integerValue]
                                                     frequent:[self.dataModel.frequent integerValue]
                                                     sucBlock:^(id  _Nonnull returnData) {
@@ -303,11 +303,11 @@ MKBXPRemoteReminderCellDelegate>
     MKTextFieldCellModel *cellModel1 = [[MKTextFieldCellModel alloc] init];
     cellModel1.index = 0;
     cellModel1.msg = @"Blinking time";
-    cellModel1.textPlaceholder = @"1~6000";
+    cellModel1.textPlaceholder = @"1~600";
     cellModel1.textFieldValue = self.dataModel.blinkingTime;
     cellModel1.textFieldType = mk_realNumberOnly;
-    cellModel1.unit = @"x100ms";
-    cellModel1.maxLength = 4;
+    cellModel1.unit = @"s";
+    cellModel1.maxLength = 3;
     [self.section2List addObject:cellModel1];
     
     MKTextFieldCellModel *cellModel2 = [[MKTextFieldCellModel alloc] init];
@@ -332,7 +332,7 @@ MKBXPRemoteReminderCellDelegate>
     MKTextFieldCellModel *cellModel1 = [[MKTextFieldCellModel alloc] init];
     cellModel1.index = 2;
     cellModel1.msg = @"Ringing time";
-    cellModel1.textPlaceholder = @"1~6000";
+    cellModel1.textPlaceholder = @"1~600";
     cellModel1.textFieldValue = self.dataModel.ringingTime;
     cellModel1.textFieldType = mk_realNumberOnly;
     cellModel1.unit = @"x100ms";
@@ -342,7 +342,7 @@ MKBXPRemoteReminderCellDelegate>
     MKTextFieldCellModel *cellModel2 = [[MKTextFieldCellModel alloc] init];
     cellModel2.index = 3;
     cellModel2.msg = @"Ringing interval";
-    cellModel2.textPlaceholder = @"0~100";
+    cellModel2.textPlaceholder = @"1~100";
     cellModel2.textFieldValue = self.dataModel.ringingInterval;
     cellModel2.textFieldType = mk_realNumberOnly;
     cellModel2.unit = @"x100ms";
